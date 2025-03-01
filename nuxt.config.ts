@@ -45,10 +45,6 @@ const ohLawPreset = definePreset(Aura, {
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: [
-    'prime.config.ts'
-  ],
-
   // https://nuxt.com/modules
   modules: [
     '@nuxthub/core',

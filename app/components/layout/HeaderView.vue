@@ -1,28 +1,11 @@
 <template>
   <div class="relative">
-    <header :class="['fixed top-0 left-0 right-0 flex justify-between items-center px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
+    <!-- Header Bar -->
+    <header :class="['fixed top-0 left-0 right-0 grid grid-cols-3 items-center px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
       scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg' : 'h-[80px]']">
-      <div class="absolute left-1/2 -translate-x-1/2 z-[1001] lg:block">
-        <NuxtLink to="/" class="block">
-          <img 
-            src="/img/ohlaw_icon_circle_gray.svg" 
-            alt="OH Law Colorado" 
-            :class="['rounded-full shadow-md transition-all duration-300 ease-in-out bg-white', 
-              scrolled ? 'w-[70px] h-[70px]' : 'w-[160px] h-[160px]']" 
-          />
-        </NuxtLink>
-      </div>
-      
-      <div class="mr-auto pr-[120px] lg:block hidden">
-        <Menubar :model="leftMenuItems" />
-      </div>
-      
-      <div class="ml-auto pl-[120px] lg:block hidden">
-        <Menubar :model="rightMenuItems" />
-      </div>
       
       <!-- Mobile Menu Button -->
-      <div class="lg:hidden justify-end">
+      <div class="lg:hidden justify-start">
         <Button 
           icon="pi pi-bars" 
           @click="toggleMobileMenu" 
@@ -31,21 +14,59 @@
           :dt="mobileButtonTheme"
         />
       </div>
+      
+      <div class="lg:hidden ps-7">
+        <NuxtLink to="/" class="block">
+          <h1 class="font-[TrajanBold]">The Law Offices of Owen Hathaway</h1>
+        </NuxtLink>
+      </div>
+      <!-- Left Menu -->
+      <div class="lg:block hidden justify-self-end pr-4">
+        <Menubar class="lg:block hidden" :model="leftMenuItems" />
+      </div>
+      
+      <!-- Center Column (for logo) -->
+      <div class="flex justify-center">
+        <!-- Intentionally empty - logo is positioned outside the grid -->
+      </div>
+      
+      <!-- Right Column -->
+      <div class="flex justify-between">
+        <!-- Right Menu -->
+        <div class="lg:block hidden pl-4">
+          <Menubar :model="rightMenuItems" />
+        </div>
+      </div>
     </header>
     
+    <!-- Logo (positioned absolutely relative to the viewport) -->
+    <div class="fixed left-1/2 z-[1001] transition-all duration-300 ease-in-out hidden lg:block"
+         :class="scrolled ? 'top-[25px] -translate-x-1/2' : 'lg:top-[-40px] -translate-x-1/2'">
+      <NuxtLink to="/" class="block">
+        <img 
+          src="/img/ohlaw_icon_circle_gray.svg" 
+          alt="OH Law Colorado" 
+          :class="['rounded-full shadow-md transition-all duration-300 ease-in-out bg-white', 
+            scrolled ? 'w-[70px] h-[70px]' : 'lg:w-[160px] lg:h-[160px] md:w-[120px] md:h-[120px] w-[100px] h-[100px]']" 
+        />
+      </NuxtLink>
+    </div>
+    
     <!-- Mobile Menu Sidebar -->
-    <Sidebar v-model:visible="mobileMenuVisible" position="left" class="lg:hidden">
-      <div class="p-3">
-        <img src="/img/ohlaw_icon_circle_gray.svg" alt="OH Law Colorado" class="w-[60px] h-[60px] mx-auto block" />
-      </div>
-      <Divider />
-      <PanelMenu :model="allMenuItems" class="w-full" />
-    </Sidebar>
+    <MobileMenuSidebar
+      v-model:visible="mobileMenuVisible"
+      position="left"
+      sidebarClass="lg:hidden"
+      logoSrc="/img/ohlaw_icon_circle_gray.svg"
+      logoAlt="OH Law Colorado"
+      :menuItems="allMenuItems"
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import MobileMenuSidebar from './MobileMenuSidebar.vue'
 
 // Menu items for left side of logo
 const leftMenuItems = ref([
