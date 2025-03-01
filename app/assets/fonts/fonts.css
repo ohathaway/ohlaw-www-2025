@@ -26,3 +26,10 @@
   font-weight: light;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'TrajanBold';
+  src: url('Trajan-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

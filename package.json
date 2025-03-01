@@ -15,9 +15,11 @@
     "@nuxt/eslint": "^0.7.5",
     "@nuxthub/core": "^0.8.11",
     "@primeuix/themes": "^1.0.0",
+    "@tailwindcss/vite": "^4.0.9",
     "nuxt": "^3.15.1",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.1",
+    "tailwindcss": "^4.0.9",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

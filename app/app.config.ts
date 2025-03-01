@@ -3,6 +3,7 @@ export default defineAppConfig({
     checkIn: 'https://booking.ohlawcolorado.com/check-in',
     estatePlanCheckup: 'https://booking.ohlawcolorado.com/ll-plan-checkup',
     estatePlanDesign: 'https://booking.ohlawcolorado.com/ll-plan-design',
+    estatePlanEducation: 'https://booking.ohlawcolorado.com/ll-plan-education',
     newClient: 'https://booking.ohlawcolorado.com/new-client',
     petitionReviewInPerson: 'https://booking.ohlawcolorado.com/bk-review-in-person',
     petitionReviewRemote: 'https://booking.ohlawcolorado.com/bk-review-remote'

@@ -1,4 +1,14 @@
 import Aura from '@primeuix/themes/aura'
+import { definePreset } from '@primeuix/themes'
+
+const ohLawPreset = definePreset(Aura, {
+  components: {
+    menubar: {
+      background: 'rgba(0, 0, 0, 0)',
+      borderColor: 'rgba(0, 0, 0, 0)',
+    }
+  }
+})
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -12,10 +22,7 @@ export default defineNuxtConfig({
   primevue: {
     options: {
       theme: {
-        preset: Aura,
-        components: {
-          menubarBackground: 'rgba(246, 246, 246, 0.95)'
-        }
+        preset: ohLawPreset,
       }
     }
   },
@@ -58,6 +65,7 @@ export default defineNuxtConfig({
   css: [
     '@/assets/fonts/fonts.css',
     '@/assets/fonts/google-fonts.css',
+    'primeicons/primeicons.css',
     '~/assets/css/site.scss',
   ],
 
