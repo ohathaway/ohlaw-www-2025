@@ -1,0 +1,161 @@
+@font-face {
+	font-family: 'Lato';
+	font-style: italic;
+	font-weight: 400;
+	font-display: auto;
+	src: local('Lato Italic'), local('Lato-Italic'), url(Lato-italic-400.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: local('Lato Regular'), local('Lato-Regular'), url(Lato-normal-400.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: italic;
+	font-weight: 500;
+	font-display: auto;
+	src: local('Roboto Medium Italic'), local('Roboto-MediumItalic'), url(Roboto-italic-500.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-display: auto;
+	src: local('Roboto Medium'), local('Roboto-Medium'), url(Roboto-normal-500.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: local('Poppins Regular'), local('Poppins-Regular'), url(./Poppins/Poppins-Regular.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: italic;
+	font-weight: 400;
+	font-display: auto;
+	src: local('Poppins Italic'), local('Poppins-Italic'), url(./Poppins/Poppins-Italic.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 300;
+	font-display: auto;
+	src: local('Poppins Light'), local('Poppins-Light'), url(./Poppins/Poppins-Light.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: italic;
+	font-weight: 300;
+	font-display: auto;
+	src: local('Poppins Light Italic'), local('Poppins-Light-Italic'), url(./Poppins/Poppins-LightItalic.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: normal;
+	font-weight: 700;
+	font-display: auto;
+	src: local('Poppins Bold'), local('Poppins-Bold'), url(./Poppins/Poppins-Bold.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	font-style: italic;
+	font-weight: 700;
+	font-display: auto;
+	src: local('Poppins Bold Italic'), local('Poppins-Bold-Italic'), url(./Poppins/Poppins-BoldItalic.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Benguiat';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: url(./Benguiat/BenguiatRegular.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Noto Sans Mono';
+	font-style: normal;
+	font-weight: 500;
+	font-display: auto;
+	src: url(NotoSansMono-Regular.woff) format('woff');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans Var';
+  font-style: normal;
+  font-weight: 100 900;  /* Note the range of weights */
+  font-display: swap;
+  src: url('./Plus_Jakarta_Sans/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
+  unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans Var';
+  font-style: italic;
+  font-weight: 100 900;  /* Note the range of weights */
+  font-display: swap;
+  src: url('./Plus_Jakarta_Sans/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: url('./Plus_Jakarta_Sans/static/PlusJakartaSans-Regular.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: italic;
+	font-weight: 400;
+	font-display: auto;
+	src: url('./Plus_Jakarta_Sans/static/PlusJakartaSans-Italic.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: bold;
+	font-weight: 700;
+	font-display: auto;
+	src: url('./Plus_Jakarta_Sans/static/PlusJakartaSans-Bold.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: italic;
+	font-weight: 700;
+	font-display: auto;
+	src: url('./Plus_Jakarta_Sans/static/PlusJakartaSans-BoldItalic.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
+}

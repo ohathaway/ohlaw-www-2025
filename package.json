@@ -14,13 +14,18 @@
   "dependencies": {
     "@nuxt/eslint": "^0.7.5",
     "@nuxthub/core": "^0.8.11",
+    "@primeuix/themes": "^1.0.0",
     "nuxt": "^3.15.1",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.3.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.7.5",
+    "@primevue/nuxt-module": "^4.3.1",
     "eslint": "^9.18.0",
+    "sass-embedded": "^1.85.1",
     "typescript": "^5.7.3",
     "vue-tsc": "^2.2.0",
     "wrangler": "^3.101.0"

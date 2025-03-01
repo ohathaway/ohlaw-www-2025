@@ -1,10 +1,24 @@
+import Aura from '@primeuix/themes/aura'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
     '@nuxthub/core',
     '@nuxt/eslint',
+    '@primevue/nuxt-module'
   ],
+
+  primevue: {
+    options: {
+      theme: {
+        preset: Aura,
+        components: {
+          menubarBackground: 'rgba(246, 246, 246, 0.95)'
+        }
+      }
+    }
+  },
 
   // https://devtools.nuxt.com
   devtools: { enabled: true },
@@ -22,6 +36,30 @@ export default defineNuxtConfig({
 
   // https://hub.nuxt.com/docs/getting-started/installation#options
   hub: {},
+
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/img/ohlaw_icon.svg'
+        }
+      ],
+      meta: [
+        {
+          name: "google-site-verification",
+          content: "Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU"
+        }
+      ]
+    }
+  },
+
+  css: [
+    '@/assets/fonts/fonts.css',
+    '@/assets/fonts/google-fonts.css',
+    '~/assets/css/site.scss',
+  ],
 
   // https://eslint.nuxt.com
   eslint: {
