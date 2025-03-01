@@ -1,5 +1,6 @@
 import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
+import tailwindcss from '@tailwindcss/vite'
 
 const ohLawPreset = definePreset(Aura, {
   components: {
@@ -28,7 +29,13 @@ export default defineNuxtConfig({
   },
 
   // https://devtools.nuxt.com
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true
+    }
+  },
 
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
   runtimeConfig: {
@@ -39,7 +46,7 @@ export default defineNuxtConfig({
   },
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
   future: { compatibilityVersion: 4 },
-  compatibilityDate: '2024-07-30',
+  compatibilityDate: '2024-11-01',
 
   // https://hub.nuxt.com/docs/getting-started/installation#options
   hub: {},
@@ -66,8 +73,23 @@ export default defineNuxtConfig({
     '@/assets/fonts/fonts.css',
     '@/assets/fonts/google-fonts.css',
     'primeicons/primeicons.css',
+    '~/assets/css/tailwind.css',
     '~/assets/css/site.scss',
   ],
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          silenceDeprecations: ['import']
+        }
+      }
+    },
+    plugins: [
+      tailwindcss(),
+    ],
+  },
 
   // https://eslint.nuxt.com
   eslint: {

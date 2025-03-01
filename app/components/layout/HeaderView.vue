@@ -16,7 +16,7 @@
       </div>
       
       <!-- Mobile Title -->
-      <div class="mobile-title">
+      <div class="mobile-title text-6xl">
         <h1>OH L<span style="font-size: x-large;">aw</span></h1>
       </div>
 
