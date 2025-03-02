@@ -41,13 +41,13 @@
     
     <!-- Logo (positioned absolutely relative to the viewport) -->
     <div class="fixed left-1/2 z-[1001] transition-all duration-300 ease-in-out hidden lg:block"
-         :class="scrolled ? 'top-[25px] -translate-x-1/2' : 'lg:top-[-40px] -translate-x-1/2'">
+         :class="scrolled ? 'top-[-10px] -translate-x-1/2' : 'lg:top-[-40px] -translate-x-1/2'">
       <NuxtLink to="/" class="block">
         <img 
           src="/img/ohlaw_icon_circle_gray.svg" 
           alt="OH Law Colorado" 
           :class="['rounded-full shadow-md transition-all duration-300 ease-in-out bg-white', 
-            scrolled ? 'w-[70px] h-[70px]' : 'lg:w-[160px] lg:h-[160px] md:w-[120px] md:h-[120px] w-[100px] h-[100px]']" 
+            scrolled ? 'w-[70px] h-[70px] bottom-[500px]' : 'lg:w-[140px] lg:h-[140px] md:w-[120px] md:h-[120px] w-[100px] h-[100px]']" 
         />
       </NuxtLink>
     </div>
@@ -73,10 +73,10 @@ const leftMenuItems = ref([
   {
     label: 'Services',
     items: [
-      { label: 'Estate Planning', icon: 'pi pi-file', to: '/services/estate-planning' },
-      { label: 'Bankruptcy', icon: 'pi pi-calculator', to: '/services/bankruptcy' },
-      { label: 'Small Business', icon: 'pi pi-briefcase', to: '/services/small-business' },
-      { label: 'Nonprofits', icon: 'pi pi-heart', to: '/services/nonprofits' }
+      { label: 'Estate Planning', to: '/services/estate-planning' },
+      { label: 'Bankruptcy', to: '/services/bankruptcy' },
+      { label: 'Small Business', to: '/services/small-business' },
+      { label: 'Nonprofits', to: '/services/nonprofits' }
     ]
   },
   {
