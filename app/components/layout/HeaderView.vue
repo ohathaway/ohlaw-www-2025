@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- Header Bar -->
-    <header :class="['fixed top-0 left-0 right-0 grid grid-cols-3 items-center px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
+    <header :class="['fixed top-0 left-0 right-0 grid grid-cols-9 md:grid-cols-3 items-center px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
       scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg' : 'h-[80px]']">
       
       <!-- Mobile Menu Button -->
@@ -15,11 +15,25 @@
         />
       </div>
       
-      <div class="lg:hidden ps-7">
+      <!-- Mobile Brand -->
+      <div class="lg:hidden ps-7 col-start-2 col-span-6">
         <NuxtLink to="/" class="block">
-          <h1 class="font-[TrajanBold]">The Law Offices of Owen Hathaway</h1>
+          <h1 class="font-[TrajanBold]">The Law Offices of<br />Owen Hathaway</h1>
         </NuxtLink>
       </div>
+
+      <!-- Mobile Logo -->
+      <div class="lg:hidden ps-4 col-start-8 col-span-2">
+        <NuxtLink to="/" class="block">
+          <img 
+            src="/img/ohlaw_icon_circle_gray.svg" 
+            alt="OH Law Colorado" 
+            class="rounded-full shadow-md" 
+              
+          />
+        </NuxtLink>
+      </div>
+
       <!-- Left Menu -->
       <div class="lg:block hidden justify-self-end pr-4">
         <Menubar class="lg:block hidden" :model="leftMenuItems" />
