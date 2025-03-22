@@ -1,35 +1,55 @@
 @font-face {
-    font-family: 'alegreya_sansregular';
-    src: url('alegreyasans-regular-webfont.woff2') format('woff2'),
-         url('alegreyasans-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Plus Jakarta Sans Var';
+  font-style: normal;
+  font-weight: 100 900;  /* Note the range of weights */
+  font-display: swap;
+  src: url('./PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
+  unicode-range: U+0-10FFFF;
 }
 
 @font-face {
-  font-family: 'Lato';
-  src: url('Lato-normal-400.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Plus Jakarta Sans Var';
+  font-style: italic;
+  font-weight: 100 900;  /* Note the range of weights */
+  font-display: swap;
+  src: url('./PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  unicode-range: U+0-10FFFF;
+}
+
+/*
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: url('./PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
 }
 
 @font-face {
-  font-family: 'LatoBold';
-  src: url('Lato-normal-700.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Plus Jakarta Sans';
+	font-style: italic;
+	font-weight: 400;
+	font-display: auto;
+	src: url('./PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
 }
 
 @font-face {
-  font-family: 'LatoLight';
-  src: url('Lato-normal-300.woff') format('woff');
-  font-weight: light;
-  font-style: normal;
+	font-family: 'Plus Jakarta Sans';
+	font-style: bold;
+	font-weight: 700;
+	font-display: auto;
+	src: url('./PlusJakartaSans-VariableFont_wght.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
 }
 
 @font-face {
-  font-family: 'TrajanBold';
-  src: url('Trajan-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Plus Jakarta Sans';
+	font-style: italic;
+	font-weight: 700;
+	font-display: auto;
+	src: url('./PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype');
+	unicode-range: U+0-10FFFF;
 }
+*/

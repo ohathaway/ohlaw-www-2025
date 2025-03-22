@@ -42,7 +42,7 @@ const ohLawPreset = definePreset(Aura, {
   }
 })
 
-console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
+// console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -108,8 +108,8 @@ export default defineNuxtConfig({
 
   css: [
     '@/assets/fonts/fonts.css',
-    '@/assets/fonts/google-fonts.css',
-    'primeicons/primeicons.css',
+    // 'primeicons/primeicons.css',
+    '@fortawesome/fontawesome-svg-core/styles.css',
     '~/assets/css/tailwind.css',
     '~/assets/css/site.scss',
   ],
