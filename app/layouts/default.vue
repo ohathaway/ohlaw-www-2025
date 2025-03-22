@@ -11,11 +11,7 @@
     </main>
     
     <!-- Optional footer -->
-    <footer class="bg-slate-700 py-6">
-      <div class="container mx-auto">
-        <p>© 2025 OH Law Colorado</p>
-      </div>
-    </footer>
+    <LayoutFooterView />
   </div>
 </template>
 

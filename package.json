@@ -14,7 +14,9 @@
   "dependencies": {
     "@nuxt/eslint": "^0.7.6",
     "@nuxthub/core": "^0.8.18",
+    "@nuxtjs/tailwindcss": "^6.13.2",
     "@primeuix/themes": "^1.0.0",
+    "@primevue/forms": "^4.3.2",
     "@tailwindcss/vite": "^4.0.15",
     "nuxt": "^3.16.1",
     "primeicons": "^7.0.0",

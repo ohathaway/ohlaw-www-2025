@@ -32,7 +32,7 @@ const ohLawPreset = definePreset(Aura, {
       800: '{chambray.800}',
       900: '{chambray.900}',
       950: '{chambray.950}'
-    }
+    },
   },
   components: {
     menubar: {
@@ -41,6 +41,8 @@ const ohLawPreset = definePreset(Aura, {
     }
   }
 })
+
+console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -56,8 +58,11 @@ export default defineNuxtConfig({
     options: {
       theme: {
         preset: ohLawPreset,
-      }
-    }
+      },
+      tailwind: true,
+      unstyled: false
+    },
+    autoImport: true
   },
 
   // https://devtools.nuxt.com
