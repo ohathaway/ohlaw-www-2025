@@ -12,6 +12,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@formkit/addons": "^1.6.9",
+    "@formkit/icons": "^1.6.9",
+    "@formkit/nuxt": "^1.6.9",
+    "@formkit/pro": "^0.127.21",
+    "@formkit/themes": "^1.6.9",
+    "@formkit/vue": "^1.6.9",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-regular-svg-icons": "^6.7.2",

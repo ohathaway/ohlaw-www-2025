@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NewsletterSignupForm from '../NewsletterSignupForm.vue'
 import TestimonialCarousel from '../TestimonialCarousel.vue'
 
 </script>
@@ -73,7 +74,7 @@ import TestimonialCarousel from '../TestimonialCarousel.vue'
       </div>
       <div class="grid">
         <div>
-          Subscribe
+          <NewsletterSignupForm />
         </div>
         <div>
           <TestimonialCarousel />

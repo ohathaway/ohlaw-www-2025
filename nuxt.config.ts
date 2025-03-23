@@ -49,6 +49,7 @@ const ohLawPreset = definePreset(Aura, {
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
+    '@formkit/nuxt',
     '@nuxthub/core',
     '@nuxt/eslint',
     '@primevue/nuxt-module'
@@ -78,7 +79,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // Can be overridden by NUXT_PUBLIC_HELLO_TEXT environment variable
-      helloText: 'Hello from the Edge 👋',
     },
   },
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
@@ -110,6 +110,8 @@ export default defineNuxtConfig({
     '@/assets/fonts/fonts.css',
     // 'primeicons/primeicons.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
+    '@formkit/themes/genesis',
+    '@formkit/addons/css/floatingLabels',
     '~/assets/css/tailwind.css',
     '~/assets/css/site.scss',
   ],
