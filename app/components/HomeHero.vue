@@ -100,10 +100,10 @@
         <div v-if="activeService === 'rebuilding'" key="rebuilding" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h3 class="text-amber-300 text-3xl font-semibold mb-4">Starting Fresh</h3>
-            <p class="text-white text-lg mb-6">Overcome financial challenges and build a strong foundation for your future.</p>
+            <p class="text-slate-900 text-lg mb-6">Overcome financial challenges and build a strong foundation for your future.</p>
             <div class="mb-6">
-              <h4 class="text-white font-medium mb-2">How we can help:</h4>
-              <ul class="text-slate-200">
+              <h4 class="text-slate-700 font-medium mb-2">How we can help:</h4>
+              <ul class="text-slate-500">
                 <li class="flex items-center mb-2">
                   <span class="mr-2 text-amber-400">✓</span> Bankruptcy Relief
                 </li>
@@ -129,10 +129,10 @@
         <div v-if="activeService === 'building'" key="building" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h3 class="text-amber-300 text-3xl font-semibold mb-4">Building Your Vision</h3>
-            <p class="text-white text-lg mb-6">Create the right legal structure for your business idea to thrive and grow.</p>
+            <p class="text-slate-900 text-lg mb-6">Create the right legal structure for your business idea to thrive and grow.</p>
             <div class="mb-6">
-              <h4 class="text-white font-medium mb-2">How we can help:</h4>
-              <ul class="text-slate-200">
+              <h4 class="text-slate-700 font-medium mb-2">How we can help:</h4>
+              <ul class="text-slate-500">
                 <li class="flex items-center mb-2">
                   <span class="mr-2 text-amber-400">✓</span> Business Formation
                 </li>
@@ -158,10 +158,10 @@
         <div v-if="activeService === 'growing'" key="growing" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h3 class="text-amber-300 text-3xl font-semibold mb-4">Expanding Your Impact</h3>
-            <p class="text-white text-lg mb-6">Establish an organization that makes a lasting difference in your community.</p>
+            <p class="text-slate-900 text-lg mb-6">Establish an organization that makes a lasting difference in your community.</p>
             <div class="mb-6">
-              <h4 class="text-white font-medium mb-2">How we can help:</h4>
-              <ul class="text-slate-200">
+              <h4 class="text-slate-700 font-medium mb-2">How we can help:</h4>
+              <ul class="text-slate-500">
                 <li class="flex items-center mb-2">
                   <span class="mr-2 text-amber-400">✓</span> Nonprofit Formation
                 </li>
@@ -189,7 +189,7 @@
             <h3 class="text-amber-300 text-3xl font-semibold mb-4">Preserving Your Legacy</h3>
             <p class="text-slate-900 text-lg mb-6">Ensure your family and assets are protected for generations to come.</p>
             <div class="mb-6">
-              <h4 class="text-white font-medium mb-2">How we can help:</h4>
+              <h4 class="text-slate-700 font-medium mb-2">How we can help:</h4>
               <ul class="text-slate-500">
                 <li class="flex items-center mb-2">
                   <span class="mr-2 text-amber-400">✓</span> Estate Planning
