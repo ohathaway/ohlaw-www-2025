@@ -1,46 +1,10 @@
+import tailwindcss from '@tailwindcss/vite'
 import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
-import tailwindcss from '@tailwindcss/vite'
+import { ohLawPreset } from './primevue.ohlaw.js'
 
 // Customization for PrimeVue
-const ohLawPreset = definePreset(Aura, {
-  primitive: {
-    chambray: {
-      50: '#f5f7fa',
-      100: '#e9edf5',
-      200: '#cfd9e8',
-      300: '#a4b7d5',
-      400: '#7391bd',
-      500: '#5173a6',
-      600: '#3f5c8a',
-      700: '#38507a',
-      800: '#2e3f5e',
-      900: '#2a3750',
-      950: '#1c2435'
-    }
-  },
-  semantic: {
-    primary: {
-      50: '{chambray.50}',
-      100: '{chambray.100}',
-      200: '{chambray.200}',
-      300: '{chambray.300}',
-      400: '{chambray.400}',
-      500: '{chambray.500}',
-      600: '{chambray.600}',
-      700: '{chambray.700}',
-      800: '{chambray.800}',
-      900: '{chambray.900}',
-      950: '{chambray.950}'
-    },
-  },
-  components: {
-    menubar: {
-      background: 'rgba(0, 0, 0, 0)',
-      borderColor: 'rgba(0, 0, 0, 0)',
-    }
-  }
-})
+const preset = definePreset(Aura, ohLawPreset)
 
 // console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
@@ -49,16 +13,20 @@ const ohLawPreset = definePreset(Aura, {
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
-    '@formkit/nuxt',
     '@nuxthub/core',
+    '@primevue/nuxt-module',
+    '@formkit/nuxt',
     '@nuxt/eslint',
-    '@primevue/nuxt-module'
   ],
+
+  formkit: {
+    autoImport: true
+  },
 
   primevue: {
     options: {
       theme: {
-        preset: ohLawPreset,
+        preset
       },
       tailwind: true,
       unstyled: false
@@ -107,13 +75,10 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '@/assets/fonts/fonts.css',
-    // 'primeicons/primeicons.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
-    '@formkit/themes/genesis',
+    // '@formkit/themes/genesis',
     '@formkit/addons/css/floatingLabels',
-    '~/assets/css/tailwind.css',
-    '~/assets/css/site.scss',
+    '~/assets/css/site.css',
   ],
 
   vite: {
@@ -126,8 +91,31 @@ export default defineNuxtConfig({
       }
     },
     plugins: [
-      tailwindcss(),
-    ],
+      tailwindcss()
+    ]
+  },
+
+  postcss: {
+    plugins: {
+      'postcss-import': {},
+      'postcss-simple-vars': {},
+      'postcss-nesting': {},
+      'postcss-mixins': {},
+      'postcss-color-function': {},
+      autoprefixer: {},
+      cssnano: process.env.NODE_ENV === 'production' ? {} : false
+    }
+  },
+
+  build: {
+    transpile: [
+      '@formkit/icons',
+      '@formkit/addons',
+      '@formkit/nuxt',
+      '@formkit/pro',
+      '@formkit/themes',
+      '@formkit/vue'
+    ]
   },
 
   // https://eslint.nuxt.com

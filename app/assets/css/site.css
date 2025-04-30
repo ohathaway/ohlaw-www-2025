@@ -1,6 +1,14 @@
+@import "../fonts/fonts.css";
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+/* @import "primeicons/primeicons.css"; */
+@import "./formkit.css";
+@import "./theme.css";
+
 :root { 
   font-family: 'Plus Jakarta Sans Var', Helvetica, Arial,sans-serif; 
 }
+
 @supports (font-variation-settings: normal) {
   :root { 
     font-family: 'Plus Jakarta Sans Var', Helvetica, Arial,sans-serif;

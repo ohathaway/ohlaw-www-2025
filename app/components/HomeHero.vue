@@ -95,7 +95,7 @@
     
     <!-- Content Panel for Active Service -->
     <div class="service-content bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8 mt-8 shadow-lg transition-all duration-500">
-      <TransitionGroup name="fade" mode="out-in">
+      <TransitionGroup name="fade" mode="out-in" tag="div">
         <!-- Bankruptcy Content -->
         <div v-if="activeService === 'rebuilding'" key="rebuilding" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
