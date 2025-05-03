@@ -1,32 +1,55 @@
 .
-├── README.md
 ├── app
 │   ├── app.config.ts
 │   ├── app.vue
 │   ├── assets
 │   │   ├── css
-│   │   │   ├── site.scss
+│   │   │   ├── formkit.css
+│   │   │   ├── site.css
 │   │   │   ├── tailwind.css
 │   │   │   └── theme.css
-│   │   ├── fonts
-│   │   │   ├── BenguiatStd-Book.woff
-│   │   │   ├── PlusJakartaSans-Italic-VariableFont_wght.ttf
-│   │   │   ├── PlusJakartaSans-VariableFont_wght.ttf
-│   │   │   └── fonts.css
-│   │   └── img
+│   │   └── fonts
+│   │       ├── BenguiatStd-Book.woff
+│   │       ├── BenguiatStd-Book.woff2
+│   │       ├── fonts.css
+│   │       ├── PlusJakartaSans-Italic-VariableFont_wght.ttf
+│   │       ├── PlusJakartaSans-Italic-VariableFont_wght.woff
+│   │       ├── PlusJakartaSans-Italic-VariableFont_wght.woff2
+│   │       ├── PlusJakartaSans-VariableFont_wght.ttf
+│   │       ├── PlusJakartaSans-VariableFont_wght.woff
+│   │       └── PlusJakartaSans-VariableFont_wght.woff2
 │   ├── components
-│   │   ├── HomeHero.vue
+│   │   ├── Home
+│   │   │   ├── Hero.vue
+│   │   │   ├── HeroLegacy.vue
+│   │   │   ├── LinesOfBusiness.vue
+│   │   │   ├── PFL.vue
+│   │   │   └── Welcome.vue
+│   │   ├── layout
+│   │   │   ├── FooterView.vue
+│   │   │   ├── HeaderView.vue
+│   │   │   └── MobileMenuSidebar.vue
 │   │   ├── NewsletterSignupForm.vue
+│   │   ├── Services
+│   │   │   ├── Cta.vue
+│   │   │   ├── Features.vue
+│   │   │   ├── Hero.vue
+│   │   │   ├── Intro.vue
+│   │   │   ├── Offerings.vue
+│   │   │   ├── PflPromise.vue
+│   │   │   └── Process.vue
 │   │   ├── TestimonialCarousel.vue
-│   │   └── layout
-│   │       ├── FooterView.vue
-│   │       ├── HeaderView.vue
-│   │       └── MobileMenuSidebar.vue
+│   │   └── Timeline.vue
+│   ├── composables
+│   │   └── useSeo.js
 │   ├── layouts
 │   │   └── default.vue
 │   ├── pages
 │   │   ├── index.vue
-│   │   └── index.vue.oem
+│   │   ├── index.vue.oem
+│   │   └── services
+│   │       └── estate-planning
+│   │           └── index.vue
 │   ├── plugins
 │   │   └── fontawesome.js
 │   └── utils
@@ -43,21 +66,35 @@
 │   └── ohlawPreset.json
 ├── eslint.config.mjs
 ├── formkit.config.js
+├── formkit.theme.ts
+├── formkit2tw.js
 ├── nuxt.config.ts
 ├── package.json
 ├── pnpm-lock.yaml
+├── primevue.ohlaw.js
 ├── public
 │   ├── favicon.ico
+│   ├── icons
+│   │   ├── bankruptcy-icon.svg
+│   │   ├── business-icon.svg
+│   │   ├── estate-planning-icon.svg
+│   │   └── nonprofit-icon.svg
 │   └── img
-│       ├── Search_GSA.original.png
+│       ├── business1_1024.webp
+│       ├── dotorgtablet_1024.webp
+│       ├── estatenotebook_1024.webp
+│       ├── helpinghand_1024.webp
+│       ├── horsetooth_hiker_1275_485_smallest.jpg
 │       ├── ohlaw_full_logo.svg
-│       ├── ohlaw_icon.svg
 │       ├── ohlaw_icon_circle_gray.svg
-│       └── phone-fill.svg
+│       ├── ohlaw_icon.svg
+│       ├── phone-fill.svg
+│       └── Search_GSA.original.png
+├── README.md
 ├── server
 │   ├── api
 │   │   └── ping.ts
 │   └── tsconfig.json
 └── tsconfig.json
 
-17 directories, 44 files
+22 directories, 76 files

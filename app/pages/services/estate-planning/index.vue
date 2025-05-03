@@ -46,7 +46,7 @@
 
   <!-- FAQ Section -->
   <section class="py-5">
-    <div class="container">
+    <div class="container w-3xl mx-auto">
       <h2 class="text-center mb-5">Frequently Asked Questions</h2>
       <FaqAccordion :faqItems="faqItems" />
     </div>

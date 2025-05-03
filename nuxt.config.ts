@@ -57,7 +57,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
 
   // https://hub.nuxt.com/docs/getting-started/installation#options
-  hub: {},
+  hub: {
+    ai: true,
+    kv: true
+  },
 
   app: {
     head: {

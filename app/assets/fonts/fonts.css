@@ -1,20 +1,20 @@
 @font-face {
-  font-family: 'Plus Jakarta Sans Var';
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-weight: 100 900;  /* Note the range of weights */
   font-display: swap;
-  src: url('PlusJakartaSans-VariableFont_wght.woff2') format('woff2-variations'),
-       url('PlusJakartaSans-VariableFont_wght.woff') format('woff-variations');
+  src: url('PlusJakartaSans-VariableFont_wght.woff2') format('woff2'),
+       url('PlusJakartaSans-VariableFont_wght.woff') format('woff');
   unicode-range: U+0-10FFFF;
 }
 
 @font-face {
-  font-family: 'Plus Jakarta Sans Var';
+  font-family: 'Plus Jakarta Sans';
   font-style: italic;
   font-weight: 100 900;  /* Note the range of weights */
   font-display: swap;
-  src: url('PlusJakartaSans-Italic-VariableFont_wght.woff2') format('woff2-variations'),
-       url('PlusJakartaSans-Italic-VariableFont_wght.woff') format('woff-variations');
+  src: url('PlusJakartaSans-Italic-VariableFont_wght.woff2') format('woff2'),
+       url('PlusJakartaSans-Italic-VariableFont_wght.woff') format('woff');
   unicode-range: U+0-10FFFF;
 }
 

@@ -2,21 +2,28 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "tailwindcss-primeui";
-/* @import "primeicons/primeicons.css"; */
+@import "primeicons/primeicons.css";
 @import "./formkit.css";
 @import "./theme.css";
 
 :root { 
-  font-family: 'Plus Jakarta Sans Var', Helvetica, Arial,sans-serif; 
+  font-family: 'Plus Jakarta Sans', Helvetica, Arial,sans-serif; 
 }
 
 @supports (font-variation-settings: normal) {
   :root { 
-    font-family: 'Plus Jakarta Sans Var', Helvetica, Arial,sans-serif;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial,sans-serif;
     font-variation-settings: "wght" 400;
+    @apply text-2xl
   }
 }
 
-h1 {
-  font-family: 'Benguiat'
+@layer base {
+  strong { @apply font-extrabold; }
+
+  h1, h2, h3 { font-family: 'Benguiat'; }
+  h1 { @apply text-5xl font-bold; }
+  h2 { @apply text-4xl font-semibold; }
+  h3 { @apply text-3xl font-semibold; }
+  h4 { @apply text-2xl font-semibold; }
 }
