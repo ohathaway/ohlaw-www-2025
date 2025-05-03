@@ -86,11 +86,12 @@ export default defineNuxtConfig({
 
   image: {
     cloudflare: {
-      baseURL: 'https://ohlawcolorado.com'
+      baseURL: 'https://www2025.ohlawcolorado.com'
     },
     strapi: {
       baseURL: `${process.env.STRAPI_URL}/uploads`
-    }
+    },
+    dir: 'public/img'
   },
 
   vite: {

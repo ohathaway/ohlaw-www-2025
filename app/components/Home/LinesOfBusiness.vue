@@ -34,38 +34,33 @@
 </template>
 
 <script setup>
-import Estate from '@/assets/img/estatenotebook_1024.webp'
-import Business from '@/assets/img/business1_1024.webp'
-import DotOrg from '@/assets/img/dotorgtablet_1024.webp'
-import Bk from '@/assets/img/helpinghand_1024.webp'
-
 // Define services data
 const services = [
   {
     id: 'estate-planning',
     title: 'Estate Planning',
-    image: Estate,
+    image: '/img/estatenotebook_1024.webp',
     // link: '/services/estate-planning'
     link: '/'
   },
   {
     id: 'small-business',
     title: 'Small Business',
-    image: Business,
+    image: '/img/business1_1024.webp',
     // link: '/services/small-business'
     link: '/'
   },
   {
     id: 'nonprofits',
     title: 'Nonprofits',
-    image: DotOrg,
+    image: '/img/dotorgtablet_1024.webp',
     // link: '/services/nonprofits'
     link: '/'
   },
   {
     id: 'bankruptcy',
     title: 'Bankruptcy',
-    image: Bk,
+    image: '/img/helpinghand_1024.webp',
     // link: '/services/bankruptcy'
     link: '/'
   }

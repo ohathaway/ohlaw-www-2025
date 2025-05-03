@@ -5,7 +5,7 @@
     subtitle="Protecting Your Legacy and Providing Peace of Mind"
     buttonText="Schedule Your Free Consultation"
     :button-link="link"
-    backgroundImage="@/assets/img/estatenotebook_1024.webp"
+    backgroundImage="/img/estatenotebook_1024.webp"
   />
 
   <!-- Introduction Section -->
@@ -62,7 +62,6 @@
 </template>
 
 <script setup>
-import EstatePlanning from '@/assets/img/estatenotebook_1024.webp'
 // Get the scheduling link from app config
 const { schedulingLinks: { newClient: link } } = useAppConfig()
 

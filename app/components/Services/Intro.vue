@@ -18,10 +18,11 @@
         </div>
         <div>
           <div class="rounded-lg overflow-hidden shadow-md">
-            <img 
+            <NuxtImg 
               :src="imageSource" 
               :alt="imageTitle" 
               class="w-full h-auto object-cover"
+              provider="cloudflare"
             />
           </div>
           <div v-if="buttonText" class="text-center mt-6">

@@ -1,7 +1,7 @@
 <template>
   <section 
     class="relative w-full h-[462px] bg-cover bg-center flex items-center justify-center" 
-    :style="{ backgroundImage: `url(${heroImage})` }"
+    style="background-image: url('/img/horsetooth_hiker_1275_485_smallest.jpg')"
   >
     <div class="row flex items-center w-full">
       <div class="col w-full">
@@ -14,7 +14,3 @@
     </div>
   </section>
 </template>
-
-<script setup>
-import heroImage from '@/assets/img/horsetooth_hiker_1275_485_smallest.jpg'
-</script>
