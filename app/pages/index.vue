@@ -1,3 +1,6 @@
 <template>
-  <HomeHero />
+  <!-- <HomeHero /> -->
+  <HomeHeroLegacy />
+  <HomeWelcome />
+  <HomeLinesOfBusiness />
 </template>

@@ -17,6 +17,9 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module',
     '@formkit/nuxt',
     '@nuxt/eslint',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap',
+    '@nuxt/image',
   ],
 
   formkit: {
@@ -81,6 +84,15 @@ export default defineNuxtConfig({
     '~/assets/css/site.css',
   ],
 
+  image: {
+    cloudflare: {
+      baseURL: 'https://ohlawcolorado.com'
+    },
+    strapi: {
+      baseURL: `${process.env.STRAPI_URL}/uploads`
+    }
+  },
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -115,6 +127,33 @@ export default defineNuxtConfig({
       '@formkit/pro',
       '@formkit/themes',
       '@formkit/vue'
+    ]
+  },
+
+  // https://nuxtseo.com
+  sitemap: {
+    sources: [
+      'https://strapi.ohlawcolorado.com/api/sitemap/index.xml'
+    ]
+  },
+
+  // https://nuxtseo.com
+  robots: {
+    disallow: [
+      '/contact',
+      '/glossary',
+      '/services',
+      '/blog/categories',
+      '/blog/tags',
+      '/landings/booking',
+      '/services/bankruptcy/about-ch7',
+      '/services/estate-planning/GunTrusts'
+    ],
+    allow: [
+      '/services/bankruptcy',
+      '/services/estate-planning',
+      '/services/nonprofits',
+      '/services/small-business'
     ]
   },
 

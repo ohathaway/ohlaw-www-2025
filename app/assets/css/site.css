@@ -1,5 +1,6 @@
 @import "../fonts/fonts.css";
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tailwindcss-primeui";
 /* @import "primeicons/primeicons.css"; */
 @import "./formkit.css";
@@ -14,4 +15,8 @@
     font-family: 'Plus Jakarta Sans Var', Helvetica, Arial,sans-serif;
     font-variation-settings: "wght" 400;
   }
+}
+
+h1 {
+  font-family: 'Benguiat'
 }

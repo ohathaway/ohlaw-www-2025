@@ -39,19 +39,19 @@ import TestimonialCarousel from '../TestimonialCarousel.vue'
             <ul class="inline-flex">
               <li class="m-2"> 
                 <font-awesome-icon icon="fas fa-phone" fixed-width></font-awesome-icon>
-                <a class="text-white" href="tel:+19708183052">
+                <a class="text-white" href="tel:+19708183052" title="call us">
                   970-818-3052
                 </a>
               </li>
               <li class="m-2">
                 <font-awesome-icon icon="fas fa-comment-sms" fixed-width></font-awesome-icon>
-                <a class="text-white" href="sms://+19708185558">
+                <a class="text-white" href="sms://+19708185558" title="text us">
                   970-818-5559
                 </a>
               </li>
               <li class="m-2">
                 <font-awesome-icon icon="fas fa-fax" fixed-width></font-awesome-icon>
-                970-360-7028
+                <span title="fax us">970-360-7028</span>
               </li>
               <!--
               <li class="my-2">
@@ -74,7 +74,7 @@ import TestimonialCarousel from '../TestimonialCarousel.vue'
       </div>
       <div class="grid">
         <div>
-          <NewsletterSignupForm />
+          <!-- <NewsletterSignupForm /> -->
         </div>
         <div>
           <TestimonialCarousel />
