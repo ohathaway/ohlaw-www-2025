@@ -34,6 +34,7 @@
     title="Our Estate Planning Process"
     description="We've developed a streamlined, client-friendly process to make creating your estate plan as simple and stress-free as possible."
     :process-steps="tlContent"
+    background="secondary"
   />
 
   <!-- Estate Planning Tools -->
@@ -176,96 +177,114 @@ const tlContent = [
   {
     type: 'content',
     info: 'The Life and Legacy Education Session',
-    content: [
-      `Our process begins with a free educational session where we help you understand your options and the importance of estate planning. This no-pressure conversation allows you to:`,
-      `• Learn about different estate planning tools and strategies`,
-      `• Discuss your specific concerns and goals`,
-      `• Understand our process and pricing`,
-      `• Ask any questions you have about estate planning`,
-      `• Make an informed choice`,
-      `This session typically lasts 60-90 minutes and can be conducted in person or virtually.`
-    ]
+    content: `
+      <p>Our process begins with a free educational session where we help you understand your options and the importance of estate planning.</p>
+      <p>This no-pressure conversation allows you to:
+      <ul>
+        <li>Learn about different estate planning tools and strategies</li>
+        <li>Discuss your specific concerns and goals</li>
+        <li>Understand our process and pricing</li>
+        <li>Ask any questions you have about estate planning</li>
+        <li>Make an informed choice</li>
+      </ul>
+      </p>
+      <p>This session typically lasts 60-90 minutes and can be conducted in person or virtually.</p>
+    `
   },
   {
     type: 'content',
     info: 'Choose Your Path',
-    content: [
-      `After your education session, you'll decide which plan option is right for you:`,
-      `• Always Documents: Essential documents everyone needs including healthcare power of attorney, living will, HIPAA authorizations, and general durable power of attorney`,
-      `• Quick Plan: An efficient solution using streamlined features, including all core documents plus either a Quick Will (for estates without real estate) or Quick Trust (for estates with one real property)`,
-      `• Will-Based Plan: Suitable for simple estates without real estate succession complexity, including asset distribution provisions, executor nominations, and basic tax planning`,
-      `• Trust-Based Plan: Recommended for real estate owners and families seeking probate avoidance, including a revocable living trust, pour-over will, and transfer deed for primary residence`,
-      `• Tax-Planning Trust Plan: Advanced options including QTIP or A/B separate trust analysis and irrevocable trust options`,
-      `We respect your timeline and will never pressure you to make a decision before you're ready.`
-    ]
+    content: `
+      <p>After your education session, you'll decide which plan path is right for you:</p>
+      <ul>
+        <li><i>Always Documents:</i> Essential documents everyone needs including healthcare power of attorney, living will, HIPAA authorizations, and general durable power of attorney</li>
+        <li><i>Quick Plan:</i> An efficient solution using streamlined features, including all core documents plus either a Quick Will (for estates without real estate) or Quick Trust (for estates with one real property)</li>
+        <li><i>Will-Based Plan:</i> Suitable for simple estates without real estate succession complexity, including asset distribution provisions, executor nominations, and basic tax planning</li>
+        <li><i>Trust-Based Plan:</i> Recommended for real estate owners and families seeking probate avoidance, including a revocable living trust, pour-over will, and transfer deed for primary residence</li>
+        <li><i>Tax-Planning Trust Plan:</i> Advanced options including QTIP or A/B separate trust analysis and irrevocable trust options</li>
+      </ul>
+      <p>We respect your timeline and will never pressure you to make a decision before you're ready.</p>
+    `
   },
   {
     type: 'content',
     info: 'Plan Design',
-    content: [
-      `If you choose to move forward, we'll schedule a design session to create the blueprint for your estate plan:`,
-      `• More homework, we have a planning workbook to help guide the process`,
-      `• We'll discuss your family structure, assets, and goals in detail`,
-      `• Together, we'll determine which tools (wills, trusts, etc.) are appropriate for your situation`,
-      `• We'll address specific concerns such as minor children, blended families, or beneficiaries with special needs`
-    ]
+    content: `
+      <p>If you choose to move forward, we'll schedule a design session to create the blueprint for your estate plan:</p>
+      <ul>
+        <li>More homework, we have a planning workbook to help guide the process</li>
+        <li>We'll discuss your family structure, assets, and goals in detail</li>
+        <li>Together, we'll determine which tools (wills, trusts, etc.) are appropriate for your situation</li>
+        <li>We'll address specific concerns such as minor children, blended families, or beneficiaries with special needs</li>
+      </ul>
+    `
   },
   {
     type: 'content',
     info: 'Information Confirmation - CIMI',
-    content: [
-      `Accuracy is critical in estate planning. Our Confirm, Inventory, Modify, and Inform (CIMI) process ensures your plan is built on solid information:`,
-      `• Confirm: We'll verify all the information gathered during your design session`,
-      `• Inventory: We'll create a comprehensive inventory of your assets`,
-      `• Modify: You'll have the opportunity to make any necessary adjustments`,
-      `• Inform: We'll explain how your plan will address your specific goals`,
-      `This step helps prevent errors and ensures your plan truly reflects your wishes.`
-    ]
+    content: `
+      <p>Accuracy is critical in estate planning. Our Confirm, Inventory, Modify, and Inform (CIMI) process ensures your plan is built on solid information:</p>
+      <ul>
+        <li><i>Confirm:</i> We'll verify all the information gathered during your design session</li>
+        <li><i>Inventory:</i> We'll create a comprehensive inventory of your assets</li>
+        <li><i>Modify:</i> You'll have the opportunity to make any necessary adjustments</li>
+        <li><i>Inform:</i> We'll explain how your plan will address your specific goals</li>
+      </ul>
+      <p>This step helps prevent errors and ensures your plan truly reflects your wishes.</p>
+    `
   },
   {
     type: 'content',
     info: 'Drafting',
-    content: [
-      `Using the confirmed information, our attorneys will draft your customized estate planning documents:`,
-      `• Each document is tailored to your specific situation`,
-      `• We use clear, understandable language whenever possible`,
-      `• All documents comply with Colorado law and best practices`,
-      `• We complete most drafting within 1-2 weeks of your CIMI session`
-    ]
+    content: `
+      <p>Using the confirmed information, our attorneys will draft your customized estate planning documents:</p>
+      <ul>
+        <li>Each document is tailored to your specific situation</li>
+        <li>We use clear, understandable language whenever possible</li>
+        <li>All documents comply with Colorado law and best practices</li>
+        <li>We complete most drafting within 1-2 weeks of your CIMI session</li>
+      </ul>
+    `
   },
   {
     type: 'content',
     info: 'Signing Ceremony',
-    content: [
-      `Once your documents are prepared, we'll schedule a signing ceremony:`,
-      `• We'll review each document with you to ensure you understand its purpose`,
-      `• All documents will be properly executed according to legal requirements`,
-      `• We'll serve as witnesses and provide notary services as needed`,
-      `• Since we like to create multiple originals of most documents, the signing typically takes about an hour and can be scheduled at your convenience`
-    ]
+    content: `
+      <p>Once your documents are prepared, we'll schedule a signing ceremony:</p>
+      <ul>
+        <li>We'll review each document with you to ensure you understand its purpose</li>
+        <li>All documents will be properly executed according to legal requirements</li>
+        <li>We'll serve as witnesses and provide notary services as needed</li>
+        <li>Since we like to create multiple originals of most documents, the signing typically takes about an hour and can be scheduled at your convenience</li>
+      </ul>
+    `
   },
   {
     type: 'content',
     info: 'Delivery and Training',
-    content: [
-      `After your signing ceremony, we'll prepare your final document package. Once everything is ready, we'll schedule a delivery and training session where:`,
-      `• You'll receive organized physical and digital copies of all documents`,
-      `• We'll explain how to properly store your documents`,
-      `• You'll learn how to communicate your plan to relevant family members and healthcare providers`,
-      `• If you haven't chosen our Plan Funding option, we'll provide guidance on any necessary asset retitling or beneficiary designations`
-    ]
+    content: `
+      <p>After your signing ceremony, we'll prepare your final document package. Once everything is ready, we'll schedule a delivery and training session where:</p>
+      <ul>
+        <li>You'll receive organized physical and digital copies of all documents</li>
+        <li>We'll explain how to properly store your documents</li>
+        <li>You'll learn how to communicate your plan to relevant family members and healthcare providers</li>
+        <li>If you haven't chosen our Plan Funding option, we'll provide guidance on any necessary asset retitling or beneficiary designations</li>
+      </ul>
+    `
   },
   {
     type: 'content',
     info: 'Maintenance',
-    content: [
-      `Estate planning is an ongoing process, not a one-time event:`,
-      `• We recommend reviewing your estate plan at least every 3 years or after major life events`,
-      `• We offer annual check-in options to ensure your plan remains current`,
-      `• Our team is available to answer questions as they arise`,
-      `• Subscribe to our newsletter for updates when legal changes affect your estate plan`,
-      `This ongoing relationship helps ensure your estate plan continues to serve your needs as your life evolves.`
-    ]
+    content: `
+      <p>Estate planning is an ongoing process, not a one-time event:</p>
+      <ul>
+        <li>We recommend reviewing your estate plan at least every 3 years or after major life events</li>
+        <li>We offer annual check-in options to ensure your plan remains current</li>
+        <li>Our team is available to answer questions as they arise</li>
+        <li>Subscribe to our newsletter for updates when legal changes affect your estate plan</li>
+      </ul>
+      <p>This ongoing relationship helps ensure your estate plan continues to serve your needs as your life evolves.</p>
+    `
   }
 ]
 

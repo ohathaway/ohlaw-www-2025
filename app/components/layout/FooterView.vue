@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import NewsletterSignupForm from '../NewsletterSignupForm.vue'
-import TestimonialCarousel from '../TestimonialCarousel.vue'
-
-</script>
-
 <template>
   <footer class="bg-primary-800 py-6 text-slate-200">
     <div class="grid px-20 py-10 grid-cols-2 gap-4">
@@ -13,7 +7,7 @@ import TestimonialCarousel from '../TestimonialCarousel.vue'
           <div class="grid grid-cols-2">
             <div>
               <h5 class="underline">Primary Office</h5>
-              <ul class="ms-5">
+              <ul class="ms-5 list-none pl-0">
                 <li>2580 E Harmony Rd</li>
                 <li>Suite 201</li>
                 <li>Fort Collins, CO 80528</li>
@@ -21,22 +15,22 @@ import TestimonialCarousel from '../TestimonialCarousel.vue'
             </div>
             <div>
               <h5 class="underline">Mailing Address</h5>
-              <ul class="ms-5">
+              <ul class="ms-5 list-none pl-0">
                 <li>2601 S Lemay Ave</li>
                 <li>Suite 7-232</li>
                 <li>Fort Collins, CO 80525</li>
               </ul>
             </div>
-            <div class="p-5 col-span-2">
+            <div class="py-5 col-span-2">
               <NuxtLink to="/contact-us#locations">Click here to find our other locations and get directions</NuxtLink>
             </div>
-            <div class="pb-5 ps-5 col-span-2">
+            <div class="pb-5 col-span-2">
               <p>We are only available at the office by appointment.</p>
               <p><a href="#">Please click here to book a time to meet</a></p>
             </div>
           </div>
           <ClientOnly>
-            <ul class="inline-flex">
+            <ul class="inline-flex list-none pl-0">
               <li class="m-2"> 
                 <font-awesome-icon icon="fas fa-phone" fixed-width></font-awesome-icon>
                 <a class="text-white" href="tel:+19708183052" title="call us">

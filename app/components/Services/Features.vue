@@ -16,7 +16,7 @@
                 <!-- PrimeVue Icon -->
                 <i 
                   v-if="feature.icon" 
-                  :class="`pi pi-${feature.icon} text-primary-500 text-4xl mb-4`"
+                  :class="`bi bi-${feature.icon} text-orange-900 text-4xl mb-4`"
                 ></i>
                 
                 <!-- Font Awesome Icon -->

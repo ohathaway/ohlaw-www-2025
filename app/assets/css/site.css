@@ -14,16 +14,32 @@
   :root { 
     font-family: 'Plus Jakarta Sans', Helvetica, Arial,sans-serif;
     font-variation-settings: "wght" 400;
-    @apply text-2xl
+    @apply text-xl
   }
 }
 
 @layer base {
   strong { @apply font-extrabold; }
 
-  h1, h2, h3 { font-family: 'Benguiat'; }
+  h1, h2, h3, h4, h5 { font-family: 'Benguiat'; }
   h1 { @apply text-5xl font-bold; }
   h2 { @apply text-4xl font-semibold; }
   h3 { @apply text-3xl font-semibold; }
   h4 { @apply text-2xl font-semibold; }
+
+  p { @apply pb-3; }
+
+  ul {
+    @apply list-disc pl-10;
+  }
+  
+  ol {
+    @apply list-decimal pl-10;
+  }
+  
+  /* Nested lists */
+  li > ul, 
+  li > ol {
+    @apply mt-2 pl-5;
+  }
 }

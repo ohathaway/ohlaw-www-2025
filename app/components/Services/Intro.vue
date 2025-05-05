@@ -2,12 +2,12 @@
   <section class="py-12">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <div class="pt-10">
-          <h2 class="text-4xl font-bold text-slate-800 mb-4"><span v-html="title"></span></h2>
-          <p class="mb-4 text-slate-700" v-html="description" />
+        <div class="pt-5">
+          <h2 class="font-bold text-slate-800 mb-4 text-3xl"><span v-html="title"></span></h2>
+          <div class="mb-4 text-slate-700" v-html="description" />
           <ul v-if="features.length" class="space-y-4 mb-6 pe-10">
-            <li v-for="(feature, index) in features" :key="index" class="flex text-xl">
-              <i class="pi pi-check-circle text-primary-500 mr-3 mt-1"></i>
+            <li v-for="(feature, index) in features" :key="index" class="flex">
+              <i class="pi pi-check-circle text-green-600 mr-3 mt-1"></i>
               <div>
                 <strong class="text-slate-900">{{ feature.title }}: </strong> 
                 <span v-html="feature.description" class="text-slate-700"></span>

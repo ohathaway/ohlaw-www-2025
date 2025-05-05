@@ -82,6 +82,7 @@ export default defineNuxtConfig({
 
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
+    'bootstrap-icons/font/bootstrap-icons.css',
     // '@formkit/themes/genesis',
     '@formkit/addons/css/floatingLabels',
     '~/assets/css/site.css',
