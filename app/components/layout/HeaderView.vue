@@ -2,7 +2,7 @@
   <div class="relative">
     <!-- Header Bar -->
     <header :class="['fixed top-0 left-0 right-0 grid grid-cols-9 md:grid-cols-3 items-center px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
-      scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg' : 'h-[80px]']">
+      scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg text-sm' : 'h-[80px]']">
       
       <!-- Mobile Menu Button -->
       <div class="lg:hidden justify-start">

@@ -64,7 +64,7 @@
 
 <script setup>
 // Get the scheduling link from app config
-const { schedulingLinks: { newClient: link } } = useAppConfig()
+const { schedulingLinks: { estatePlanEducation: link } } = useAppConfig()
 
 // SEO metadata
 useHead(useSeo({
@@ -74,14 +74,14 @@ useHead(useSeo({
     { property: 'og:title', content: 'Estate Planning That Works For Real People | The Law Offices of Owen Hathaway' },
     { property: 'og:description', content: 'Don\'t let your legacy fall into legal limbo. Our practical estate planning solutions protect what matters most to you without the legal mumbo-jumbo. Free consultation available.' },
     { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://ohlawcolorado.com/estate-planning' },
+    { property: 'og:url', content: 'https://ohlawcolorado.com/services/estate-planning' },
     { property: 'og:image', content: 'https://ohlawcolorado.com/files/ohlaw-logo-trans-450.D38LfYoB.svg' },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: 'Estate Planning That Works For Real People | The Law Offices of Owen Hathaway' },
     { name: 'twitter:description', content: 'Don\'t let your legacy fall into legal limbo. Our practical estate planning solutions protect what matters most to you without the legal mumbo-jumbo. Free consultation available.' }
   ],
   link: [
-    { rel: 'canonical', href: 'https://ohlawcolorado.com/estate-planning' }
+    { rel: 'canonical', href: 'https://ohlawcolorado.com/services/estate-planning' }
   ]
 }))
 
