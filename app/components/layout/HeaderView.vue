@@ -16,7 +16,9 @@
       </div>
       
       <!-- Mobile Brand -->
-      <div class="lg:hidden ps-7 col-start-2 col-span-6">
+      <div
+        class="lg:hidden ps-7 col-start-2 col-span-6"
+      >
         <NuxtLink to="/" class="block">
           <h1 class="font-[TrajanBold]">The Law Offices of<br />Owen Hathaway</h1>
         </NuxtLink>

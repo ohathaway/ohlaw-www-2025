@@ -3,6 +3,7 @@
 // console.debug('nuxtApp: ', nuxtApp)
 // const { strapiUrl } = nuxtApp.runWithContext(() => useAppConfig())
 const strapiUrl = 'https://strapi.ohlawcolorado.com'
+// console.debug('strapiUrl:', strapiUrl)
 
 const isModifier = brick => {
   const modifierTypes = [

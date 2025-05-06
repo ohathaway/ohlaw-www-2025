@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.7.6",
+    "@nuxtjs/apollo": "5.0.0-alpha.14",
     "@primevue/nuxt-module": "^4.3.2",
     "@tailwindcss/typography": "^0.5.16",
     "eslint": "^9.23.0",

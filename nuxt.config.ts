@@ -13,6 +13,7 @@ const preset = definePreset(Aura, ohLawPreset)
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
+    '@nuxtjs/apollo',
     '@nuxthub/core',
     '@primevue/nuxt-module',
     '@formkit/nuxt',
@@ -169,5 +170,28 @@ export default defineNuxtConfig({
         quotes: 'single',
       },
     },
+  },
+
+  apollo: {
+    clients: {
+      default: {
+        authType: 'none',
+        connectToDevTools: true,
+        defaultOptions: {
+          watchQuery: {
+            fetchPolicy: 'cache-and-network'
+          }
+        },
+        httpEndpoint: `${process.env.STRAPI_URL}/graphql`,
+        /*
+        httpLinkOptions: {
+          headers: {
+            'Strapi-Response-Format': 'v4'
+          }
+        }
+        */
+      }
+    },
+    devtools: true
   },
 })
