@@ -15,7 +15,7 @@
                 <p class="mb-4 text-slate-700">{{ offering.description }}</p>
                 <ul v-if="offering.features && offering.features.length" class="space-y-2 mb-4">
                   <li v-for="(feature, fIndex) in offering.features" :key="fIndex" class="flex">
-                    <i class="pi pi-check text-primary-500 mr-2 mt-1"></i>
+                    <i class="pi pi-bookmark text-green-500 mr-2 mt-1"></i>
                     <span v-if="!feature.isHtml" class="text-slate-700">{{ feature.text }}</span>
                     <span v-else v-html="feature.text" class="text-slate-700"></span>
                   </li>

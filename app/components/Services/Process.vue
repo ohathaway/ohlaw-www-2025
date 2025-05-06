@@ -114,4 +114,25 @@ const bgClass = computed(() => {
 diffusion-background {
   position: relative;
 }
+
+:deep(ul) {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+
+:deep(ul li) {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+:deep(ul li::before) {
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  font-family: "PrimeIcons";
+  content: "\e98c"; /* PrimeIcon code for pi-chevron-right */
+  color: #f59e0b;
+}
 </style>

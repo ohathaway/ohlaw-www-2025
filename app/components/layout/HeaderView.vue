@@ -36,7 +36,21 @@
 
       <!-- Left Menu -->
       <div class="lg:block hidden justify-self-end pr-4">
-        <Menubar class="lg:block hidden" :model="leftMenuItems" />
+        <Menubar class="lg:block hidden" :model="leftMenuItems">
+          <template #item="{ item, props, hasSubmenu }">
+            <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+              <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                  <span :class="item.icon" />
+                  <span>{{ item.label }}</span>
+              </a>
+            </router-link>
+            <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+              <span :class="item.icon" />
+              <span>{{ item.label }}</span>
+              <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
+            </a>
+          </template>
+        </Menubar>
       </div>
       
       <!-- Center Column (for logo) -->
@@ -87,10 +101,10 @@ const leftMenuItems = ref([
   {
     label: 'Services',
     items: [
-      { label: 'Estate Planning', to: '/services/estate-planning' },
-      { label: 'Bankruptcy', to: '/services/bankruptcy' },
-      { label: 'Small Business', to: '/services/small-business' },
-      { label: 'Nonprofits', to: '/services/nonprofits' }
+      { label: 'Estate Planning', route: '/services/estate-planning' },
+      { label: 'Bankruptcy', route: '/services/bankruptcy' },
+      { label: 'Small Business', route: '/services/small-business' },
+      { label: 'Nonprofits', route: '/services/nonprofits' }
     ]
   },
   {
