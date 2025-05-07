@@ -64,7 +64,21 @@
       <div class="flex justify-between">
         <!-- Right Menu -->
         <div class="lg:block hidden pl-4">
-          <Menubar :model="rightMenuItems" />
+          <Menubar :model="rightMenuItems">
+            <template #item="{ item, props, hasSubmenu }">
+              <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                    <span :class="item.icon" />
+                    <span>{{ item.label }}</span>
+                </a>
+              </router-link>
+              <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+                <span :class="item.icon" />
+                <span>{{ item.label }}</span>
+                <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
+              </a>
+            </template>
+          </Menubar>
         </div>
       </div>
     </header>
@@ -110,25 +124,24 @@ const leftMenuItems = ref([
     ]
   },
   {
+    label: 'Contact',
+    route: '/contact'
+  },
+  {
     label: 'About',
-    to: '/about'
+    route: '/about'
   }
 ])
 
 // Menu items for right side of logo
 const rightMenuItems = ref([
   {
-    label: 'Blog',
-    to: '/blog'
+    label: 'Learning Resources',
+    route: '/blog'
   },
   {
-    label: 'Contact',
-    to: '/contact'
-  },
-  {
-    label: 'Schedule',
-    className: 'schedule-button',
-    to: '/schedule'
+    label: 'Client Login',
+    url: 'https://ohlaw.portal.lawmatics.com/login'
   }
 ])
 

@@ -1,9 +1,9 @@
+import qs from 'qs'
 // const nuxtApp = useNuxtApp()
 
 // console.debug('nuxtApp: ', nuxtApp)
 // const { strapiUrl } = nuxtApp.runWithContext(() => useAppConfig())
 const strapiUrl = 'https://strapi.ohlawcolorado.com'
-// console.debug('strapiUrl:', strapiUrl)
 
 const isModifier = brick => {
   const modifierTypes = [
@@ -70,277 +70,382 @@ const addScrollSpy = () => {
 
 }
 
+const getMultipleRandom = (arr, num) => {
+  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+
+  return shuffled.slice(0, num);
+}
+
 /*
- * graphQl queries
+ * API queries
  */
+
+const imageFields = [
+  'name',
+  'caption',
+  'alternativeText',
+  'url',
+  'previewUrl',
+  'provider'
+]
+
 const singlePostQuery = slug => {
   return gql`
-  query {
-    posts(filters: { slug: { eq: "${slug}" } }) {
-      data {
-        id,
-        attributes {
-          Content,
-          CTA,
-          publishDate,
-          updatedAt,
-          Title,
-          Snippet,
-          category {
-            data {
-              id,
-              attributes{
-                Name,
-                slug
-              }
-            }
-          },
-          tags {
-            data {
-              id,
-              attributes {
-                Name,
-                slug
-              }
-            }
-          },
-          Image {
-            data {
-              attributes {
-                name
-                url
-              }
-            }
+    query Posts {
+      posts(
+        filters: {
+          slug: {
+            eq: "${slug}"
           }
+        }
+      ) {
+        documentId
+        Content
+        Title
+        Image {
+          name
+          caption
+          alternativeText
+          url
+          previewUrl
+          provider
+        }
+        tags {
+          Name
+          slug
+        }
+        category {
+          Name
+          slug
+        }
+        slug
+        publishDate
+        Snippet
+        CTA
+        createdAt
+        updatedAt
+        publishedAt
+        terms {
+            term
+            definition
+            slug
+            sources
         }
       }
     }
-  }`
+  `
 }
 
 const allPostsQuery = gql`
-query {
-  posts(sort: "publishDate:DESC") {
-    data {
-      id
-      attributes {
-        Title,
-        Snippet,
-        publishDate,
-        Image {
-          data {
-            attributes {
-              name
-              url
-            }
-          }
+query Posts {
+  posts {
+      documentId
+      Content
+      Title
+      slug
+      Image {
+          name
+          caption
+          alternativeText
+          url
+          previewUrl
+          provider
+      }
+      tags {
+          Name
+          slug
+      }
+      category {
+          Name
+          slug
+      }
+      CTA
+      createdAt
+      updatedAt
+      publishedAt
+  }
+}
+`
+
+const allPostsQueryREST = limit => {
+  try {
+    const params = {
+      sort: [
+        'publishDate:desc'
+      ],
+      populate: {
+        Image: {
+          fields: imageFields
         },
-        slug,
-        tags {
-          data {
-            id,
-            attributes {
-              Name,
-              slug
-            }
+        populate: {
+          Image: {
+            fields: imageFields
+          },
+          tags: {
+            fields: [
+              'Name',
+              'slug'
+            ]
           }
         }
-      }
+      },
+      fields: [
+        'Content',
+        'CTA',
+        'publishDate',
+        'slug',
+        'Snippet',
+        'Title'
+      ],
+      pagination: {
+        pageSize: limit,
+        page: 1
+      },
+      status: 'published',
+      locale: [
+        'en'
+      ]
     }
+    return qs.stringify(params, { encode: false })
+  } catch (error) {
+    console.error('error parsing parameters for all posts query', error)
+    return ''
   }
-}`
+}
 
 const featuredPostQuery = gql`
-query {
-  featuredPost{
-    data{
-      attributes{
-        post {
-          data {
-            id,
-              attributes {
-              Content,
-                CTA,
-                publishDate,
-                Title,
-                slug,
-                category {
-                data {
-                  id,
-                    attributes{
-                    Name,
-                    slug
-                  }
-                }
-              },
-              Image {
-                data {
-                  id,
-                  attributes {
-                    name,
-                    url
-                  }
-                }
-              }
-              tags {
-                data {
-                  id,
-                    attributes {
-                    Name,
-                    slug
-                  }
-                }
-              }
-            }
-          }
-        }
+query FeaturedPost {
+  featuredPost {
+    documentId
+    createdAt
+    updatedAt
+    publishedAt
+    post {
+      documentId
+      Content
+      Title
+      slug
+      publishDate
+      Snippet
+      CTA
+      createdAt
+      updatedAt
+      publishedAt
+      category {
+        documentId
+        Name
+        slug
+        createdAt
+        updatedAt
+        publishedAt
+      }
+      Image {
+        name
+        caption
+        alternativeText
+        url
+        previewUrl
+        provider
+      }
+      tags {
+        Name
+        slug
       }
     }
   }
 }`
 
 const spotlightPostsQuery = gql`
-query {
-  spotlight{
-    data{
-      attributes{
-        posts (sort: "publishDate:DESC") {
-          data {
-            id,
-              attributes {
-              Content,
-                CTA,
-                publishDate,
-                slug,
-                Title,
-                category {
-                data {
-                  id,
-                    attributes{
-                    Name,
-                    slug
-                  }
-                }
-              },
-              Image {
-                data {
-                  attributes {
-                    name,
-                    url
-                  }
-                }
-              },
-              tags {
-                data {
-                  id,
-                    attributes {
-                    Name,
-                    slug
-                  }
-                }
-              }
-            }
-          }
-        }
+query Spotlight {
+  spotlight {
+    posts {
+      documentId
+      Content
+      Title
+      slug
+      publishDate
+      Snippet
+      CTA
+      createdAt
+      updatedAt
+      publishedAt
+      Image {
+        name
+        caption
+        alternativeText
+        url
+        previewUrl
+        provider
+      }
+      tags {
+        documentId
+        Name
+        slug
+      }
+      category {
+        Name
+        slug
       }
     }
   }
 }
 `
-
+/*
 const categoryPostsQuery = (category, limit = 3) => {
   return gql`
-  query {
+  query Categories {
     categories(
       pagination: { start: 0, limit: ${limit} },
       filters: { Name: { eq: "${category}" } }
     ) {
-      data {
-        attributes {
-          posts (sort: "publishDate:DESC") {
-            data {
-              id,
-              attributes {
-                Snippet,
-                Title,
-                slug,
-                publishDate,
-                tags {
-                  data {
-                    id,
-                    attributes {
-                      Name,
-                      slug
-                    }
-                  }
-                },
-                Image {
-                  data {
-                    attributes {
-                      name
-                      url
-                    }
-                  }
-                }
-              }
-            }
+      hero
+      faq {
+          question
+          answer
+      },
+      Image {
+        name
+        alternativeText
+        caption
+        url
+        previewUrl
+        provider
+      },
+      posts(sort: "publishDate:DESC") {
+        documentId
+        Snippet
+        Title
+        slug
+        publishDate
+        tags {
+          Name
+          slug
+        }
+        Image {
+          name
+          caption
+          alternativeText
+          url
+          previewUrl
+          provider
+        }
+      }
+    }
+  }
+  `
+}
+*/
+
+const postListQueryREST = (filterSlug, listType = 'category', limit = 6) => {
+  try {
+    const fields = []
+    if (listType === 'category') fields.push('hero')
+
+    const populate = {
+      posts: {
+        sort: [
+          'publishDate:desc'
+        ],
+        populate: {
+          Image: {
+            fields: imageFields
+          },
+          tags: {
+            fields: [
+              'Name',
+              'slug'
+            ]
           }
         }
       }
     }
-  }`
+    if (listType === 'category') populate.Image = { fields: imageFields }
+
+
+    const params = {
+      filters: {
+        slug: {
+          '$eq': filterSlug
+        }
+      },
+      populate,
+      fields, 
+      pagination: {
+        pageSize: limit,
+        page: 1
+      },
+      status: 'published',
+      locale: [
+        'en'
+      ]
+    }
+    return qs.stringify(params, { encode: false })
+  } catch (error) {
+    console.error('error parsing parameters for category query', error)
+    return ''
+  }
 }
 
 const tagPostsQuery = (tag, limit = 3) => {
   return gql`
-  query {
+  query Tags {
     tags(
       pagination: { start: 0, limit: ${limit} },
       filters: { slug: { eq: "${tag}" } }
     ) {
-      data {
-        attributes {
-          posts (sort: "publishDate:DESC") {
-            data {
-              id,
-              attributes {
-                Snippet,
-                Title,
-                slug,
-                tags {
-                  data {
-                    id,
-                    attributes {
-                      Name,
-                      slug
-                    }
-                  }
-                },
-                Image {
-                  data {
-                    attributes {
-                      name
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
+      terms {
+        term
+        definition
+        sources
+        slug
+      }
+      posts (
+        sort: "publishDate:DESC"
+      ) {
+        documentId
+        Title
+        Image {
+          name
+          caption
+          alternativeText
+          url
+          previewUrl
+          provider
+        }
+        tags {
+          Name
+          slug
+        }
+        Snippet
+        terms {
+          term
+          definition
+          sources
+          slug
         }
       }
     }
-  }`
+  }
+  `
+}
+
+const dedupPosts = posts =>{
+  return posts.filter((value, index, self) => {
+    return self.findIndex(v => v.documentId === value.documentId) === index
+  })
 }
 
 export {
   allPostsQuery,
-  categoryPostsQuery,
+  allPostsQueryREST,
+  dedupPosts,
+  getMultipleRandom,
   getStrapiThumbnailUrl,
   getStrapiUrl,
   getThumbnailUrl,
   featuredPostQuery,
   isModifier,
+  postListQueryREST ,
   richTextToPlainText,
   singlePostQuery,
   spotlightPostsQuery,

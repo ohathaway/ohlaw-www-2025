@@ -8,6 +8,75 @@ const preset = definePreset(Aura, ohLawPreset)
 
 // console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
+// Blog post prefetch helper
+const getPostRoutes = async () => {
+  if (!process.env.STRAPI_URL) {
+    console.warn('STRAPI_URL not set, skipping post routes generation');
+    return [];
+  }
+  
+  try {
+    const pageSize = 25
+    const fetchOptions = {
+      headers: {
+        'Strapi-Response-Format': 'v4'
+      }
+    };
+    
+    // Initial request to get first page and pagination info
+    const initialResponse = await fetch(
+      `${process.env.STRAPI_URL}/api/posts?fields[0]=slug&pagination[pageSize]=${pageSize}`,
+      fetchOptions
+    );
+    
+    if (!initialResponse.ok) {
+      throw new Error(`Failed to fetch posts: ${initialResponse.status} ${initialResponse.statusText}`);
+    }
+    
+    const initialData = await initialResponse.json();
+    const { pagination } = initialData.meta;
+    const { pageCount } = pagination;
+    
+    // Create an array of all page numbers we need to fetch
+    const pageNumbers = Array.from({ length: pageCount }, (_, i) => i + 1)
+      .filter(page => page > 1); // Filter out page 1 which we already have
+    
+    // Define a function to fetch a specific page
+    const fetchPage = async (page) => {
+      const response = await fetch(
+        `${process.env.STRAPI_URL}/api/posts?fields[0]=slug&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
+        fetchOptions
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch page ${page}: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      return data.data;
+    };
+    
+    // Initial posts from first page
+    let allPosts = [...initialData.data];
+    
+    // Fetch additional pages if needed
+    if (pageNumbers.length > 0) {
+      const additionalPosts = await Promise.all(pageNumbers.map(fetchPage));
+      allPosts = allPosts.concat(additionalPosts.flat());
+    }
+    
+    console.info(`Strapi pre-render post list: found ${allPosts.length} posts`);
+    
+    // Map post slugs to routes
+    return allPosts.map(post => 
+      `/blog/${post?.slug ?? post?.attributes?.slug}`
+    ).filter(Boolean);
+    
+  } catch (error) {
+    console.error('Error fetching post routes:', error);
+    return [];
+  }
+}
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -21,6 +90,7 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
     '@nuxt/image',
+    'nuxt-lodash',
   ],
 
   formkit: {
@@ -99,6 +169,16 @@ export default defineNuxtConfig({
     dir: 'public/img'
   },
 
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      // fetch the routes from our function above
+      const slugs = await getPostRoutes()
+      console.info('slugs: ', slugs)
+      // add the routes to the nitro config
+      nitroConfig.prerender.routes.push(...slugs)
+    }
+  },
+
   vite: {
     css: {
       preprocessorOptions: {
@@ -134,6 +214,18 @@ export default defineNuxtConfig({
       '@formkit/themes',
       '@formkit/vue'
     ]
+  },
+
+  imports: {
+    dirs: [
+      'app/utils',
+      'app/stores'
+    ]
+  },
+
+  lodash: {
+    prefix: '',
+    upperAfterPrefix: false
   },
 
   // https://nuxtseo.com

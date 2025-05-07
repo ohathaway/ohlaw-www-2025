@@ -13,7 +13,6 @@
 @supports (font-variation-settings: normal) {
   :root { 
     font-family: 'Plus Jakarta Sans', Helvetica, Arial,sans-serif;
-    font-variation-settings: "wght" 400;
     @apply text-xl
   }
 }
@@ -43,3 +42,5 @@
     @apply mt-2 pl-5;
   }
 }
+
+.font-quatrocento { font-family: "Qatrocento"; }

@@ -1,5 +1,5 @@
 <template>
-  <div class="rich-text">
+  <div class="rich-text prose ">
     <template v-for="brick in block">
       <!-- headings -->
       <h2

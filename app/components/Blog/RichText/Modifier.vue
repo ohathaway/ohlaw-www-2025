@@ -8,10 +8,10 @@ const { brick } = defineProps(['brick'])
 
 const classes = computed(() => {
   const list = []
-  if (brick.bold) list.push('fw-bold')
-  if (brick.italic) list.push('fst-italic')
-  if (brick.underline) list.push('text-decoration-underline')
-  if (brick.strikethrough) list.push('text-decoration-line-through')
+  if (brick.bold) list.push('font-bold')
+  if (brick.italic) list.push('italic')
+  if (brick.underline) list.push('underline')
+  if (brick.strikethrough) list.push('line-through')
   return list
 })
 </script>
