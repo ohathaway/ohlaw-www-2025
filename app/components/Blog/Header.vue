@@ -116,3 +116,13 @@ const backgroundStyle = computed(() => {
   }
 })
 </script>
+
+<style scoped>
+.active-category {
+  .p-menubar-item-content {
+    color: var(--p-menubar-item-focus-color) !important;
+    background: var(--p-menubar-item-focus-background) !important;
+    border-radius: var(--p-menubar-base-item-border-radius) !important;
+  }
+}
+</style>
