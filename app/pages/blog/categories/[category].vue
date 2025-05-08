@@ -2,24 +2,35 @@
   <div class="category-page lg:p-20">
     <!-- Hero Section with Rich Text and Image -->
     <section v-if="categoryData && categoryData.hero" class="bg-light">
-      <div class="grid grid-cols-12 align-items-center">
-        <div class="col-span-12 lg:col-span-7 lg:pe-5">
-          <h1 class="text-3xl mb-4 relative">
-            Category: {{ toTitleCase(category, '-') }}
-            <span class="block absolute bg-primary" style="height: 3px; width: 70px; bottom: -10px; left: 0;"></span>
-          </h1>
-          <BlogRichText :block="categoryData.hero" class="float-left" />
-            <LayoutMediaFocus 
+      <div class="container mx-auto">
+        <h1 class="text-3xl mb-6 relative">
+          Category: {{ toTitleCase(category, '-') }}
+          <span class="block absolute bg-primary" style="height: 3px; width: 70px; bottom: -10px; left: 0;"></span>
+        </h1>
+        
+        <div class="relative clearfix">
+          <!-- Direct image with controlled width -->
+          <div class="float-right ml-8 mb-6 w-full lg:w-[600px] max-w-full">
+            <NuxtImg
               v-if="categoryData.Image"
-              :source="getStrapiUrl(categoryData.Image)"
-              provider="strapi"
-              :title="toTitleCase(category, '-') + ' Category'"
-              class="rounded overflow-hidden shadow min-h-[400px] float-right w-3xl"
+              :provider="'strapi'"
+              :src="getStrapiUrl(categoryData.Image)"
+              :alt="toTitleCase(category, '-') + ' Category'"
+              class="w-full rounded-xl shadow-md border border-gray-200"
+              placeholder
             />
-            <!-- Fallback if no image -->
-            <div v-else class="rounded overflow-hidden shadow">
-              <img src="/img/placeholder_1024.webp" alt="Category placeholder" class="img-fluid" />
-            </div>
+            <img 
+              v-else 
+              src="/img/placeholder_1024.webp" 
+              :alt="toTitleCase(category, '-') + ' Category'" 
+              class="w-full rounded-xl shadow-md border border-gray-200"
+            />
+          </div>
+          
+          <!-- Text content -->
+          <div>
+            <BlogRichText :block="categoryData.hero" />
+          </div>
         </div>
       </div>
     </section>
