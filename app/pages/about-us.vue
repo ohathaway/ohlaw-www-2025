@@ -1,11 +1,11 @@
 <template>
   <div class="about-us-container">
     <!-- Hero Section -->
-    <section class="relative py-8 text-white">
+    <section class="relative py-4 text-white">
       <div class="absolute inset-0" 
            :style="backgroundStyleHero">
       </div>
-      <div class="container mx-auto px-4 py-[10rem] relative z-10">
+      <div class="container mx-auto px-4 py-[5rem] relative z-10">
         <div class="max-w-4xl mx-auto text-center">
           <h1 class="text-4xl md:text-5xl font-bold mb-6">About Us: A Family Serving Families</h1>
           <div class="mt-4 text-xl">
@@ -37,7 +37,12 @@
           </div>
           <div class="order-1 md:order-2">
             <div class="rounded-lg overflow-hidden shadow-lg">
-              <NuxtImg src="/img/IMG_5943.webp" alt="Family photo" class="w-full h-auto" />
+              <NuxtImg
+                src="/img/IMG_5943.webp"
+                alt="Family photo"
+                class="w-full h-auto"
+                provider="cloudflare"
+              />
               <div class="p-3 bg-slate-100 text-sm italic text-slate-600">
                 Strangely this is the closest thing we have to a photo of our family at the moment. This is Owen and all his brothers and sisters at our oldest daughter's wedding.
               </div>
@@ -67,7 +72,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <div class="rounded-lg overflow-hidden shadow-lg">
-              <NuxtImg src="/img/it2lawyer2.webp" alt="Lawyer Second" class="w-full h-auto" />
+              <NuxtImg
+                src="/img/it2lawyer2.webp"
+                alt="Lawyer Second"
+                class="w-full h-auto"
+                provider="cloudflare"
+              />
             </div>
           </div>
           <div>
@@ -100,8 +110,8 @@
               <p>Meanwhile, Michelle had started a part-time job, mostly as something to do, and it wasn't working out very well. So we decided to start a business where the two of us could build something together.</p>
             </div>
           </div>
-          <div class="col-span-4 md:col-span-1">
-            <div class="bg-primary-700 text-white p-4 rounded-lg h-full shadow-lg">
+          <div class="col-span-4 md:col-span-1 md:me-8">
+            <div class="bg-stone-700 text-white p-4 rounded-lg h-full shadow-lg">
               <h4 class="text-xl font-semibold mb-3">We Know Because We've Been There</h4>
               <p class="mb-4">We've owned multiple businesses and understand the challenges entrepreneurs face because we've lived them.</p>
               <hr class="my-3 border-white/30">
@@ -131,7 +141,12 @@
           </div>
           <div class="order-1 md:order-2">
             <div class="rounded-lg overflow-hidden shadow-lg">
-              <NuxtImg src="/img/business1_1024.webp" alt="All Together" class="w-full h-auto" />
+              <NuxtImg
+                src="/img/business1_1024.webp"
+                alt="All Together"
+                class="w-full h-auto"
+                provider="cloudflare"
+              />
             </div>
           </div>
         </div>
@@ -208,14 +223,14 @@
           <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:translate-y-[-5px] duration-300">
             <div class="p-6 h-[360px]">
               <div class="text-center mb-4">
-                <i class="pi pi-arrow-up-circle text-5xl text-primary-500"></i>
+                <i class="pi pi-arrow-circle-up text-5xl text-stone-500"></i>
               </div>
               <h3 class="text-xl font-semibold mb-4 text-center">Heart-centered Bankruptcy</h3>
               <p>Helping folks in debt crisis find the right solution. We understand that financial challenges can happen to anyone, and we approach each case with compassion.</p>
             </div>
             <div class="bg-primary-700 text-white text-center py-3">
               <NuxtLink to="/services/bankruptcy" class="text-white hover:text-white/90 no-underline">
-                Learn More <i class="pi pi-arrow-right ml-2"></i>
+                Learn More <i class="pi pi-arrow-right ml-2" style="font-size: 1rem;"></i>
               </NuxtLink>
             </div>
           </div>
@@ -223,14 +238,14 @@
           <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:translate-y-[-5px] duration-300">
             <div class="p-6 h-[360px]">
               <div class="text-center mb-4">
-                <i class="pi pi-home text-5xl text-primary-500"></i>
+                <i class="pi pi-home text-5xl text-stone-500"></i>
               </div>
               <h3 class="text-xl font-semibold mb-4 text-center">Special Flavor of Estate Planning</h3>
               <p>Building solid foundations for families' futures. Our estate planning goes beyond just document preparation to help you protect what matters most.</p>
             </div>
             <div class="bg-primary-700 text-white text-center py-3">
               <NuxtLink to="/services/estate-planning" class="text-white hover:text-white/90 no-underline">
-                Learn More <i class="pi pi-arrow-right ml-2"></i>
+                Learn More <i class="pi pi-arrow-right ml-2" style="font-size: 1rem;"></i>
               </NuxtLink>
             </div>
           </div>
@@ -238,14 +253,14 @@
           <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:translate-y-[-5px] duration-300">
             <div class="p-6 h-[360px]">
               <div class="text-center mb-4">
-                <i class="pi pi-briefcase text-5xl text-primary-500"></i>
+                <i class="pi pi-briefcase text-5xl text-stone-500"></i>
               </div>
               <h3 class="text-xl font-semibold mb-4 text-center">Unique Small Business Program</h3>
               <p>Helping entrepreneurs build on strong legal ground. We understand small businesses because we've built them ourselves.</p>
             </div>
             <div class="bg-primary-700 text-white text-center py-3">
               <NuxtLink to="/services/small-business" class="text-white hover:text-white/90 no-underline">
-                Learn More <i class="pi pi-arrow-right ml-2"></i>
+                Learn More <i class="pi pi-arrow-right ml-2" style="font-size: 1rem;"></i>
               </NuxtLink>
             </div>
           </div>
@@ -265,19 +280,19 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
               <div class="bg-white p-6 rounded-lg shadow-md text-center transition-all duration-300 hover:bg-slate-50">
-                <i class="pi pi-wallet text-5xl text-primary-500 mb-4"></i>
+                <i class="pi pi-wallet text-stone-500 mb-4"></i>
                 <h4 class="text-xl font-semibold mb-3">Fixed Fees</h4>
                 <p>Almost everything we do for our clients, we offer at a fixed fee. If we can't offer you a fixed price, we will always commit to a budget set by you.</p>
               </div>
               
               <div class="bg-white p-6 rounded-lg shadow-md text-center transition-all duration-300 hover:bg-slate-50">
-                <i class="pi pi-home text-5xl text-primary-500 mb-4"></i>
+                <i class="pi pi-home text-5xl text-stone-500 mb-4"></i>
                 <h4 class="text-xl font-semibold mb-3">We Come To You</h4>
                 <p>We keep our costs down by not maintaining a permanent office. We will even come to your home to meet with you.</p>
               </div>
               
               <div class="bg-white p-6 rounded-lg shadow-md text-center transition-all duration-300 hover:bg-slate-50">
-                <i class="pi pi-users text-5xl text-primary-500 mb-4"></i>
+                <i class="pi pi-users text-5xl text-stone-500 mb-4"></i>
                 <h4 class="text-xl font-semibold mb-3">For Everyone</h4>
                 <p>We think this transparency, affordability, and accessibility make our services available to people who may not think they can actually hire a lawyer.</p>
               </div>
@@ -332,3 +347,7 @@ useHead(useSeo({
 
 const backgroundStyleHero = useBackgroundStyle({ image: '/img/3genfamily1.webp' })
 </script>
+
+<style scoped>
+.pi { font-size: 3rem; }
+</style>

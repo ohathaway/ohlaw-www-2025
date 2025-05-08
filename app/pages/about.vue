@@ -1,3 +1,7 @@
 <template>
-  <h1>Placeholder for About Page</h1>
+  <AboutUs />
 </template>
+
+<script setup>
+import AboutUs from './about-us.vue'
+</script>
