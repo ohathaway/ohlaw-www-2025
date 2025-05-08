@@ -72,8 +72,8 @@
             </div>
           </div>
           
-          <div class="flex justify-center lg:justify-end items-center">
-            <div class="relative w-full max-w-md overflow-hidden rounded-lg shadow-lg">
+          <div class="flex justify-center items-center">
+            <div class="relative w-full max-w-lg overflow-hidden rounded-lg shadow-lg">
               <img 
                 :src="pageContent.image" 
                 :alt="pageContent.imageAlt || 'Appointment Preparation'"
@@ -156,7 +156,6 @@ const appointmentData = ref({})
 const backgroundStyleHero = computed(() => {
   // if (!pageContent.value.image) return {}
   
-  console.debug('pageContent.value.image:', pageContent.value.image)
   return {
     backgroundImage: `linear-gradient(rgba(38, 70, 124, 0.85), rgba(27, 53, 97, 0.9)), url('${pageContent.value.image}')`,
     backgroundSize: 'cover',
@@ -232,7 +231,7 @@ const contentData = {
     ctaHeading: 'While You Wait',
     ctaText: 'Take a moment to review any questions you might have for your attorney.',
     ctaButton: {
-      text: 'Visit Our Blog',
+      text: 'Browse our Educational Material',
       url: '/blog'
     }
   },
