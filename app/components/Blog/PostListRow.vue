@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-content-center">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-content-center">
     <div v-for="post in posts" class="col">
       <BlogCard :post="post" />
     </div>

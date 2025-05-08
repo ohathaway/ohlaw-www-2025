@@ -1,6 +1,6 @@
 <template>
   <NuxtLink :to="`/blog/${post.slug}`">
-    <h1 class="px-20 text-center">{{ post.Title }}</h1>
+    <h1 class="px-8 text-center">{{ post.Title }}</h1>
     <LayoutMediaFocus
       :source="source.split('/')[2]"
       :title="post.Title"

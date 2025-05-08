@@ -3,7 +3,7 @@
     <div class="md:col-span-7">
       <BlogFeaturedPost :post="featuredPost"/>
     </div>
-    <div class="md:col-span-5 flex items-center">
+    <div class="md:col-span-5 flex items-start">
       <BlogPostListSidebar title="Spotlight" :posts="spotlightPosts" />
     </div>
   </div>
@@ -34,14 +34,6 @@ let {
   }
 } = await useAsyncQuery(spotlightPostsQuery)
 spotlightPosts = dedupPosts(spotlightPosts)
-
-let {
-  data: {
-    value: {
-      posts: allPosts
-    }
-  }
-} = await useAsyncQuery(allPostsQuery)
 
 const fetchUrl = allPostsQueryREST(9)
 const { strapiUrl } = useAppConfig()

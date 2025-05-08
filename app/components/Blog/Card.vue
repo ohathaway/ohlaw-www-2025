@@ -1,24 +1,31 @@
 <template>
-  <div class="card m-12">
-    <a :href="`/blog/${post.slug}`">
-      <img
-        class="card-img-top object-fit-cover"
-        :src="getStrapiUrl(post.Image)"
-        :title="post.Title"
-      />
-    </a>
-    <div class="card-body">
-      <span class="italic text-xl/7.5">
-        {{ formatDateFull(post.publishDate) }}
-      </span>
-      <a :href="`/blog/${post.slug}`">
-        <h3 class="card-title">{{ post.Title }}</h3>
+  <a :href="`/blog/${post.slug}`">
+    <Card class="overflow-auto m-5 h-[38rem]">
+      <template #header>
+        <div class="overflow-hidden h-[15rem]">
+          <NuxtImg
+            :src="getStrapiUrl(post.Image)"
+            :alt="post.Title"
+            provider="strapi"
+            class="w-full h-full"
+          />
+        </div>
+      </template>
+      <template #title>
+      <h3 class="card-title text-primary text-2xl">{{ post.Title }}</h3>
+      </template>
+      <template #subtitle>
+        <span class="italic">
+          {{ formatDateFull(post.publishDate) }}
+        </span>
+      </template>
+      <template #content>
         <p class="card-text">
           <BlogRichText :block="post.Snippet" />
         </p>
-      </a>
-    </div>
-  </div>
+      </template>
+    </Card>
+  </a>
 </template>
 
 <script setup>

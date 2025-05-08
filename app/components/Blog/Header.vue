@@ -10,12 +10,12 @@
     <div class="hidden lg:block">
       <Menubar 
         :model="menuItems" 
-        class="border-t-6 border-b border-white mx-auto w-3/4"
+        class="border-t-6 border-b border-white mx-auto w-3/4 justify-center"
       >
         <template #item="{ item, props, hasSubmenu, root }">
-          <a v-ripple class="flex items-center mx-6" v-bind="props.action">
-            <span class="text-white  text-xl font-quatrocento">{{ item.label }}</span>
-          </a>
+          <NuxtLink v-ripple class="flex items-center mx-5" :to="item.route">
+            <span class="text-xl text-white hover:text-slate-500 font-quatrocento">{{ item.label }}</span>
+          </NuxtLink>
         </template>
       </Menubar>
     </div>
@@ -83,7 +83,7 @@ const menuItems = computed(() => {
   const items = [
     {
       label: 'Home',
-      to: '/blog',
+      route: '/blog',
       class: isActiveCategory('blog') ? 'active-category' : ''
     }
   ]
@@ -92,7 +92,7 @@ const menuItems = computed(() => {
   categories.forEach(category => {
     items.push({
       label: category.name,
-      to: `/blog/categories/${category.slug}`,
+      route: `/blog/categories/${category.slug}`,
       class: isActiveCategory(category.slug) ? 'active-category' : ''
     })
   })

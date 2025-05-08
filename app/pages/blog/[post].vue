@@ -12,21 +12,21 @@
   </div>
   <div class="grid grid-cols-4 m-0 p-0">
     <div class="col-span-4 md:col-span-3 md:col-start-2">
-    <ul class="tags">
-      <li
-        v-for="tag in post.tags"
-        class="tag me-3"
-      >
-        <Badge
-          class="badge rounded-pill text-bg-primary text-light">
-          <NuxtLink
-            :to="`/blog/tags/${tag.slug}`"
-          >
-            {{ tag.Name }}
-          </NuxtLink>
-        </Badge>
-      </li>
-    </ul>
+      <ul class="tags">
+        <li
+          v-for="tag in post.tags"
+          class="tag me-3"
+        >
+          <Badge
+            class="text-bg-primary text-light">
+            <NuxtLink
+              :to="`/blog/tags/${tag.slug}`"
+            >
+              {{ tag.Name }}
+            </NuxtLink>
+          </Badge>
+        </li>
+      </ul>
     </div>
   </div>
   <article class="grid grid-cols-12 p-8 post-display">
