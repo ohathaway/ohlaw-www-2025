@@ -1,5 +1,5 @@
 <template>
-  <section class="py-12 bg-blue-50">
+  <section class="py-12 bg-primary-100">
     <div class="container mx-auto px-4">
       <h1 class="text-5xl text-center my-5">Our Main Practice Areas</h1>
       <!-- <p class="text-2xl text-center my-3">We have a lot of tools in our belt, but most of what we do falls into one of these buckets.</p> -->

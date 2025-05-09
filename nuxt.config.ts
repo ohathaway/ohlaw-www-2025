@@ -82,14 +82,15 @@ const getPostRoutes = async () => {
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
-    '@nuxtjs/apollo',
-    '@nuxthub/core',
-    '@primevue/nuxt-module',
     '@formkit/nuxt',
     '@nuxt/eslint',
+    '@nuxt/image',
+    '@nuxthub/core',
+    '@nuxtjs/apollo',
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
-    '@nuxt/image',
+    '@pinia/nuxt',
+    '@primevue/nuxt-module',
     'nuxt-lodash',
   ],
 
