@@ -45,3 +45,12 @@
 	src: url(QuatroCento-Bold.woff2) format('woff2');
 	unicode-range: U+0-10FFFF;
 }
+
+@font-face {
+	font-family: 'Trajan';
+	font-style: regular;
+	font-weight: 700;
+	font-display: swap;
+	src: url(TrajanPro-Regular.woff2) format('woff2');
+	unicode-range: U+0-10FFFF;
+}

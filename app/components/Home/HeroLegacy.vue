@@ -1,6 +1,6 @@
 <template>
   <section 
-    class="relative w-full h-[462px] bg-cover bg-center flex items-center justify-center" 
+    class="relative hidden lg:flex w-full h-[462px] bg-cover bg-center flex items-center justify-center" 
     style="background-image: url('/img/horsetooth_hiker_1275_485_smallest.jpg')"
   >
     <div class="row flex items-center w-full">

@@ -20,7 +20,7 @@
         class="lg:hidden ps-7 col-start-2 col-span-6"
       >
         <NuxtLink to="/" class="block">
-          <h1 class="font-[TrajanBold]">The Law Offices of<br />Owen Hathaway</h1>
+          <h1 class="font-[TrajanBold] text-sm text-center font-trajan pt-2">The Law Offices<br />of<br />Owen Hathaway</h1>
         </NuxtLink>
       </div>
 
