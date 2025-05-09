@@ -1,7 +1,11 @@
 <template>
   <NuxtRouteAnnouncer />
   <NuxtLoadingIndicator />
-  <NuxtLayout>
+  <NuxtLayout :name="autoLayout">
     <NuxtPage />
   </NuxtLayout>
 </template>
+
+<script setup>
+const { autoLayout } = useAutoLayout()
+</script>

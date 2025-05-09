@@ -1,3 +1,7 @@
 <template>
-  <h1>Placeholder for Contact Page</h1>
+  <ContactUs />
 </template>
+
+<script setup>
+import ContactUs from './contact-us.vue'
+</script>

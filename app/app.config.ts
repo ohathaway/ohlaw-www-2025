@@ -68,5 +68,19 @@ export default defineAppConfig({
         footer_reserve_space: 80
       }
     }
-  }
+  },
+  routeTitles: {
+    'policies': 'Policies',
+    'fees': 'Fees and Charges',
+    'privacy': 'Privacy Policy',
+    'unbundled': 'Unbundled Services',
+    'services': 'Services',
+    'blog': 'Blog',
+    'contact': 'Contact Us',
+    'about': 'About Us'
+  },
+  layoutMapping: [
+    { pattern: '/policies/**', layout: 'policy' },
+    { pattern: '/blog/**', layout: 'blog' }
+  ]
 })
