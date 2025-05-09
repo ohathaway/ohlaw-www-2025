@@ -37,6 +37,7 @@
     "bootstrap-icons": "^1.11.3",
     "dayjs": "^1.11.13",
     "nuxt": "^3.16.1",
+    "pinia": "^3.0.2",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.2",
     "qs": "^6.14.0",
