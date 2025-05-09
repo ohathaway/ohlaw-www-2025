@@ -72,9 +72,7 @@ const checkMobile = () => {
 
 // Show/hide based on scroll position
 const handleScroll = () => {
-  console.debug('isDismissed.value:', isDismissed.value)
   if (isDismissed.value) return
-  console.debug('not dismissed')
   isVisible.value = window.scrollY > props.scrollThreshold || props.visible
 }
 
