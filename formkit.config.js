@@ -52,25 +52,21 @@ function addAsteriskPlugin(node) {
 export default {
   config: {
     classes: {
-      /*
       inner: {
-        'formkit-inner': false,
+        'formkit-inner': true,
         'input-group': true
       },
-      */
       input: {
-        'input-bg-white': true
-        // 'form-control': true,
-        // 'formkit-input': true
-      /*
+        'input-bg-white': true,
+        'form-control': true,
+        'formkit-input': true
       },
       prefixIcon: {
-        'formkit-prefix-icon': false,
+        'formkit-prefix-icon': true,
         'input-group-text': true
       },
       wrapper: {
-        'formkit-wrapper': false
-      */
+        'formkit-wrapper': true
       }
     }
   },

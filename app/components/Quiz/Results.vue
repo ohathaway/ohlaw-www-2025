@@ -85,9 +85,9 @@
 
     <!-- Retake quiz option -->
     <div class="retake-quiz mt-4 text-center">
-      <button class="btn btn-link" @click="$emit('reset')">
+      <Button class="btn btn-link" @click="$emit('reset')">
         <i class="bi bi-arrow-repeat me-1"></i> Take the quiz again
-      </button>
+      </Button>
     </div>
   </div>
 </template>

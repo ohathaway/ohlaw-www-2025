@@ -1,199 +1,230 @@
 <template>
-  <div class="quiz-contact-form">
-    <!-- Form header -->
-    
-    <FormKit
-      type="form"
-      :actions="false"
-      name="quizContactForm"
-      ref="formData"
-      id="quizContactForm"
-      #default="{ node }"
-      @submit.prevent
-
-      :classes="{
-        form: {
-          $reset: true,
-          'p-4': true,
-          border: true,
-          rounded: true,
-          'bg-light': true
-        }
-      }"
-    >
-      <div class="form-header text-center mb-4">
-        <h3>Get Your Personalized Recommendations</h3>
-        <p class="text-muted px-5">
-          Enter your contact information below to receive personalized advice 
-          based on your quiz results.
-        </p>
-      </div>
-      <div class="grid">
-        <FormKit
-          type="text"
-          name="firstName"
-          label="First Name"
-          validation="required"
-          :classes="{
-            outer: {
-              'g-col-6': true
-            },
-            input: {
-              $reset: true,
-              'form-control': true
-            }
-          }"
-        />
-        <FormKit
-          v-if="showEnhancedFields"
-          type="text"
-          name="lastName"
-          label="Last Name"
-          validation="required"
-          :classes="{
-            outer: {
-              'g-col-6': true
-            },
-            input: {
-              $reset: true,
-              'form-control': true
-            }
-          }"
-        />
-        <FormKit
-          type="text"
-          name="email"
-          label="Email Address"
-          validation="required|email"
-          :classes="{
-            outer: {
-              'g-col-6': true
-            },
-            input: {
-              $reset: true,
-              'form-control': true
-            }
-          }"
-        />
-        <FormKit
-          v-if="showEnhancedFields"
-          type="tel"
-          name="phone"
-          label="Phone Number"
-          validation="required|matches:/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"
-          :validation-messages="{
-            required: 'Yeah. We need your phone number to give you the enhanced results',
-            matches: 'Phone number must be in the format xxx-xxx-xxxx',
-          }"
-          :classes="{
-            outer: {
-              'g-col-6': true
-            },
-            input: {
-              $reset: true,
-              'form-control': true
-            }
-          }"
-        />
-      </div>
-      <FormKit
-        type="checkbox"
-        :label="marketingConsentText"
-        name="marketingConsent"
-        validation="isTrue"
-        :validation-messages="{ isTrue: 'Sorry, we need your consent to give you your results.'}"
-      />
-      <FormKit
-        type="checkbox"
-        name="enhancedMarketingConsent"
-        @input="updateEnhancedConsent"
-      >
-        <template #label>
-          <span v-html="enhancedConsentText" />
-        </template>
-      </FormKit>
-      <!-- Privacy notice -->
-      <div class="privacy-notice mt-4 mb-4">
-        <p class="small text-muted">
-          Your information is kept private and will only be used to provide you with the information you've requested. 
-          See our <a href="/policies/Privacy" target="_blank">Privacy Policy</a> for details.
-        </p>
-      </div>
-
-      <FormKit
-        type="button"
-        :disabled="!node.context.state.valid"
-        @click="submitForm(node.value)"
-        :classes="{
-          outer: {
-            'mx-auto': true
-          },
-          input: {
-            $reset: true,
-            btn: true,
-            'btn-primary': true
-          },
-          label: {
-            'text-dark': true
-          }
-        }"
-      >
-        {{ isSubmitting ? 'Submitting...' : 'Get My Results' }}
-      </FormKit>
-    </FormKit>
+  <div class="quiz-contact-form max-w-3xl mx-auto">
+    <!-- Form container -->
+    <Card class="p-4 shadow-sm">
+      <!-- Form header -->
+      <template #title>
+        <div class="text-center mb-4">
+          <h3 class="text-xl font-semibold text-primary-800 mb-2">Get Your Personalized Recommendations</h3>
+          <p class="text-slate-600 px-5 text-sm">
+            Enter your contact information below to receive personalized advice 
+            based on your quiz results.
+          </p>
+        </div>
+      </template>
+      
+      <template #content>
+        <form @submit.prevent="submitForm(formData)">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <!-- First Name -->
+            <div class="field">
+              <label for="firstName" class="block text-sm font-medium mb-1">First Name</label>
+              <InputText 
+                id="firstName" 
+                v-model="formData.firstName" 
+                class="w-full" 
+                :class="{'p-invalid': v$.firstName.$invalid && v$.firstName.$dirty}"
+                aria-describedby="firstName-error"
+              />
+              <small 
+                id="firstName-error" 
+                class="p-error block mt-1" 
+                v-if="v$.firstName.$invalid && v$.firstName.$dirty"
+              >
+                {{ v$.firstName.$errors[0].$message }}
+              </small>
+            </div>
+            
+            <!-- Last Name (conditional) -->
+            <div class="field" v-if="showEnhancedFields">
+              <label for="lastName" class="block text-sm font-medium mb-1">Last Name</label>
+              <InputText 
+                id="lastName" 
+                v-model="formData.lastName" 
+                class="w-full" 
+                :class="{'p-invalid': v$.lastName.$invalid && v$.lastName.$dirty}"
+                aria-describedby="lastName-error"
+              />
+              <small 
+                id="lastName-error" 
+                class="p-error block mt-1" 
+                v-if="v$.lastName.$invalid && v$.lastName.$dirty"
+              >
+                {{ v$.lastName.$errors[0].$message }}
+              </small>
+            </div>
+            
+            <!-- Email -->
+            <div class="field">
+              <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
+              <InputText 
+                id="email" 
+                v-model="formData.email" 
+                class="w-full" 
+                :class="{'p-invalid': v$.email.$invalid && v$.email.$dirty}"
+                aria-describedby="email-error"
+              />
+              <small 
+                id="email-error" 
+                class="p-error block mt-1" 
+                v-if="v$.email.$invalid && v$.email.$dirty"
+              >
+                {{ v$.email.$errors[0].$message }}
+              </small>
+            </div>
+            
+            <!-- Phone (conditional) -->
+            <div class="field" v-if="showEnhancedFields">
+              <label for="phone" class="block text-sm font-medium mb-1">Phone Number</label>
+              <InputMask 
+                id="phone" 
+                v-model="formData.phone" 
+                mask="999-999-9999" 
+                placeholder="xxx-xxx-xxxx"
+                class="w-full" 
+                :class="{'p-invalid': v$.phone.$invalid && v$.phone.$dirty}"
+                aria-describedby="phone-error"
+              />
+              <small 
+                id="phone-error" 
+                class="p-error block mt-1" 
+                v-if="v$.phone.$invalid && v$.phone.$dirty"
+              >
+                {{ v$.phone.$errors[0].$message }}
+              </small>
+            </div>
+          </div>
+          
+          <!-- Marketing Consent Checkbox -->
+          <div class="field-checkbox mb-3">
+            <Checkbox 
+              id="marketingConsent" 
+              v-model="formData.marketingConsent" 
+              :binary="true" 
+              :class="{'p-invalid': v$.marketingConsent.$invalid && v$.marketingConsent.$dirty}"
+            />
+            <label 
+              for="marketingConsent" 
+              class="ml-2 text-sm"
+              :class="{'text-red-500': v$.marketingConsent.$invalid && v$.marketingConsent.$dirty}"
+            >
+              {{ marketingConsentText }}
+            </label>
+            <small 
+              class="p-error block mt-1" 
+              v-if="v$.marketingConsent.$invalid && v$.marketingConsent.$dirty"
+            >
+              Sorry, we need your consent to give you your results.
+            </small>
+          </div>
+          
+          <!-- Enhanced Consent Checkbox -->
+          <div class="field-checkbox mb-4">
+            <Checkbox 
+              id="enhancedMarketingConsent" 
+              v-model="formData.enhancedMarketingConsent" 
+              :binary="true"
+              @change="updateEnhancedConsent"
+            />
+            <label for="enhancedMarketingConsent" class="ml-2 text-sm" v-html="enhancedConsentText"></label>
+          </div>
+          
+          <!-- Privacy notice -->
+          <div class="privacy-notice mt-4 mb-4 pt-4 border-t border-slate-200">
+            <p class="text-xs text-slate-500">
+              Your information is kept private and will only be used to provide you with the information you've requested. 
+              See our <NuxtLink to="/policies/Privacy" target="_blank" class="text-primary-700 hover:underline">Privacy Policy</NuxtLink> for details.
+            </p>
+          </div>
+          
+          <!-- Submit Button -->
+          <div class="text-center">
+            <Button 
+              type="submit" 
+              label="Get My Results" 
+              :loading="isSubmitting" 
+              :disabled="v$.$invalid" 
+              class="px-6 py-2"
+            />
+          </div>
+        </form>
+      </template>
+    </Card>
   </div>
 </template>
 
 <script setup>
-const { isSubmitting }  = storeToRefs(useQuizStore())
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, helpers } from '@vuelidate/validators'
 
+const { isSubmitting } = storeToRefs(useQuizStore())
 const emit = defineEmits(['submit', 'skip'])
 const showEnhancedFields = ref(false)
 
-// Form data
-const formData = ref(null)
+// Form data model
+const formData = reactive({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  marketingConsent: false,
+  enhancedMarketingConsent: false
+})
 
+// Content text
 const marketingConsentText = `I agree to receive follow-up communications about my quiz results and related legal services.`
-const enhancedConsentText = `<strong>Get Enhanced Report:</strong>I want to receive the full report on my quiz results and speak to a <em>Life & Legacy</em> professional about them.`
+const enhancedConsentText = `<strong>Get Enhanced Report:</strong> I want to receive the full report on my quiz results and speak to a <em>Life & Legacy</em> professional about them.`
+
+// Custom phone validator
+const phonePattern = helpers.regex(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/)
+
+// Validation rules
+const rules = computed(() => {
+  const baseRules = {
+    firstName: { required: helpers.withMessage('First name is required', required) },
+    email: { 
+      required: helpers.withMessage('Email address is required', required),
+      email: helpers.withMessage('Please enter a valid email address', email)
+    },
+    marketingConsent: { 
+      required: helpers.withMessage('Consent is required', (val) => val === true) 
+    }
+  }
+  
+  // Add conditional validation rules for enhanced fields
+  if (showEnhancedFields.value) {
+    baseRules.lastName = { required: helpers.withMessage('Last name is required', required) }
+    baseRules.phone = {
+      required: helpers.withMessage('Phone number is required', required),
+      phonePattern: helpers.withMessage('Phone number must be in the format xxx-xxx-xxxx', phonePattern)
+    }
+  }
+  
+  return baseRules
+})
+
+// Initialize vuelidate
+const v$ = useVuelidate(rules, formData)
+
+// Update enhanced fields visibility
+const updateEnhancedConsent = (value) => {
+  showEnhancedFields.value = value
+  
+  // Trigger validation recalculation after changing field requirements
+  v$.value.$reset()
+}
 
 // Form submission
-const submitForm = async formValues => {
-  try {
-    // Emit the form data to parent component
-    emit('submit', { ...formValues })
-  } catch (error) {
-    console.error('Error submitting form:', error)
-  } finally {
+const submitForm = async () => {
+  const isValid = await v$.value.$validate()
+  
+  if (isValid) {
+    try {
+      // Emit the form data to parent component
+      emit('submit', { ...toRaw(formData) })
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    }
   }
 }
-
-const updateEnhancedConsent = value => {
-  showEnhancedFields.value = value
-}
 </script>
-
-<style scoped>
-.quiz-contact-form {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.form-header h3 {
-  color: #003399;
-  margin-bottom: 1rem;
-}
-
-.privacy-notice {
-  border-top: 1px solid #dee2e6;
-  padding-top: 1rem;
-}
-
-.privacy-notice a {
-  color: #003399;
-  text-decoration: none;
-}
-
-.privacy-notice a:hover {
-  text-decoration: underline;
-}
-</style>

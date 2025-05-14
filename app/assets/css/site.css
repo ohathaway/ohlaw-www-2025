@@ -3,7 +3,7 @@
 @plugin "@tailwindcss/typography";
 @import "tailwindcss-primeui";
 @import "primeicons/primeicons.css";
-@import "./formkit.css";
+/* @import "./formkit.css"; */
 @import "./theme.css";
 
 :root { 

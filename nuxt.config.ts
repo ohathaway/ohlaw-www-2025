@@ -83,7 +83,7 @@ const getPostRoutes = async () => {
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
-    '@formkit/nuxt',
+    // '@formkit/nuxt', // disabled as FormKit doesn't seem to work with Tailwind 4
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxthub/core',
@@ -95,9 +95,11 @@ export default defineNuxtConfig({
     'nuxt-lodash',
   ],
 
+  /* disabled since FormKit doesn't seem to work with Tailwind 4
   formkit: {
     autoImport: true
   },
+  */
 
   primevue: {
     options: {
@@ -121,9 +123,25 @@ export default defineNuxtConfig({
 
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
   runtimeConfig: {
-    public: {
-      // Can be overridden by NUXT_PUBLIC_HELLO_TEXT environment variable
+    cloudflare: {
+      accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+      accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
+      secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
+      bucketName: process.env.CLOUDFLARE_BUCKET_NAME
     },
+    public: {
+      strapiUrl: process.env.STRAPI_URL,
+      lawmatics: {
+        quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL
+      }
+    },
+    mailerLite: {
+      apiKey: process.env.MAILER_LITE_KEY
+    },
+    lawmatics: {
+      url: process.env.LAWMATICS_URL,
+      key: process.env.LAWMATICS_KEY,
+    }
   },
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
   future: { compatibilityVersion: 4 },

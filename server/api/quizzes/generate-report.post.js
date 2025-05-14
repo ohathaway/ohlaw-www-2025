@@ -110,7 +110,7 @@ const generatePDF = (user, quizResults, answers, explanations) => {
     const doc = new PDFDocument({
       margin: 50,
       size: 'letter',
-      font: 'public/fonts/PlusJakartaSans-Regular.ttf',
+      font: 'app/assets/fonts/PlusJakartaSans-Regular.ttf',
       bufferPages: true
     })
     
