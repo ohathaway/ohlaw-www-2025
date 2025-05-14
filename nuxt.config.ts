@@ -5,6 +5,7 @@ import { ohLawPreset } from './primevue.ohlaw.js'
 
 // Customization for PrimeVue
 const preset = definePreset(Aura, ohLawPreset)
+// console.log('PrimeVue theme preset structure:', JSON.stringify(preset, null, 2))
 
 // console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
@@ -189,6 +190,9 @@ export default defineNuxtConfig({
         }
       }
     },
+    optimizeDeps: {
+      include: ['./primevue.ohlaw.js']
+    },
     plugins: [
       tailwindcss()
     ]
@@ -239,6 +243,7 @@ export default defineNuxtConfig({
   // https://nuxtseo.com
   robots: {
     disallow: [
+      '/color-test',
       '/contact',
       '/glossary',
       '/services',
@@ -264,6 +269,10 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  watch: [
+    './primevue.ohlaw.js'
+  ],
 
   apollo: {
     clients: {
