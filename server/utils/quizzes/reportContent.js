@@ -61,16 +61,40 @@ export const addCoverPage = (doc, user, quizResults) => {
      .fontSize(22)
      .fillColor('#000000')
      .text(quizResults.pathwayName, 150, doc.y + 10)
-  
-  // Pathway summary
-  doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-     .fontSize(14)
-     .fillColor('#000000')
-     .text(quizResults.pathwaySummary, 150, doc.y + 15, { 
-       width: pageWidth - 250,
-       align: 'left'
-     })
-  
+
+  // Check if we have Rich Text content for the pathway summary
+  const richText = JSON.parse(quizResults.pathwaySummary)
+  if (richText && richText) {
+    // Process the Rich Text blocks
+    const processedContent = richTextToPdf(richText)
+
+    // Custom configuration for cover page Rich Text
+    const richTextConfig = {
+      margins: { left: 150, right: 50 },
+      contentWidth: pageWidth - 200, // Adjust width based on cover layout
+      baseFont: 'app/assets/fonts/PlusJakartaSans-Regular.ttf',
+      boldFont: 'app/assets/fonts/PlusJakartaSans-Bold.ttf',
+      italicFont: 'app/assets/fonts/PlusJakartaSans-Italic.ttf',
+      boldItalicFont: 'app/assets/fonts/PlusJakartaSans-BoldItalic.ttf',
+      baseFontSize: 14,
+      // Custom page break checker that always returns false (we don't want automatic page breaks on cover)
+      checkPageBreak: () => false
+    }
+
+    // Render the Rich Text to the document
+    renderRichTextToPdf(doc, processedContent, richTextConfig)
+  } else {
+    // Fallback to plain text if no Rich Text is available
+    console.info('falling back to plain text')
+    doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
+       .fontSize(14)
+       .fillColor('#000000')
+       .text(quizResults.pathwaySummary, 150, doc.y + 15, { 
+         width: pageWidth - 250,
+         align: 'left'
+       })
+  }
+
   // Add blue circle in bottom right
   doc.circle(pageWidth - 50, pageHeight - 50, pageWidth / 4)
      .fillColor('#244091')
@@ -132,6 +156,7 @@ export const addExecutiveSummary = (doc, quizResults) => {
   // Add section header
   addSectionHeader(doc, 'Executive Summary')
 
+  console.info('keyFindings:', JSON.parse(quizResults.response))
   doc.fontSize(12)
     .text('Based on your responses to our Estate Planning Pathway Finder assessment, we\'ve ' +
       'identified key areas to focus on for your estate planning needs. This report provides ' +
@@ -146,11 +171,11 @@ export const addExecutiveSummary = (doc, quizResults) => {
 
   doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
     .fontSize(12)
-    .text('• ' + quizResults.keyFindings[0])
+    .text('• ' + quizResults[0])
     .moveDown(0.5)
-    .text('• ' + quizResults.keyFindings[1])
+    .text('• ' + quizResults[1])
     .moveDown(0.5)
-    .text('• ' + quizResults.keyFindings[2])
+    .text('• ' + quizResults[2])
     .moveDown(1)
 
   // Add recommendation

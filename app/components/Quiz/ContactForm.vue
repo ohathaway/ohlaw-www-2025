@@ -18,10 +18,13 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <!-- First Name -->
             <div class="field">
-              <label for="firstName" class="block text-sm font-medium mb-1">First Name</label>
+              <label for="firstName" class="block text-sm font-medium mb-1">
+                First Name
+              </label>
               <InputText 
                 id="firstName" 
                 v-model="formData.firstName" 
+                tabindex="1"
                 class="w-full" 
                 :class="{'p-invalid': v$.firstName.$invalid && v$.firstName.$dirty}"
                 aria-describedby="firstName-error"
@@ -37,10 +40,13 @@
             
             <!-- Last Name (conditional) -->
             <div class="field" v-if="showEnhancedFields">
-              <label for="lastName" class="block text-sm font-medium mb-1">Last Name</label>
+              <label for="lastName" class="block text-sm font-medium mb-1">
+                Last Name
+              </label>
               <InputText 
                 id="lastName" 
                 v-model="formData.lastName" 
+                tabindex="3"
                 class="w-full" 
                 :class="{'p-invalid': v$.lastName.$invalid && v$.lastName.$dirty}"
                 aria-describedby="lastName-error"
@@ -60,6 +66,7 @@
               <InputText 
                 id="email" 
                 v-model="formData.email" 
+                tabindex="2"
                 class="w-full" 
                 :class="{'p-invalid': v$.email.$invalid && v$.email.$dirty}"
                 aria-describedby="email-error"
@@ -81,6 +88,7 @@
                 v-model="formData.phone" 
                 mask="999-999-9999" 
                 placeholder="xxx-xxx-xxxx"
+                tabindex="4"
                 class="w-full" 
                 :class="{'p-invalid': v$.phone.$invalid && v$.phone.$dirty}"
                 aria-describedby="phone-error"
@@ -100,6 +108,7 @@
             <Checkbox 
               id="marketingConsent" 
               v-model="formData.marketingConsent" 
+              tabindex="5"
               :binary="true" 
               :class="{'p-invalid': v$.marketingConsent.$invalid && v$.marketingConsent.$dirty}"
             />
@@ -123,6 +132,7 @@
             <Checkbox 
               id="enhancedMarketingConsent" 
               v-model="formData.enhancedMarketingConsent" 
+              tabindex="6"
               :binary="true"
               @change="updateEnhancedConsent"
             />
@@ -156,6 +166,8 @@
 <script setup>
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, helpers } from '@vuelidate/validators'
+
+const quizStore = useQuizStore()
 
 const { isSubmitting } = storeToRefs(useQuizStore())
 const emit = defineEmits(['submit', 'skip'])
@@ -218,6 +230,7 @@ const updateEnhancedConsent = (value) => {
 const submitForm = async () => {
   const isValid = await v$.value.$validate()
   
+  console.info('full quiz store:', quizStore)
   if (isValid) {
     try {
       // Emit the form data to parent component

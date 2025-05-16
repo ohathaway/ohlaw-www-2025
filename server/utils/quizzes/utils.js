@@ -68,52 +68,45 @@ export const checkPageBreak = (doc) => {
   return false
 }
 
-export const getQuizExplanationsBySlugREST = slug => {
-  return {
-    filters: {
-      slug: {
-        $eq: slug
-      }
-    },
-    populate: {
-      questions: {
-        populate: {
-          media: {
-            fields: [
-              'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
-              'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
-              'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
-            ]
-          },
-          answers: {
-            populate: {
-              media: {
-                fields: [
-                  'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
-                  'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
-                  'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
-                ]
-              }
+export const getQuizByIdREST = {
+  populate: {
+    questions: {
+      populate: {
+        media: {
+          fields: [
+            'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
+            'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
+            'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
+          ]
+        },
+        answers: {
+          populate: {
+            media: {
+              fields: [
+                'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
+                'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
+                'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
+              ]
             }
           }
         }
-      },
-      resultCategories: {
-        populate: {
-          media: {
-            fields: [
-              'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
-              'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
-              'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
-            ]
-          }
-        }
       }
     },
-    fields: [
-      'documentId',
-      'createdAt', 'updatedAt', 'publishedAt', 'isActive', 'version',
-      'description', 'slug', 'title'
-    ]
-  }
+    resultCategories: {
+      populate: {
+        media: {
+          fields: [
+            'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
+            'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
+            'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
+          ]
+        }
+      }
+    }
+  },
+  fields: [
+    'documentId',
+    'createdAt', 'updatedAt', 'publishedAt', 'isActive', 'version',
+    'description', 'slug', 'title'
+  ]
 }

@@ -108,12 +108,12 @@ const {
 // Load quiz on component mount
 onMounted(async () => {
   const slug = quizSlug || route.params.quiz
-  
+
   if (!slug) {
     error.value = 'Quiz not found. Please check the URL and try again.'
     return
   }
-  
+
   await quizStore.loadQuiz(slug)
 })
 </script>

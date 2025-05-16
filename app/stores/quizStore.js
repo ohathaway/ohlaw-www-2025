@@ -399,7 +399,6 @@ export const useQuizStore = defineStore('quiz', () => {
       })
 
       // Submit to Mailer Lite
-      console.debug('contactInfo:', contactInfo)
       await $fetch('/api/subscribe', { method: 'post', body: contactInfo })
 
       // Submit to CRM if enhancedMarketingConsent is true
@@ -425,6 +424,7 @@ export const useQuizStore = defineStore('quiz', () => {
             slug: quiz.value.slug,
             pathwayName: quizResult.value.category.title,
             pathwaySummary: JSON.stringify(quizResult.value.category.description),
+            userAnswers: JSON.stringify(userAnswers.value),
             totalScore: quizResult.value.score
           }
         }

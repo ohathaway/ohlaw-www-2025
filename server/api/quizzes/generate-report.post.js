@@ -2,19 +2,25 @@
 import PDFDocument from 'pdfkit'
 import fs from 'fs'
 import path from 'path'
-
-const { quizzes: config } = useAppConfig()
+import qs from 'qs'
 
 export default defineEventHandler(async (event) => {
   try {
     // Get quiz data from the request
     const body = await readBody(event)
     const { user, quizResults, answers } = body
-
+    console.info('received an event:', body)
     // Fetch detailed explanations for each answer from Strapi
     // This is pseudocode - you'll need to implement your specific Strapi query
-    //  const explanations = await fetchExplanationsFromStrapi(answers)
+    const quizData = await fetchQuizFromStrapi(quizResults.quizId)
+    const explanations = await analyzeQuizResults(
+      quizData,
+      quizResults.userAnswers,
+      quizResults.totalScore
+    )
+    console.info('explanations:', explanations)
     // sample explanations
+    /*
     const explanations = [
       {
         "answerId": "q1a4",
@@ -71,6 +77,7 @@ export default defineEventHandler(async (event) => {
         "impact": "With privacy being somewhat important to you, you may want to consider certain privacy-enhancing strategies without necessarily implementing a completely private plan. For example, you might use beneficiary designations for financial accounts while accepting that some assets may go through probate. Or you might establish a revocable living trust for your most sensitive assets while using simpler methods for others. This balanced approach can provide reasonable privacy protection while keeping your plan manageable and cost-effective."
       }
     ]
+    */
 
     // Create a PDF document
     const pdfBuffer = await generatePDF(user, quizResults, answers, explanations)
@@ -129,7 +136,7 @@ const generatePDF = (user, quizResults, answers, explanations) => {
     }
 
     const useAddExecutiveSummary = doc => {
-      addExecutiveSummary(doc, quizResults)
+      addExecutiveSummary(doc, explanations)
       return doc
     }
 
@@ -152,7 +159,7 @@ const generatePDF = (user, quizResults, answers, explanations) => {
     pipe(
       useAddCoverPage,
       useAddExecutiveSummary,
-      useAddNextSteps,
+      // useAddNextSteps,
       useAddResources,
       () => doc.end()
     )(doc)
@@ -218,19 +225,30 @@ async function sendReportEmail(email, pdfBuffer) {
 // Strapi integration (pseudocode)
 // ------------------------------
 
-async function fetchExplanationsFromStrapi(answers) {
-  // get explanation query
-  const getExplanationQuery = getQuizExplanationsBySlugREST()
+const fetchQuizFromStrapi = async (id) => {
+  try {
+    const { strapiUrl } = useAppConfig()
+    // get explanations 
+    const query = qs.stringify(getQuizByIdREST, { encode: false })
+    const quizResult = await $fetch(`${strapiUrl}/api/quizzes/${id}?${query}`)
+    // console.info('explanationResult:', JSON.stringify(explanationResult, null, 2))
 
-  // Example response structure:
-  return answers.map(answer => {
-    return {
-      answerId: answer.answerId,
-      questionId: answer.questionId,
-      whyItMatters: "This is important because...", // From Strapi
-      impact: "This impacts your estate plan by..." // From Strapi
-    }
-  })
+    return quizResult.data
+    // Example response structure:
+    /*
+    return answers.map(answer => {
+      return {
+        answerId: answer.answerId,
+        questionId: answer.questionId,
+        whyItMatters: "This is important because...", // From Strapi
+        impact: "This impacts your estate plan by..." // From Strapi
+      }
+    })
+    */
+  } catch (error) {
+    console.error('failed to fetch quiz explanations from strapi')
+    throw error
+  }
 }
 
 // CRM integration (pseudocode)
