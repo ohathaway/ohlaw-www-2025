@@ -1,98 +1,180 @@
 // server/utils/aiAnalysis.js
-import { createHash } from 'crypto'
+import { isEmpty } from 'lodash-es'
 
-/**
- * Analyze quiz results using AI to identify key findings
- */
 export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => {
   try {
     const ai = hubAI()
     
-    // Create a cache key based on inputs
-    const cacheKey = `quiz_analysis_${createHash('md5')
-      .update(JSON.stringify(userAnswers))
-      .digest('hex')}_${scoreResult}`
-    
-    // Check if we have a cached result
-    const cached = await hubKV().get(cacheKey)
-    if (cached) return cached
-    
-    // Prepare the AI prompt
     const models = {
       gemma7b: '@cf/google/gemma-7b-it-lora',
       llama31InstructFast: '@cf/meta/llama-3.1-8b-instruct-fast',
       llama4Instruct: '@cf/meta/llama-4-scout-17b-16e-instruct'
     }
-
-    const findingsSchema = {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          finding: {
-            type: "string",
-            description: "A concise statement of the key finding (1 sentence)"
-          },
-          explanation: {
-            type: "string",
-            description: "A brief explanation of why this matters (2-3 sentences)"
-          },
-          recommendationId: {
-            type: ["null", "string"],
-            description: "Reference ID to any matching recommendations (can be null)"
-          },
-          impactRating: {
-            type: "integer",
-            minimum: 1,
-            maximum: 10,
-            description: "A number from 1 to 10 indicating how impactful the finding is to the overall score where 1 is not very impactful and 10 is determinative"
-          }
-        },
-        required: ["finding", "explanation", "recommendationId", "impactRating"]
-      }
-    }
-
-    const aiStream = await ai.chat(models.llama31InstructFast, {
+    
+    // Stream response
+    let rawResponse
+    const stream = await ai.run(models.llama31InstructFast, {
       messages: [
         {
           role: 'system',
-          content: `You are an estate planning advisor analyzing quiz results for potential estate-planning DIY'ers. Extract key findings from the user's responses that are driving their estate planning complexity score.`
+          content: `You are an estate planning advisor analyzing quiz results. 
+                   Return a valid JSON array of key findings.`
         },
         {
           role: 'user',
           content: `Based on these quiz responses, identify the key drivers of complexity in this person's estate planning needs.
-          Phase your responses in language appropriate to include in a formatted report which will be delivered to the user.
-          Assume the user reads at a 3rd grade level.
-          
-          Quiz configuration: ${JSON.stringify(quizData, null, 2)}
-          User answers: ${JSON.stringify(userAnswers, null, 2)}
-          Final score: ${scoreResult}
-          `
+                   
+                   Quiz answers: ${JSON.stringify(userAnswers, null, 2)}
+                   Final score: ${scoreResult}
+                   
+                   Return a JSON array of objects with these properties:
+                   - "finding": A concise statement of the key finding (1 sentence)
+                   - "explanation": A brief explanation of why this matters (2-3 sentences)
+                   - "recommendationId": Reference ID to any matching recommendations (can be null)
+                   - "impactRating": a number from 1 to 10 indicating how impactful the finding is`
         }
       ],
-      max_tokens: 2048,     // Increase max tokens to ensure complete response
-      temperature: 0.2,     // Lower temperature for more deterministic/predictable output
-      response_format: {
-        type: "json_schema",
-        json_schema: findingsSchema
-      },
-      stream: true
+      max_tokens: 2048,
+      // temperature: 0.2,
+      // response_format: { type: "json_object" },
+      stream: true  // Enable streaming!
     })
     
+    const decoder = new TextDecoder()
+    // Use the correct event listeners for NuxtHub
+    for await (const chunk of stream) {
+      const textChunk = decoder.decode(chunk)
+      // console.info('recieved chunk:', `'${textChunk}'`)
+      rawResponse += textChunk
+    }
 
-    console.info('ai response:', JSON.stringify(aiResponse, null, 2))
-
-    // Parse and validate the response
-
-    // Cache the result (expires in 7 days)
-    await hubKV().set(cacheKey, JSON.stringify(aiResponse), { 
-      expiresIn: 7 * 24 * 60 * 60 
+    decoder.decode()
+    
+    /*
+    aiResponse.on('done', () => {
+      try {
+        // Try to extract and parse JSON from the response
+        const jsonMatch = fullResponse.match(/\[\s*\{.*\}\s*\]/s)
+        if (jsonMatch) {
+          const keyFindings = JSON.parse(jsonMatch[0])
+          resolve({ success: true, keyFindings })
+        } else {
+          // Fallback: Try to extract individual findings
+          const findings = extractFindings(fullResponse)
+          resolve({ success: true, keyFindings: findings })
+        }
+      } catch (error) {
+        console.error('Failed to process response:', error)
+        resolve({ 
+          success: false, 
+          error: 'Failed to parse findings', 
+          rawResponse: fullResponse 
+        })
+      }
     })
-
-    return aiResponse.response
+  
+    aiResponse.on('error', (error) => {
+      console.error('AI stream error:', error)
+      reject(error)
+    })
+    */
+    const trimmedResponse = trimResponse(rawResponse)
+    console.info('full chunks:', trimmedResponse)
   } catch (error) {
     console.error('AI analysis error:', error)
-    // Return empty array or default findings as fallback
     return []
   }
+}
+
+// Helper function to process JSON response
+function processJsonResponse(responseText) {
+  if (!responseText) return []
+  
+  // Try standard JSON parsing first
+  try {
+    const parsed = JSON.parse(responseText)
+    // It could be an array directly or nested in a property
+    if (Array.isArray(parsed)) {
+      return parsed
+    } else if (parsed.findings && Array.isArray(parsed.findings)) {
+      return parsed.findings
+    } else {
+      // Loop through to find any array property that might contain findings
+      for (const key in parsed) {
+        if (Array.isArray(parsed[key])) {
+          return parsed[key]
+        }
+      }
+      // If it has finding/explanation properties, wrap it in an array
+      if (parsed.finding && parsed.explanation) {
+        return [parsed]
+      }
+    }
+  } catch (error) {
+    console.warn('JSON parsing failed, trying to extract JSON:', error)
+  }
+  
+  // If JSON parsing fails, try to extract JSON from the text
+  // This is especially useful for streaming where we might get partial JSON
+  try {
+    // Look for JSON array pattern
+    const jsonMatch = responseText.match(/\[\s*\{.*\}\s*\]/s)
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0])
+    }
+    
+    // If we can't find a complete array, try to extract individual findings
+    const findings = []
+    const findingRegex = /\{\s*"finding"\s*:\s*"([^"]*)"\s*,\s*"explanation"\s*:\s*"([^"]*)"\s*,\s*"recommendationId"\s*:\s*([^,]*)\s*,\s*"impactRating"\s*:\s*(\d+)\s*\}/g
+    
+    let match
+    while ((match = findingRegex.exec(responseText)) !== null) {
+      findings.push({
+        finding: match[1],
+        explanation: match[2],
+        recommendationId: match[3] === 'null' ? null : match[3],
+        impactRating: parseInt(match[4])
+      })
+    }
+    
+    if (findings.length > 0) {
+      return findings
+    }
+  } catch (extractError) {
+    console.error('Failed to extract findings from response:', extractError)
+  }
+  
+  // Fallback to empty array if all parsing attempts fail
+  return []
+}
+
+
+// Helper function to extract findings
+function extractFindings(text) {
+  const findings = []
+  const findingRegex = /\{\s*"finding"\s*:\s*"([^"]*)"\s*,\s*"explanation"\s*:\s*"([^"]*)"\s*,\s*"recommendationId"\s*:\s*([^,]*)\s*,\s*"impactRating"\s*:\s*(\d+)\s*\}/g
+  
+  let match
+  while ((match = findingRegex.exec(text)) !== null) {
+    findings.push({
+      finding: match[1],
+      explanation: match[2],
+      recommendationId: match[3] === 'null' ? null : match[3],
+      impactRating: parseInt(match[4])
+    })
+  }
+  
+  return findings
+}
+
+const trimResponse = raw => {
+  // return raw.replace(/data:\s/, '')
+  const trimmed = raw.split('\n')
+    .filter(line => {
+      return !isEmpty(line) && !line.match(/DONE/)
+    }).reduce((acc, curr) => {
+      const rawJson = curr.replace(/undefined/, '').replace(/^data:\s/, '')
+      return acc + JSON.parse(rawJson).response
+    }, '')
+  return trimmed
 }

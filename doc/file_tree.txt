@@ -9,27 +9,70 @@
 │   │   │   ├── tailwind.css
 │   │   │   └── theme.css
 │   │   └── fonts
+│   │       ├── BenguiatItalic.ttf
+│   │       ├── BenguiatRegular.ttf
 │   │       ├── BenguiatStd-Book.woff
 │   │       ├── BenguiatStd-Book.woff2
 │   │       ├── fonts.css
+│   │       ├── PlusJakartaSans-Bold.ttf
+│   │       ├── PlusJakartaSans-BoldItalic.ttf
 │   │       ├── PlusJakartaSans-Italic-VariableFont_wght.ttf
 │   │       ├── PlusJakartaSans-Italic-VariableFont_wght.woff
 │   │       ├── PlusJakartaSans-Italic-VariableFont_wght.woff2
+│   │       ├── PlusJakartaSans-Italic.ttf
+│   │       ├── PlusJakartaSans-LightItalic.ttf
+│   │       ├── PlusJakartaSans-Regular.ttf
 │   │       ├── PlusJakartaSans-VariableFont_wght.ttf
 │   │       ├── PlusJakartaSans-VariableFont_wght.woff
-│   │       └── PlusJakartaSans-VariableFont_wght.woff2
+│   │       ├── PlusJakartaSans-VariableFont_wght.woff2
+│   │       ├── Quatrocento-Bold.woff2
+│   │       ├── Quatrocento-Regular.woff2
+│   │       ├── TrajanPro-Regular.ttf
+│   │       └── TrajanPro-Regular.woff2
 │   ├── components
+│   │   ├── Blog
+│   │   │   ├── Card.vue
+│   │   │   ├── FeaturedPost.vue
+│   │   │   ├── Header.vue
+│   │   │   ├── PostList.vue
+│   │   │   ├── PostListRow.vue
+│   │   │   ├── PostListSidebar.vue
+│   │   │   ├── RichText
+│   │   │   │   ├── index.vue
+│   │   │   │   ├── Link.vue
+│   │   │   │   ├── ListItem.vue
+│   │   │   │   ├── Modifier.vue
+│   │   │   │   ├── OrderedList.vue
+│   │   │   │   └── UnOrderedList.vue
+│   │   │   └── TOC.vue
+│   │   ├── BookingDialog.vue
+│   │   ├── BookingLanding.vue
+│   │   ├── FaqAccordion.vue
+│   │   ├── FloatingCta.vue
 │   │   ├── Home
 │   │   │   ├── Hero.vue
 │   │   │   ├── HeroLegacy.vue
+│   │   │   ├── LinesOfBusiness-orig.vue
 │   │   │   ├── LinesOfBusiness.vue
 │   │   │   ├── PFL.vue
 │   │   │   └── Welcome.vue
 │   │   ├── layout
+│   │   │   ├── BreadcrumbNav.vue
 │   │   │   ├── FooterView.vue
 │   │   │   ├── HeaderView.vue
+│   │   │   ├── MediaFocus.vue
+│   │   │   ├── MediaListing.vue
 │   │   │   └── MobileMenuSidebar.vue
 │   │   ├── NewsletterSignupForm.vue
+│   │   ├── PolicyContent.vue
+│   │   ├── Quiz
+│   │   │   ├── CheckboxOption.vue
+│   │   │   ├── ContactForm.vue
+│   │   │   ├── Container.vue
+│   │   │   ├── Progress.vue
+│   │   │   ├── Question.vue
+│   │   │   └── Results.vue
+│   │   ├── SchedulingCards.vue
 │   │   ├── Services
 │   │   │   ├── Cta.vue
 │   │   │   ├── Features.vue
@@ -38,20 +81,62 @@
 │   │   │   ├── Offerings.vue
 │   │   │   ├── PflPromise.vue
 │   │   │   └── Process.vue
-│   │   ├── TestimonialCarousel.vue
-│   │   └── Timeline.vue
+│   │   └── TestimonialCarousel.vue
 │   ├── composables
+│   │   ├── useAutoLayout.ts
+│   │   ├── useBackgroundStyle.js
 │   │   └── useSeo.js
+│   ├── error.vue
 │   ├── layouts
-│   │   └── default.vue
+│   │   ├── base.vue
+│   │   ├── blog.vue
+│   │   ├── default.vue
+│   │   └── policy.vue
 │   ├── pages
+│   │   ├── about-us.vue
+│   │   ├── about.vue
+│   │   ├── blog
+│   │   │   ├── [post].vue
+│   │   │   ├── categories
+│   │   │   │   ├── [category].vue
+│   │   │   │   └── index.vue
+│   │   │   ├── index.vue
+│   │   │   └── tags
+│   │   │       ├── [tag].vue
+│   │   │       └── index.vue
+│   │   ├── color-test.vue
+│   │   ├── contact-us.vue
+│   │   ├── contact.vue
 │   │   ├── index.vue
 │   │   ├── index.vue.oem
+│   │   ├── landings
+│   │   │   └── booking.vue
+│   │   ├── policies
+│   │   │   ├── fees.vue
+│   │   │   ├── index.vue
+│   │   │   ├── privacy.vue
+│   │   │   ├── terms-of-use.vue
+│   │   │   └── unbundled.vue
+│   │   ├── quizzes
+│   │   │   └── [...slug].vue
 │   │   └── services
-│   │       └── estate-planning
+│   │       ├── bankruptcy
+│   │       │   └── index.vue
+│   │       ├── estate-planning
+│   │       │   ├── gun-trusts
+│   │       │   │   └── index.vue
+│   │       │   ├── GunTrusts.vue
+│   │       │   └── index.vue
+│   │       ├── index.vue
+│   │       ├── nonprofits
+│   │       │   └── index.vue
+│   │       └── small-business
 │   │           └── index.vue
 │   ├── plugins
 │   │   └── fontawesome.js
+│   ├── stores
+│   │   ├── mainStore.js
+│   │   └── quizStore.js
 │   └── utils
 │       ├── addresses.js
 │       ├── blog.js
@@ -59,11 +144,13 @@
 │       ├── forms.js
 │       ├── glossary.js
 │       ├── ohlaw.js
+│       ├── quizQueries.js
 │       ├── scheduling.js
 │       └── strings.js
 ├── doc
 │   ├── file_tree.txt
-│   └── ohlawPreset.json
+│   ├── ohlawPreset.json
+│   └── ohlawPreset2.json
 ├── eslint.config.mjs
 ├── formkit.config.js
 ├── formkit.theme.ts
@@ -80,21 +167,50 @@
 │   │   ├── estate-planning-icon.svg
 │   │   └── nonprofit-icon.svg
 │   └── img
+│       ├── 3genfamily1.webp
+│       ├── blog_header.webp
 │       ├── business1_1024.webp
+│       ├── chair_on_laptop.webp
 │       ├── dotorgtablet_1024.webp
 │       ├── estatenotebook_1024.webp
+│       ├── glossary-article-header.webp
+│       ├── gun_safe.webp
+│       ├── gun_trust.webp
 │       ├── helpinghand_1024.webp
 │       ├── horsetooth_hiker_1275_485_smallest.jpg
+│       ├── IMG_5943.webp
+│       ├── it2lawyer2.webp
 │       ├── ohlaw_full_logo.svg
+│       ├── ohlaw_icon_circle_gray_drop2.png
 │       ├── ohlaw_icon_circle_gray.svg
 │       ├── ohlaw_icon.svg
+│       ├── PFL_StackedLogo_FullColor.png
 │       ├── phone-fill.svg
+│       ├── placeholder_1024.webp
 │       └── Search_GSA.original.png
 ├── README.md
 ├── server
 │   ├── api
-│   │   └── ping.ts
-│   └── tsconfig.json
+│   │   ├── ai-ping.get.js
+│   │   ├── ping.ts
+│   │   ├── quizzes
+│   │   │   └── generate-report.post.js
+│   │   └── subscribe.post.js
+│   ├── tsconfig.json
+│   └── utils
+│       ├── functional.ts
+│       ├── images.js
+│       ├── quizzes
+│       │   ├── aiAnalysis.js
+│       │   ├── renderRichText2Pdf.js
+│       │   ├── reportContent.js
+│       │   ├── richText2Pdf.js
+│       │   └── utils.js
+│       └── r2.ts
+├── test-output
+│   ├── Hathaway-Owen-report-1747353527086.pdf
+│   ├── Hathaway-Owen-report-1747353645135.pdf
+│   └── Hathaway-Owen-report-1747353734792.pdf
 └── tsconfig.json
 
-22 directories, 76 files
+40 directories, 174 files
