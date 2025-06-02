@@ -141,6 +141,9 @@ export default defineNuxtConfig({
     lawmatics: {
       url: process.env.LAWMATICS_URL,
       key: process.env.LAWMATICS_KEY,
+    },
+    claude: {
+      apiKey: process.env.CLAUDE_KEY
     }
   },
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4

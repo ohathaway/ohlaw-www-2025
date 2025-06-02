@@ -136,6 +136,52 @@ const singlePostQuery = slug => {
   `
 }
 
+const singlePostQueryREST = slug => {
+  try {
+    const params = {
+      filters: {
+        slug: {
+          eq: slug
+        }
+      },
+      populate: {
+        category: {
+          fields: [
+            'slug',
+            'Name'
+          ]
+        },
+        Image: {
+          fields: imageFields
+        },
+        populate: {
+          Image: {
+            fields: imageFields
+          },
+          tags: {
+            fields: [
+              'Name',
+              'slug'
+            ]
+          }
+        }
+      },
+      fields: [
+        'Content',
+        'CTA',
+        'publishDate',
+        'slug',
+        'Snippet',
+        'Title'
+      ],
+    }
+    return qs.stringify(params, { encode: false })
+  } catch (error) {
+    console.error('error parsing parameters for all posts query', error)
+    return ''
+  }
+}
+
 const allPostsQuery = gql`
 query Posts {
   posts {
@@ -448,6 +494,7 @@ export {
   postListQueryREST ,
   richTextToPlainText,
   singlePostQuery,
+  singlePostQueryREST,
   spotlightPostsQuery,
   tagPostsQuery
 }

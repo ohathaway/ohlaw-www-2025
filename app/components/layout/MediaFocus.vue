@@ -29,7 +29,8 @@ const { provider, source, title } = defineProps({
 const src = computed(() => {
   const isUrl =  source.includes('https://')
   const isAbsolute = source.startsWith('/')
-  console.debug(`${source} isUrl? ${isUrl}`)
+
+  // console.debug(`${source} isUrl? ${isUrl}`)
   return isUrl || isAbsolute
     ? source
     : `/${source}`

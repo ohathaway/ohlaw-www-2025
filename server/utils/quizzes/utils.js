@@ -60,7 +60,7 @@ export const addTocLine = (doc, text, pageNum, pageNumWidth, leftMargin, rightMa
 
 export const checkPageBreak = (doc) => {
   const needPageBreak = doc.y > doc.page.height - config.reports.footer_reserve_space
-  console.info('need page break?', needPageBreak)
+  // console.info('need page break?', needPageBreak)
   if (needPageBreak) {
     doc.addPage()
     return true
@@ -109,4 +109,146 @@ export const getQuizByIdREST = {
     'createdAt', 'updatedAt', 'publishedAt', 'isActive', 'version',
     'description', 'slug', 'title'
   ]
+}
+
+export const getQuizForAIbySlug = `
+query GetQuizz($slug: String!) {
+  quizzes(filters: { slug: { eq: $slug } }) {
+    questions(pagination: { pageSize: 20 }) {
+      questionText
+      description
+      questionId
+      answers {
+        answerText
+        answerId
+        minimumResultScore
+        impact
+        whyItMatters
+        value
+      }
+    }
+    description
+    title
+    resultCategories {
+      title
+      description
+      minScore
+      maxScore
+    }
+    version
+  }
+}
+`
+
+/**
+ * Flattens Strapi Rich-Text blocks to plain text
+ * @param {Array} richTextArray - Array of Strapi rich-text blocks
+ * @returns {string} - Plain text content
+ */
+function flattenStrapiRichText(richTextArray) {
+  if (!Array.isArray(richTextArray)) {
+    return ''
+  }
+
+  return richTextArray
+    .map(block => extractTextFromBlock(block))
+    .filter(text => text.trim().length > 0)
+    .join(' ')
+    .trim()
+}
+
+/**
+ * Recursively extracts text from a single rich-text block
+ * @param {Object} block - Single rich-text block
+ * @returns {string} - Extracted text
+ */
+function extractTextFromBlock(block) {
+  if (!block || typeof block !== 'object') {
+    return ''
+  }
+
+  // If it's a text node, return the text
+  if (block.type === 'text' && block.text) {
+    return block.text
+  }
+
+  // If it has children, recursively extract text from them
+  if (Array.isArray(block.children)) {
+    return block.children
+      .map(child => extractTextFromBlock(child))
+      .filter(text => text.trim().length > 0)
+      .join(' ')
+      .trim()
+  }
+
+  // For blocks that might have text content directly
+  if (block.text) {
+    return block.text
+  }
+
+  // For other block types, return empty string
+  return ''
+}
+
+/**
+ * Helper function to process quiz data and flatten all rich-text fields
+ * @param {Object} quizData - Full quiz object from Strapi
+ * @returns {Object} - Simplified quiz object with flattened text
+ */
+export const simplifyQuizForLLM = quiz => {
+  return {
+    title: quiz.title,
+    description: flattenStrapiRichText(quiz.description),
+    questions: quiz.questions.map(question => ({
+      id: question.questionId,
+      text: question.questionText,
+      description: flattenStrapiRichText(question.description),
+      type: question.type,
+      answers: question.answers.map(answer => ({
+        id: answer.answerId,
+        text: answer.answerText,
+        value: answer.value,
+        minimumScore: answer.minimumResultScore,
+        maximumScore: answer.maximumResultScore,
+        whyItMatters: answer.whyItMatters,
+        impact: answer.impact
+      }))
+    })),
+    resultBands: quiz.resultCategories.map(category => ({
+      title: category.title,
+      description: flattenStrapiRichText(category.description),
+      minScore: category.minScore,
+      maxScore: category.maxScore
+    }))
+  }
+}
+
+export const extractSelectedAnswerImpact = (userAnswers, quizData) => {
+  const insights = []
+  const questions = quizData.quizzes[0].questions
+  
+  Object.entries(userAnswers).forEach(([questionId, selectedAnswers]) => {
+    const question = questions.find(q => q.questionId === questionId)
+    if (!question) return
+    
+    // Handle both single and multiple choice answers
+    const answersToProcess = Array.isArray(selectedAnswers) ? selectedAnswers : [selectedAnswers]
+    
+    answersToProcess.forEach(answerId => {
+      const answer = question.answers.find(a => a.answerId === answerId)
+      if (answer && (answer.whyItMatters || answer.impact)) {
+        insights.push({
+          questionId,
+          answerId,
+          whyItMatters: answer.whyItMatters,
+          impact: answer.impact,
+          // Optional: include additional context
+          questionText: question.questionText,
+          answerText: answer.answerText
+        })
+      }
+    })
+  })
+  
+  return insights
 }

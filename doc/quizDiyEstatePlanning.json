@@ -1,0 +1,1300 @@
+{
+  "data": {
+    "quizzes": [
+      {
+        "defaultCTA": "Regardless of which pathway you choose, we're here to answer questions and help. You may find some of our blog articles helpful.",
+        "collectContactInfo": true,
+        "contactFormFields": [
+          {
+            "id": "last_name",
+            "type": "string",
+            "label": "Last Name",
+            "required": true
+          },
+          {
+            "id": "first_name",
+            "type": "string",
+            "required": true
+          },
+          {
+            "id": "email",
+            "type": "email",
+            "required": true
+          }
+        ],
+        "successMessage": null,
+        "documentId": "phptilwjr16lt4locbvpz4d1",
+        "createdAt": "2025-04-15T01:42:37.927Z",
+        "updatedAt": "2025-05-22T21:55:56.428Z",
+        "publishedAt": "2025-05-22T21:55:56.704Z",
+        "leadMagnet": [],
+        "questions": [
+          {
+            "id": "134",
+            "questionText": "Who do you have in your life?",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Which best describes your family situation?",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q1",
+            "required": true,
+            "order": 1,
+            "media": [],
+            "answers": [
+              {
+                "id": "701",
+                "answerText": "Single with no children",
+                "value": 2,
+                "answerId": "q1a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Without a spouse or children, state law may direct your assets to distant relatives or the state, requiring deliberate planning to ensure your chosen beneficiaries receive your assets.",
+                "impact": "Requires clear documentation of beneficiaries and decision-makers since there are no automatic legal heirs, but can often be addressed with standard estate planning documents."
+              },
+              {
+                "id": "702",
+                "answerText": "Married/partnered with no children",
+                "value": 1,
+                "answerId": "q1a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "This represents one of the simplest estate planning scenarios, with most assets transferring automatically between spouses and clear planning needed only for after both partners are gone.",
+                "impact": "Generally allows for straightforward estate planning with standard documents, though you'll need to designate ultimate beneficiaries after both spouses."
+              },
+              {
+                "id": "703",
+                "answerText": "Single with adult children",
+                "value": 3,
+                "answerId": "q1a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Without spousal transfer benefits, your assets pass directly to the next generation, requiring consideration of inheritance timing and potential tax implications.",
+                "impact": "Moderate complexity due to lack of spousal transfers and need to consider whether adult children should inherit outright or through protective structures."
+              },
+              {
+                "id": "704",
+                "answerText": "Married/partnered with children from current relationship only",
+                "value": 2,
+                "answerId": "q1a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "This nuclear family structure allows for standard estate planning approaches, with assets typically flowing from spouse to children in a predictable pattern.",
+                "impact": "Standard complexity that can usually be addressed with basic estate planning documents, though minor children may require guardian designation and trust considerations."
+              },
+              {
+                "id": "705",
+                "answerText": " Blended family (children from previous relationships)",
+                "value": 5,
+                "answerId": "q1a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Blended families create unique inheritance challenges that require specialized planning regardless of other factors. DIY mistakes here often result in children from previous relationships being completely disinherited when the surviving spouse remarries or dies.",
+                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY errors in blended family planning frequently lead to costly family litigation, permanent relationship damage, and unintended disinheritance that can't be corrected after death."
+              },
+              {
+                "id": "706",
+                "answerText": "Have dependents with special needs",
+                "value": 5,
+                "answerId": "q1a6",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 25,
+                "maximumResultScore": null,
+                "whyItMatters": "Special needs dependents require specialized planning that preserves government benefits. A direct inheritance mistake can immediately disqualify them from essential Medicaid, SSI, and housing assistance, potentially costing hundreds of thousands in lost benefits.",
+                "impact": "Requires comprehensive professional planning regardless of other factors - DIY errors with special needs planning can permanently disqualify dependents from crucial government benefits, leaving families financially devastated and unable to provide necessary care."
+              },
+              {
+                "id": "707",
+                "answerText": " Other complex family structure",
+                "value": 5,
+                "answerId": "q1a7",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Complex family structures create unique planning challenges that standard approaches don't adequately address. DIY mistakes often result in unintended beneficiaries, family conflicts that destroy relationships, and costly probate litigation.",
+                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY errors with complex family dynamics frequently lead to expensive legal battles, permanent family rifts, and outcomes completely opposite to your intentions."
+              }
+            ]
+          },
+          {
+            "id": "135",
+            "questionText": "What do you have in your life?",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Which assets do you own? Include assets that also have a loan or mortgage on them. (Select all that apply)",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "multiple_choice",
+            "questionId": "q2",
+            "required": true,
+            "order": 2,
+            "media": [],
+            "answers": [
+              {
+                "id": "708",
+                "answerText": "Primary residence",
+                "value": 2,
+                "answerId": "q2a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Your home is likely your most valuable asset and requires specific planning to transfer efficiently to your loved ones without unnecessary probate delays or costs.",
+                "impact": "Moderate complexity - can often be handled through basic estate planning tools like wills, transfer-on-death deeds, or simple trusts, depending on your state's laws."
+              },
+              {
+                "id": "709",
+                "answerText": "Additional real estate",
+                "value": 3,
+                "answerId": "q2a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Multiple properties can trigger probate proceedings in different states and create coordination challenges between various ownership structures and jurisdictions.",
+                "impact": "Higher complexity due to potential probate requirements for each property and need to optimize ownership structures - may benefit from trust-based planning or professional guidance to avoid probate proceedings."
+              },
+              {
+                "id": "710",
+                "answerText": "Retirement accounts",
+                "value": 0,
+                "answerId": "q2a3",
+                "isCorrect": false,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "These accounts transfer directly to named beneficiaries through simple forms, bypassing your will entirely, making proper beneficiary designations crucial but straightforward.",
+                "impact": "Low complexity for transfer purposes - primarily requires keeping beneficiary designations current and understanding basic inheritance tax rules."
+              },
+              {
+                "id": "711",
+                "answerText": "Life insurance policies",
+                "value": 0,
+                "answerId": "q2a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Life insurance provides immediate cash to beneficiaries through simple beneficiary designations, making it one of the most straightforward assets to transfer.",
+                "impact": "Very low complexity - mainly requires keeping beneficiary designations updated and considering whether policies should be owned personally or in trust."
+              },
+              {
+                "id": "712",
+                "answerText": "Investment accounts",
+                "value": 2,
+                "answerId": "q2a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Investment accounts typically require probate unless properly titled with beneficiaries or held in trust, and may need ongoing management guidance for heirs.",
+                "impact": "Moderate complexity - may require trust planning or transfer-on-death designations to avoid probate, plus consideration of beneficiary financial sophistication."
+              },
+              {
+                "id": "713",
+                "answerText": "Business ownership interests",
+                "value": 3,
+                "answerId": "q2a6",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Business interests create complex succession issues involving partner agreements, operating agreements, valuation challenges, and operational continuity that go beyond basic estate planning.",
+                "impact": "High complexity requiring specialized succession planning, buy-sell agreements, and coordination between estate documents and business agreements."
+              },
+              {
+                "id": "714",
+                "answerText": "Digital assets",
+                "value": 1,
+                "answerId": "q2a7",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Digital assets require special documentation for access and may be governed by terms of service that complicate transfer, but can usually be addressed with proper planning.",
+                "impact": "Low to moderate complexity - primarily requires creating secure access documentation and understanding platform-specific transfer rules."
+              },
+              {
+                "id": "715",
+                "answerText": "Valuable collections or heirlooms",
+                "value": 1,
+                "answerId": "q2a8",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Special items often have both financial and emotional value requiring specific distribution instructions to prevent family conflicts and preserve value.",
+                "impact": "Low to moderate complexity - can usually be addressed through specific bequests in wills or separate memoranda, though valuable items may need appraisals."
+              },
+              {
+                "id": "716",
+                "answerText": "None of the above",
+                "value": 0,
+                "answerId": "q2a9",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Even without significant assets, you still need basic planning for healthcare decisions and ensuring what you do have goes to your chosen people.",
+                "impact": "Lowest complexity - basic documents like wills, powers of attorney and healthcare documents can address most needs simply and affordably."
+              }
+            ]
+          },
+          {
+            "id": "136",
+            "questionText": "What's your stuff worth?",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "What is your approximate total estate value? Don't subtract for loans here. (All assets combined)",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q3",
+            "required": true,
+            "order": 3,
+            "media": [],
+            "answers": [
+              {
+                "id": "717",
+                "answerText": "Under $100,000",
+                "value": 0,
+                "answerId": "q3a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Smaller estates focus on ensuring your wishes are followed efficiently with minimal administrative burden, rather than complex tax planning.",
+                "impact": "Lowest complexity - basic documents and beneficiary designations can typically handle most needs simply and affordably."
+              },
+              {
+                "id": "718",
+                "answerText": "$100,000 - $500,000",
+                "value": 1,
+                "answerId": "q3a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "This estate size represents significant resources that warrant thoughtful planning but typically stay below major tax thresholds.",
+                "impact": "Low to moderate complexity - may benefit from probate avoidance strategies but can often be addressed with standard estate planning approaches."
+              },
+              {
+                "id": "719",
+                "answerText": "$500,000 - $1 million",
+                "value": 2,
+                "answerId": "q3a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Your estate value approaches levels where state estate taxes may apply, and strategic planning becomes increasingly beneficial.",
+                "impact": "Moderate complexity - may benefit from trust-based planning and careful attention to state tax implications and asset protection strategies."
+              },
+              {
+                "id": "720",
+                "answerText": "$1 million - $5 million",
+                "value": 4,
+                "answerId": "q3a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Estates in this range approach federal and state tax thresholds where DIY mistakes can cost beneficiaries tens or hundreds of thousands in unnecessary taxes, plus penalties and interest on underpaid amounts.",
+                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY tax planning errors at this estate level can result in massive tax bills, IRS audits, and penalties that could have been easily avoided with proper professional planning."
+              },
+              {
+                "id": "721",
+                "answerText": "Over $5 million",
+                "value": 5,
+                "answerId": "q3a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 25,
+                "maximumResultScore": null,
+                "whyItMatters": "Estates of this size face significant tax exposure where DIY mistakes can cost beneficiaries millions in unnecessary taxes. Poor planning also exposes assets to creditors and can trigger IRS scrutiny and audits.",
+                "impact": "Requires comprehensive professional planning regardless of other factors - DIY errors with large estates can result in catastrophic tax consequences, asset loss to creditors, and IRS enforcement actions that devastate family wealth."
+              },
+              {
+                "id": "722",
+                "answerText": "I'm not sure",
+                "value": 1,
+                "answerId": "q3a6",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Good estate planning requires knowing what you have so you can make informed decisions about how to protect and transfer it effectively.",
+                "impact": "Moderate complexity - while basic documents can be implemented immediately, developing an effective comprehensive plan requires first creating an asset inventory to understand your planning needs."
+              }
+            ]
+          },
+          {
+            "id": "137",
+            "questionText": "Potential for family conflict",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "How would you rate the potential for disagreement among your family/beneficiaries about your wishes?",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q4",
+            "required": true,
+            "order": 4,
+            "media": [],
+            "answers": [
+              {
+                "id": "723",
+                "answerText": "Very unlikely - everyone gets along well",
+                "value": 0,
+                "answerId": "q4a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Family harmony allows for simpler planning approaches focused on efficiency rather than conflict prevention.",
+                "impact": "Lowest complexity - can often use standard estate planning documents without extensive conflict-prevention provisions."
+              },
+              {
+                "id": "724",
+                "answerText": "Somewhat unlikely - minor tensions but generally cooperative",
+                "value": 2,
+                "answerId": "q4a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Minor tensions can escalate during emotional times of illness or death, requiring clearer documentation to prevent misunderstandings.",
+                "impact": "Low to moderate complexity - benefits from detailed planning and clear explanations, but typically manageable with standard approaches."
+              },
+              {
+                "id": "725",
+                "answerText": "Possible - some relationship challenges exist",
+                "value": 3,
+                "answerId": "q4a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Existing relationship challenges require estate planning that anticipates and addresses known points of tension to prevent escalation.",
+                "impact": "Moderate complexity - may benefit from professional fiduciaries, detailed distribution instructions, and conflict-prevention provisions."
+              },
+              {
+                "id": "726",
+                "answerText": "Likely - there are significant relationship challenges",
+                "value": 4,
+                "answerId": "q4a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Significant relationship problems create substantial risk for estate disputes and litigation that can drain resources and damage relationships permanently.",
+                "impact": "Higher complexity requiring specialized planning with professional fiduciaries, robust conflict resolution mechanisms, and detailed incapacity planning."
+              },
+              {
+                "id": "727",
+                "answerText": "Very likely - active conflicts already exist",
+                "value": 5,
+                "answerId": "q4a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Active family conflicts create high risk for costly estate litigation and interference with your wishes, requiring maximum protection strategies.",
+                "impact": "High complexity definitely requiring professional guidance for litigation-resistant planning, professional fiduciaries, and specialized conflict-prevention strategies."
+              }
+            ]
+          },
+          {
+            "id": "138",
+            "questionText": "Medical Decision-Making",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "How comfortable are you making decisions about what kind of medical care you'd want if you couldn't speak for yourself? This includes things like life support, feeding tubes, and who should make healthcare decisions on your behalf.",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q5",
+            "required": true,
+            "order": 5,
+            "media": [],
+            "answers": [
+              {
+                "id": "728",
+                "answerText": "Very comfortable - I know exactly what I want",
+                "value": 0,
+                "answerId": "q5a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Clear understanding of your healthcare wishes helps ensure the right people can make decisions that align with your values when you can't speak for yourself.",
+                "impact": "Lowest complexity - can typically handle healthcare directives with standard forms and clear communication to your chosen healthcare agents."
+              },
+              {
+                "id": "729",
+                "answerText": "Somewhat comfortable - I have a general idea",
+                "value": 1,
+                "answerId": "q5a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Having general preferences is a good start, but healthcare decisions often involve complex scenarios that benefit from more detailed advance consideration.",
+                "impact": "Low complexity - may benefit from exploring specific scenarios and ensuring your healthcare agents understand your values and preferences."
+              },
+              {
+                "id": "730",
+                "answerText": "Neutral - I haven't given it much thought",
+                "value": 2,
+                "answerId": "q5a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Healthcare decisions often arise suddenly, and without clear guidance, family members may struggle to make choices that align with what you would want.",
+                "impact": "Moderate complexity - would benefit from time to consider your values and preferences before creating healthcare directives."
+              },
+              {
+                "id": "731",
+                "answerText": "Somewhat uncomfortable - I have questions about my options",
+                "value": 3,
+                "answerId": "q5a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Healthcare directives involve complex scenarios with significant implications, and your questions indicate you'd benefit from guidance to make informed decisions.",
+                "impact": "Higher complexity - would benefit from professional guidance to understand options and create appropriate healthcare directives."
+              },
+              {
+                "id": "732",
+                "answerText": "Very uncomfortable - I need help understanding my choices",
+                "value": 4,
+                "answerId": "q5a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Healthcare decision-making involves complex medical and personal considerations that most people aren't prepared to navigate alone.",
+                "impact": "High complexity requiring professional guidance to understand options, clarify values, and create meaningful healthcare directives with proper legal execution."
+              }
+            ]
+          },
+          {
+            "id": "139",
+            "questionText": "Property Transfer",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Which of these common issues worry you about what would happen after your death? (Select all that apply)",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "multiple_choice",
+            "questionId": "q6",
+            "required": true,
+            "order": 6,
+            "media": [],
+            "answers": [
+              {
+                "id": "733",
+                "answerText": "I want everything to transfer as simply as possible",
+                "value": 0,
+                "answerId": "q6a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Simple transfers can often be achieved through basic planning tools like beneficiary designations and straightforward wills.",
+                "impact": "Lowest complexity - can typically be accomplished with standard estate planning documents and basic transfer mechanisms."
+              },
+              {
+                "id": "734",
+                "answerText": "I want to avoid probate for most/all of my assets",
+                "value": 2,
+                "answerId": "q6a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Probate avoidance requires coordinated planning using trusts, beneficiary designations, and proper asset titling rather than relying primarily on wills.",
+                "impact": "Moderate to higher complexity - requires comprehensive planning with multiple coordinated tools beyond basic will-based approaches."
+              },
+              {
+                "id": "735",
+                "answerText": "I need to set up specific conditions for inheritances",
+                "value": 5,
+                "answerId": "q6a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Conditional inheritances require sophisticated legal language to be enforceable. DIY attempts often create unenforceable conditions, leading to expensive court battles or complete failure of your intended restrictions.",
+                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY conditional planning frequently results in unenforceable terms, costly litigation when conditions are disputed, and complete failure to achieve your intended controls."
+              },
+              {
+                "id": "736",
+                "answerText": "I want to provide for minor children or dependents",
+                "value": 5,
+                "answerId": "q6a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 15,
+                "maximumResultScore": null,
+                "whyItMatters": "Planning for minor children involves guardianship laws and financial management requirements that vary by state. DIY mistakes can result in court-appointed guardians you wouldn't choose and mismanaged inheritances.",
+                "impact": "Probably requires professional guidance regardless of family simplicity - DIY errors with minor children can result in inappropriate guardians being appointed by courts and 18-year-olds receiving large inheritances they're unprepared to manage."
+              },
+              {
+                "id": "737",
+                "answerText": "I have concerns about beneficiaries' ability to manage their inheritance",
+                "value": 5,
+                "answerId": "q6a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Protecting irresponsible beneficiaries requires precisely drafted trust language and proper oversight structures. DIY attempts often fail to provide meaningful protection, leaving assets vulnerable to poor decisions or creditors.",
+                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY beneficiary protection frequently fails when needed most, resulting in lost inheritances to addiction, creditors, or financial irresponsibility that proper trusts could have prevented."
+              },
+              {
+                "id": "738",
+                "answerText": "I want to include charitable giving in my plan",
+                "value": 2,
+                "answerId": "q6a6",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Charitable planning can range from simple bequests to sophisticated structures that provide tax benefits and ongoing philanthropic impact.",
+                "impact": "Low to moderate complexity - simple charitable bequests are straightforward, but advanced charitable planning requires specialized knowledge and structures."
+              }
+            ]
+          },
+          {
+            "id": "140",
+            "questionText": "Executor/Personal Representative/Trustee",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Which of the following people are you considering as potential fiduciaries to manage your estate or trust? (Select all that apply)",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "multiple_choice",
+            "questionId": "q7",
+            "required": true,
+            "order": 7,
+            "media": [],
+            "answers": [
+              {
+                "id": "739",
+                "answerText": "Spouse/partner",
+                "value": -2,
+                "answerId": "q7a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "A spouse or partner typically knows your values and wishes intimately, can make decisions quickly without formal processes, and often has legal rights that simplify estate administration.",
+                "impact": "Having a spouse or partner available as a fiduciary generally simplifies estate planning documentation and reduces administrative complexity."
+              },
+              {
+                "id": "740",
+                "answerText": "Adult child",
+                "value": -1,
+                "answerId": "q7a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Adult children often understand your family dynamics and values, are typically motivated to honor your wishes, and can serve without the costs associated with professional fiduciaries.",
+                "impact": "Adult children as fiduciaries usually allow for straightforward estate planning with standard documentation and lower ongoing costs."
+              },
+              {
+                "id": "741",
+                "answerText": "Other family member",
+                "value": 0,
+                "answerId": "q7a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Family members may understand your values and have personal investment in carrying out your wishes, though they may need more guidance on their responsibilities.",
+                "impact": "Other family members as fiduciaries typically require moderate documentation complexity to ensure clear guidance and authority."
+              },
+              {
+                "id": "742",
+                "answerText": "Close friend",
+                "value": 1,
+                "answerId": "q7a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Close friends who know your values can be excellent fiduciaries, but may need more detailed instructions and formal authority since they lack automatic legal standing.",
+                "impact": "Appointing close friends often requires more detailed documentation and clear authority structures, moderately increasing planning complexity."
+              },
+              {
+                "id": "743",
+                "answerText": "Professional (bank, trust company, attorney)",
+                "value": 3,
+                "answerId": "q7a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Professional fiduciaries bring expertise and objectivity but require formal oversight structures, detailed instructions, and ongoing fees that can significantly impact your estate.",
+                "impact": "Professional fiduciaries typically require more complex planning documents, formal oversight mechanisms, and result in higher ongoing administrative costs."
+              },
+              {
+                "id": "744",
+                "answerText": "Not sure yet",
+                "value": 2,
+                "answerId": "q7a6",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Uncertainty about fiduciaries indicates a need to explore your options and understand the implications of different choices before finalizing your estate plan.",
+                "impact": "Being unsure about fiduciaries suggests additional planning work is needed, which may increase the complexity of your estate planning process."
+              }
+            ]
+          },
+          {
+            "id": "141",
+            "questionText": "Follow-Through",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "How would you rate your likelihood of completing all necessary paperwork and tasks on your own? And be honest. Do you typically finish things you start?",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q8",
+            "required": true,
+            "order": 8,
+            "media": [],
+            "answers": [
+              {
+                "id": "745",
+                "answerText": "Very high - I'm disciplined and complete what I start",
+                "value": 0,
+                "answerId": "q8a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Strong follow-through is essential for estate planning success, as implementation often involves multiple steps and ongoing maintenance over time.",
+                "impact": "Lowest complexity for implementation - your discipline makes DIY approaches more viable since you're likely to complete all necessary steps and updates."
+              },
+              {
+                "id": "746",
+                "answerText": "High - I usually finish important projects",
+                "value": 1,
+                "answerId": "q8a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Your track record of completing important projects suggests you'll likely follow through with essential estate planning tasks and implementation steps.",
+                "impact": "Low complexity - can typically handle DIY approaches with clear instructions and checklists to maintain momentum through multi-step processes."
+              },
+              {
+                "id": "747",
+                "answerText": "Moderate - I sometimes need accountability",
+                "value": 3,
+                "answerId": "q8a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Estate planning requires sustained attention to multiple implementation steps, and needing accountability may impact your ability to complete everything independently.",
+                "impact": "Moderate complexity - may benefit from professional oversight or structured check-ins to ensure complete implementation and ongoing maintenance."
+              },
+              {
+                "id": "748",
+                "answerText": "Low - I often struggle with follow-through",
+                "value": 4,
+                "answerId": "q8a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Estate planning implementation requires sustained attention to detail across multiple steps, and follow-through challenges can result in incomplete or ineffective plans.",
+                "impact": "Higher complexity - DIY approaches present significant implementation risks; professional guidance with structured support may be essential for success."
+              },
+              {
+                "id": "749",
+                "answerText": "Very low - I rarely complete complex paperwork",
+                "value": 5,
+                "answerId": "q8a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Estate planning involves numerous documents and implementation steps that must all be completed properly for the plan to function as intended.",
+                "impact": "High complexity requiring professional guidance with substantial implementation support, structured processes, and ongoing assistance to ensure plan completion."
+              }
+            ]
+          },
+          {
+            "id": "142",
+            "questionText": "Complexity Tolerance",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "How do you feel about handling legal documents and processes? Can you deal with lots of moving parts on your own, or do you need instructions clearly communicated to you?",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q9",
+            "required": true,
+            "order": 9,
+            "media": [],
+            "answers": [
+              {
+                "id": "750",
+                "answerText": "Very comfortable - I regularly handle complex matters",
+                "value": 0,
+                "answerId": "q9a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Comfort with complex matters indicates you can likely navigate the technical aspects of estate planning and understand sophisticated planning concepts.",
+                "impact": "Lowest complexity - can typically handle most estate planning independently with good reference materials and understanding of multi-step processes."
+              },
+              {
+                "id": "751",
+                "answerText": "Somewhat comfortable - I can manage with good instructions",
+                "value": 1,
+                "answerId": "q9a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Being comfortable with good instructions suggests you can handle moderate estate planning complexity, especially with clear guidance materials.",
+                "impact": "Low to moderate complexity - can likely handle straightforward planning independently but may benefit from professional consultation on complex elements."
+              },
+              {
+                "id": "752",
+                "answerText": "Neutral - I've had mixed experiences",
+                "value": 2,
+                "answerId": "q9a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Mixed experiences with legal matters suggests you might succeed with some aspects of estate planning while finding others challenging.",
+                "impact": "Moderate complexity - may benefit from a hybrid approach, handling comfortable aspects independently while seeking professional guidance for challenging elements."
+              },
+              {
+                "id": "753",
+                "answerText": "Somewhat uncomfortable - I prefer guidance with legal matters",
+                "value": 3,
+                "answerId": "q9a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Preferring guidance with legal matters shows awareness that estate planning involves specialized concepts and language that can contain non-obvious pitfalls.",
+                "impact": "Higher complexity - DIY approaches may create anxiety or risk missing important considerations; professional guidance likely provides better outcomes."
+              },
+              {
+                "id": "754",
+                "answerText": "Very uncomfortable - Legal jargon confuses me",
+                "value": 5,
+                "answerId": "q9a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Legal terminology can be confusing even for well-educated people, and estate planning documents use specialized language with specific legal meanings.",
+                "impact": "High complexity requiring professional guidance to ensure proper understanding and implementation of estate planning documents and concepts."
+              }
+            ]
+          },
+          {
+            "id": "143",
+            "questionText": "Privacy Concerns",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "How important is privacy regarding your estate details?",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q10",
+            "required": true,
+            "order": 10,
+            "media": [],
+            "answers": [
+              {
+                "id": "755",
+                "answerText": "Not important",
+                "value": 0,
+                "answerId": "q10a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "When privacy isn't a concern, you can use simpler planning approaches that may involve public probate proceedings without worrying about disclosure.",
+                "impact": "Lowest complexity - can use straightforward will-based planning without needing privacy-focused structures like trusts or complex asset titling."
+              },
+              {
+                "id": "756",
+                "answerText": "Somewhat important",
+                "value": 2,
+                "answerId": "q10a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Moderate privacy concerns can often be addressed through selective use of privacy tools for sensitive assets while using simpler approaches for others.",
+                "impact": "Low to moderate complexity - may benefit from hybrid approach using beneficiary designations and limited trust planning for key assets."
+              },
+              {
+                "id": "757",
+                "answerText": "Very important",
+                "value": 4,
+                "answerId": "q10a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "High privacy importance typically requires trust-based planning to keep asset transfers and distribution terms out of public probate records.",
+                "impact": "Higher complexity requiring comprehensive trust-based planning, proper funding, and ongoing maintenance to achieve meaningful privacy protection."
+              },
+              {
+                "id": "758",
+                "answerText": "Critical - I have specific privacy concerns",
+                "value": 5,
+                "answerId": "q10a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Critical privacy needs often stem from specific circumstances requiring sophisticated planning to protect confidential information and family security.",
+                "impact": "High complexity requiring comprehensive privacy-focused planning with multiple coordinated structures and professional guidance to ensure effective protection."
+              }
+            ]
+          },
+          {
+            "id": "144",
+            "questionText": "Time Horizon",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "When do you need your estate plan completed? Consider whether your timeline is driven by high-stakes circumstances (like health issues, upcoming medical procedures, family crises, or other urgent life events) or more routine planning needs.",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q11",
+            "required": true,
+            "order": 11,
+            "media": [],
+            "answers": [
+              {
+                "id": "759",
+                "answerText": "Immediately - there's an urgent situation",
+                "value": 5,
+                "answerId": "q11a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Urgent planning situations often involve capacity concerns, high-stakes medical decisions, or legal deadlines where DIY mistakes can have immediate, irreversible consequences including invalidated documents or missed critical deadlines.",
+                "impact": "Most likely requires professional guidance regardless of other factors - DIY errors under time pressure frequently result in invalid documents, missed legal deadlines, or planning that fails when you need it most during medical or family crises."
+              },
+              {
+                "id": "760",
+                "answerText": "Within 1 month",
+                "value": 4,
+                "answerId": "q11a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "A one-month timeline may indicate moderately urgent circumstances that require prompt but thorough planning attention.",
+                "impact": "Moderate to high complexity - limited time for research while potentially dealing with time-sensitive decisions that benefit from professional efficiency."
+              },
+              {
+                "id": "761",
+                "answerText": "Within 3 months",
+                "value": 3,
+                "answerId": "q11a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "A three-month timeline allows for thoughtful planning while maintaining reasonable momentum toward completion.",
+                "impact": "Moderate complexity - provides time for research and decision-making while ensuring timely completion of planning goals."
+              },
+              {
+                "id": "762",
+                "answerText": "Within the next year",
+                "value": 2,
+                "answerId": "q11a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "A one-year timeline indicates routine planning without immediate pressure, allowing for thorough research and consideration.",
+                "impact": "Lower complexity - ample time for DIY research, family discussions, and careful implementation of planning strategies."
+              },
+              {
+                "id": "763",
+                "answerText": "No specific timeline",
+                "value": 2,
+                "answerId": "q11a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Lack of urgency may indicate either very simple needs or avoidance of complex planning decisions that feel overwhelming.",
+                "impact": "Variable complexity - while allowing maximum flexibility, indefinite timelines often result in incomplete planning and may indicate underlying complexity concerns."
+              }
+            ]
+          },
+          {
+            "id": "145",
+            "questionText": "Professional Help Preference",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "What's your general preference regarding professional help with important legal or financial matters?",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "type": "single_choice",
+            "questionId": "q12",
+            "required": true,
+            "order": 12,
+            "media": [],
+            "answers": [
+              {
+                "id": "764",
+                "answerText": "I prefer to do everything myself",
+                "value": 0,
+                "answerId": "q12a1",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Your preference for independence allows you to consider DIY approaches based on your capabilities and the complexity of your situation.",
+                "impact": "No complexity added - your DIY preference aligns with self-directed approaches when your situation supports it."
+              },
+              {
+                "id": "765",
+                "answerText": "I like to do most things myself with occasional guidance",
+                "value": 0,
+                "answerId": "q12a2",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": null,
+                "maximumResultScore": null,
+                "whyItMatters": "Your balanced approach to self-direction with selective professional input works well for many estate planning situations.",
+                "impact": "No complexity added - this preference supports guided self-help approaches when appropriate for your situation."
+              },
+              {
+                "id": "766",
+                "answerText": "I prefer a collaborative approach with professional oversight",
+                "value": 0,
+                "answerId": "q12a3",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 15,
+                "maximumResultScore": null,
+                "whyItMatters": "Your preference for professional collaboration ensures appropriate guidance and reduces the risk of costly mistakes that come from working without professional oversight.",
+                "impact": "Professional guidance recommended based on your preferences - collaborative planning provides the professional oversight that prevents common DIY errors while respecting your desire for involvement."
+              },
+              {
+                "id": "767",
+                "answerText": "I prefer to have professionals handle important financial, tax, or legal matters",
+                "value": 0,
+                "answerId": "q12a4",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 20,
+                "maximumResultScore": null,
+                "whyItMatters": "Your preference for professional handling of important matters reflects understanding that the consequences of mistakes in these areas can be severe and long-lasting.",
+                "impact": "Professional planning recommended based on your preferences - comprehensive professional guidance prevents the costly errors and oversights that often occur when important legal matters are handled without adequate expertise."
+              },
+              {
+                "id": "768",
+                "answerText": "I exclusively rely on professional expertise for complex financial, tax, or legal matters",
+                "value": 0,
+                "answerId": "q12a5",
+                "isCorrect": true,
+                "branchToQuestion": null,
+                "media": [],
+                "minimumResultScore": 25,
+                "maximumResultScore": null,
+                "whyItMatters": "Your exclusive reliance on professional expertise demonstrates recognition that the stakes are too high and the consequences of errors too severe to risk DIY approaches in complex matters.",
+                "impact": "Comprehensive professional planning recommended based on your preferences - full professional guidance eliminates the significant risks of costly mistakes that can occur when complex legal and financial matters are handled without specialized expertise."
+              }
+            ]
+          }
+        ],
+        "isActive": true,
+        "version": "2.1",
+        "description": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "text": "Take this 5-minute assessment to discover which estate planning approach best fits your situation: DIY, guided self-help, or professional planning.",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "text": "Answer honestly - there are no \"right\" answers, just the right path for your unique situation.",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "slug": "is-diy-estate-planning-right-for-you",
+        "title": "Is DIY Estate Planning Right for You?",
+        "resultCategories": [
+          {
+            "id": "46",
+            "title": "DIY Pathway",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Based on your responses, a DIY approach may work well for your situation. You have a relatively straightforward family structure, modest complexity factors, and trusted people available to help with implementation. ",
+                    "type": "text"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Consider using high-quality self-help resources and ensure you properly execute and fund any documents you create. Even with DIY planning, we recommend having healthcare directives reviewed by someone familiar with your state's requirements.",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "minScore": 0,
+            "maxScore": 12,
+            "criteria": null,
+            "ctaText": null,
+            "ctaLink": null,
+            "media": []
+          },
+          {
+            "id": "47",
+            "title": "Guided Self-Help Pathway",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Based on your responses, you would benefit from a guided self-help approach. While you have the capability to handle many aspects independently, your situation has complexity factors that warrant professional guidance at key points.",
+                    "type": "text"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Consider preparing initial documents yourself, then scheduling a review session with an estate planning attorney to ensure everything is properly structured and executed.",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "minScore": 13,
+            "maxScore": 25,
+            "criteria": null,
+            "ctaText": null,
+            "ctaLink": null,
+            "media": []
+          },
+          {
+            "id": "48",
+            "title": "Professional Planning Pathway",
+            "description": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Based on your responses, professional estate planning is recommended for your situation. The complexity factors in your family structure, assets, timeline, or preferences indicate you would benefit significantly from personalized legal guidance.",
+                    "type": "text"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "text": "Professional planning will help ensure your unique circumstances are properly addressed and can provide peace of mind that your wishes will be effectively implemented.",
+                    "type": "text"
+                  }
+                ]
+              }
+            ],
+            "minScore": 26,
+            "maxScore": null,
+            "criteria": null,
+            "ctaText": null,
+            "ctaLink": null,
+            "media": []
+          }
+        ]
+      }
+    ]
+  }
+}

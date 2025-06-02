@@ -1,8 +1,10 @@
 // server/api/generate-report.js
 import PDFDocument from 'pdfkit'
+import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
-import qs from 'qs'
+import markdownIt from 'markdown-it'
+import { getQuizForAIbySlug } from '~~/server/utils/quizzes/utils'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -10,77 +12,39 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     const { user, quizResults, answers } = body
     console.info('received an event:', body)
-    // Fetch detailed explanations for each answer from Strapi
-    // This is pseudocode - you'll need to implement your specific Strapi query
-    const quizData = await fetchQuizFromStrapi(quizResults.quizId)
-    const explanations = await analyzeQuizResults(
-      quizData,
-      quizResults.userAnswers,
-      quizResults.totalScore
-    )
-    console.info('explanations:', explanations)
-    // sample explanations
-    /*
-    const explanations = [
-      {
-        "answerId": "q1a4",
-        "questionId": "q1",
-        "whyItMatters": "Your family structure is the foundation of your estate planning needs. With a married/partnered status and children from your current relationship, you have what's called a 'nuclear family' structure. This is one of the most common family arrangements, but still requires thoughtful planning to ensure your spouse/partner and children are protected.",
-        "impact": "In your situation, you'll want to consider how assets pass between spouses (which can often happen tax-free), as well as how to provide for your children. If your children are minors, you'll need to name guardians in your will and possibly establish trusts to manage assets for them until they reach adulthood. Even with a straightforward family structure, failing to plan can lead to unintended consequences, particularly regarding inheritance timing for children."
-      },
-      {
-        "answerId": "q2a1",
-        "questionId": "q2",
-        "whyItMatters": "Your primary residence is likely one of your most valuable assets, both financially and emotionally. How this property transfers after your death can significantly impact your loved ones. In many states, probate (the court process for settling estates) can be time-consuming and expensive, potentially tying up your home for months.",
-        "impact": "For homeowners, several options exist for transferring property: 1) Through a will (which means going through probate), 2) Using transfer-on-death deeds (available in some states), 3) Holding property in joint tenancy with right of survivorship, or 4) Placing the home in a revocable living trust. Each method has different implications for taxes, creditor protection, and ease of transfer. Your chosen estate planning approach should address this important asset specifically."
-      },
-      {
-        "answerId": "q2a3",
-        "questionId": "q2",
-        "whyItMatters": "Your primary residence is likely one of your most valuable assets, both financially and emotionally. How this property transfers after your death can significantly impact your loved ones. In many states, probate (the court process for settling estates) can be time-consuming and expensive, potentially tying up your home for months.",
-        "impact": "For homeowners, several options exist for transferring property: 1) Through a will (which means going through probate), 2) Using transfer-on-death deeds (available in some states), 3) Holding property in joint tenancy with right of survivorship, or 4) Placing the home in a revocable living trust. Each method has different implications for taxes, creditor protection, and ease of transfer. Your chosen estate planning approach should address this important asset specifically."
-      },
-      {
-        "answerId": "q2a5",
-        "questionId": "q2",
-        "whyItMatters": "Your primary residence is likely one of your most valuable assets, both financially and emotionally. How this property transfers after your death can significantly impact your loved ones. In many states, probate (the court process for settling estates) can be time-consuming and expensive, potentially tying up your home for months.",
-        "impact": "For homeowners, several options exist for transferring property: 1) Through a will (which means going through probate), 2) Using transfer-on-death deeds (available in some states), 3) Holding property in joint tenancy with right of survivorship, or 4) Placing the home in a revocable living trust. Each method has different implications for taxes, creditor protection, and ease of transfer. Your chosen estate planning approach should address this important asset specifically."
-      },
-      {
-        "answerId": "q3a3",
-        "questionId": "q3",
-        "whyItMatters": "Your estate value ($500,000 - $1 million) puts you in a range where thoughtful planning becomes increasingly important. While your estate likely falls below federal estate tax thresholds, state-level estate or inheritance taxes may apply depending on where you live. Additionally, with assets of this value, the probate process becomes more complex and potentially more expensive.",
-        "impact": "At this estate value, strategic planning can help minimize administrative costs, reduce tax burdens, and ensure efficient transfer of assets. You should consider whether a will-based plan with targeted non-probate transfers (like beneficiary designations) is sufficient, or if you would benefit from a trust-based plan that provides more control and privacy. Careful consideration should also be given to asset protection strategies and optimizing your estate for tax purposes, particularly if your estate is likely to grow over time."
-      },
-      {
-        "answerId": "q5a4",
-        "questionId": "q5",
-        "whyItMatters": "Medical decision-making documents are among the most important parts of any estate plan, regardless of your age or wealth. Your discomfort with making these decisions without guidance is understandable - these are complex matters with significant implications. Healthcare directives include several distinct documents: a living will (stating your wishes for end-of-life care), a medical power of attorney (naming someone to make decisions for you), and sometimes a HIPAA authorization (allowing access to your medical records).",
-        "impact": "Being 'somewhat uncomfortable' with these decisions suggests you would benefit from professional guidance in this area. A qualified estate planning attorney can explain the nuances between different medical directives, help you understand scenarios you might not have considered, and ensure your documents are properly drafted and executed. This is one area where DIY approaches often fall short, as online forms may not address state-specific requirements or provide the counseling needed to make informed decisions about complex medical scenarios."
-      },
-      {
-        "answerId": "q6a2",
-        "questionId": "q6",
-        "whyItMatters": "Your desire to avoid probate is a common and reasonable goal in estate planning. Probate is the court-supervised process of validating a will, paying debts, and distributing assets. While necessary in some cases, probate can be time-consuming (often 6-12 months), expensive (with court costs and attorney fees), and public (creating a record of your assets and beneficiaries that anyone can access).",
-        "impact": "To effectively avoid probate, you'll need more than just a will, as wills must go through probate to be effective. Common probate-avoidance tools include: revocable living trusts, beneficiary designations on financial accounts and insurance policies, transfer-on-death or payable-on-death designations for certain assets, and joint ownership with rights of survivorship. A comprehensive probate-avoidance strategy typically involves several of these tools working together. This goal often necessitates more planning than a simple DIY approach can provide, as the strategy needs to be coordinated across multiple assets and kept up to date as your situation changes."
-      },
-      {
-        "answerId": "q8a3",
-        "questionId": "q8",
-        "whyItMatters": "Your self-assessment of needing accountability for follow-through is an honest and important insight. Estate planning involves not just creating documents but also funding trusts (if applicable), updating beneficiary designations, retitling assets, and keeping your plan updated as laws and your life circumstances change. Many well-intentioned estate plans fail not because they were poorly designed, but because they were never fully implemented.",
-        "impact": "Given your need for accountability, consider whether a completely DIY approach will provide the structure you need to complete all necessary steps. Working with a professional can provide deadlines, follow-up communications, and scheduled reviews that keep your plan on track. Even if you choose a primarily self-help approach, building in some professional oversight or check-ins might be valuable. Remember that an incomplete estate plan can sometimes be worse than no plan at all, as it may create confusion about your intentions or fail to achieve your goals."
-      },
-      {
-        "answerId": "q10a2",
-        "questionId": "q10",
-        "whyItMatters": "Privacy concerns are an important consideration in estate planning. When you indicate that privacy is 'somewhat important,' you're balancing the desire for confidentiality with practical considerations about cost and complexity. Standard probate proceedings create public records of your assets, debts, and beneficiaries that anyone can access. This level of transparency can be concerning for many families.",
-        "impact": "With privacy being somewhat important to you, you may want to consider certain privacy-enhancing strategies without necessarily implementing a completely private plan. For example, you might use beneficiary designations for financial accounts while accepting that some assets may go through probate. Or you might establish a revocable living trust for your most sensitive assets while using simpler methods for others. This balanced approach can provide reasonable privacy protection while keeping your plan manageable and cost-effective."
-      }
-    ]
-    */
+
+    const quizResultString = JSON.stringify(quizResults)
+    const quizResultHash = crypto.createHash('sha256')
+      .update(quizResultString)
+      .digest('hex')
+    const kvKey = `quizResults:${quizResultHash}`
+
+    const resultExists = await hubKV().has(kvKey)
+    console.info('resultExists:', resultExists)
+
+    const quizData = await fetchQuizFromStrapi(quizResults.slug)
+
+    let explanations
+    if (!resultExists) {
+      console.info('new quiz result received', quizResultHash)
+      // Fetch detailed explanations for each answer from Strapi
+      explanations = await analyzeQuizResults(
+        quizData,
+        quizResults.userAnswers,
+        quizResults.totalScore
+      )
+      await hubKV().set(kvKey, explanations)
+    } else {
+      console.info('known quiz result received:', quizResultHash)
+      explanations = await hubKV().get(kvKey)
+    }
+    // console.info('explanations:', explanations)
+    const md = markdownIt()
+    const block = JSON.parse(md.parse(explanations.content[0].text)
+      .filter(b=>b.type === 'fence')[0].content)
 
     // Create a PDF document
-    const pdfBuffer = await generatePDF(user, quizResults, answers, explanations)
+    const pdfBuffer = await generatePDF(user, quizResults, quizData, block)
 
     // write out pdf to local directory for testing only
     if (process.env.NODE_ENV === 'development') {
@@ -112,7 +76,7 @@ export default defineEventHandler(async (event) => {
 })
 
 
-const generatePDF = (user, quizResults, answers, explanations) => {
+const generatePDF = (user, quizResults, quizData, explanations) => {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({
       margin: 50,
@@ -136,12 +100,12 @@ const generatePDF = (user, quizResults, answers, explanations) => {
     }
 
     const useAddExecutiveSummary = doc => {
-      addExecutiveSummary(doc, explanations)
+      addExecutiveSummary(doc, explanations, quizResults)
       return doc
     }
 
     const useAddQuestionAnalysis = doc => {
-      addQuestionAnalysis(doc, answers, explanations)
+      addQuestionAnalysis(doc, quizResults.userAnswers, quizData)
       return doc
     }
 
@@ -159,6 +123,7 @@ const generatePDF = (user, quizResults, answers, explanations) => {
     pipe(
       useAddCoverPage,
       useAddExecutiveSummary,
+      useAddQuestionAnalysis,
       // useAddNextSteps,
       useAddResources,
       () => doc.end()
@@ -225,28 +190,31 @@ async function sendReportEmail(email, pdfBuffer) {
 // Strapi integration (pseudocode)
 // ------------------------------
 
-const fetchQuizFromStrapi = async (id) => {
+const fetchQuizFromStrapi = async (slug) => {
   try {
     const { strapiUrl } = useAppConfig()
-    // get explanations 
+    /* REST version
     const query = qs.stringify(getQuizByIdREST, { encode: false })
     const quizResult = await $fetch(`${strapiUrl}/api/quizzes/${id}?${query}`)
-    // console.info('explanationResult:', JSON.stringify(explanationResult, null, 2))
-
-    return quizResult.data
-    // Example response structure:
-    /*
-    return answers.map(answer => {
-      return {
-        answerId: answer.answerId,
-        questionId: answer.questionId,
-        whyItMatters: "This is important because...", // From Strapi
-        impact: "This impacts your estate plan by..." // From Strapi
+    */
+    /* GraphQL version */
+    const quizResult = await $fetch(`${strapiUrl}/graphql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        query: getQuizForAIbySlug,
+        variables: {
+          slug
+        }
       }
     })
-    */
+
+
+    return quizResult.data
   } catch (error) {
-    console.error('failed to fetch quiz explanations from strapi')
+    console.error('failed to fetch quiz from strapi')
     throw error
   }
 }

@@ -425,7 +425,8 @@ export const useQuizStore = defineStore('quiz', () => {
             pathwayName: quizResult.value.category.title,
             pathwaySummary: JSON.stringify(quizResult.value.category.description),
             userAnswers: JSON.stringify(userAnswers.value),
-            totalScore: quizResult.value.score
+            totalScore: quizResult.value.score,
+            version: quiz.value.version
           }
         }
       })

@@ -1,5 +1,7 @@
 // server/utils/quizzes/reportContent.js
 
+import { extractSelectedAnswerImpact } from "./utils"
+
 export const addCoverPage = (doc, user, quizResults) => {
   // Page dimensions
   const pageWidth = doc.page.width
@@ -62,39 +64,6 @@ export const addCoverPage = (doc, user, quizResults) => {
      .fillColor('#000000')
      .text(quizResults.pathwayName, 150, doc.y + 10)
 
-  // Check if we have Rich Text content for the pathway summary
-  const richText = JSON.parse(quizResults.pathwaySummary)
-  if (richText && richText) {
-    // Process the Rich Text blocks
-    const processedContent = richTextToPdf(richText)
-
-    // Custom configuration for cover page Rich Text
-    const richTextConfig = {
-      margins: { left: 150, right: 50 },
-      contentWidth: pageWidth - 200, // Adjust width based on cover layout
-      baseFont: 'app/assets/fonts/PlusJakartaSans-Regular.ttf',
-      boldFont: 'app/assets/fonts/PlusJakartaSans-Bold.ttf',
-      italicFont: 'app/assets/fonts/PlusJakartaSans-Italic.ttf',
-      boldItalicFont: 'app/assets/fonts/PlusJakartaSans-BoldItalic.ttf',
-      baseFontSize: 14,
-      // Custom page break checker that always returns false (we don't want automatic page breaks on cover)
-      checkPageBreak: () => false
-    }
-
-    // Render the Rich Text to the document
-    renderRichTextToPdf(doc, processedContent, richTextConfig)
-  } else {
-    // Fallback to plain text if no Rich Text is available
-    console.info('falling back to plain text')
-    doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-       .fontSize(14)
-       .fillColor('#000000')
-       .text(quizResults.pathwaySummary, 150, doc.y + 15, { 
-         width: pageWidth - 250,
-         align: 'left'
-       })
-  }
-
   // Add blue circle in bottom right
   doc.circle(pageWidth - 50, pageHeight - 50, pageWidth / 4)
      .fillColor('#244091')
@@ -152,11 +121,12 @@ export const addTableOfContents = (doc) => {
   return doc
 }
 
-export const addExecutiveSummary = (doc, quizResults) => {
+export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
+  const pageWidth = doc.page.width
+
   // Add section header
   addSectionHeader(doc, 'Executive Summary')
 
-  console.info('keyFindings:', JSON.parse(quizResults.response))
   doc.fontSize(12)
     .text('Based on your responses to our Estate Planning Pathway Finder assessment, we\'ve ' +
       'identified key areas to focus on for your estate planning needs. This report provides ' +
@@ -171,30 +141,57 @@ export const addExecutiveSummary = (doc, quizResults) => {
 
   doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
     .fontSize(12)
-    .text('• ' + quizResults[0])
+  quizFindings.forEach((result, index) => {
+    doc.font('app/assets/fonts/PlusJakartaSans-BoldItalic.ttf')
+      .text(`Finding ${index+1}:`, 75)
+      .moveDown(0.5)
+    doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
+      .text(result.finding, 100, doc.y)
+      .moveDown(0.5)
+    doc.text('Explanation:', 100, doc.y, { underline: true, continued: true })
+    doc.text(` ${result.explanation}`, 100, doc.y, { underline: false })
+      .moveDown(0.5)
+    doc.text('Action Item:', 100, doc.y, { underline: true, continued: true})
+    doc.text(` ${result.actionable}`, 100, doc.y, { underline: false })
     .moveDown(0.5)
-    .text('• ' + quizResults[1])
-    .moveDown(0.5)
-    .text('• ' + quizResults[2])
-    .moveDown(1)
+  })
+  doc.moveDown(1)
 
   // Add recommendation
   doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
     .fontSize(14)
-    .text('Our Recommendation')
+    .text('Our Recommendation', 50, doc.y)
     .moveDown(0.5)
 
-  doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-    .fontSize(12)
-    .text(quizResults.recommendation)
-    .moveDown(2)
+  doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
+    .fontSize(14)
+    .text(quizResults.pathwayName, 100, doc.y)
+    .moveDown(0.5)
+    // .text(quizResults.pathwaySummary)
 
+  const processedContent = richTextToPdf(JSON.parse(quizResults.pathwaySummary))
+
+  // Custom configuration for cover page Rich Text
+  const richTextConfig = {
+    margins: { left: 150, right: 50 },
+    contentWidth: pageWidth - 200, // Adjust width based on cover layout
+    baseFont: 'app/assets/fonts/PlusJakartaSans-Regular.ttf',
+    boldFont: 'app/assets/fonts/PlusJakartaSans-Bold.ttf',
+    italicFont: 'app/assets/fonts/PlusJakartaSans-Italic.ttf',
+    boldItalicFont: 'app/assets/fonts/PlusJakartaSans-BoldItalic.ttf',
+    baseFontSize: 12,
+    // Custom page break checker that always returns false (we don't want automatic page breaks on cover)
+    checkPageBreak: () => false
+  }
+
+  // Render the Rich Text to the document
+  renderRichTextToPdf(doc, processedContent, richTextConfig)
   // Add new page
   doc.addPage()
   return doc
 }
 
-export const addQuestionAnalysis = (doc, answers, explanations) => {
+export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
   // Add section header
   addSectionHeader(doc, 'Your Assessment Details')
   doc.fontSize(12)
@@ -202,43 +199,27 @@ export const addQuestionAnalysis = (doc, answers, explanations) => {
       'assessment, including why each factor is important and how it impacts your estate planning needs.')
     .moveDown(1)
 
-  // For each question and answer
-  answers.forEach((item, index) => {
-    checkPageBreak(doc)
+  const impact = extractSelectedAnswerImpact(JSON.parse(userAnswers), quizData)
+  try {
+    // console.info('impact:', impact)
+    // For each question and answer
+    impact.forEach((answer, index) => {
+      checkPageBreak(doc)
+      // Question number and text
+      doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
+        .fontSize(14)
+        .text(`Question ${answer.questionId.replace(/q/, '')}: ${answer.questionText}`)
+        .moveDown(0.5)
 
-    // Determine if this is a multiple choice question
-    const isMultipleChoice = Array.isArray(item.answerId);
-    
-    // Find explanation for a specific answerId
-    const getExplanation = (answerId) => {
-      const foundExplanation = explanations.find(exp => exp.answerId === answerId);
-      return foundExplanation || {
-        whyItMatters: "This aspect of planning requires consideration based on your individual circumstances.",
-        impact: "Your selection may influence the optimal structure of your estate plan."
-      };
-    };
-    
-    checkPageBreak(doc)
-    // Question number and text
-    doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-      .fontSize(14)
-      .text(`Question ${index + 1}: ${item.questionText}`)
-      .moveDown(0.5)
-      
-    // Handling single choice questions
-    if (!isMultipleChoice) {
       // Your answer
       doc.fontSize(12)
         .text('Your Answer:')
         .moveDown(0.25)
-        
+
       doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-        .text(item.answerText)
+        .text(answer.answerText)
         .moveDown(0.5)
-      
-      // Get explanation for single answer
-      const explanation = getExplanation(item.answerId);
-      
+
       checkPageBreak(doc)
       // Why this matters
       doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
@@ -246,9 +227,9 @@ export const addQuestionAnalysis = (doc, answers, explanations) => {
         .text('Why This Matters:')
         .moveDown(0.25)
       doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-        .text(explanation.whyItMatters)
+        .text(answer.whyItMatters)
         .moveDown(0.5)
-        
+
       checkPageBreak(doc)
       // Impact on plan
       doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
@@ -256,87 +237,31 @@ export const addQuestionAnalysis = (doc, answers, explanations) => {
         .text('Impact on Your Estate Plan:')
         .moveDown(0.25)
       doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-        .text(explanation.impact)
+        .text(answer.impact)
         .moveDown(1)
-    } 
-    // Handling multiple choice questions
-    else if (isMultipleChoice && Array.isArray(item.answerText) && Array.isArray(item.answerId)) {
-      
-      checkPageBreak(doc)
-      doc.fontSize(12)
-        .text('Your Answers:')
-        .moveDown(0.25)
-         // Handle different answer formats functionally
-      item.answerText.forEach(answer => {
-        doc.text(`• ${answer}`).moveDown(0.25)
-      })
-      
-      checkPageBreak(doc)
-      // Loop through each selected answer
-      item.answerId.forEach((answerId, answerIndex) => {
-        const answerText = item.answerText[answerIndex];
-        const explanation = getExplanation(answerId);
-        
-        // Create a box for each answer and its explanation
-        doc.rect(50, doc.y, doc.page.width - 100, 2)
-           .lineWidth(0.5)
-           .fillAndStroke('#f0f0f0', '#cccccc')
-           .moveDown(0.5);
-        
-        // Answer text with bullet
-        doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-           .fillColor('#000000')
-           .text(`Answer: ${answerText}`, { underline: true })
-           .moveDown(0.5)
-        
-        // Explanation specific to this answer choice
-        doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-           .fontSize(11)
-           .moveDown(0.25)
-           
-        checkPageBreak(doc)
-        doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-           .text('Why This Matters:', { continued: true })
-           .font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-           .text(` ${explanation.whyItMatters}`)
-           .moveDown(0.5)
-           
-        doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-           .text('Impact:', { continued: true })
-           .font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-           .text(` ${explanation.impact}`)
-           .moveDown(1)
-      });
-      
-      checkPageBreak(doc)
-      // Add an overall impact summary for multiple choice
-      doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-         .fontSize(12)
-         .text('Overall Impact on Your Estate Plan:')
-         .moveDown(0.25)
-      doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-         .text('The combination of these selections indicates specific needs that should be addressed in your estate planning approach.')
-         .moveDown(1)
-    }
 
-    checkPageBreak(doc)
-    // Add a divider line except for the last question
-    if (index < answers.length - 1) {
-      doc.moveTo(50, doc.y)
-        .lineTo(doc.page.width - 50, doc.y)
-        .stroke()
-        .moveDown(1)
-    }
-    
-    // Check if we need a new page (if near bottom)
-    if (doc.y > doc.page.height - 150 && index < answers.length - 1) {
-      doc.addPage()
-    }
-  })
-  
-  // Add new page
-  doc.addPage()
-  return doc
+      checkPageBreak(doc)
+      // Add a divider line except for the last question
+      if (index < impact.length - 1) {
+        doc.moveTo(50, doc.y)
+          .lineTo(doc.page.width - 50, doc.y)
+          .stroke()
+          .moveDown(1)
+      }
+
+      // Check if we need a new page (if near bottom)
+      if (doc.y > doc.page.height - 150 && index < impact.length - 1) {
+        doc.addPage()
+      }
+    })
+
+    // Add new page
+    doc.addPage()
+    return doc
+  } catch (error) {
+    console.error('error processing answers: ', error)
+    throw error
+  }
 }
 
 export const addNextSteps = (doc, quizResults) => {
