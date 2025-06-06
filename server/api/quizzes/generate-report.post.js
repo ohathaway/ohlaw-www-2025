@@ -5,6 +5,7 @@ import fs from 'fs'
 import path from 'path'
 import markdownIt from 'markdown-it'
 import { getQuizForAIbySlug } from '~~/server/utils/quizzes/utils'
+import { toTitleCase } from `~~/app/utils/strings`
 
 export default defineEventHandler(async (event) => {
   try {
@@ -62,8 +63,40 @@ export default defineEventHandler(async (event) => {
       fs.writeFileSync(outputPath, pdfBuffer)
       console.log(`Test PDF written to: ${outputPath}`)
     }
-    // Send email with PDF attachment
-    //  await sendReportEmail(user.email, result)
+
+    const { cloudflare: { bucketName } } = useRuntimeConfig()
+    const downloadName = body.quizResults.slug + '-' +
+      body.user.lastName + '-' +
+      body.user.firstName + '.pdf'
+
+    await uploadPdfToR2(pdfBuffer, downloadName, bucketName)
+
+    const reportUrlSigned = await getPresignedUrl(downloadName)
+    console.info('reportUrlSigned:', reportUrlSigned)
+    // Send email template with download URL
+    await sendTemplatedMsg({
+      sender: {
+        name: 'OHLaw Quizzes',
+        address: 'quizzes@ohlawcolorado.com'
+      },
+      recipients: [
+        {
+          name: `${body.user.firstName} ${body.user.lastName}`,
+          address: body.user.email
+        }
+      ],
+      subject: `${toTitleCase(body.quizResults.slug, '-')} Assessment Results`,
+      template: 'ynrw7gyq9mo42k8e',
+      personalization: [
+        {
+          // email: body.user.email,
+          email: 'owen@ohlawcolorado.com',
+          data: {
+            download_url: reportUrlSigned
+          }
+        }
+      ]
+    })
 
     // Store in CRM (pseudocode)
     //  await submitToCRM(user, quizResults, result)

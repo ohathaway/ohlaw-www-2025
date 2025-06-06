@@ -125,6 +125,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     cloudflare: {
       accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+      apiKey: process.env.CLOUDFLARE_API_KEY,
       accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
       secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
       bucketName: process.env.CLOUDFLARE_BUCKET_NAME
@@ -144,6 +145,9 @@ export default defineNuxtConfig({
     },
     claude: {
       apiKey: process.env.CLAUDE_KEY
+    },
+    sendgrid: {
+      apiKey: process.env.SENDGRID_KEY
     }
   },
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4

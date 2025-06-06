@@ -66,8 +66,12 @@ export default defineAppConfig({
       layout: {
         footer_position: 65,
         footer_reserve_space: 80
-      }
-    }
+      },
+      fromEmail: {
+        address: 'quizzes@ohlawcolorado.com',
+        name: 'OHLaw Quizzes'
+      },
+    },
   },
   routeTitles: {
     'policies': 'Policies',
