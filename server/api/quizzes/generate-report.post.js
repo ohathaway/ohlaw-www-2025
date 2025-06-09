@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const quizResultHash = crypto.createHash('sha256')
       .update(quizResultString)
       .digest('hex')
-    const kvKey = `quizResults:${quizResultHash}`
+    const kvKey = `quizAnalysis:${quizResultHash}`
 
     const resultExists = await hubKV().has(kvKey)
     console.info('resultExists:', resultExists)

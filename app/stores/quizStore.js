@@ -385,8 +385,9 @@ export const useQuizStore = defineStore('quiz', () => {
 
   const handleContactSubmit = async (contactInfo) => {
     try {
-      // Submit to Strapi
-      await submitQuizResults({
+      // Stash answers in KV
+      const kvKey = `quizAnswers:${startTime.value}`
+      await hubKV.set(kvKey, {
         quiz: quiz.value.id,
         quizVersion: quiz.value.version,
         answers: userAnswers.value,
@@ -412,24 +413,24 @@ export const useQuizStore = defineStore('quiz', () => {
         })
 
         contactSubmitted.value = true
-      }
 
-      // generate and deliver enhanced report
-      await $fetch('/api/quizzes/generate-report', {
-        method: 'post',
-        body: {
-          user: contactInfo,
-          quizResults: {
-            quizId: quiz.value.id,
-            slug: quiz.value.slug,
-            pathwayName: quizResult.value.category.title,
-            pathwaySummary: JSON.stringify(quizResult.value.category.description),
-            userAnswers: JSON.stringify(userAnswers.value),
-            totalScore: quizResult.value.score,
-            version: quiz.value.version
+        // generate and deliver enhanced report
+        await $fetch('/api/quizzes/generate-report', {
+          method: 'post',
+          body: {
+            user: contactInfo,
+            quizResults: {
+              quizId: quiz.value.id,
+              slug: quiz.value.slug,
+              pathwayName: quizResult.value.category.title,
+              pathwaySummary: JSON.stringify(quizResult.value.category.description),
+              userAnswers: JSON.stringify(userAnswers.value),
+              totalScore: quizResult.value.score,
+              version: quiz.value.version
+            }
           }
-        }
-      })
+        })
+      }
     } catch (err) {
       console.error('Error submitting quiz results:', err)
       // Show error message
