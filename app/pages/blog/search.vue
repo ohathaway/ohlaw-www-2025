@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="grid grid-cols-12 py-5 lg:px-20">
+    <div class="grid md:grid-cols-12 py-5 lg:px-20">
       <div class="md:col-span-12 mx-auto"><h1 class="text-2xl">Search Results</h1></div>
       <div class="md:col-span-3">
       </div>
@@ -14,26 +14,28 @@
           :pt="{ root: 'w-full' }"
         >
           <template #header>
-            <div class="flex flex-wrap gap-4">
-              <div class="flex gap-2">
-                Sort by:
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-slate-50 rounded-lg border">
+              <!-- Search - Primary action -->
+              <div class="flex-1 max-w-md">
+                <FloatLabel variant="on">
+                  <InputText
+                    id="searchRefine"
+                    v-model="searchTerm"
+                    fluid
+                    class="text-sm"
+                  />
+                  <label for="searchRefine" class="text-sm text-slate-600">Refine your search</label>
+                </FloatLabel>
               </div>
-              <div class="flex gap-2">
+              
+              <!-- Sort controls - Secondary -->
+              <div class="flex items-center gap-3 text-sm">
+                <span class="text-slate-600 whitespace-nowrap">Sort by:</span>
                 <SelectButton
                   v-model="sortKey"
                   :options="sortOptions"
+                  class="text-xs"
                 />
-              </div>
-              <div class="flex gap-2">
-                <FloatLabel variant="on">
-                  <label for="searchRefine">Refine your search:</label>
-                  <InputText
-                    type="text"
-                    name="searchRefine"
-                    v-model="searchTerm"
-                    fluid
-                  />
-                </FloatLabel>
               </div>
             </div>
           </template>
@@ -41,7 +43,9 @@
             <h5 class="p-12">No search results found</h5>
           </template>
           <template #list="slotProps">
-            <BlogPostList :posts="slotProps.items" :snippet="true" />
+            <div class="p-5">
+              <BlogPostList :posts="slotProps.items" :snippet="true" />
+            </div>
           </template>
         </DataView>
       </div>
