@@ -4,7 +4,7 @@
       <h3>{{ title }}</h3>
     </div>
     <div class="list-entries">
-      <div class="entry" v-for="post in posts">
+      <div class="entry" v-for="(post, index) in posts" :key="index">
         <div class="entry-wrapper ms-0 py-4 border-b border-gray-300">
           <span class="italic">
             {{ formatDateFull(post.publishDate) }}

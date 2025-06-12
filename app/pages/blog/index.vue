@@ -40,6 +40,4 @@ spotlightPosts = dedupPosts(spotlightPosts)
 const fetchUrl = allPostsQueryREST(9)
 const { strapiUrl } = useAppConfig()
 const { data: { value: { data: allPostsREST } } } = await useFetch(`${strapiUrl}/api/posts?${fetchUrl}`)
-
-const search = useMeilisearch()
 </script>
