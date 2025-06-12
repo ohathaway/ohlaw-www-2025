@@ -52,8 +52,9 @@ export default defineAppConfig({
       'Nonprofit Legal Services'
     ]
   },
-  search: {
-    meilisearchKey: 'a330ebefa056ac6759d7bc62e552e7707b68f43194f233546a1da40e3198ec53'
+  meilisearch: {
+    searchApiKey: 'a330ebefa056ac6759d7bc62e552e7707b68f43194f233546a1da40e3198ec53',
+    host: 'https://search.ohlawcolorado.com'
   },
   strapiUrl: 'https://strapi.ohlawcolorado.com',
   floatingCta: {

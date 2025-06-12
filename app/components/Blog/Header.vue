@@ -17,6 +17,24 @@
             <span class="text-xl text-white hover:text-slate-500 font-quatrocento">{{ item.label }}</span>
           </NuxtLink>
         </template>
+        <template #end>
+          <Button 
+            icon="pi pi-search"
+            rounded
+            raised
+            severity="secondary"
+            aria-label="Search Articles"
+            @click="openSearch"
+          />
+          <Popover ref="searchPop">
+            <Form @submit="handleSearch">
+              <InputGroup>
+                <InputText v-model="searchTerm" />
+                <Button type="submit" label="Search" icon="pi pi-search"></Button>
+              </InputGroup>
+            </Form>
+          </Popover>
+        </template>
       </Menubar>
     </div>
     
@@ -40,17 +58,20 @@
         ref="mobileMenu"
         class="w-full"
       />
+      <Button icon="pi pi-search" rounded raised severity="secondary" aria-label="Search Articles" variant="text" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
-
 const route = useRoute()
+const router = useRouter()
 const mobileMenuVisible = ref(false)
 const mobileMenu = ref(null)
+const searchPop = ref()
+const searchTerm = ref()
+
+const blogStore = useBlogStore()
 
 const backgroundImage = '/img/blog_header.webp'
 
@@ -115,6 +136,17 @@ const backgroundStyle = computed(() => {
     backgroundPosition: 'center'
   }
 })
+
+const openSearch = event => {
+  searchPop.value.toggle(event)
+}
+
+const handleSearch = () => {
+  blogStore.searchTerm = searchTerm.value
+  blogStore.searchPosts()
+  router.push('/blog/search')
+  searchPop.value.toggle()
+}
 </script>
 
 <style scoped>

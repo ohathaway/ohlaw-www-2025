@@ -16,13 +16,19 @@
               >
                 <h4 class="text-xl">{{  post.Title }}</h4>
               </NuxtLink>
-              <Badge v-for="tag in post.tags.data">
+              <Tag v-for="tag in post.tags" class="me-3">
                 <NuxtLink
                   :to="`/blog/tags/${tag.slug}`"
                 >
                   {{ tag.Name }}
                 </NuxtLink>
-              </Badge>
+              </Tag>
+            </div>
+            <div v-if="snippet" class="col-span-3 pe-4">
+              <BlogRichText :block="post.Snippet" />
+              <NuxtLink :to="`/blog/${post.slug}`">
+                read more...
+              </NuxtLink>
             </div>
             <div class="col-span-1 hidden lg:block">
               <NuxtLink
@@ -34,12 +40,6 @@
                 />
               </NuxtLink>
             </div>
-          </div>
-          <div v-if="snippet">
-              <BlogRichText :block="post.Snippet" />
-              <NuxtLink :to="`/blog/${post.slug}`">
-                read more...
-              </NuxtLink>
           </div>
         </div>
       </div>

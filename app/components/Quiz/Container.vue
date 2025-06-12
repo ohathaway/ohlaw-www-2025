@@ -19,7 +19,7 @@
     <div v-else-if="quiz" class="quiz-content">
       <h2 class="mb-4">{{ quiz.title }}</h2>
       <!-- Introduction (shown before starting) -->
-      <div v-if="!started && !completed" class="p-[2rem] text-center p-4">
+      <div v-if="!started && !completed" class="p-[2rem] text-center">
         <div class="quiz-description mb-5"><BlogRichText :block="quiz.description" /></div>
         <Button size="large" severity="success" @click="startQuiz">
           Start Quiz
