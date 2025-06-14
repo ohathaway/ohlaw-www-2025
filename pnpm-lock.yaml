@@ -28,7 +28,7 @@ importers:
         version: 1.6.9
       '@formkit/nuxt':
         specifier: ^1.6.9
-        version: 1.6.9(esbuild@0.25.1)(magicast@0.3.5)(rollup@4.36.0)(tailwindcss@4.0.15)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
+        version: 1.6.9(esbuild@0.17.19)(magicast@0.3.5)(rollup@4.36.0)(tailwindcss@4.0.15)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
       '@formkit/pro':
         specifier: ^0.127.21
         version: 0.127.21(@formkit/core@1.6.9)(@formkit/inputs@1.6.9)(@formkit/utils@1.6.9)
@@ -7814,7 +7814,7 @@ snapshots:
       '@formkit/core': 1.6.9
       '@formkit/utils': 1.6.9
 
-  '@formkit/nuxt@1.6.9(esbuild@0.25.1)(magicast@0.3.5)(rollup@4.36.0)(tailwindcss@4.0.15)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))':
+  '@formkit/nuxt@1.6.9(esbuild@0.17.19)(magicast@0.3.5)(rollup@4.36.0)(tailwindcss@4.0.15)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@formkit/core': 1.6.9
       '@formkit/i18n': 1.6.9
@@ -7823,7 +7823,7 @@ snapshots:
       chokidar: 3.6.0
       pathe: 1.1.2
       unplugin: 1.16.1
-      unplugin-formkit: 0.2.13(esbuild@0.25.1)(rollup@4.36.0)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0))
+      unplugin-formkit: 0.2.13(esbuild@0.17.19)(rollup@4.36.0)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0))
     transitivePeerDependencies:
       - esbuild
       - magicast
@@ -13839,12 +13839,12 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unplugin-formkit@0.2.13(esbuild@0.25.1)(rollup@4.36.0)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0)):
+  unplugin-formkit@0.2.13(esbuild@0.17.19)(rollup@4.36.0)(vite@6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0)):
     dependencies:
       pathe: 1.1.2
       unplugin: 1.16.1
     optionalDependencies:
-      esbuild: 0.25.1
+      esbuild: 0.17.19
       rollup: 4.36.0
       vite: 6.2.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.2)(sass-embedded@1.86.0)(sass@1.85.1)(terser@5.39.0)(yaml@2.7.0)
 

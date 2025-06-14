@@ -34,7 +34,9 @@
                 <SelectButton
                   v-model="sortKey"
                   :options="sortOptions"
+                  defaultValue="Newest First"
                   class="text-xs"
+                  @change="onSortChange($event)"
                 />
               </div>
             </div>
@@ -54,6 +56,8 @@
 </template>
 
 <script setup>
+const route = useRoute()
+
 const blogStore = useBlogStore()
 const { searchTerm } = storeToRefs(blogStore)
 
@@ -61,7 +65,38 @@ const sortKey = ref()
 const sortOrder = ref()
 const sortField = ref()
 const sortOptions = ref([
-  'Newest First',
-  'Oldest First'
+  { option: 'Newest First', index: 1 },
+  { option: 'Oldest First', index: -1 }
 ])
+
+console.debug('route:', route.query.search)
+
+const onSortChange = event => {
+  sortPosts(event.value)
+}
+
+const sortedPosts = order => {
+  blogStore.postList.sort((a, b) => {
+    const dateA = new Date(a.publishDate)
+    const dateB = new Date(b.publishDate)
+    
+    if (order === 'Newest First') {
+      return dateB - dateA // Newest first
+    } else {
+      return dateA - dateB // Oldest first
+    }
+  })
+}
+
+onMounted(() => {
+  try {
+    if (route.query.search) {
+      searchTerm.value = route.query.search
+      blogStore.searchPosts()
+    }
+  } catch (error) {
+    console.error('failed to initiate search:', error)
+    throw error
+  }
+})
 </script>
