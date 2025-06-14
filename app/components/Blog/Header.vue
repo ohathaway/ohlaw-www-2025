@@ -150,7 +150,7 @@ const openSearch = event => {
 
 const handleSearch = () => {
   blogStore.searchPosts()
-  router.push('/blog/search')
+  router.push({ path: '/blog/search', query: { search: searchTerm.value } })
   searchPop.value.toggle()
 }
 </script>
