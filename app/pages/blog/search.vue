@@ -34,9 +34,10 @@
                 <SelectButton
                   v-model="sortKey"
                   :options="sortOptions"
-                  defaultValue="Newest First"
+                  option-label="label"
+                  option-value="value"
                   class="text-xs"
-                  @change="onSortChange($event)"
+                  @change="onSortChange"
                 />
               </div>
             </div>
@@ -61,35 +62,33 @@ const route = useRoute()
 const blogStore = useBlogStore()
 const { searchTerm } = storeToRefs(blogStore)
 
-const sortKey = ref()
-const sortOrder = ref()
-const sortField = ref()
+// DataView sorting state
+const sortKey = ref('newest')
+const sortOrder = ref(-1) // -1 for descending (newest first), 1 for ascending (oldest first)
+const sortField = ref('publishDate')
+
+// Sort options for SelectButton
 const sortOptions = ref([
-  { option: 'Newest First', index: 1 },
-  { option: 'Oldest First', index: -1 }
+  { label: 'Newest First', value: 'newest' },
+  { label: 'Oldest First', value: 'oldest' }
 ])
 
-console.debug('route:', route.query.search)
-
-const onSortChange = event => {
-  sortPosts(event.value)
-}
-
-const sortedPosts = order => {
-  blogStore.postList.sort((a, b) => {
-    const dateA = new Date(a.publishDate)
-    const dateB = new Date(b.publishDate)
-    
-    if (order === 'Newest First') {
-      return dateB - dateA // Newest first
-    } else {
-      return dateA - dateB // Oldest first
-    }
-  })
+const onSortChange = () => {
+  if (sortKey.value === 'newest') {
+    sortOrder.value = -1 // Descending order (newest first)
+  } else {
+    sortOrder.value = 1  // Ascending order (oldest first)
+  }
+  // sortField stays 'publishDate' for both options
 }
 
 onMounted(() => {
   try {
+    // Set default sort
+    sortKey.value = 'newest'
+    sortOrder.value = -1
+    sortField.value = 'publishDate'
+    
     if (route.query.search) {
       searchTerm.value = route.query.search
       blogStore.searchPosts()
