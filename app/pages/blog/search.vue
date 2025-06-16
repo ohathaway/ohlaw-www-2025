@@ -1,56 +1,85 @@
 <template>
   <ClientOnly>
-    <div class="grid md:grid-cols-12 py-5 lg:px-20">
-      <div class="md:col-span-12 mx-auto"><h1 class="text-2xl">Search Results</h1></div>
-      <div class="md:col-span-3">
+    <div class="py-5 lg:px-20">
+      <div class="mb-6">
+        <h1 class="text-2xl">
+          Search Results
+        </h1>
       </div>
-      <div class="md:col-span-8 flex items-start">
-        <DataView
-          :value="blogStore.postList"
-          :sortOrder="sortOrder"
-          :sortField="sortField"
-          paginator
-          :rows="5"
-          :pt="{ root: 'w-full' }"
-        >
-          <template #header>
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-slate-50 rounded-lg border">
-              <!-- Search - Primary action -->
-              <div class="flex-1 max-w-md">
-                <FloatLabel variant="on">
-                  <InputText
-                    id="searchRefine"
-                    v-model="searchTerm"
-                    fluid
-                    class="text-sm"
-                  />
-                  <label for="searchRefine" class="text-sm text-slate-600">Refine your search</label>
-                </FloatLabel>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sidebar -->
+        <div class="lg:col-span-3 order-2 lg:order-1">
+          <BlogSearchSidebar
+            :posts="blogStore.postList || []"
+            :active-categories="blogStore.activeCategories"
+            :active-tags="blogStore.activeTags"
+            @filter-change="handleFilterChange"
+          />
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-9 order-1 lg:order-2">
+          <DataView
+            :value="blogStore.filteredPostList"
+            :sort-order="sortOrder"
+            :sort-field="sortField"
+            paginator
+            :rows="5"
+            :pt="{ root: 'w-full' }"
+          >
+            <template #header>
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-slate-50 rounded-lg border">
+                <!-- Search - Primary action -->
+                <div class="flex-1 max-w-md">
+                  <FloatLabel variant="on">
+                    <InputText
+                      id="searchRefine"
+                      v-model="searchTerm"
+                      fluid
+                      class="text-sm"
+                    />
+                    <label for="searchRefine" class="text-sm text-slate-600">Refine your search</label>
+                  </FloatLabel>
+                </div>
+
+                <!-- Results count and sort controls -->
+                <div class="flex items-center gap-4 text-sm">
+                  <span class="text-slate-600 whitespace-nowrap">
+                    {{ filteredResultsCount }} result{{ filteredResultsCount !== 1 ? 's' : '' }}
+                  </span>
+                  <div class="flex items-center gap-3">
+                    <span class="text-slate-600 whitespace-nowrap">Sort by:</span>
+                    <SelectButton
+                      v-model="sortKey"
+                      :options="sortOptions"
+                      option-label="label"
+                      option-value="value"
+                      class="text-xs"
+                      @change="onSortChange"
+                    />
+                  </div>
+                </div>
               </div>
-              
-              <!-- Sort controls - Secondary -->
-              <div class="flex items-center gap-3 text-sm">
-                <span class="text-slate-600 whitespace-nowrap">Sort by:</span>
-                <SelectButton
-                  v-model="sortKey"
-                  :options="sortOptions"
-                  option-label="label"
-                  option-value="value"
-                  class="text-xs"
-                  @change="onSortChange"
-                />
+            </template>
+            <template #empty>
+              <div class="text-center py-12">
+                <i class="pi pi-search text-4xl text-gray-400 mb-4 block" />
+                <h5 class="text-lg text-gray-600 mb-2">
+                  No search results found
+                </h5>
+                <p class="text-gray-500 text-sm">
+                  {{ hasActiveFilters ? 'Try adjusting your filters or search terms.' : 'Try different search terms.' }}
+                </p>
               </div>
-            </div>
-          </template>
-          <template #empty>
-            <h5 class="p-12">No search results found</h5>
-          </template>
-          <template #list="slotProps">
-            <div class="p-5">
-              <BlogPostList :posts="slotProps.items" :snippet="true" />
-            </div>
-          </template>
-        </DataView>
+            </template>
+            <template #list="slotProps">
+              <div class="p-5">
+                <BlogPostList :posts="slotProps.items" :snippet="true" />
+              </div>
+            </template>
+          </DataView>
+        </div>
       </div>
     </div>
   </ClientOnly>
@@ -60,7 +89,7 @@
 const route = useRoute()
 
 const blogStore = useBlogStore()
-const { searchTerm } = storeToRefs(blogStore)
+const { searchTerm, activeCategories, activeTags, filteredPostList } = storeToRefs(blogStore)
 
 // DataView sorting state
 const sortKey = ref('newest')
@@ -70,17 +99,39 @@ const sortField = ref('publishDate')
 // Sort options for SelectButton
 const sortOptions = ref([
   { label: 'Newest First', value: 'newest' },
-  { label: 'Oldest First', value: 'oldest' }
+  { label: 'Oldest First', value: 'oldest' },
 ])
 
+// Computed properties
+const filteredResultsCount = computed(() => {
+  return filteredPostList.value?.length || 0
+})
+
+const hasActiveFilters = computed(() => {
+  return activeCategories.value.length > 0 || activeTags.value.length > 0
+})
+
+// Methods
 const onSortChange = () => {
   if (sortKey.value === 'newest') {
     sortOrder.value = -1 // Descending order (newest first)
-  } else {
-    sortOrder.value = 1  // Ascending order (oldest first)
+  }
+  else {
+    sortOrder.value = 1 // Ascending order (oldest first)
   }
   // sortField stays 'publishDate' for both options
 }
+
+const handleFilterChange = (filters) => {
+  blogStore.updateFilters(filters)
+}
+
+// Watch for search term changes to trigger new searches
+watch(searchTerm, async (newTerm) => {
+  if (newTerm && newTerm.trim()) {
+    await blogStore.searchPosts()
+  }
+}, { debounce: 300 })
 
 onMounted(() => {
   try {
@@ -88,12 +139,13 @@ onMounted(() => {
     sortKey.value = 'newest'
     sortOrder.value = -1
     sortField.value = 'publishDate'
-    
+
     if (route.query.search) {
       searchTerm.value = route.query.search
       blogStore.searchPosts()
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('failed to initiate search:', error)
     throw error
   }
