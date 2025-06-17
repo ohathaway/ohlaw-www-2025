@@ -1,12 +1,10 @@
 <template>
   <div class="grid grid-cols-2 post-title px-20">
     <div class="col-span 2 md:col-1 print-d-none">
-      <!--
       <LayoutMediaFocus
         :source="getStrapiUrl(postREST.Image)"
         :title="postREST.Title"
       />
-      -->
     </div>
     <div class="col-span-2 md:col-span-1 flex items-center">
       <h1 class="pb-5">{{ postREST.Title }}</h1>
@@ -49,14 +47,13 @@
     </div>
     <div class="col-span-12 md:col-span-4 lg:col-span-3">
       <div class="sticky-sidebar">
-        <!--
         <ClientOnly>
           <BlogPostListSidebar
             title="Related Articles"
-            :posts="getMultipleRandom(relatedPosts, 5)"
+            :posts="getMultipleRandom(categoryREST.posts, 5)"
+            :snippet="true"
           />
         </ClientOnly>
-        -->
       </div>
     </div>
   </article>
@@ -87,7 +84,15 @@ const category = postREST?.category?.slug ??
                 postREST?.category?.slug ?? 
                 'Uncategorized'
 
-const restQuery = postListQueryREST(category)
+const categoryQuery = postListQueryREST(category)
+
+const {
+  data: {
+    value: {
+      data: [categoryREST]
+    }
+  }
+} = await useFetch(`${strapiUrl}/api/categories?${categoryQuery}`)
 
 /*
 const fetchUrl = ref(`${strapiUrl}/api/categories?${restQuery}`)

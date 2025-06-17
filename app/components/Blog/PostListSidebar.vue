@@ -3,11 +3,22 @@
     <BlogPostList 
       :posts="posts"
       :title="title"
-      :snippet="false"
+      :snippet="snippet"
     />
   </aside>
 </template>
 
 <script setup>
-const { posts, title } = defineProps(['posts', 'title'])
+const { posts, title, snippet } = defineProps({
+  posts: {
+    type: Array
+  },
+  snippet: {
+    type: Boolean,
+    default: false
+  },
+  title: {
+    type: String
+  }
+})
 </script>

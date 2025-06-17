@@ -141,7 +141,7 @@ const singlePostQueryREST = slug => {
     const params = {
       filters: {
         slug: {
-          eq: slug
+          '$eq': slug
         }
       },
       populate: {
