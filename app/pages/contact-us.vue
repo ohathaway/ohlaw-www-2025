@@ -257,7 +257,6 @@ const currentMapUrl = computed(() => {
 
 // Function to handle accordion tab changes
 const handleAccordionChange = (event) => {
-  console.debug('firing handleAccordionChange:', event)
   // Map PrimeVue accordion index to location keys
   const locationMap = ['foco', 'metroNorth', 'interlocken']
   if (event !== undefined && locationMap[event]) {

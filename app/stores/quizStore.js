@@ -91,12 +91,8 @@ export const useQuizStore = defineStore('quiz', () => {
       const { strapiUrl } = useAppConfig()
       const restResponse = await $fetch(`${strapiUrl}/api/quizzes?${getQuizQuery}`)
 
-      // console.debug('quiz data:', data.quizzes[0])
-      // console.debug('quiz data REST:', restResponse)
-
       // Check if quiz exists and is active
       const quizData = restResponse.data?.[0]
-      console.debug('quizData:', quizData)
 
       if (!quizData) {
         throw new Error('Quiz not found')
@@ -305,9 +301,7 @@ export const useQuizStore = defineStore('quiz', () => {
   // wrapper function for calculating the quiz results
   const calculateResult = () => {
     // Check for Overrides
-    console.debug('checking for answer overrides:', userAnswers.value)
     const overrides = checkResultOverride(userAnswers.value)
-    console.debug('overrides:', overrides)
 
     // Simple scoring for now - sum the answer values
     let totalScore = 0
@@ -357,8 +351,6 @@ export const useQuizStore = defineStore('quiz', () => {
 
     try {
       // Use REST api to submit the mutation
-      // const submitQuery = submitQuizResults(submissionData)
-      // console.debug('submitQuery:', submitQuery)
       const { strapiUrl } = useAppConfig()
       const response = await $fetch(`${strapiUrl}/api/quiz-submissions`, {
         method: 'post',
@@ -367,7 +359,6 @@ export const useQuizStore = defineStore('quiz', () => {
         }
       })
 
-      // console.debug('strapi REST response:', response)
       // Store the submission locally
       // const submission = response.data.createQuizSubmission.data
       // quizSubmissions.value.push(submission)
@@ -483,7 +474,6 @@ export const useQuizStore = defineStore('quiz', () => {
     try {
       // Adapt this to your specific CRM API
       const { public: { lawmatics: { quizFormUrl } } } = useRuntimeConfig()
-      console.debug('quizFormUrl:', quizFormUrl)
       const crmResponse = await $fetch(quizFormUrl, {
         method: 'post',
         body: {

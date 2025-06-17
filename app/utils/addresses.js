@@ -1,7 +1,6 @@
 const addrProps = ['street1', 'street2', 'city', 'state', 'zip']
 
 export const useAddressEmpty = () => (addr) => {
-  console.debug('addr: ', addr)
   return isEmpty(uniq(Object.values(addr))[0])
 }
 

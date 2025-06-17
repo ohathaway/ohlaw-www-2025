@@ -87,7 +87,7 @@ const createBreadcrumbItem = (segment, path, isLast) => {
   
   // If it's the last segment (current page), don't make it a link
   if (isLast) {
-    console.debug('this one is last, returning { label }', label)
+    // console.debug('this one is last, returning { label }', label)
     return { label }
   }
   
@@ -111,7 +111,7 @@ const breadcrumbItems = computed(() => {
     
     // Check if this is the last segment
     const isLast = index === pathSegments.length - 1
-    console.debug('isLast:', isLast)
+    // console.debug('isLast:', isLast)
 
     // Create and add the breadcrumb item
     items.push(createBreadcrumbItem(segment, currentPath, isLast))

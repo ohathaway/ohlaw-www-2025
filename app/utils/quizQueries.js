@@ -187,7 +187,7 @@ export const getQuizBySlugREST = slug => {
  * GraphQL mutation to submit quiz results
  */
 export const submitQuizResults = results => {
-  console.debug('constructing quiz submission from:', results)
+  // console.debug('constructing quiz submission from:', results)
   try {
     const {
       answers,

@@ -17,6 +17,7 @@
       <ul class="tags">
         <li
           v-for="tag in postREST.tags"
+          :key="tag.slug"
           class="tag me-3"
         >
           <Badge
@@ -73,7 +74,6 @@ const slug = path.split('/').pop()
 const { strapiUrl } = useAppConfig()
 
 const postQuery = singlePostQueryREST(slug)
-console.info('postQuery:', postQuery)
 
 const {
   data: {
@@ -81,8 +81,7 @@ const {
       data: [postREST]
     }
   }
-} = await useFetch(`${strapiUrl}/api/posts?${singlePostQueryREST}`)
-// console.info('postREST:', postREST)
+} = await useFetch(`${strapiUrl}/api/posts?${postQuery}`)
 
 const category = postREST?.category?.slug ?? 
                 postREST?.category?.slug ?? 
