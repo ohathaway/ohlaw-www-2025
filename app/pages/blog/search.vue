@@ -29,9 +29,9 @@
             :pt="{ root: 'w-full' }"
           >
             <template #header>
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-slate-50 rounded-lg border">
+              <div class="flex flex-col gap-4 p-4 bg-slate-50 rounded-lg border">
                 <!-- Search - Primary action -->
-                <div class="flex-1 max-w-md">
+                <div class="w-full sm:max-w-md">
                   <FloatLabel variant="on">
                     <InputText
                       id="searchRefine"
@@ -44,18 +44,22 @@
                 </div>
 
                 <!-- Results count and sort controls -->
-                <div class="flex items-center gap-4 text-sm">
-                  <span class="text-slate-600 whitespace-nowrap">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                  <span class="text-slate-600 text-sm order-2 sm:order-1">
                     {{ filteredResultsCount }} result{{ filteredResultsCount !== 1 ? 's' : '' }}
                   </span>
-                  <div class="flex items-center gap-3">
-                    <span class="text-slate-600 whitespace-nowrap">Sort by:</span>
+                  <div class="flex flex-col xs:flex-row xs:items-center gap-2 xs:gap-3 order-1 sm:order-2">
+                    <span class="text-slate-600 text-sm whitespace-nowrap">Sort by:</span>
                     <SelectButton
                       v-model="sortKey"
                       :options="sortOptions"
                       option-label="label"
                       option-value="value"
-                      class="text-xs"
+                      class="text-xs w-full xs:w-auto"
+                      :pt="{ 
+                        root: 'w-full xs:w-auto',
+                        button: 'text-xs px-2 py-1 sm:px-3 sm:py-2'
+                      }"
                       @change="onSortChange"
                     />
                   </div>
