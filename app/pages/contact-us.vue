@@ -14,7 +14,7 @@
     </section>
 
     <!-- Scheduling Section -->
-    <section class="py-16 bg-slate-50">
+    <section id="schedule" class="py-16 bg-slate-200">
       <div class="container mx-auto px-4 relative" ref="schedulingSection">
         <div class="w-full flex justify-center mb-12">
           <h2 class="text-3xl font-semibold text-center relative inline-block">

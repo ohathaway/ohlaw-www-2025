@@ -3,6 +3,7 @@
   <HomeHeroLegacy />
   <HomeWelcome />
   <HomeLinesOfBusiness />
+  <HomePFL />
 </template>
 
 <script setup>

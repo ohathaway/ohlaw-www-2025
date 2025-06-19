@@ -13,7 +13,7 @@
       />
     </div>
     <Divider />
-    <PanelMenu :model="menuItems" class="w-full" />
+    <PanelMenu :model="navigationMenuItems" class="w-full" />
   </Drawer>
 </template>
 
@@ -49,7 +49,7 @@ const props = defineProps({
     type: Array,
     required: true
   }
-});
+})
 
 const emit = defineEmits(['update:visible']);
 
@@ -57,10 +57,13 @@ const emit = defineEmits(['update:visible']);
 const visibleModel = computed({
   get: () => props.visible,
   set: (value) => emit('update:visible', value)
-});
+})
+
+// Convert route-based menu items to command-based for PanelMenu
+const navigationMenuItems = computed(() => convertRoutesToCommands(props.menuItems))
 
 // Method to handle updating the visible state
 const updateVisible = (value) => {
-  emit('update:visible', value);
-};
+  emit('update:visible', value)
+}
 </script>

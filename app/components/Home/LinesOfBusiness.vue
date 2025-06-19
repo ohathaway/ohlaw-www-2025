@@ -1,5 +1,5 @@
 <template>
-  <section class="py-12 bg-primary-100">
+  <section id="lines-of-business" class="py-12 bg-primary-100">
     <div class="container mx-auto px-4">
       <h1 class="text-5xl text-center my-5">Our Main Practice Areas</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

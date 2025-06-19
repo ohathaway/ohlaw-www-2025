@@ -13,8 +13,8 @@
         class="border-t-6 border-b border-white mx-auto w-3/4 justify-center"
       >
         <template #item="{ item, props, hasSubmenu, root }">
-          <NuxtLink v-ripple class="flex items-center mx-5" :to="item.route">
-            <span class="text-xl text-white hover:text-slate-500 font-quatrocento">{{ item.label }}</span>
+          <NuxtLink v-ripple class="flex items-center mx-4" :to="item.route">
+            <span class="text-xl text-white hover:text-slate-500 font-benguiat">{{ item.label }}</span>
           </NuxtLink>
         </template>
         <template #end>
@@ -41,12 +41,21 @@
     <!-- Mobile Categories Navigation -->
     <div class="lg:hidden border-t border-b border-slate-300 py-3 mx-auto w-3/4">
       <div class="flex justify-between items-center px-4">
-        <h5 class="text-base font-medium">Categories</h5>
+        <h5 class="text-white font-xl">Categories</h5>
         <Button 
           icon="pi pi-bars" 
           @click="toggleMobileMenu" 
-          class="p-button-text p-button-rounded"
+          class="p-button-rounded"
+          severity="secondary"
           aria-label="Toggle Categories Menu"
+        />
+        <Button 
+          icon="pi pi-search"
+          rounded
+          raised
+          severity="secondary"
+          aria-label="Search Articles"
+          @click="mobileSearchVisible = !mobileSearchVisible"
         />
       </div>
       
@@ -58,14 +67,18 @@
         ref="mobileMenu"
         class="w-full"
       />
-      <Button
-        icon="pi pi-search"
-        rounded
-        raised
-        severity="secondary"
-        aria-label="Search Articles"
-        variant="text"
-      />
+      <Drawer
+        v-model:visible="mobileSearchVisible"
+        header="Search for resources"
+        position="top"
+      >
+        <Form @submit="handleSearch">
+          <InputGroup>
+            <InputText v-model="searchTerm" autofocus />
+            <Button type="submit" label="Search" icon="pi pi-search" />
+          </InputGroup>
+        </Form>
+      </Drawer>
     </div>
   </div>
 </template>
@@ -76,6 +89,7 @@ const router = useRouter()
 const mobileMenuVisible = ref(false)
 const mobileMenu = ref(null)
 const searchPop = ref()
+const mobileSearchVisible = ref(false)
 
 const blogStore = useBlogStore()
 const { searchTerm } = storeToRefs(blogStore)
@@ -125,7 +139,7 @@ const menuItems = computed(() => {
     })
   })
   
-  return items
+  return convertRoutesToCommands(items)
 })
 
 // Toggle mobile menu visibility

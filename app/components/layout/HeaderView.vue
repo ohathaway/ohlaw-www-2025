@@ -20,7 +20,15 @@
         class="lg:hidden ps-7 col-start-2 col-span-6"
       >
         <NuxtLink to="/" class="block">
-          <h1 class="font-[TrajanBold] text-sm text-center font-trajan pt-2">The Law Offices<br />of<br />Owen Hathaway</h1>
+          <h1 :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
+            scrolled ? 'hidden' : '']">
+            The Law Offices<br />of<br />Owen Hathaway
+          </h1>
+          <h1 :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
+            scrolled ? '' : 'hidden']">
+            <span class="md:hidden">OH Law</span>
+            <span class="hidden md:block">The Law Offices of Owen Hathaway</span>
+          </h1>
         </NuxtLink>
       </div>
 
@@ -180,16 +188,3 @@ const mobileButtonTheme = ref({
   textPrimaryHoverBackground: '{slate-600}'
 })
 </script>
-
-<style lang="scss">
-/* Styling for the Schedule button - keeping this as a scoped style since it targets PrimeVue components */
-/*
-:deep(.schedule-button) .p-menuitem-link {
-  @apply bg-primary text-white rounded px-4 py-2;
-}
-
-:deep(.schedule-button) .p-menuitem-link:hover {
-  @apply bg-primary-600;
-}
-*/
-</style>

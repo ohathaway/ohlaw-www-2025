@@ -96,7 +96,7 @@
     </section>
 
     <!-- Building Businesses Section (with sidebar) -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-16 bg-slate-200">
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-4 gap-8">
           <div class="col-span-4 md:col-span-3">
@@ -183,7 +183,7 @@
         </div>
         
         <div class="mt-12 text-center">
-          <h5 class="text-xl italic font-semibold mb-8">The Personal Family Lawyer approach reinforces our existing commitments while adding these valuable dimensions:</h5>
+          <h5 class="text-xl italic font-semibold md:w-[65%] mx-auto mb-8">The Personal Family Lawyer approach reinforces our existing commitments while adding these valuable dimensions:</h5>
         
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-lg shadow-md h-full text-center">

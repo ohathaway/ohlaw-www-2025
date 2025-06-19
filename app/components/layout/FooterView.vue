@@ -2,7 +2,7 @@
   <footer class="bg-primary-800 py-6 text-slate-200">
     <div class="grid px-20 py-10 grid-cols-2 gap-4">
       <div class="">
-        <h5 class="text-2xl pb-5"><NuxtLink to="/contact-us">Contact Us</NuxtLink></h5>
+        <h5 class="text-2xl pb-5"><NuxtLink to="/contact-us">The Law Offices of Owen Hathaway</NuxtLink></h5>
         <div>
           <div class="grid grid-cols-2">
             <div>
@@ -22,11 +22,11 @@
               </ul>
             </div>
             <div class="py-5 col-span-2">
-              <NuxtLink to="/contact-us#locations">Click here to find our other locations and get directions</NuxtLink>
+              <NuxtLink to="/contact-us#visit-us">Click here to find our other locations and get directions</NuxtLink>
             </div>
             <div class="pb-5 col-span-2">
               <p>We are only available at the office by appointment.</p>
-              <p><a href="#">Please click here to book a time to meet</a></p>
+              <p><a href="/contact-us/#schedule">Please click here to book a time to meet</a></p>
             </div>
           </div>
           <ClientOnly>
