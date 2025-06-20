@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
-import { ohLawPreset } from './primevue.ohlaw.js'
+import { ohLawPreset } from './primevue.ohlaw'
 
 // Customization for PrimeVue
 const preset = definePreset(Aura, ohLawPreset)
@@ -216,7 +216,7 @@ export default defineNuxtConfig({
       }
     },
     optimizeDeps: {
-      include: ['./primevue.ohlaw.js']
+      include: ['./primevue.ohlaw.ts']
     },
     plugins: [
       tailwindcss()
@@ -296,7 +296,7 @@ export default defineNuxtConfig({
   },
 
   watch: [
-    './primevue.ohlaw.js'
+    './primevue.ohlaw.ts'
   ],
 
   apollo: {

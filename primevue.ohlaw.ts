@@ -186,8 +186,10 @@ export const ohLawPreset = {
       }
     },
     menubar: {
-      background: 'rgba(0, 0, 0, 0)',
-      borderColor: 'rgba(0, 0, 0, 0)',
+      root: {
+        background: 'rgba(0, 0, 0, 0)',
+        borderColor: 'rgba(0, 0, 0, 0)',
+      }
     },
     progressspinner: {
       strokeColor: '{primary.600}',
