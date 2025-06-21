@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full">
     <!-- SVG Journey Path with Interactive Points -->
-    <div class="journey-map relative w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
+    <div class="journey-map relative w-full h-[300px] md:h-[420px] lg:h-[520px] xl:h-[500px] overflow-hidden">
       <!-- Background SVG Path -->
       <svg class="w-full h-full" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
         <!-- Winding Path Base -->
@@ -41,7 +41,7 @@
       
       <!-- Service Stop Points -->
       <button 
-        class="absolute bottom-[50px] left-[100px] service-stop transition-all duration-300"
+        class="absolute bottom-[50px] left-[8%] md:left-[100px] service-stop transition-all duration-300"
         :class="{'active': activeService === 'rebuilding'}"
         @click="setActiveService('rebuilding')"
       >
@@ -54,7 +54,7 @@
       </button>
       
       <button 
-        class="absolute bottom-[150px] left-[350px] service-stop transition-all duration-300"
+        class="absolute bottom-[150px] left-[30%] md:left-[350px] service-stop transition-all duration-300"
         :class="{'active': activeService === 'building'}"
         @click="setActiveService('building')"
       >
@@ -67,7 +67,7 @@
       </button>
       
       <button 
-        class="absolute top-[150px] left-[650px] service-stop transition-all duration-300"
+        class="absolute top-[120px] md:top-[150px] left-[60%] md:left-[650px] service-stop transition-all duration-300"
         :class="{'active': activeService === 'growing'}"
         @click="setActiveService('growing')"
       >
@@ -80,7 +80,7 @@
       </button>
       
       <button 
-        class="absolute top-[100px] left-[900px] service-stop transition-all duration-300"
+        class="absolute top-[80px] md:top-[100px] left-[85%] md:left-[900px] service-stop transition-all duration-300"
         :class="{'active': activeService === 'protecting'}"
         @click="setActiveService('protecting')"
       >
@@ -290,6 +290,23 @@ onMounted(() => {
   .journey-map {
     transform: scale(0.8);
     transform-origin: left center;
+  }
+}
+
+/* High zoom adjustments */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .service-stop {
+    transform: scale(0.9);
+  }
+  
+  .service-stop .w-16 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .service-stop .w-10 {
+    width: 2rem;
+    height: 2rem;
   }
 }
 </style>

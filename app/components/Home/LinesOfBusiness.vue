@@ -7,7 +7,7 @@
         <div 
           v-for="(service, index) in services" 
           :key="service.id"
-          class="relative overflow-hidden rounded-lg transition-all duration-300"
+          class="group relative overflow-hidden rounded-lg transition-all duration-300"
           :class="{ 'h-80': !expandedService || expandedService !== service.id, 'md:h-auto': expandedService === service.id }"
         >
           <!-- Background image -->

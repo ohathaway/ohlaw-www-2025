@@ -75,7 +75,7 @@ Critical environment variables for:
 
 ### Component Patterns
 - Vue 3 Composition API with `<script setup>`
-- PrimeVue components styled with Tailwind
+- PrimeVue components styled with Tailwind4
 - Functional utilities in `app/utils/` auto-imported
 - FormKit integration currently disabled due to Tailwind 4 compatibility
 

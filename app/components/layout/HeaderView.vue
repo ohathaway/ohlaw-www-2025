@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- Header Bar -->
-    <header :class="['fixed top-0 left-0 right-0 grid grid-cols-9 md:grid-cols-3 items-center px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
+    <header :class="['fixed top-0 left-0 right-0 grid grid-cols-9 md:grid-cols-3 items-center px-4 xl:px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
       scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg text-sm' : 'h-[80px]']">
       
       <!-- Mobile Menu Button -->
@@ -45,7 +45,7 @@
       </div>
 
       <!-- Left Menu -->
-      <div class="lg:block hidden justify-self-end pr-4">
+      <div class="lg:block hidden justify-self-end pr-2 xl:pr-4">
         <Menubar class="lg:block hidden" :model="leftMenuItems">
           <template #item="{ item, props, hasSubmenu }">
             <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
@@ -71,7 +71,7 @@
       <!-- Right Column -->
       <div class="flex justify-between">
         <!-- Right Menu -->
-        <div class="lg:block hidden pl-4">
+        <div class="lg:block hidden pl-2 xl:pl-4">
           <Menubar :model="rightMenuItems">
             <template #item="{ item, props, hasSubmenu }">
               <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
