@@ -77,7 +77,7 @@
     </div>
     <div class="container mx-auto px-4 sm:px-6 text-center sm:text-left">
       <p class="text-sm sm:text-base">
-        © 2025 OH Law Colorado <span class="hidden sm:inline">&nbsp;&nbsp;|&nbsp;&nbsp;</span><br class="sm:hidden">
+        © 2025 OHLaw Colorado <span class="hidden sm:inline">&nbsp;&nbsp;|&nbsp;&nbsp;</span><br class="sm:hidden">
         <NuxtLink to="/policies/privacy">Privacy Policy</NuxtLink> <span class="hidden sm:inline">&nbsp;&nbsp;|&nbsp;&nbsp;</span><br class="sm:hidden">
         <NuxtLink to="/policies/terms-of-use">Terms of Use</NuxtLink>
       </p>

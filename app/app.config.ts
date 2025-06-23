@@ -53,7 +53,6 @@ export default defineAppConfig({
     ]
   },
   meilisearch: {
-    searchApiKey: 'a330ebefa056ac6759d7bc62e552e7707b68f43194f233546a1da40e3198ec53',
     host: 'https://search.ohlawcolorado.com'
   },
   strapiUrl: 'https://strapi.ohlawcolorado.com',
@@ -83,12 +82,18 @@ export default defineAppConfig({
     'privacy': 'Privacy Policy',
     'unbundled': 'Unbundled Services',
     'services': 'Services',
+    'estate-planning': 'Estate Planning',
+    'gun-trusts': 'Gun Trusts',
+    'small-business': 'Small Business',
+    'bankruptcy': 'Bankruptcy',
+    'nonprofits': 'Nonprofit Organizations',
     'blog': 'Blog',
     'contact': 'Contact Us',
     'about': 'About Us'
   },
   layoutMapping: [
     { pattern: '/policies/**', layout: 'policy' },
-    { pattern: '/blog/**', layout: 'blog' }
+    { pattern: '/blog/**', layout: 'blog' },
+    { pattern: '/services/**', layout: 'services' }
   ]
 })

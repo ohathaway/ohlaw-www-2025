@@ -230,7 +230,6 @@ const updateEnhancedConsent = (value) => {
 const submitForm = async () => {
   const isValid = await v$.value.$validate()
   
-  console.info('full quiz store:', quizStore)
   if (isValid) {
     try {
       // Emit the form data to parent component

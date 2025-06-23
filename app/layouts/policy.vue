@@ -11,4 +11,11 @@
       </PolicyContent>
     </div>
   </NuxtLayout>
+  <ClientOnly>
+    <FloatingCta
+      :scroll-threshold="300"
+      :visible="showFloatingCta"
+    />
+    <BookingDialog />
+  </ClientOnly>
 </template>

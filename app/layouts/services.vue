@@ -1,8 +1,9 @@
 <template>
   <NuxtLayout name="base">
     <template #specialized-header>
-      <BlogHeader />
+      <LayoutBreadcrumbNav />
     </template>
+    
     <slot />
   </NuxtLayout>
   <ClientOnly>
@@ -13,3 +14,7 @@
     <BookingDialog />
   </ClientOnly>
 </template>
+
+<script setup>
+const { showFloatingCta } = storeToRefs(useMainStore())
+</script>

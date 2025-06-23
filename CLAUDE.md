@@ -79,6 +79,13 @@ Critical environment variables for:
 - Functional utilities in `app/utils/` auto-imported
 - FormKit integration currently disabled due to Tailwind 4 compatibility
 
+### Layout System
+- **Auto Layout**: Uses `useAutoLayout` composable for automatic layout assignment based on route patterns
+- **Layout Mapping**: Configured in `app.config.ts` with pattern matching (e.g., `/services/**` → `services` layout)
+- **Manual Layout**: Pages can override auto-layout by explicitly defining layout in `<script setup>`
+- **Available Layouts**: `base`, `blog`, `policy`, `services`, `default`
+- **IMPORTANT**: Do not manually add `<NuxtLayout>` tags to pages - the auto-layout system handles this automatically
+
 ### Code Style
 - Arrow functions preferred for all function definitions
 - Single quotes for strings (ESLint enforced)

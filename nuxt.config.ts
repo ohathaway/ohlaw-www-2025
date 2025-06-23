@@ -134,7 +134,8 @@ export default defineNuxtConfig({
       strapiUrl: process.env.STRAPI_URL,
       lawmatics: {
         quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL
-      }
+      },
+      searchApiKey: process.env.ME_SEARCH_KEY
     },
     mailerLite: {
       apiKey: process.env.MAILER_LITE_KEY

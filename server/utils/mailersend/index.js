@@ -10,12 +10,12 @@ const mailerSend = new MailerSend({
   apiKey: process.env.MAILERSEND_KEY
 })
 
-export const sendTestMsg = async () => {
+export const sendTestMsg = async (recipient, sender) => {
   try {
-    const sentFrom = new Sender('quizzes@ohlawcolorado.com', 'Quiz API')
+    const sentFrom = new Sender(sender.address, sender.name) 
 
     const recipients = [
-      new Recipient('owen@ohlawcolorado.com', 'OHLaw')
+      new Recipient(recipient.address, recipient.name)
     ]
 
     const emailParams = new EmailParams()
@@ -120,7 +120,7 @@ export const sendTemplatedMsg = async (config) => {
     */
     const recipients = [
       new Recipient(
-        'owen@ohlawcolorado.com',
+        config.recipients[0].address,
         config.recipients[0].name
       )
     ]

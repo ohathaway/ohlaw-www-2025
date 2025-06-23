@@ -46,15 +46,37 @@
 
       <!-- Left Menu -->
       <div class="lg:block hidden justify-self-end pr-2 xl:pr-4">
-        <Menubar class="lg:block hidden" :model="leftMenuItems">
+        <Menubar
+          class="lg:block hidden"
+          :model="leftMenuItems"
+          :dt="menuItemTheme"
+        >
           <template #item="{ item, props, hasSubmenu }">
-            <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-              <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-                  <span :class="item.icon" />
-                  <span>{{ item.label }}</span>
+            <router-link
+              v-if="item.route"
+              v-slot="{ href, navigate }"
+              :to="item.route"
+              custom
+            >
+              <a
+                v-ripple
+                v-tooltip.bottom="item.tooltip || item.label"
+                :href="href"
+                v-bind="props.action"
+                @click="navigate"
+              >
+                <span :class="item.icon" />
+                <span>{{ item.label }}</span>
               </a>
             </router-link>
-            <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+            <a
+              v-else
+              v-ripple
+              v-tooltip.bottom="item.tooltip || item.label"
+              :href="item.url"
+              :target="item.target"
+              v-bind="props.action"
+            >
               <span :class="item.icon" />
               <span>{{ item.label }}</span>
               <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
@@ -72,17 +94,40 @@
       <div class="flex justify-between">
         <!-- Right Menu -->
         <div class="lg:block hidden pl-2 xl:pl-4">
-          <Menubar :model="rightMenuItems">
+          <Menubar
+            :model="rightMenuItems"
+            :dt="menuItemTheme"
+          >
             <template #item="{ item, props, hasSubmenu }">
-              <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-                    <span :class="item.icon" />
-                    <span>{{ item.label }}</span>
+              <router-link
+                v-if="item.route"
+                v-slot="{ href, navigate }"
+                :to="item.route"
+                custom
+              >
+                <a
+                  v-ripple
+                  v-tooltip.bottom="item.tooltip || item.label"
+                  :href="href"
+                  v-bind="props.action"
+                  @click="navigate"
+                  :aria-label="item.ariaLabel || item.label"
+                >
+                  <span :class="item.icon" />
+                  <span v-if="!item.iconOnly">{{ item.label }}</span>
                 </a>
               </router-link>
-              <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+              <a
+                v-else
+                v-ripple
+                v-tooltip.bottom="item.tooltip || item.label"
+                :href="item.url"
+                :target="item.target"
+                v-bind="props.action"
+                :aria-label="item.ariaLabel || item.label"
+              >
                 <span :class="item.icon" />
-                <span>{{ item.label }}</span>
+                <span v-if="!item.iconOnly">{{ item.label }}</span>
                 <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
               </a>
             </template>
@@ -124,6 +169,7 @@ import MobileMenuSidebar from './MobileMenuSidebar.vue'
 const leftMenuItems = ref([
   {
     label: 'Services',
+    tooltip: 'Learn more about the services we provide',
     items: [
       { label: 'Estate Planning', route: '/services/estate-planning' },
       { label: 'Bankruptcy', route: '/services/bankruptcy' },
@@ -133,10 +179,12 @@ const leftMenuItems = ref([
   },
   {
     label: 'Contact',
+    tooltip: 'Here are the many ways to get in touch with us',
     route: '/contact'
   },
   {
     label: 'About',
+    tooltip: 'Learn about our firm and why we do what we do the way we do it',
     route: '/about'
   }
 ])
@@ -145,11 +193,24 @@ const leftMenuItems = ref([
 const rightMenuItems = ref([
   {
     label: 'Learning Resources',
+    tooltip: 'We have tons of useful and entertaining articles on Life and Legacy and Being Human',
     route: '/blog'
   },
   {
+    label: 'Make a Payment',
+    tooltip: `Make a payment. You'll need your invoice number so we can credit it to your account`,
+    url: 'https://pay.lawmatics.com/v/kgpBVQ',
+    icon: 'pi pi-credit-card',
+    iconOnly: true,
+    ariaLabel: 'Make a Payment'
+  },
+  {
     label: 'Client Login',
-    url: 'https://ohlaw.portal.lawmatics.com/login'
+    tooltip: 'Login to our client portal (third-party)',
+    url: 'https://ohlaw.portal.lawmatics.com/login',
+    icon: 'pi pi-user',
+    iconOnly: true,
+    ariaLabel: 'Client Login Portal'
   }
 ])
 
@@ -187,4 +248,15 @@ const mobileButtonTheme = ref({
   textPrimaryColor: '{slate-500}',
   textPrimaryHoverBackground: '{slate-600}'
 })
+
+const menuItemTheme = ref({
+  itemFocusBackground: 'transparent',
+  itemFocusColor: '{stone-400}'
+})
 </script>
+
+<style scoped>
+.p-menubar-item-content:hover {
+  background: transparent !important;
+}
+</style>

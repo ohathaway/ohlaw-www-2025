@@ -16,7 +16,7 @@
         To learn specifics of what that means in different situations, you can read our policies here.
       </p>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <NuxtLink to="/policies/fees" class="flex items-center justify-center p-4 bg-slate-100 hover:bg-slate-200 transition-colors rounded-md text-primary-700 font-medium">
           Fees and Other Policies
         </NuxtLink>
@@ -25,6 +25,9 @@
         </NuxtLink>
         <NuxtLink to="/policies/privacy" class="flex items-center justify-center p-4 bg-slate-100 hover:bg-slate-200 transition-colors rounded-md text-primary-700 font-medium">
           Privacy Policy
+        </NuxtLink>
+        <NuxtLink to="/policies/terms-of-use" class="flex items-center justify-center p-4 bg-slate-100 hover:bg-slate-200 transition-colors rounded-md text-primary-700 font-medium">
+          Terms of Use
         </NuxtLink>
       </div>
       
