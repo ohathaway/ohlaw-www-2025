@@ -200,7 +200,7 @@ const rightMenuItems = ref([
     label: 'Make a Payment',
     tooltip: `Make a payment. You'll need your invoice number so we can credit it to your account`,
     url: 'https://pay.lawmatics.com/v/kgpBVQ',
-    icon: 'pi pi-credit-card',
+    icon: 'bi bi-coin',
     iconOnly: true,
     ariaLabel: 'Make a Payment'
   },
