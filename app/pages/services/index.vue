@@ -1,30 +1,5 @@
 <template>
   <main>
-    <!-- Hero Section -->
-    <!--
-    <section class="relative py-16 text-white">
-      <div class="absolute inset-0 bg-gradient-to-br from-primary-800 to-primary-900">
-      </div>
-      <div class="container mx-auto px-4 py-8 relative z-10">
-        <div class="max-w-4xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">Legal Solutions for Life's Journey</h1>
-          <div class="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
-          <p class="text-xl md:text-2xl mb-8">
-            From starting a business to planning your legacy, we provide comprehensive legal services that support your dreams and protect what matters most.
-          </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <NuxtLink to="/contact" class="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 rounded-md uppercase text-sm font-medium tracking-wider transition-all duration-300">
-              Schedule a Consultation
-            </NuxtLink>
-            <NuxtLink to="#our-services" class="border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-md uppercase text-sm font-medium tracking-wider transition-all duration-300">
-              Explore Our Services
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-    -->
-
     <!-- Services Overview -->
     <section id="our-services" class="py-16 bg-slate-50">
       <div class="container mx-auto px-4">
@@ -52,10 +27,10 @@
                 <h3 class="text-2xl font-semibold mb-4">Estate Planning</h3>
                 <p class="mb-6">Protect your legacy and provide peace of mind with comprehensive estate planning that works for real people.</p>
                 <ul class="text-sm space-y-1 opacity-90">
-                  <li>• Wills and Trusts</li>
-                  <li>• Healthcare Directives</li>
-                  <li>• Gun Trusts</li>
-                  <li>• Probate Avoidance</li>
+                  <li>Wills and Trusts</li>
+                  <li>Healthcare Directives</li>
+                  <li>Gun Trusts</li>
+                  <li>Probate Avoidance</li>
                 </ul>
               </div>
               <NuxtLink 
@@ -80,10 +55,10 @@
                 <h3 class="text-2xl font-semibold mb-4">Small Business</h3>
                 <p class="mb-6">Legal support that helps entrepreneurs build, grow, and protect their businesses with confidence.</p>
                 <ul class="text-sm space-y-1 opacity-90">
-                  <li>• Business Formation</li>
-                  <li>• Contracts & Agreements</li>
-                  <li>• Employment Matters</li>
-                  <li>• Ongoing Compliance</li>
+                  <li>Business Formation</li>
+                  <li>Contracts & Agreements</li>
+                  <li>Employment Matters</li>
+                  <li>Ongoing Compliance</li>
                 </ul>
               </div>
               <NuxtLink 
@@ -108,10 +83,10 @@
                 <h3 class="text-2xl font-semibold mb-4">Bankruptcy</h3>
                 <p class="mb-6">Compassionate bankruptcy services that provide a fresh start and help you regain financial control.</p>
                 <ul class="text-sm space-y-1 opacity-90">
-                  <li>• Chapter 7 & Chapter 13</li>
-                  <li>• Stop Creditor Harassment</li>
-                  <li>• Debt Relief Solutions</li>
-                  <li>• Fresh Start Planning</li>
+                  <li>Chapter 7 & Chapter 13</li>
+                  <li>Stop Creditor Harassment</li>
+                  <li>Debt Relief Solutions</li>
+                  <li>Fresh Start Planning</li>
                 </ul>
               </div>
               <NuxtLink 
@@ -136,10 +111,10 @@
                 <h3 class="text-2xl font-semibold mb-4">Nonprofits</h3>
                 <p class="mb-6">Support your mission with practical legal solutions that build sustainability and maximize impact.</p>
                 <ul class="text-sm space-y-1 opacity-90">
-                  <li>• 501(c)(3) Formation</li>
-                  <li>• Tax Exemption Applications</li>
-                  <li>• Governance & Compliance</li>
-                  <li>• Alternative Structures</li>
+                  <li>501(c)(3) Formation</li>
+                  <li>Tax Exemption Applications</li>
+                  <li>Governance & Compliance</li>
+                  <li>Alternative Structures (co-ops, B-corps, etc.)</li>
                 </ul>
               </div>
               <NuxtLink 

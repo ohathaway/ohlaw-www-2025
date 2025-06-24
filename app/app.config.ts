@@ -61,7 +61,8 @@ export default defineAppConfig({
       '/quizzes'
     ],
     neverPaths: [
-      '/contact'
+      '/contact',
+      '/make-a-payment'
     ]
   },
   quizzes: {

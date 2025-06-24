@@ -7,7 +7,7 @@
   <ClientOnly>
     <FloatingCta
       :scroll-threshold="300"
-      :visible="showFloatingCta"
+      v-if="showFloatingCta"
     />
     <BookingDialog />
   </ClientOnly>
@@ -21,6 +21,11 @@ const { floatingCta: { alwaysPaths, neverPaths } } = useAppConfig()
 const showFloatingCta = computed(() => {
   const routeInAlwaysPaths = alwaysPaths.some(path => route.path.startsWith(path))
   const routeInNeverPaths = neverPaths.some(path => route.path.startsWith(path))
-  return routeInAlwaysPaths && !routeInNeverPaths
+  /*
+    routeInNeverPaths = true : should return false
+    routeInAlwaysPaths = true : should return true
+    both routeInNeverPaths and routeInAlwaysPaths = false : should return true
+  */
+  return routeInAlwaysPaths || !routeInNeverPaths
 })
 </script>

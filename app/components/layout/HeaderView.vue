@@ -199,7 +199,7 @@ const rightMenuItems = ref([
   {
     label: 'Make a Payment',
     tooltip: `Make a payment. You'll need your invoice number so we can credit it to your account`,
-    url: 'https://pay.lawmatics.com/v/kgpBVQ',
+    route: '/make-a-payment',
     icon: 'bi bi-coin',
     iconOnly: true,
     ariaLabel: 'Make a Payment'
@@ -258,5 +258,9 @@ const menuItemTheme = ref({
 <style scoped>
 .p-menubar-item-content:hover {
   background: transparent !important;
+}
+
+.pi {
+  font-size: inherit;
 }
 </style>
