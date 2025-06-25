@@ -249,6 +249,10 @@ export default defineNuxtConfig({
     upperAfterPrefix: false
   },
 
+  gtag: {
+    id: process.env.GTAG_ID
+  },
+
   // https://nuxtseo.com
   sitemap: {
     sources: [
