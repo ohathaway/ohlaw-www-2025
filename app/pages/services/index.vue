@@ -177,7 +177,7 @@
     </section>
 
     <!-- Integrated Approach -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-slate-50">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
@@ -217,8 +217,11 @@
       </div>
     </section>
 
+    <!-- PFL Promise -->
+    <HomePFL />
+
     <!-- Getting Started -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-16 bg-stone-200">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-semibold mb-6 relative inline-block">

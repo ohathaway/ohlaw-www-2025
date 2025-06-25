@@ -129,7 +129,7 @@
       <div class="container mx-auto px-4">
         <div class="flex justify-center mb-4">
           <div class="bg-white/20 p-4 rounded-full">
-            <i class="pi pi-exclamation-triangle text-5xl text-white"></i>
+            <span class="text-5xl"><i class="pi pi-exclamation-triangle text-white"></i></span>
           </div>
         </div>
         <h1 class="text-3xl md:text-4xl font-bold mb-4">Looking to Make a Payment?</h1>
@@ -209,9 +209,3 @@ const validReferrers = [
 
 isFromPaymentForm.value = utm_source === 'lawmatics'
 </script>
-
-<style scoped>
-.pi {
-  font-size: inherit;
-}
-</style>

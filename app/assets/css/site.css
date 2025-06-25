@@ -46,3 +46,7 @@
 .font-trajan { font-family: "Trajan"; }
 .font-jakarta { font-family: "Plus Jakarta Sans"; }
 .font-benguiat { font-family: "Benguiat"; }
+
+.pi {
+  font-size: inherit;
+}

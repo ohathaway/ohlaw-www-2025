@@ -96,4 +96,5 @@ Critical environment variables for:
 - Use expressive syntax
 - Limit use of if/then statements for readability
 - Prefer functional patterns, but prioritize human readability
-- Try not to exceed lines over 80 characters long.
+- Try not to exceed lines over 80 characters long
+- Remember that Prime Icons text sizing classes must be applied to the parent element; ```.pi: { font-size; }``` inherit is in the site.css

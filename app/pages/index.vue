@@ -48,8 +48,8 @@ const services = [
 
 // Use your SEO composable to set page meta
 const pageMeta = {
-  title: 'The Law Offices of Owen Hathaway | Family and Business Legal Solutions',
-  description: 'A family-operated law firm helping families and businesses establish rock-solid legal foundations in estate planning, small business, nonprofit, and bankruptcy law.',
+  // title: 'The Law Offices of Owen Hathaway | Family and Business Legal Solutions',
+  // description: 'A family-operated law firm helping families and businesses establish rock-solid legal foundations in estate planning, small business, nonprofit, and bankruptcy law.',
   keywords: 'estate planning, small business law, bankruptcy, nonprofit law, Fort Collins attorney',
   // Enhanced structured data that includes your services
   structuredData: {
