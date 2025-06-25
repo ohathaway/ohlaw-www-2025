@@ -34,6 +34,7 @@ This is a Nuxt 3 application with NuxtHub for a law firm website with quiz funct
 - **State Management**: Pinia stores with arrow function syntax
 - **Package Manager**: pnpm (required)
 - **Deployment**: NuxtHub (Cloudflare)
+- The dev server is always running in the background when Claude Code is invoked.
 
 ### Content & Data
 - **CMS**: Strapi headless CMS for blog posts and quiz data
@@ -95,3 +96,4 @@ Critical environment variables for:
 - Use expressive syntax
 - Limit use of if/then statements for readability
 - Prefer functional patterns, but prioritize human readability
+- Try not to exceed lines over 80 characters long.
