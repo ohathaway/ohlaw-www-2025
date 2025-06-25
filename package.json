@@ -51,6 +51,7 @@
     "markdown-it": "^14.1.0",
     "meilisearch": "^0.51.0",
     "nuxt": "^3.16.1",
+    "nuxt-gtag": "3.0.3",
     "pdfkit": "^0.17.1",
     "pinia": "^3.0.2",
     "primeicons": "^7.0.0",

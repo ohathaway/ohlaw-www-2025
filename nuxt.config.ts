@@ -82,18 +82,8 @@ const getPostRoutes = async () => {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // https://nuxt.com/modules
-  modules: [
-    // '@formkit/nuxt', // disabled as FormKit doesn't seem to work with Tailwind 4
-    '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxthub/core',
-    '@nuxtjs/apollo',
-    '@nuxtjs/robots',
-    '@nuxtjs/sitemap',
-    '@pinia/nuxt',
-    '@primevue/nuxt-module',
-    'nuxt-lodash',
-  ],
+  modules: [// '@formkit/nuxt', // disabled as FormKit doesn't seem to work with Tailwind 4
+  '@nuxt/eslint', '@nuxt/image', '@nuxthub/core', '@nuxtjs/apollo', '@nuxtjs/robots', '@nuxtjs/sitemap', '@pinia/nuxt', '@primevue/nuxt-module', 'nuxt-lodash', 'nuxt-gtag'],
 
   /* disabled since FormKit doesn't seem to work with Tailwind 4
   formkit: {
