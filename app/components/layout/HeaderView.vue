@@ -66,7 +66,7 @@
                 @click="navigate"
               >
                 <span :class="item.icon" />
-                <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1420px]:hidden min-[1420px]:inline' : ''">{{ item.label }}</span>
+                <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
               </a>
             </router-link>
             <a
@@ -113,8 +113,15 @@
                   @click="navigate"
                   :aria-label="item.ariaLabel || item.label"
                 >
-                  <span :class="item.icon" />
-                  <span v-if="!item.iconOnly">{{ item.label }}</span>
+                  <span
+                    :class="item.icon"
+                  />
+                  <span
+                    v-if="!item.iconOnly"
+                    class="max-[1333px]:hidden min-[1333px]:inline"
+                  >
+                    {{ item.label }}
+                  </span>
                 </a>
               </router-link>
               <a
@@ -198,6 +205,7 @@ const rightMenuItems = ref([
   {
     label: 'Learning Resources',
     tooltip: 'We have tons of useful and entertaining articles on Life and Legacy and Being Human',
+    icon: 'bi bi-book',
     route: '/blog'
   },
   {
