@@ -121,6 +121,7 @@ export default defineNuxtConfig({
       bucketName: process.env.CLOUDFLARE_BUCKET_NAME
     },
     public: {
+      gitCommit: process.env.GITHUB_REF,
       strapiUrl: process.env.STRAPI_URL,
       lawmatics: {
         quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL
@@ -320,7 +321,7 @@ export default defineNuxtConfig({
     routeRules: {
       '/**': {
         headers: {
-          'X-Git-Commit': process.env.NUXT_GIT_COMMIT || 'unknown',
+          'X-Git-Commit': process.env.GITHUB_REF || 'unknown',
           'X-Build-Date': new Date().toISOString(),
           'X-Built-By': 'OHLaw Colorado'
         }
