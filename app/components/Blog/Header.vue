@@ -10,7 +10,7 @@
     <div class="hidden lg:block">
       <Menubar 
         :model="menuItems" 
-        class="border-t-6 border-b border-white mx-auto w-3/4 justify-center"
+        class="border-t-6 border-b border-white mx-auto w-[90%] justify-center"
       >
         <template #item="{ item, props, hasSubmenu, root }">
           <NuxtLink v-ripple class="flex items-center mx-4" :to="item.route">
