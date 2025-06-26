@@ -6,7 +6,7 @@
     <div class="row flex items-center w-full">
       <div class="col w-full">
         <div class="mx-auto w-3/5 py-8 px-32 bg-[hsla(0,0%,25%,0.5)]">
-          <h1 class="text-center text-white text-[400%] font-[200] mb-4">
+          <h1 class="text-center text-white text-[400%] max-[1330px]:text-[350%] max-[1024px]:text-[200%] min-[1025px]:max-[1330px]:text-[300%] font-[200] mb-4">
             Reach for your dreams
           </h1>
           <p class="text-center text-white/90 text-lg font-light tracking-wide ">

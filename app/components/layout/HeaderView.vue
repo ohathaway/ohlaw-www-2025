@@ -66,7 +66,7 @@
                 @click="navigate"
               >
                 <span :class="item.icon" />
-                <span>{{ item.label }}</span>
+                <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
               </a>
             </router-link>
             <a
@@ -114,7 +114,7 @@
                   :aria-label="item.ariaLabel || item.label"
                 >
                   <span :class="item.icon" />
-                  <span v-if="!item.iconOnly">{{ item.label }}</span>
+                  <span v-if="!item.iconOnly" :class="item.label === 'Learning Resources' ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
                 </a>
               </router-link>
               <a
@@ -127,7 +127,7 @@
                 :aria-label="item.ariaLabel || item.label"
               >
                 <span :class="item.icon" />
-                <span v-if="!item.iconOnly">{{ item.label }}</span>
+                <span v-if="!item.iconOnly" :class="item.label === 'Learning Resources' ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
                 <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
               </a>
             </template>
@@ -180,12 +180,16 @@ const leftMenuItems = ref([
   {
     label: 'Contact',
     tooltip: 'Here are the many ways to get in touch with us',
-    route: '/contact'
+    route: '/contact',
+    icon: 'pi pi-phone',
+    ariaLabel: 'Contact Us'
   },
   {
     label: 'About',
     tooltip: 'Learn about our firm and why we do what we do the way we do it',
-    route: '/about'
+    route: '/about',
+    icon: 'pi pi-info-circle',
+    ariaLabel: 'About Us'
   }
 ])
 
@@ -194,7 +198,9 @@ const rightMenuItems = ref([
   {
     label: 'Learning Resources',
     tooltip: 'We have tons of useful and entertaining articles on Life and Legacy and Being Human',
-    route: '/blog'
+    route: '/blog',
+    icon: 'bi bi-book',
+    ariaLabel: 'Learning Resources'
   },
   {
     label: 'Make a Payment',
