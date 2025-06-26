@@ -316,4 +316,15 @@ export default defineNuxtConfig({
     },
     devtools: true
   },
+  nitro: {
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Git-Commit': process.env.NUXT_GIT_COMMIT || 'unknown',
+          'X-Build-Date': new Date().toISOString(),
+          'X-Built-By': 'OHLaw Colorado'
+        }
+      }
+    }
+  }
 })
