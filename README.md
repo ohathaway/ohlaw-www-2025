@@ -1,19 +1,19 @@
-# Hello Edge
+# OHLaw Colorado - Legal Services Website
 
-A minimal [Nuxt](https://nuxt.com) starter deployed on the Edge using [NuxtHub](https://hub.nuxt.com).
+A comprehensive legal services website built with [Nuxt 3](https://nuxt.com) and deployed on [NuxtHub](https://hub.nuxt.com) for OHLaw Colorado.
 
-https://hello.nuxt.dev
-
-<a href="https://hello.nuxt.dev">
-<img src="https://github.com/nuxt-hub/hello-edge/assets/904724/99d1bd54-ef7e-4ac9-83ad-0a290f85edcf" alt="Hello World template for NuxtHub" />
-</a>
+https://www2025.ohlawcolorado.com
 
 ## Features
 
-- Server-Side rendering on Cloudflare Workers
-- ESLint setup
-- Ready to add a database, blob and KV storage
-- One click deploy on 275+ locations for free
+- **Interactive Legal Quizzes**: Multi-step assessment tools with branching logic
+- **AI-Powered Reports**: Claude AI analysis of quiz results with PDF generation
+- **Content Management**: Strapi CMS integration for blog posts and legal content
+- **Client Forms**: Contact forms with CRM integration (Lawmatics)
+- **Email Marketing**: Mailer Lite integration for newsletter management
+- **SEO Optimized**: Automated sitemap generation and meta tags
+- **Responsive Design**: PrimeVue UI components with custom Tailwind theme
+- **Edge Deployment**: Server-side rendering on Cloudflare Workers
 
 ## Setup
 
@@ -23,10 +23,11 @@ Make sure to install the dependencies with [pnpm](https://pnpm.io/installation#u
 pnpm install
 ```
 
-You can update the main text displayed by creating a `.env`:
+Copy the environment configuration:
 
 ```bash
-NUXT_PUBLIC_HELLO_TEXT="Hello my world!"
+cp .envrc.example .envrc
+# Configure your environment variables in .envrc
 ```
 
 ## Development Server
@@ -47,14 +48,23 @@ pnpm build
 
 ## Deploy
 
-
-Deploy the application on the Edge with [NuxtHub](https://hub.nuxt.com) on your Cloudflare account:
+Deploy the application on the Edge with [NuxtHub](https://hub.nuxt.com):
 
 ```bash
 npx nuxthub deploy
 ```
 
-Then checkout your server logs, analaytics and more in the [NuxtHub Admin](https://admin.hub.nuxt.com).
+Or deploy automatically via GitHub Actions when pushing to the `master` branch.
 
-You can also deploy using [Cloudflare Pages CI](https://hub.nuxt.com/docs/getting-started/deploy#cloudflare-pages-ci).
+Monitor your deployment logs and analytics in the [NuxtHub Admin](https://admin.hub.nuxt.com).
+
+## Architecture
+
+- **Frontend**: Nuxt 3 with Vue 3 Composition API
+- **Styling**: Tailwind CSS 4 with PrimeVue components
+- **CMS**: Strapi headless CMS for content management
+- **Storage**: Cloudflare R2 for file storage
+- **AI**: Claude API for report generation
+- **Email**: SendGrid and Mailer Lite integrations
+- **CRM**: Lawmatics integration for lead management
 
