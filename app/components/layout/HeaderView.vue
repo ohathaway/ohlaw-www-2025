@@ -60,19 +60,19 @@
             >
               <a
                 v-ripple
-                v-tooltip.bottom="item.tooltip || item.label"
+                v-tooltip.bottom="item.tooltip"
                 :href="href"
                 v-bind="props.action"
                 @click="navigate"
               >
                 <span :class="item.icon" />
-                <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
+                <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1420px]:hidden min-[1420px]:inline' : ''">{{ item.label }}</span>
               </a>
             </router-link>
             <a
               v-else
               v-ripple
-              v-tooltip.bottom="item.tooltip || item.label"
+              v-tooltip.bottom="item.tooltip"
               :href="item.url"
               :target="item.target"
               v-bind="props.action"
@@ -107,27 +107,27 @@
               >
                 <a
                   v-ripple
-                  v-tooltip.bottom="item.tooltip || item.label"
+                  v-tooltip.bottom="item.tooltip"
                   :href="href"
                   v-bind="props.action"
                   @click="navigate"
                   :aria-label="item.ariaLabel || item.label"
                 >
                   <span :class="item.icon" />
-                  <span v-if="!item.iconOnly" :class="item.label === 'Learning Resources' ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
+                  <span v-if="!item.iconOnly">{{ item.label }}</span>
                 </a>
               </router-link>
               <a
                 v-else
                 v-ripple
-                v-tooltip.bottom="item.tooltip || item.label"
+                v-tooltip.bottom="item.tooltip"
                 :href="item.url"
                 :target="item.target"
                 v-bind="props.action"
                 :aria-label="item.ariaLabel || item.label"
               >
                 <span :class="item.icon" />
-                <span v-if="!item.iconOnly" :class="item.label === 'Learning Resources' ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
+                <span v-if="!item.iconOnly">{{ item.label }}</span>
                 <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down" />
               </a>
             </template>
@@ -198,9 +198,7 @@ const rightMenuItems = ref([
   {
     label: 'Learning Resources',
     tooltip: 'We have tons of useful and entertaining articles on Life and Legacy and Being Human',
-    route: '/blog',
-    icon: 'bi bi-book',
-    ariaLabel: 'Learning Resources'
+    route: '/blog'
   },
   {
     label: 'Make a Payment',
