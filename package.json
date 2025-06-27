@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "NUXT_GIT_COMMIT=$(git rev-parse --short HEAD) NUXT_BUILD_DATE=$(date -u +\"%Y-%m-%dT%H:%M:%SZ\") nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "npx nuxthub preview",

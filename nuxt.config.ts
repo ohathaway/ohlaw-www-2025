@@ -121,7 +121,8 @@ export default defineNuxtConfig({
       bucketName: process.env.CLOUDFLARE_BUCKET_NAME
     },
     public: {
-      gitCommit: process.env.GITHUB_REF,
+      gitCommit: process.env.NUXT_GIT_COMMIT,
+      buildDate: process.env.NUXT_BUILD_DATE,
       strapiUrl: process.env.STRAPI_URL,
       lawmatics: {
         quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL
