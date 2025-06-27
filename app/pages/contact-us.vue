@@ -123,7 +123,7 @@
                   <i class="pi pi-phone text-5xl text-primary-600"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-4 text-center">Call Us</h3>
-                <p class="text-center text-2xl mb-0">{{ formatPhoneNumberWithDashes(phoneNumbers.voice) }}</p>
+                <p class="text-center text-xs lg:text-xl xl:text-2xl mb-0">{{ formatPhoneNumberWithDashes(phoneNumbers.voice) }}</p>
               </div>
             </a>
           </div>
@@ -136,7 +136,7 @@
                   <i class="pi pi-comment text-5xl text-primary-600"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-4 text-center">Text Us</h3>
-                <p class="text-center text-2xl mb-0">{{ formatPhoneNumberWithDashes(phoneNumbers.sms) }}</p>
+                <p class="text-center text-xs lg:text-xl xl:text-2xl mb-0">{{ formatPhoneNumberWithDashes(phoneNumbers.sms) }}</p>
               </div>
             </a>
           </div>
@@ -149,7 +149,7 @@
                   <i class="pi pi-envelope text-5xl text-primary-600"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-4 text-center">Email Us</h3>
-                <p class="text-center text-lg mb-0">{{ contactEmail }}</p>
+                <p class="text-center text-[10px] lg:text-sm xl:text-lg mb-0">{{ contactEmail }}</p>
               </div>
             </a>
           </div>
@@ -161,7 +161,7 @@
                 <i class="pi pi-print text-5xl text-primary-600"></i>
               </div>
               <h3 class="text-xl font-semibold mb-4 text-center">Fax Us</h3>
-              <p class="text-center text-2xl mb-0">{{ formatPhoneNumberWithDashes(phoneNumbers.fax) }}</p>
+              <p class="text-center text-xs lg:text-xl xl:text-2xl mb-0">{{ formatPhoneNumberWithDashes(phoneNumbers.fax) }}</p>
             </div>
           </div>
         </div>
