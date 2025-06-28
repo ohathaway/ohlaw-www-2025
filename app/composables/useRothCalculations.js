@@ -2,7 +2,6 @@
  * Composable for Roth IRA conversion calculations and scenario generation
  * Handles all calculation logic for the SECURE 2.0 Impact Calculator
  */
-import { computed, ref } from 'vue'
 import { formatCurrency, formatPercent } from '~/utils/numbers'
 
 /**
@@ -27,30 +26,30 @@ export const useRothCalculations = (options = {}) => {
       {
         name: 'Conservative',
         conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.15), // 15%
-        parentTaxRate: 22,
-        childTaxRates: Array(inputs.numberOfChildren).fill(24), // Peak earning years
+        parentTaxRate: 20,
+        childTaxRates: Array(inputs.numberOfChildren).fill(22), // Peak earning years
         colorTheme: 'success' // emerald
       },
       {
         name: 'Moderate', 
         conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.25), // 25%
-        parentTaxRate: 24,
-        childTaxRates: Array(inputs.numberOfChildren).fill(32), // Higher income
+        parentTaxRate: 21,
+        childTaxRates: Array(inputs.numberOfChildren).fill(24), // Higher income
         colorTheme: 'info', // sky
         isSweetSpot: true
       },
       {
         name: 'Aggressive',
-        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.40), // 40%
-        parentTaxRate: 32,
-        childTaxRates: Array(inputs.numberOfChildren).fill(35), // High earners
+        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.45), // 40%
+        parentTaxRate: 21,
+        childTaxRates: Array(inputs.numberOfChildren).fill(24), // High earners
         colorTheme: 'warning' // amber
       },
       {
         name: 'Danger Zone',
-        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.60), // 60%
-        parentTaxRate: 35,
-        childTaxRates: Array(inputs.numberOfChildren).fill(37), // Maximum rates
+        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.45), // 60%
+        parentTaxRate: 22,
+        childTaxRates: Array(inputs.numberOfChildren).fill(18), // Maximum rates
         colorTheme: 'danger', // rose
         isDangerous: true
       }
@@ -389,7 +388,7 @@ export const useRothCalculations = (options = {}) => {
             afterBody: function(context) {
               const calc = scenarioCalculations[context[0].dataIndex]
               if (calc.scenario.isDangerous && calc.netFamilySavings < 0) {
-                return ['⚠️ Family loses money with this strategy']
+                return ['⚠️ Family loses money with this scenario']
               }
               if (calc.scenario.isSweetSpot) {
                 return ['🎯 Optimal balance of risk and reward']
