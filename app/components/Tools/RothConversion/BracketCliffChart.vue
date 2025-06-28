@@ -1,19 +1,20 @@
 <template>
   <div class="mb-8">
     <!-- Educational Header -->
-    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-      <h3 class="text-lg font-semibold text-blue-800 mb-2 flex items-center gap-2">
-        <i class="pi pi-chart-line text-blue-600"></i>
+    <div class="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+      <h3 class="text-lg font-semibold text-primary-800 mb-2 flex items-center gap-2">
+        <i class="pi pi-chart-line text-primary-600"></i>
         Understanding the Tax Bracket Cliff Effect
       </h3>
-      <p class="text-blue-700 text-sm">
-        As conversion amounts increase, higher tax brackets can create a "cliff effect" where additional conversions 
-        actually <strong>cost</strong> your family money. The chart below shows how each strategy impacts your total family savings.
+      <p class="text-primary-700 text-sm">
+        The real advantage isn't just tax savings on the conversion amount—it's the <strong>tax savings on ALL the growth</strong> 
+        that occurs during the 10-year distribution period. The chart below shows how each strategy impacts your total family savings, 
+        including taxes saved on investment growth that children would otherwise pay during their peak earning years.
       </p>
     </div>
 
     <!-- Chart Container -->
-    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+    <div class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
       <div class="h-64 md:h-80 lg:h-96">
         <Chart
           v-if="chartData && chartData.labels.length > 0"
@@ -23,7 +24,7 @@
           @select="handleChartClick"
           class="w-full h-full"
         />
-        <div v-else class="flex items-center justify-center h-full text-gray-500">
+        <div v-else class="flex items-center justify-center h-full text-slate-500">
           <div class="text-center">
             <i class="pi pi-chart-line text-4xl mb-2"></i>
             <p>Chart will appear after calculating scenarios</p>
@@ -40,7 +41,7 @@
         class="p-3 rounded-md border transition-all duration-200 cursor-pointer hover:shadow-md"
         :class="[
           getScenarioClasses(scenario.scenario),
-          selectedIndex === index ? 'ring-2 ring-blue-500 ring-offset-2' : ''
+          selectedIndex === index ? 'ring-2 ring-primary-500 ring-offset-2' : ''
         ]"
         @click="selectScenario(index)"
         role="button"
@@ -56,17 +57,17 @@
         <div class="text-xs opacity-75">
           {{ formatCurrency(scenario.scenario.conversionAmount) }} conversion
         </div>
-        <div class="text-sm font-semibold mt-1" :class="scenario.netFamilySavings < 0 ? 'text-red-600' : 'text-green-600'">
+        <div class="text-sm font-semibold mt-1" :class="scenario.netFamilySavings < 0 ? 'text-danger-600' : 'text-success-600'">
           {{ scenario.netFamilySavings > 0 ? '+' : '' }}{{ formatCurrency(scenario.netFamilySavings) }}
         </div>
       </div>
     </div>
 
     <!-- Selected Scenario Indicator -->
-    <div v-if="selectedScenario" class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-md">
+    <div v-if="selectedScenario" class="mt-4 p-4 bg-primary-50 border border-primary-200 rounded-md">
       <div class="flex items-center gap-2">
-        <i class="pi pi-check-circle text-blue-600"></i>
-        <span class="font-medium text-blue-800">
+        <i class="pi pi-check-circle text-primary-600"></i>
+        <span class="font-medium text-primary-800">
           Selected: {{ selectedScenario.scenario.name }} 
           ({{ formatCurrency(selectedScenario.scenario.conversionAmount) }} conversion, 
           {{ selectedScenario.netFamilySavings > 0 ? '+' : '' }}{{ formatCurrency(selectedScenario.netFamilySavings) }} net savings)

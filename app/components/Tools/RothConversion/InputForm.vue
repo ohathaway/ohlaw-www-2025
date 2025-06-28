@@ -1,14 +1,14 @@
 <template>
   <div class="max-w-4xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">SECURE 2.0 Impact Calculator</h1>
-      <p class="text-gray-600">Calculate the tax impact of retirement account distributions under SECURE 2.0</p>
+      <h1 class="text-3xl font-bold mb-2">SECURE 2.0 Impact Calculator</h1>
+      <p class="text-slate-600">Calculate the tax impact of retirement account distributions under SECURE 2.0</p>
       <ToolsDisclaimer />
     </div>
 
     <Card class="p-6 shadow-sm">
       <template #title>
-        <h2 class="text-xl font-semibold text-gray-800">Account Information</h2>
+        <h2 class="text-xl font-semibold">Account Information</h2>
       </template>
       
       <template #content>
@@ -16,7 +16,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end">
             <!-- Total Pre-Tax Retirement Accounts -->
             <div class="flex flex-col">
-              <label class="block text-sm font-medium text-gray-700 flex items-center mb-2">
+              <label class="block text-sm font-medium text-slate-700 flex items-center mb-2">
                 Total Pre-Tax Retirement Accounts
                 <LayoutInfoIcon 
                   tooltip="Include account balances that will be inherited (401k, IRA, 457b, TSP). Exclude monthly pensions (PERA DB, FERS annuity) as these typically end at death or continue as survivor benefits."
@@ -28,14 +28,14 @@
                 mode="currency" 
                 currency="USD"
                 class="w-full"
-                inputClass="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                inputClass="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 :class="{'p-invalid': !formData.totalPreTaxAccounts && showValidation}"
               />
             </div>
 
             <!-- Total Roth Accounts -->
             <div class="flex flex-col">
-              <label class="block text-sm font-medium text-gray-700 flex items-center mb-2">
+              <label class="block text-sm font-medium text-slate-700 flex items-center mb-2">
                 Total Roth Accounts
                 <LayoutInfoIcon 
                   tooltip="Include all Roth IRAs and Roth 401(k)s. These accounts are tax-free to beneficiaries and provide much more flexibility under SECURE 2.0, though still subject to the 10-year rule."
@@ -47,14 +47,14 @@
                 mode="currency" 
                 currency="USD"
                 class="w-full"
-                inputClass="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                inputClass="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 :class="{'p-invalid': !formData.totalRothAccounts && showValidation}"
               />
             </div>
 
             <!-- Number of Children -->
             <div class="flex flex-col">
-              <label class="block text-sm font-medium text-gray-700 flex items-center mb-2">
+              <label class="block text-sm font-medium text-slate-700 flex items-center mb-2">
                 Number of Children (1-4)
                 <LayoutInfoIcon 
                   tooltip="Non-spouse beneficiaries who will inherit retirement accounts. Under SECURE 2.0, each child must distribute their inherited retirement accounts within 10 years, potentially creating significant tax consequences."
@@ -66,7 +66,7 @@
                 :max="4"
                 :useGrouping="false"
                 class="w-full"
-                inputClass="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                inputClass="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 :class="{'p-invalid': (!formData.numberOfChildren || formData.numberOfChildren < 1 || formData.numberOfChildren > 4) && showValidation}"
               />
             </div>
@@ -81,8 +81,8 @@
               :class="[
                 'px-8 py-3 rounded-md font-medium',
                 isFormValid
-                  ? 'bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  ? 'bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500'
+                  : 'bg-slate-300 text-slate-500 cursor-not-allowed'
               ]"
             >
               Generate Analysis

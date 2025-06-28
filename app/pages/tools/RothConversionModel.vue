@@ -17,8 +17,8 @@
     <!-- Results Phase -->
     <div v-else-if="showDetailedResults" class="flex gap-6">
       <!-- Sidebar -->
-      <div class="w-80 bg-gray-50 p-6 rounded-lg">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Assumptions</h3>
+      <div class="w-80 bg-slate-50 p-6 rounded-lg">
+        <h3 class="text-lg font-semibold mb-4">Assumptions</h3>
         
         <div class="space-y-3 text-sm">
           <div>
@@ -53,13 +53,13 @@
         <div class="space-y-3">
           <Button
             @click="backToScenarios"
-            class="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            class="w-full px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500"
           >
             ← Back to Scenarios
           </Button>
           <Button
             @click="editAssumptions"
-            class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
             Edit Assumptions
           </Button>
@@ -68,8 +68,8 @@
 
       <!-- Main Content -->
       <div class="flex-1">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">SECURE 2.0 Impact Analysis</h1>
-        <p class="text-gray-600 mb-8">Side-by-Side Comparison of Tax Strategies</p>
+        <h1 class="text-3xl font-bold mb-2">SECURE 2.0 Impact Analysis</h1>
+        <p class="text-slate-600 mb-8">Side-by-Side Comparison of Tax Strategies</p>
         <ToolsDisclaimer />
 
         <!-- Basic Info Table -->
@@ -83,7 +83,7 @@
 
         <!-- Inheritance Table -->
         <div class="mb-8 overflow-x-auto">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">INHERITANCE PER CHILD</h2>
+          <h2 class="text-xl font-semibold mb-4">INHERITANCE PER CHILD</h2>
           <DataTable :value="inheritanceData" class="w-full">
             <Column field="type" header="INHERITANCE PER CHILD" class="font-semibold"></Column>
             <Column field="doNothing" header="DO NOTHING" class="font-semibold"></Column>
@@ -93,7 +93,7 @@
 
         <!-- Tax Impact Table -->
         <div class="mb-8 overflow-x-auto">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">10-YEAR TAX IMPACT</h2>
+          <h2 class="text-xl font-semibold mb-4">10-YEAR TAX IMPACT</h2>
           <DataTable :value="taxImpactData" class="w-full">
             <Column field="child" header="TAX BURDEN" class="font-semibold"></Column>
             <Column field="doNothing" header="DO NOTHING" class="font-semibold"></Column>
@@ -103,7 +103,7 @@
 
         <!-- Bottom Line Table -->
         <div class="overflow-x-auto">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">THE BOTTOM LINE</h2>
+          <h2 class="text-xl font-semibold mb-4">THE BOTTOM LINE</h2>
           <DataTable :value="bottomLineData" class="w-full">
             <Column field="impact" header="TOTAL FAMILY IMPACT" class="font-semibold"></Column>
             <Column field="doNothing" header="DO NOTHING" class="font-semibold"></Column>
@@ -115,8 +115,8 @@
     </div>
 
     <!-- Debug: Fallback case -->
-    <div v-else class="p-4 bg-yellow-100 border border-yellow-400 rounded-md">
-      <p class="text-yellow-700">
+    <div v-else class="p-4 bg-warning-100 border border-warning-400 rounded-md">
+      <p class="text-warning-700">
         DEBUG: No template condition matched!<br>
         showResults: {{ showResults }}<br>
         showScenarios: {{ showScenarios }}<br>

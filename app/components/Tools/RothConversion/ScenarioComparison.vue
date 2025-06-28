@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Conversion Strategy Comparison</h2>
-    <p class="text-gray-600 mb-6">Compare different Roth conversion amounts and their tax impact on your family</p>
+  <div class="mb-8 scenario-comparison-container">
+    <h2 class="text-2xl font-semibold mb-4">Conversion Strategy Comparison</h2>
+    <p class="text-slate-600 mb-6">Compare different Roth conversion amounts and their total tax impact, including taxes saved on <strong>investment growth</strong> during the 10-year distribution period</p>
     
     <!-- Interactive Chart -->
     <ToolsRothConversionBracketCliffChart 
@@ -12,9 +12,9 @@
     <!-- Scenario Cards OR Detailed Tables -->
     <div class="mt-8">
       <!-- Scenario Cards View -->
-      <div v-if="!showingTables">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Strategy Details</h3>
-        <p class="text-gray-600 mb-4 text-sm">Click a chart bar above or select a strategy card below to see detailed analysis</p>
+      <div v-if="!showingTables" id="scenario-cards" class="scroll-mt-4">
+        <h3 class="text-lg font-semibold mb-4">Strategy Details</h3>
+        <p class="text-slate-600 mb-4 text-sm">Click a chart bar above or select a strategy card below to see detailed analysis</p>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card
@@ -48,19 +48,19 @@
               <div class="space-y-3">
                 <!-- Conversion Amount -->
                 <div class="flex justify-between items-center">
-                  <span class="text-sm font-medium text-gray-600">Conversion Amount:</span>
+                  <span class="text-sm font-medium text-slate-600">Conversion Amount:</span>
                   <span class="font-semibold">{{ formatCurrency(scenario.scenario.conversionAmount) }}</span>
                 </div>
                 
                 <!-- Parent Tax Rate -->
                 <div class="flex justify-between items-center">
-                  <span class="text-sm font-medium text-gray-600">Parent Tax Rate:</span>
+                  <span class="text-sm font-medium text-slate-600">Parent Tax Rate:</span>
                   <span class="font-semibold">{{ scenario.scenario.parentTaxRate }}%</span>
                 </div>
                 
                 <!-- Net Family Savings -->
-                <div class="flex justify-between items-center pt-2 border-t border-gray-200">
-                  <span class="text-sm font-medium text-gray-600">Net Family Savings:</span>
+                <div class="flex justify-between items-center pt-2 border-t border-slate-200">
+                  <span class="text-sm font-medium text-slate-600">Net Family Savings:</span>
                   <span 
                     class="font-bold text-lg"
                     :class="scenario.netFamilySavings > 0 ? 'text-success-700' : 'text-danger-700'"
@@ -111,10 +111,10 @@
       <!-- Detailed Tables View -->
       <div v-else-if="selectedScenario && props.selectedCalculation">
         <!-- Assumptions Card with Back Button -->
-        <Card class="mb-6 bg-blue-50 border border-blue-200">
+        <Card class="mb-6 bg-primary-50 border border-primary-200">
           <template #title>
             <div class="flex items-center justify-between">
-              <h3 class="text-lg font-semibold text-blue-800">Selected Strategy: {{ selectedScenario.scenario.name }}</h3>
+              <h3 class="text-lg font-semibold text-primary-800">Selected Strategy: {{ selectedScenario.scenario.name }}</h3>
               <Button
                 @click="backToScenarios"
                 severity="secondary"
@@ -127,37 +127,37 @@
           </template>
           
           <template #content>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
-              <div>
-                <span class="font-medium text-blue-700">Pre-Tax Accounts:</span>
-                <span class="ml-2">{{ formatCurrency(inputs.totalPreTaxAccounts) }}</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 text-sm">
+              <div class="flex justify-between">
+                <span class="font-medium text-primary-700">Pre-Tax Accounts:</span>
+                <span>{{ formatCurrency(inputs.totalPreTaxAccounts) }}</span>
               </div>
-              <div>
-                <span class="font-medium text-blue-700">Roth Accounts:</span>
-                <span class="ml-2">{{ formatCurrency(inputs.totalRothAccounts) }}</span>
+              <div class="flex justify-between">
+                <span class="font-medium text-primary-700">Roth Accounts:</span>
+                <span>{{ formatCurrency(inputs.totalRothAccounts) }}</span>
               </div>
-              <div>
-                <span class="font-medium text-blue-700">Number of Children:</span>
-                <span class="ml-2">{{ inputs.numberOfChildren }}</span>
+              <div class="flex justify-between">
+                <span class="font-medium text-primary-700">Number of Children:</span>
+                <span>{{ inputs.numberOfChildren }}</span>
               </div>
-              <div>
-                <span class="font-medium text-blue-700">Roth Conversion:</span>
-                <span class="ml-2">{{ formatCurrency(selectedScenario.scenario.conversionAmount) }}</span>
+              <div class="flex justify-between">
+                <span class="font-medium text-primary-700">Roth Conversion:</span>
+                <span>{{ formatCurrency(selectedScenario.scenario.conversionAmount) }}</span>
               </div>
-              <div>
-                <span class="font-medium text-blue-700">Parent Tax Rate:</span>
-                <span class="ml-2">{{ selectedScenario.scenario.parentTaxRate }}%</span>
+              <div class="flex justify-between">
+                <span class="font-medium text-primary-700">Parent Tax Rate:</span>
+                <span>{{ selectedScenario.scenario.parentTaxRate }}%</span>
               </div>
-              <div>
-                <span class="font-medium text-blue-700">Net Family Savings:</span>
-                <span class="ml-2 font-semibold" :class="props.selectedCalculation.netFamilySavings > 0 ? 'text-green-600' : 'text-red-600'">
+              <div class="flex justify-between">
+                <span class="font-medium text-primary-700">Net Family Savings:</span>
+                <span class="font-semibold" :class="props.selectedCalculation.netFamilySavings > 0 ? 'text-success-600' : 'text-danger-600'">
                   {{ props.selectedCalculation.netFamilySavings > 0 ? '+' : '' }}{{ formatCurrency(props.selectedCalculation.netFamilySavings) }}
                 </span>
               </div>
             </div>
 
-            <div class="mt-4 pt-2 border-t border-blue-200">
-              <span class="font-medium text-blue-700">Children's Tax Rates:</span>
+            <div class="mt-4 pt-2 border-t border-primary-200">
+              <span class="font-medium text-primary-700">Children's Tax Rates:</span>
               <div class="mt-1 flex flex-wrap gap-2">
                 <Tag
                   v-for="(rate, index) in selectedScenario.scenario.childTaxRates.slice(0, inputs.numberOfChildren)"
@@ -170,6 +170,18 @@
             </div>
           </template>
         </Card>
+
+        <!-- Floating Back Button -->
+        <div class="fixed bottom-6 right-6 z-50">
+          <Button
+            @click="backToScenarios"
+            severity="secondary"
+            size="large"
+            icon="pi pi-arrow-left"
+            label="Back to Scenarios"
+            class="shadow-lg border-2 border-primary-300 bg-white hover:bg-primary-50"
+          />
+        </div>
 
         <!-- Detailed Analysis Tables -->
         <div class="space-y-8">
@@ -184,7 +196,7 @@
 
           <!-- Inheritance Table -->
           <div class="overflow-x-auto">
-            <h4 class="text-xl font-semibold text-gray-800 mb-4">INHERITANCE PER CHILD</h4>
+            <h4 class="text-xl font-semibold mb-4">INHERITANCE PER CHILD</h4>
             <DataTable :value="inheritanceData" class="w-full">
               <Column field="type" header="INHERITANCE PER CHILD" class="font-semibold"></Column>
               <Column field="doNothing" header="DO NOTHING" class="font-semibold"></Column>
@@ -194,7 +206,7 @@
 
           <!-- Tax Impact Table -->
           <div class="overflow-x-auto">
-            <h4 class="text-xl font-semibold text-gray-800 mb-4">10-YEAR TAX IMPACT</h4>
+            <h4 class="text-xl font-semibold mb-4">10-YEAR TAX IMPACT</h4>
             <DataTable :value="taxImpactData" class="w-full">
               <Column field="child" header="TAX BURDEN" class="font-semibold"></Column>
               <Column field="doNothing" header="DO NOTHING" class="font-semibold"></Column>
@@ -204,12 +216,27 @@
 
           <!-- Bottom Line Table -->
           <div class="overflow-x-auto">
-            <h4 class="text-xl font-semibold text-gray-800 mb-4">THE BOTTOM LINE</h4>
+            <h4 class="text-xl font-semibold mb-4">THE BOTTOM LINE</h4>
             <DataTable :value="bottomLineData" class="w-full">
               <Column field="impact" header="TOTAL FAMILY IMPACT" class="font-semibold"></Column>
               <Column field="doNothing" header="DO NOTHING" class="font-semibold"></Column>
               <Column field="strategic" header="STRATEGIC PLANNING" class="font-semibold"></Column>
             </DataTable>
+          </div>
+
+          <!-- Bottom Navigation -->
+          <div class="mt-12 pt-6 border-t border-slate-200 text-center">
+            <Button
+              @click="backToScenarios"
+              severity="primary"
+              size="large"
+              icon="pi pi-arrow-left"
+              label="Back to All Scenarios"
+              class="px-8 py-3"
+            />
+            <p class="text-slate-600 text-sm mt-3">
+              Compare with other conversion strategies or adjust your assumptions
+            </p>
           </div>
         </div>
       </div>
@@ -241,6 +268,9 @@ const {
   getScenarioIcon,
   formatTableData 
 } = useRothCalculations()
+
+// VueUse scroll composable
+// const { scrollIntoView } = useScrollIntoView()
 
 // Calculate all scenarios
 const scenarioCalculations = computed(() => {
@@ -286,6 +316,20 @@ const handleChartSelection = (scenarioCalculation) => {
 const backToScenarios = () => {
   selectedScenario.value = null
   showingTables.value = false
+  
+  // Scroll scenario cards into view using VueUse
+/*
+  nextTick(() => {
+    const element = document.querySelector('#scenario-cards')
+    if (element) {
+      scrollIntoView(element, {
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      })
+    }
+  })
+*/
 }
 
 /**

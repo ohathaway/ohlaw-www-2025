@@ -80,6 +80,12 @@ Critical environment variables for:
 - Functional utilities in `app/utils/` auto-imported
 - FormKit integration currently disabled due to Tailwind 4 compatibility
 
+### VueUse Integration
+- **VueUse composables are available** - Always check VueUse before creating custom composables
+- Common patterns: `useScrollTo`, `useElementVisibility`, `useLocalStorage`, `useAsyncData`
+- Auto-imported via `@vueuse/nuxt` module
+- Documentation: https://vueuse.org/
+
 ### Layout System
 - **Auto Layout**: Uses `useAutoLayout` composable for automatic layout assignment based on route patterns
 - **Layout Mapping**: Configured in `app.config.ts` with pattern matching (e.g., `/services/**` → `services` layout)

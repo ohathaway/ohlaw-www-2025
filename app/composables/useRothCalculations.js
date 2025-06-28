@@ -10,7 +10,77 @@ import { formatCurrency, formatPercent } from '~/utils/numbers'
  * @returns {Object} Calculation methods and utilities
  */
 export const useRothCalculations = (options = {}) => {
-  
+  // Get app configuration for growth modeling
+  const appConfig = useAppConfig()
+  const annualReturn = appConfig.tools?.rothConversion?.defaultAnnualReturn || 0.06
+  const distributionYears = appConfig.tools?.rothConversion?.distributionYears || 10
+
+  /**
+   * Models year-by-year distribution with growth for a single child
+   * @param {number} initialBalance - Starting account balance
+   * @param {number} taxRate - Child's tax rate (as decimal)
+   * @param {number} years - Number of distribution years
+   * @returns {Object} Distribution analysis with growth breakdown
+   */
+  const modelDistributionWithGrowth = (initialBalance, taxRate, years = distributionYears) => {
+    let remainingBalance = initialBalance
+    let totalDistributed = 0
+    let totalTaxesPaid = 0
+    let totalGrowthGenerated = 0
+    let totalTaxOnGrowth = 0
+    let totalTaxOnPrincipal = 0
+    const yearlyDetails = []
+
+    for (let year = 1; year <= years; year++) {
+      // Apply growth at beginning of year
+      const growthThisYear = remainingBalance * annualReturn
+      remainingBalance += growthThisYear
+      totalGrowthGenerated += growthThisYear
+
+      // Calculate required distribution (1/remaining years of the original balance)
+      const requiredDistribution = remainingBalance / (years - year + 1)
+      
+      // Calculate taxes on the full distribution
+      const taxesThisYear = requiredDistribution * taxRate
+      
+      // Track proportion of distribution that was growth vs principal
+      const growthPortion = Math.min(growthThisYear, requiredDistribution)
+      const principalPortion = requiredDistribution - growthPortion
+      
+      const taxOnGrowthThisYear = growthPortion * taxRate
+      const taxOnPrincipalThisYear = principalPortion * taxRate
+
+      totalDistributed += requiredDistribution
+      totalTaxesPaid += taxesThisYear
+      totalTaxOnGrowth += taxOnGrowthThisYear
+      totalTaxOnPrincipal += taxOnPrincipalThisYear
+      
+      // Reduce balance by distribution
+      remainingBalance -= requiredDistribution
+
+      yearlyDetails.push({
+        year,
+        startingBalance: remainingBalance + requiredDistribution - growthThisYear,
+        growth: growthThisYear,
+        distribution: requiredDistribution,
+        taxes: taxesThisYear,
+        endingBalance: remainingBalance,
+        taxOnGrowth: taxOnGrowthThisYear,
+        taxOnPrincipal: taxOnPrincipalThisYear
+      })
+    }
+
+    return {
+      totalDistributed,
+      totalTaxesPaid,
+      totalGrowthGenerated,
+      totalTaxOnGrowth,
+      totalTaxOnPrincipal,
+      yearlyDetails,
+      effectiveTaxRate: totalTaxesPaid / totalDistributed
+    }
+  }
+
   /**
    * Generates smart scenarios based on account values and family size
    * @param {Object} inputs - Form input data
@@ -57,10 +127,10 @@ export const useRothCalculations = (options = {}) => {
   }
 
   /**
-   * Calculates detailed comparison for a specific scenario
+   * Calculates detailed comparison for a specific scenario with growth modeling
    * @param {Object} inputs - Form input data
    * @param {Object} scenario - Scenario configuration
-   * @returns {Object} Detailed calculation results
+   * @returns {Object} Detailed calculation results with growth breakdown
    */
   const calculateScenario = (inputs, scenario) => {
     if (!inputs || !scenario) return null
@@ -71,76 +141,97 @@ export const useRothCalculations = (options = {}) => {
     const conversionAmount = scenario.conversionAmount
     const currentTaxRate = scenario.parentTaxRate / 100
 
-    // Do Nothing Scenario
+    // Do Nothing Scenario - Traditional accounts only
     const preTaxPerChild = totalPreTax / numChildren
     const rothPerChild = totalRoth / numChildren
-    const annualDistributionPerChild = preTaxPerChild / 10
 
-    // Strategic Planning Scenario
+    // Strategic Planning Scenario - Converted amounts go to Roth
     const newPreTaxPerChild = (totalPreTax - conversionAmount) / numChildren
     const newRothPerChild = (totalRoth + conversionAmount) / numChildren
-    const newAnnualDistributionPerChild = newPreTaxPerChild / 10
-    const newAnnualRothPerChild = newRothPerChild / 10
 
-    // Tax calculations
+    // Parent tax on conversion
     const parentConversionTax = conversionAmount * currentTaxRate
 
     const childrenDoNothing = []
     const childrenStrategic = []
     let totalDoNothingTax = 0
     let totalStrategicTax = 0
+    let totalDoNothingGrowthTax = 0
+    let totalStrategicGrowthTax = 0
+    let totalGrowthGenerated = 0
+    let totalStrategicGrowthGenerated = 0
 
     for (let i = 0; i < numChildren; i++) {
       const childTaxRate = scenario.childTaxRates[i] / 100
       
-      const doNothingAnnualTax = annualDistributionPerChild * childTaxRate
-      const doNothing10YearTax = doNothingAnnualTax * 10
+      // Do Nothing: Child inherits full traditional IRA balance
+      const doNothingAnalysis = modelDistributionWithGrowth(preTaxPerChild, childTaxRate)
       
-      const strategicAnnualTax = newAnnualDistributionPerChild * childTaxRate
-      const strategic10YearTax = strategicAnnualTax * 10
+      // Strategic: Child inherits smaller traditional IRA + larger Roth IRA (tax-free)
+      const strategicAnalysis = modelDistributionWithGrowth(newPreTaxPerChild, childTaxRate)
+      
+      totalDoNothingTax += doNothingAnalysis.totalTaxesPaid
+      totalStrategicTax += strategicAnalysis.totalTaxesPaid
+      totalDoNothingGrowthTax += doNothingAnalysis.totalTaxOnGrowth
+      totalStrategicGrowthTax += strategicAnalysis.totalTaxOnGrowth
+      totalGrowthGenerated += doNothingAnalysis.totalGrowthGenerated
+      totalStrategicGrowthGenerated += strategicAnalysis.totalGrowthGenerated
       
       childrenDoNothing.push({
-        annualDistribution: annualDistributionPerChild,
-        annualTax: doNothingAnnualTax,
-        totalTax: doNothing10YearTax,
-        taxRate: childTaxRate
+        initialBalance: preTaxPerChild,
+        totalDistributed: doNothingAnalysis.totalDistributed,
+        totalTax: doNothingAnalysis.totalTaxesPaid,
+        totalGrowthGenerated: doNothingAnalysis.totalGrowthGenerated,
+        totalTaxOnGrowth: doNothingAnalysis.totalTaxOnGrowth,
+        totalTaxOnPrincipal: doNothingAnalysis.totalTaxOnPrincipal,
+        taxRate: childTaxRate,
+        yearlyDetails: doNothingAnalysis.yearlyDetails
       })
       
       childrenStrategic.push({
-        annualTaxableDistribution: newAnnualDistributionPerChild,
-        annualTaxFreeDistribution: newAnnualRothPerChild,
-        annualTax: strategicAnnualTax,
-        totalTax: strategic10YearTax,
-        taxRate: childTaxRate
+        initialTraditionalBalance: newPreTaxPerChild,
+        initialRothBalance: newRothPerChild,
+        totalDistributed: strategicAnalysis.totalDistributed,
+        totalTax: strategicAnalysis.totalTaxesPaid,
+        totalGrowthGenerated: strategicAnalysis.totalGrowthGenerated,
+        totalTaxOnGrowth: strategicAnalysis.totalTaxOnGrowth,
+        totalTaxOnPrincipal: strategicAnalysis.totalTaxOnPrincipal,
+        taxRate: childTaxRate,
+        yearlyDetails: strategicAnalysis.yearlyDetails,
+        // Roth grows tax-free for 10 years
+        rothGrowthTaxFree: newRothPerChild * ((1 + annualReturn) ** distributionYears - 1)
       })
-      
-      totalDoNothingTax += doNothing10YearTax
-      totalStrategicTax += strategic10YearTax
     }
 
     const totalFamilyTaxDoNothing = totalDoNothingTax
     const totalFamilyTaxStrategic = parentConversionTax + totalStrategicTax
     const netFamilySavings = totalFamilyTaxDoNothing - totalFamilyTaxStrategic
 
+    // Calculate tax savings specifically on growth
+    const growthTaxSavings = totalDoNothingGrowthTax - totalStrategicGrowthTax
+
     return {
       doNothing: {
         preTaxPerChild,
         rothPerChild,
-        annualDistributionPerChild,
         children: childrenDoNothing,
-        totalFamilyTax: totalFamilyTaxDoNothing
+        totalFamilyTax: totalFamilyTaxDoNothing,
+        totalGrowthGenerated,
+        totalGrowthTax: totalDoNothingGrowthTax
       },
       strategic: {
         preTaxPerChild: newPreTaxPerChild,
         rothPerChild: newRothPerChild,
-        annualDistributionPerChild: newAnnualDistributionPerChild,
-        annualRothPerChild: newAnnualRothPerChild,
         children: childrenStrategic,
         parentConversionTax,
         totalChildrenTax: totalStrategicTax,
-        totalFamilyTax: totalFamilyTaxStrategic
+        totalFamilyTax: totalFamilyTaxStrategic,
+        totalGrowthGenerated: totalStrategicGrowthGenerated,
+        totalGrowthTax: totalStrategicGrowthTax
       },
       netFamilySavings,
+      growthTaxSavings,
+      totalGrowthAtStake: totalGrowthGenerated,
       scenario
     }
   }
@@ -185,48 +276,74 @@ export const useRothCalculations = (options = {}) => {
       
       inheritanceData: [
         {
-          type: 'Traditional IRA',
+          type: 'Traditional IRA (per child)',
           doNothing: formatCurrency(calculation.doNothing.preTaxPerChild),
           strategic: formatCurrency(calculation.strategic.preTaxPerChild)
         },
         {
-          type: 'Roth IRA',
+          type: 'Roth IRA (per child)',
           doNothing: formatCurrency(calculation.doNothing.rothPerChild),
           strategic: formatCurrency(calculation.strategic.rothPerChild)
         },
         {
-          type: 'Annual Required Distribution',
-          doNothing: `${formatCurrency(calculation.doNothing.annualDistributionPerChild)} (taxable)`,
-          strategic: `${formatCurrency(calculation.strategic.annualDistributionPerChild)} (taxable)\n${formatCurrency(calculation.strategic.annualRothPerChild)} (tax-free)`
+          type: 'Total Growth Generated (10 years)',
+          doNothing: formatCurrency(calculation.doNothing.totalGrowthGenerated),
+          strategic: formatCurrency(calculation.strategic.totalGrowthGenerated + (calculation.strategic.children[0]?.rothGrowthTaxFree * inputs.numberOfChildren || 0))
+        },
+        {
+          type: 'Investment Growth Tax-Free',
+          doNothing: formatCurrency(0),
+          strategic: formatCurrency(calculation.strategic.children[0]?.rothGrowthTaxFree * inputs.numberOfChildren || 0)
         }
       ],
 
       taxImpactData: calculation.doNothing.children.map((child, index) => ({
         child: `Child ${index + 1}`,
-        doNothing: `${formatCurrency(child.annualDistribution)} × ${formatPercent(child.taxRate)} = ${formatCurrency(child.annualTax)}/year\nTotal: ${formatCurrency(child.totalTax)}`,
-        strategic: `${formatCurrency(calculation.strategic.children[index].annualTaxableDistribution)} × ${formatPercent(calculation.strategic.children[index].taxRate)} = ${formatCurrency(calculation.strategic.children[index].annualTax)}/year\nTotal: ${formatCurrency(calculation.strategic.children[index].totalTax)}`
+        doNothing: `Total Tax: ${formatCurrency(child.totalTax)}\nOn Principal: ${formatCurrency(child.totalTaxOnPrincipal)}\nOn Growth: ${formatCurrency(child.totalTaxOnGrowth)}`,
+        strategic: `Total Tax: ${formatCurrency(calculation.strategic.children[index].totalTax)}\nOn Principal: ${formatCurrency(calculation.strategic.children[index].totalTaxOnPrincipal)}\nOn Growth: ${formatCurrency(calculation.strategic.children[index].totalTaxOnGrowth)}`
       })),
 
       bottomLineData: [
         {
           impact: 'Parents Pay During Life',
           doNothing: formatCurrency(0),
-          strategic: formatCurrency(calculation.strategic.parentConversionTax)
+          strategic: formatCurrency(calculation.strategic.parentConversionTax),
+          rowType: 'standard'
         },
         {
           impact: 'Children Pay Over 10 Years',
           doNothing: formatCurrency(calculation.doNothing.totalFamilyTax),
-          strategic: formatCurrency(calculation.strategic.totalChildrenTax)
+          strategic: formatCurrency(calculation.strategic.totalChildrenTax),
+          rowType: 'standard'
+        },
+        {
+          impact: 'Tax Saved on Investment Growth',
+          doNothing: '—',
+          strategic: `💰 ${formatCurrency(calculation.growthTaxSavings)}`,
+          rowType: 'success'
+        },
+        {
+          impact: 'Total Investment Growth at Stake',
+          doNothing: formatCurrency(calculation.totalGrowthAtStake),
+          strategic: formatCurrency(calculation.totalGrowthAtStake),
+          rowType: 'neutral'
         },
         {
           impact: 'TOTAL FAMILY TAX BURDEN',
           doNothing: formatCurrency(calculation.doNothing.totalFamilyTax),
-          strategic: formatCurrency(calculation.strategic.totalFamilyTax)
+          strategic: formatCurrency(calculation.strategic.totalFamilyTax),
+          rowType: 'subtotal'
         },
         {
           impact: 'NET FAMILY SAVINGS',
           doNothing: '—',
-          strategic: `+${formatCurrency(calculation.netFamilySavings)}`
+          strategic: calculation.netFamilySavings > 0 
+            ? `✅ +${formatCurrency(calculation.netFamilySavings)}`
+            : calculation.netFamilySavings < 0 
+              ? `⚠️ -${formatCurrency(Math.abs(calculation.netFamilySavings))}`
+              : '—',
+          rowType: calculation.netFamilySavings > 0 ? 'success' : calculation.netFamilySavings < 0 ? 'danger' : 'neutral',
+          statusIndicator: calculation.netFamilySavings > 0 ? 'positive' : calculation.netFamilySavings < 0 ? 'negative' : 'neutral'
         }
       ]
     }
@@ -262,6 +379,31 @@ export const useRothCalculations = (options = {}) => {
     if (scenario.colorTheme === 'warning') return 'pi pi-info-circle text-warning-600'
     
     return 'pi pi-check text-success-600'
+  }
+
+  /**
+   * Gets CSS classes for table row styling based on rowType
+   * @param {string} rowType - Type of table row (standard, subtotal, success, danger, neutral)
+   * @returns {Array} Array of CSS classes
+   */
+  const getTableRowClasses = (rowType) => {
+    if (!rowType) return []
+    
+    switch (rowType) {
+      case 'success':
+        return ['bg-success-50', 'border-success-200', 'text-success-800', 'font-semibold']
+      case 'danger':
+        return ['bg-danger-50', 'border-danger-200', 'text-danger-800', 'font-semibold']
+      case 'warning':
+        return ['bg-warning-50', 'border-warning-200', 'text-warning-800', 'font-semibold']
+      case 'subtotal':
+        return ['bg-slate-100', 'border-slate-300', 'font-bold', 'border-t-2']
+      case 'neutral':
+        return ['bg-slate-50', 'border-slate-200', 'font-medium']
+      case 'standard':
+      default:
+        return []
+    }
   }
 
   /**
@@ -354,8 +496,9 @@ export const useRothCalculations = (options = {}) => {
           display: true,
           text: 'Tax Bracket Cliff Effect',
           font: {
-            size: 16,
-            weight: 'bold'
+            size: 18,
+            weight: 'bold',
+            family: 'system-ui, -apple-system, sans-serif'
           },
           color: 'rgb(55, 65, 81)', // gray-700
         },
@@ -365,14 +508,31 @@ export const useRothCalculations = (options = {}) => {
             usePointStyle: true,
             padding: 20,
             color: 'rgb(75, 85, 99)', // gray-600
+            font: {
+              size: 14,
+              weight: '500',
+              family: 'system-ui, -apple-system, sans-serif'
+            }
           }
         },
         tooltip: {
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          backgroundColor: 'rgba(0, 0, 0, 0.9)',
           titleColor: 'white',
           bodyColor: 'white',
-          borderColor: 'rgba(255, 255, 255, 0.1)',
+          borderColor: 'rgba(255, 255, 255, 0.2)',
           borderWidth: 1,
+          titleFont: {
+            size: 16,
+            weight: 'bold',
+            family: 'system-ui, -apple-system, sans-serif'
+          },
+          bodyFont: {
+            size: 14,
+            weight: '500',
+            family: 'system-ui, -apple-system, sans-serif'
+          },
+          cornerRadius: 8,
+          padding: 12,
           callbacks: {
             label: function(context) {
               const calc = scenarioCalculations[context.dataIndex]
@@ -387,13 +547,21 @@ export const useRothCalculations = (options = {}) => {
             },
             afterBody: function(context) {
               const calc = scenarioCalculations[context[0].dataIndex]
+              const messages = []
+              
               if (calc.scenario.isDangerous && calc.netFamilySavings < 0) {
-                return ['⚠️ Family loses money with this scenario']
+                messages.push('⚠️ Family loses money with this scenario')
               }
               if (calc.scenario.isSweetSpot) {
-                return ['🎯 Optimal balance of risk and reward']
+                messages.push('🎯 Optimal balance of risk and reward')
               }
-              return []
+              
+              // Add growth tax savings message
+              if (calc.growthTaxSavings > 0) {
+                messages.push(`💰 Saves ${formatCurrency(calc.growthTaxSavings)} in taxes on growth`)
+              }
+              
+              return messages
             }
           }
         }
@@ -406,7 +574,9 @@ export const useRothCalculations = (options = {}) => {
           ticks: {
             color: 'rgb(107, 114, 128)', // gray-500
             font: {
-              weight: 'bold'
+              size: 14,
+              weight: 'bold',
+              family: 'system-ui, -apple-system, sans-serif'
             }
           }
         },
@@ -419,6 +589,11 @@ export const useRothCalculations = (options = {}) => {
           },
           ticks: {
             color: 'rgb(107, 114, 128)', // gray-500
+            font: {
+              size: 14,
+              weight: '500',
+              family: 'system-ui, -apple-system, sans-serif'
+            },
             callback: function(value) {
               return formatCurrency(value)
             }
@@ -428,7 +603,9 @@ export const useRothCalculations = (options = {}) => {
             text: 'Net Family Tax Savings',
             color: 'rgb(75, 85, 99)', // gray-600
             font: {
-              weight: 'bold'
+              size: 16,
+              weight: 'bold',
+              family: 'system-ui, -apple-system, sans-serif'
             }
           }
         }
@@ -451,6 +628,7 @@ export const useRothCalculations = (options = {}) => {
     formatTableData,
     getScenarioClasses,
     getScenarioIcon,
+    getTableRowClasses,
     generateChartData,
     generateChartOptions
   }
