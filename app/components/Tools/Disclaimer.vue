@@ -4,7 +4,7 @@
     <div v-if="showDisclaimer" class="mt-8 p-4 bg-yellow-50 rounded-lg relative">
       <p class="text-sm text-blue-800 pr-16">
         <strong>Professional Note:</strong> This calculator provides educational estimates only. 
-        Actual tax consequences depend on many factors including future tax law changes, income levels, 
+        Actual tax and investment consequences depend on many factors including future tax law changes, income levels, 
         and specific implementation strategies. Consult with tax and financial professionals for personalized advice.
       </p>
       <Button
