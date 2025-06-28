@@ -5,8 +5,17 @@
       <ToolsRothConversionInputForm @generate-analysis="handleGenerateAnalysis" />
     </div>
 
+    <!-- Scenario Comparison Phase -->
+    <div v-else-if="showScenarios && !showDetailedResults">
+      <ToolsRothConversionScenarioComparison 
+        :inputs="inputs"
+        :selected-calculation="selectedCalculation"
+        @scenario-selected="handleScenarioSelection"
+      />
+    </div>
+
     <!-- Results Phase -->
-    <div v-else class="flex gap-6">
+    <div v-else-if="showDetailedResults" class="flex gap-6">
       <!-- Sidebar -->
       <div class="w-80 bg-gray-50 p-6 rounded-lg">
         <h3 class="text-lg font-semibold text-gray-800 mb-4">Assumptions</h3>
@@ -41,12 +50,20 @@
           </div>
         </div>
 
-        <Button
-          @click="editAssumptions"
-          class="mt-6 w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Edit Assumptions
-        </Button>
+        <div class="space-y-3">
+          <Button
+            @click="backToScenarios"
+            class="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            ← Back to Scenarios
+          </Button>
+          <Button
+            @click="editAssumptions"
+            class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Edit Assumptions
+          </Button>
+        </div>
       </div>
 
       <!-- Main Content -->
@@ -96,205 +113,77 @@
 
       </div>
     </div>
+
+    <!-- Debug: Fallback case -->
+    <div v-else class="p-4 bg-yellow-100 border border-yellow-400 rounded-md">
+      <p class="text-yellow-700">
+        DEBUG: No template condition matched!<br>
+        showResults: {{ showResults }}<br>
+        showScenarios: {{ showScenarios }}<br>
+        showDetailedResults: {{ showDetailedResults }}<br>
+        inputs: {{ inputs }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { useRothCalculations } from '~/composables/useRothCalculations'
+import { formatCurrency, formatPercent } from '~/utils/numbers'
+
+// Use the Roth calculations composable
+const { calculateScenario, formatTableData } = useRothCalculations()
+
 // Data from input form and scenarios
 const inputs = ref(null)
-const scenarios = ref([])
 const selectedScenario = ref(null)
+const selectedCalculation = ref(null)
 const showResults = ref(false)
+const showScenarios = ref(false)
+const showDetailedResults = ref(false)
 
 // Handle form submission from InputForm component
 const handleGenerateAnalysis = (data) => {
   inputs.value = data.inputs
-  scenarios.value = data.scenarios
-  selectedScenario.value = data.scenarios[1] // Default to "Moderate" scenario
   showResults.value = true
+  showScenarios.value = true
+  showDetailedResults.value = false
 }
 
+// Handle scenario selection from ScenarioComparison component
+const handleScenarioSelection = (scenarioCalculation) => {
+  selectedScenario.value = scenarioCalculation.scenario
+  selectedCalculation.value = scenarioCalculation
+  // Keep showing scenarios view - don't switch to detailed results
+  // The ScenarioComparison component will handle showing tables internally
+}
+
+// Use the calculation from the selected scenario
 const calculations = computed(() => {
-  if (!inputs.value || !selectedScenario.value) return null
-
-  const totalPreTax = inputs.value.totalPreTaxAccounts
-  const totalRoth = inputs.value.totalRothAccounts
-  const numChildren = inputs.value.numberOfChildren
-  const conversionAmount = selectedScenario.value.conversionAmount
-  const currentTaxRate = selectedScenario.value.parentTaxRate / 100
-
-  // Do Nothing Scenario
-  const preTaxPerChild = totalPreTax / numChildren
-  const rothPerChild = totalRoth / numChildren
-  const annualDistributionPerChild = preTaxPerChild / 10
-
-  // Strategic Planning Scenario
-  const newPreTaxPerChild = (totalPreTax - conversionAmount) / numChildren
-  const newRothPerChild = (totalRoth + conversionAmount) / numChildren
-  const newAnnualDistributionPerChild = newPreTaxPerChild / 10
-  const newAnnualRothPerChild = newRothPerChild / 10
-
-  // Tax calculations
-  const parentConversionTax = conversionAmount * currentTaxRate
-
-  const childrenDoNothing = []
-  const childrenStrategic = []
-  let totalDoNothingTax = 0
-  let totalStrategicTax = 0
-
-  for (let i = 0; i < numChildren; i++) {
-    const childTaxRate = selectedScenario.value.childTaxRates[i] / 100
-    
-    const doNothingAnnualTax = annualDistributionPerChild * childTaxRate
-    const doNothing10YearTax = doNothingAnnualTax * 10
-    
-    const strategicAnnualTax = newAnnualDistributionPerChild * childTaxRate
-    const strategic10YearTax = strategicAnnualTax * 10
-    
-    childrenDoNothing.push({
-      annualDistribution: annualDistributionPerChild,
-      annualTax: doNothingAnnualTax,
-      totalTax: doNothing10YearTax,
-      taxRate: childTaxRate
-    })
-    
-    childrenStrategic.push({
-      annualTaxableDistribution: newAnnualDistributionPerChild,
-      annualTaxFreeDistribution: newAnnualRothPerChild,
-      annualTax: strategicAnnualTax,
-      totalTax: strategic10YearTax,
-      taxRate: childTaxRate
-    })
-    
-    totalDoNothingTax += doNothing10YearTax
-    totalStrategicTax += strategic10YearTax
-  }
-
-  const totalFamilyTaxDoNothing = totalDoNothingTax
-  const totalFamilyTaxStrategic = parentConversionTax + totalStrategicTax
-  const netFamilySavings = totalFamilyTaxDoNothing - totalFamilyTaxStrategic
-
-  return {
-    doNothing: {
-      preTaxPerChild,
-      rothPerChild,
-      annualDistributionPerChild,
-      children: childrenDoNothing,
-      totalFamilyTax: totalFamilyTaxDoNothing
-    },
-    strategic: {
-      preTaxPerChild: newPreTaxPerChild,
-      rothPerChild: newRothPerChild,
-      annualDistributionPerChild: newAnnualDistributionPerChild,
-      annualRothPerChild: newAnnualRothPerChild,
-      children: childrenStrategic,
-      parentConversionTax,
-      totalChildrenTax: totalStrategicTax,
-      totalFamilyTax: totalFamilyTaxStrategic
-    },
-    netFamilySavings
-  }
+  return selectedCalculation.value
 })
 
-// Table data computed properties
-const basicInfoData = computed(() => {
-  if (!inputs.value) return []
-  
-  return [
-    {
-      scenario: 'Current Pre-Tax Accounts',
-      doNothing: formatCurrency(inputs.value.totalPreTaxAccounts),
-      strategic: formatCurrency(inputs.value.totalPreTaxAccounts)
-    },
-    {
-      scenario: 'Strategy',
-      doNothing: 'Current beneficiary designations\n"Spouse, then kids"',
-      strategic: `${selectedScenario.value?.name || 'Strategic'} Roth conversions\n+ Optimized beneficiaries`
-    },
-    {
-      scenario: 'Tax Timing',
-      doNothing: 'Children forced to withdraw\nover 10 years at peak earnings',
-      strategic: 'Parents control timing\nat current tax rates'
-    }
-  ]
+// Table data computed properties using the composable
+const tableData = computed(() => {
+  if (!calculations.value || !inputs.value) return {}
+  return formatTableData(calculations.value, inputs.value)
 })
 
-const inheritanceData = computed(() => {
-  if (!calculations.value) return []
-  
-  return [
-    {
-      type: 'Traditional IRA',
-      doNothing: formatCurrency(calculations.value.doNothing.preTaxPerChild),
-      strategic: formatCurrency(calculations.value.strategic.preTaxPerChild)
-    },
-    {
-      type: 'Roth IRA',
-      doNothing: formatCurrency(calculations.value.doNothing.rothPerChild),
-      strategic: formatCurrency(calculations.value.strategic.rothPerChild)
-    },
-    {
-      type: 'Annual Required Distribution',
-      doNothing: `${formatCurrency(calculations.value.doNothing.annualDistributionPerChild)} (taxable)`,
-      strategic: `${formatCurrency(calculations.value.strategic.annualDistributionPerChild)} (taxable)\n${formatCurrency(calculations.value.strategic.annualRothPerChild)} (tax-free)`
-    }
-  ]
-})
-
-const taxImpactData = computed(() => {
-  if (!calculations.value) return []
-  
-  return calculations.value.doNothing.children.map((child, index) => ({
-    child: `Child ${index + 1}`,
-    doNothing: `${formatCurrency(child.annualDistribution)} × ${formatPercent(child.taxRate)} = ${formatCurrency(child.annualTax)}/year\nTotal: ${formatCurrency(child.totalTax)}`,
-    strategic: `${formatCurrency(calculations.value.strategic.children[index].annualTaxableDistribution)} × ${formatPercent(calculations.value.strategic.children[index].taxRate)} = ${formatCurrency(calculations.value.strategic.children[index].annualTax)}/year\nTotal: ${formatCurrency(calculations.value.strategic.children[index].totalTax)}`
-  }))
-})
-
-const bottomLineData = computed(() => {
-  if (!calculations.value) return []
-  
-  return [
-    {
-      impact: 'Parents Pay During Life',
-      doNothing: formatCurrency(0),
-      strategic: formatCurrency(calculations.value.strategic.parentConversionTax)
-    },
-    {
-      impact: 'Children Pay Over 10 Years',
-      doNothing: formatCurrency(calculations.value.doNothing.totalFamilyTax),
-      strategic: formatCurrency(calculations.value.strategic.totalChildrenTax)
-    },
-    {
-      impact: 'TOTAL FAMILY TAX BURDEN',
-      doNothing: formatCurrency(calculations.value.doNothing.totalFamilyTax),
-      strategic: formatCurrency(calculations.value.strategic.totalFamilyTax)
-    },
-    {
-      impact: 'NET FAMILY SAVINGS',
-      doNothing: '—',
-      strategic: `+${formatCurrency(calculations.value.netFamilySavings)}`
-    }
-  ]
-})
+const basicInfoData = computed(() => tableData.value.basicInfoData || [])
+const inheritanceData = computed(() => tableData.value.inheritanceData || [])
+const taxImpactData = computed(() => tableData.value.taxImpactData || [])
+const bottomLineData = computed(() => tableData.value.bottomLineData || [])
 
 // Methods
-const formatCurrency = (amount) => {
-  if (!amount) return '$0'
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
-
-const formatPercent = (rate) => {
-  return `${(rate * 100).toFixed(1)}%`
+const backToScenarios = () => {
+  showScenarios.value = true
+  showDetailedResults.value = false
 }
 
 const editAssumptions = () => {
   showResults.value = false
+  showScenarios.value = false
+  showDetailedResults.value = false
 }
 </script>
 
