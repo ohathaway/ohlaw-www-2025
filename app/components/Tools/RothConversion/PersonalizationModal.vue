@@ -55,27 +55,17 @@
             </template>
             
             <template #content>
-              <div v-if="!showConversionSlider" class="flex flex-col h-full">
-                <div class="flex-1 space-y-4">
-                  <p class="text-slate-700 text-sm">
-                    How much of your pre-tax retirement accounts do you want to convert to Roth? 
-                    This is typically done over several years to manage tax brackets.
+              <div v-if="!showConversionSlider" class="space-y-4">
+                <p class="text-slate-700 text-sm">
+                  How much of your pre-tax retirement accounts do you want to convert to Roth? 
+                  This is typically done over several years to manage tax brackets.
+                </p>
+                <div class="bg-info-50 border border-info-200 rounded-md p-3">
+                  <p class="text-info-800 text-sm">
+                    <strong>Current:</strong> $545K (25% of $2.18M)<br>
+                    <strong>Range:</strong> $0 to $2.18M (your total pre-tax accounts)
                   </p>
-                  <div class="bg-info-50 border border-info-200 rounded-md p-3">
-                    <p class="text-info-800 text-sm">
-                      <strong>Current:</strong> $545K (25% of $2.18M)<br>
-                      <strong>Range:</strong> $0 to $2.18M (your total pre-tax accounts)
-                    </p>
-                  </div>
                 </div>
-                <Button 
-                  @click="openSlider('conversion')"
-                  severity="primary"
-                  size="small"
-                  icon="pi pi-sliders-h"
-                  label="Adjust Amount"
-                  class="w-full mt-auto"
-                />
               </div>
               
               <div v-else class="space-y-4">
@@ -104,6 +94,19 @@
                 />
               </div>
             </template>
+            
+            <template #footer>
+              <div v-if="!showConversionSlider" class="text-center">
+                <Button 
+                  @click="openSlider('conversion')"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-sliders-h"
+                  label="Adjust Amount"
+                  class="w-full"
+                />
+              </div>
+            </template>
           </Card>
 
           <!-- Conversion Timeline Card -->
@@ -116,27 +119,17 @@
             </template>
             
             <template #content>
-              <div v-if="!showTimelineSlider" class="flex flex-col h-full">
-                <div class="flex-1 space-y-4">
-                  <p class="text-slate-700 text-sm">
-                    Over how many years will you spread the conversions? Longer timelines can help 
-                    manage tax bracket impacts but delay the tax-free growth benefits.
+              <div v-if="!showTimelineSlider" class="space-y-4">
+                <p class="text-slate-700 text-sm">
+                  Over how many years will you spread the conversions? Longer timelines can help 
+                  manage tax bracket impacts but delay the tax-free growth benefits.
+                </p>
+                <div class="bg-info-50 border border-info-200 rounded-md p-3">
+                  <p class="text-info-800 text-sm">
+                    <strong>Current:</strong> 3 years<br>
+                    <strong>Range:</strong> 1 to 10 years
                   </p>
-                  <div class="bg-info-50 border border-info-200 rounded-md p-3">
-                    <p class="text-info-800 text-sm">
-                      <strong>Current:</strong> 3 years<br>
-                      <strong>Range:</strong> 1 to 10 years
-                    </p>
-                  </div>
                 </div>
-                <Button 
-                  @click="openSlider('timeline')"
-                  severity="primary"
-                  size="small"
-                  icon="pi pi-sliders-h"
-                  label="Adjust Timeline"
-                  class="w-full mt-auto"
-                />
               </div>
               
               <div v-else class="space-y-4">
@@ -165,6 +158,19 @@
                 />
               </div>
             </template>
+            
+            <template #footer>
+              <div v-if="!showTimelineSlider" class="text-center place-items-end">
+                <Button 
+                  @click="openSlider('timeline')"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-sliders-h"
+                  label="Adjust Timeline"
+                  class="w-full"
+                />
+              </div>
+            </template>
           </Card>
 
           <!-- Parent Tax Rate Card -->
@@ -177,27 +183,17 @@
             </template>
             
             <template #content>
-              <div v-if="!showParentTaxSlider" class="flex flex-col h-full">
-                <div class="flex-1 space-y-4">
-                  <p class="text-slate-700 text-sm">
-                    Your marginal tax rate during conversion years. This includes federal and state taxes 
-                    and determines how much you'll pay on the conversion.
+              <div v-if="!showParentTaxSlider" class="space-y-4">
+                <p class="text-slate-700 text-sm">
+                  Your marginal tax rate during conversion years. This includes federal and state taxes 
+                  and determines how much you'll pay on the conversion.
+                </p>
+                <div class="bg-info-50 border border-info-200 rounded-md p-3">
+                  <p class="text-info-800 text-sm">
+                    <strong>Current:</strong> 24% (22% federal + 2% state)<br>
+                    <strong>Range:</strong> 10% to 37%
                   </p>
-                  <div class="bg-info-50 border border-info-200 rounded-md p-3">
-                    <p class="text-info-800 text-sm">
-                      <strong>Current:</strong> 24% (22% federal + 2% state)<br>
-                      <strong>Range:</strong> 10% to 37%
-                    </p>
-                  </div>
                 </div>
-                <Button 
-                  @click="openSlider('parentTax')"
-                  severity="primary"
-                  size="small"
-                  icon="pi pi-sliders-h"
-                  label="Adjust Rate"
-                  class="w-full mt-auto"
-                />
               </div>
               
               <div v-else class="space-y-4">
@@ -234,6 +230,19 @@
                 />
               </div>
             </template>
+            
+            <template #footer>
+              <div v-if="!showParentTaxSlider" class="text-center place-items-end">
+                <Button 
+                  @click="openSlider('parentTax')"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-sliders-h"
+                  label="Adjust Rate"
+                  class="w-full"
+                />
+              </div>
+            </template>
           </Card>
 
           <!-- Children's Tax Rates Card -->
@@ -246,27 +255,17 @@
             </template>
             
             <template #content>
-              <div v-if="!showChildrenTaxSlider" class="flex flex-col h-full">
-                <div class="flex-1 space-y-4">
-                  <p class="text-slate-700 text-sm">
-                    Expected tax rates for your children when they inherit and must distribute the accounts 
-                    (likely during their peak earning years).
+              <div v-if="!showChildrenTaxSlider" class="space-y-4">
+                <p class="text-slate-700 text-sm">
+                  Expected tax rates for your children when they inherit and must distribute the accounts 
+                  (likely during their peak earning years).
+                </p>
+                <div class="bg-info-50 border border-info-200 rounded-md p-3">
+                  <p class="text-info-800 text-sm">
+                    <strong>Current:</strong> 22-24% for all children<br>
+                    <strong>Range:</strong> 10% to 37% each
                   </p>
-                  <div class="bg-info-50 border border-info-200 rounded-md p-3">
-                    <p class="text-info-800 text-sm">
-                      <strong>Current:</strong> 22-24% for all children<br>
-                      <strong>Range:</strong> 10% to 37% each
-                    </p>
-                  </div>
                 </div>
-                <Button 
-                  @click="openSlider('childrenTax')"
-                  severity="primary"
-                  size="small"
-                  icon="pi pi-sliders-h"
-                  label="Adjust Rates"
-                  class="w-full mt-auto"
-                />
               </div>
               
               <div v-else class="space-y-4">
@@ -295,6 +294,19 @@
                 />
               </div>
             </template>
+            
+            <template #footer>
+              <div v-if="!showChildrenTaxSlider" class="text-center">
+                <Button 
+                  @click="openSlider('childrenTax')"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-sliders-h"
+                  label="Adjust Rates"
+                  class="w-full"
+                />
+              </div>
+            </template>
           </Card>
 
           <!-- Investment Return Rate Card -->
@@ -307,28 +319,18 @@
             </template>
             
             <template #content>
-              <div v-if="!showReturnSlider" class="flex flex-col h-full">
-                <div class="flex-1 space-y-4">
-                  <p class="text-slate-700 text-sm">
-                    Expected annual return on investments during the 10-year distribution period. 
-                    Higher returns increase the tax advantages of Roth conversions since more growth occurs tax-free.
+              <div v-if="!showReturnSlider" class="space-y-4">
+                <p class="text-slate-700 text-sm">
+                  Expected annual return on investments during the 10-year distribution period. 
+                  Higher returns increase the tax advantages of Roth conversions since more growth occurs tax-free.
+                </p>
+                <div class="bg-info-50 border border-info-200 rounded-md p-3">
+                  <p class="text-info-800 text-sm">
+                    <strong>Current:</strong> 6% annually<br>
+                    <strong>Range:</strong> 2% (conservative) to 18% (aggressive)<br>
+                    <strong>Note:</strong> Historical stock market average is ~10%
                   </p>
-                  <div class="bg-info-50 border border-info-200 rounded-md p-3">
-                    <p class="text-info-800 text-sm">
-                      <strong>Current:</strong> 6% annually<br>
-                      <strong>Range:</strong> 2% (conservative) to 18% (aggressive)<br>
-                      <strong>Note:</strong> Historical stock market average is ~10%
-                    </p>
-                  </div>
                 </div>
-                <Button 
-                  @click="openSlider('return')"
-                  severity="primary"
-                  size="small"
-                  icon="pi pi-sliders-h"
-                  label="Adjust Return"
-                  class="w-full mt-auto"
-                />
               </div>
               
               <div v-else class="space-y-4">
@@ -367,6 +369,19 @@
                     class="max-w-xs"
                   />
                 </div>
+              </div>
+            </template>
+            
+            <template #footer>
+              <div v-if="!showReturnSlider" class="text-center">
+                <Button 
+                  @click="openSlider('return')"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-sliders-h"
+                  label="Adjust Return"
+                  class="w-full"
+                />
               </div>
             </template>
           </Card>
