@@ -12,7 +12,7 @@
     <!-- Scenario Cards OR Detailed Tables -->
     <div class="mt-8">
       <!-- Scenario Cards View -->
-      <div v-if="!showingTables" id="scenario-cards" class="scroll-mt-4">
+      <div v-if="!showingTables" ref="scenarioCardsRef" id="scenario-cards" class="scroll-mt-4">
         <h3 class="text-lg font-semibold mb-4">Strategy Details</h3>
         <p class="text-slate-600 mb-4 text-sm">Click a chart bar above or select a strategy card below to see detailed analysis</p>
         
@@ -269,8 +269,8 @@ const {
   formatTableData 
 } = useRothCalculations()
 
-// VueUse scroll composable
-// const { scrollIntoView } = useScrollIntoView()
+// Template refs for smooth scrolling
+const scenarioCardsRef = ref(null)
 
 // Calculate all scenarios
 const scenarioCalculations = computed(() => {
@@ -317,19 +317,14 @@ const backToScenarios = () => {
   selectedScenario.value = null
   showingTables.value = false
   
-  // Scroll scenario cards into view using VueUse
-/*
+  // Scroll scenario cards into view using native browser API
   nextTick(() => {
-    const element = document.querySelector('#scenario-cards')
-    if (element) {
-      scrollIntoView(element, {
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest'
-      })
-    }
+    scenarioCardsRef.value?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest'
+    })
   })
-*/
 }
 
 /**
