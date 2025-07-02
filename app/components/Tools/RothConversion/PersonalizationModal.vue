@@ -3,8 +3,14 @@
     :visible="visible"
     @update:visible="$emit('update:visible', $event)"
     modal
+    maximizable
+    :ptOptions="{
+      root: {
+        maximized: visible  // or whatever reactive boolean you want
+      }
+    }"
     :closable="true"
-    :draggable="false"
+    :draggable="true"
     class="personalization-modal"
     :style="{ width: '100vw', height: '100vh' }"
     :content-style="{ padding: '0', height: '100%', display: 'flex', flexDirection: 'column' }"
@@ -385,6 +391,77 @@
               </div>
             </template>
           </Card>
+
+          <!-- Years Until Inheritance Card -->
+          <Card class="variable-card">
+            <template #title>
+              <div class="flex items-center justify-between">
+                <h4 class="text-lg font-semibold">Years Until Inheritance</h4>
+                <Tag value="High Impact" severity="danger" class="text-xs" />
+              </div>
+            </template>
+            
+            <template #content>
+              <div v-if="!showInheritanceTimelineSlider" class="space-y-4">
+                <p class="text-slate-700 text-sm">
+                  While no one can predict when inheritance will occur, we need a planning timeframe. 
+                  Longer growth periods create higher tax stakes for your children.
+                </p>
+                <div class="bg-info-50 border border-info-200 rounded-md p-3">
+                  <p class="text-info-800 text-sm">
+                    <strong>Planning Estimate:</strong> 15 years<br>
+                    <strong>Range:</strong> 1 to 30 years<br>
+                    <strong>Note:</strong> Consider health, family history, and planning horizon
+                  </p>
+                </div>
+              </div>
+              
+              <div v-else class="space-y-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-primary-700 mb-1">{{ yearsUntilInheritance }} {{ yearsUntilInheritance === 1 ? 'Year' : 'Years' }}</div>
+                  <div class="text-sm text-slate-600">{{ getInheritanceTimelineDescription(yearsUntilInheritance) }}</div>
+                </div>
+                <Slider 
+                  v-model="yearsUntilInheritance" 
+                  :min="1" 
+                  :max="30" 
+                  :step="1"
+                  class="w-full"
+                />
+                <div class="flex justify-between text-xs text-slate-500">
+                  <span>1 year</span>
+                  <span>30 years</span>
+                </div>
+                <!-- Timeline Markers -->
+                <div class="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>5yr</span>
+                  <span>15yr</span>
+                  <span>25yr</span>
+                </div>
+                <Button 
+                  @click="showInheritanceTimelineSlider = false"
+                  severity="success"
+                  size="small"
+                  icon="pi pi-check"
+                  label="Done"
+                  class="w-full"
+                />
+              </div>
+            </template>
+            
+            <template #footer>
+              <div v-if="!showInheritanceTimelineSlider" class="text-center place-items-end">
+                <Button 
+                  @click="openSlider('inheritanceTimeline')"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-sliders-h"
+                  label="Adjust Timeline"
+                  class="w-full"
+                />
+              </div>
+            </template>
+          </Card>
         </div>
       </div>
     </div>
@@ -430,6 +507,7 @@ const showTimelineSlider = ref(false)
 const showParentTaxSlider = ref(false)
 const showChildrenTaxSlider = ref(false)
 const showReturnSlider = ref(false)
+const showInheritanceTimelineSlider = ref(false)
 
 // Helper function to open a slider and close others
 const openSlider = (sliderType) => {
@@ -439,6 +517,7 @@ const openSlider = (sliderType) => {
   showParentTaxSlider.value = false
   showChildrenTaxSlider.value = false
   showReturnSlider.value = false
+  showInheritanceTimelineSlider.value = false
   
   // Open the requested slider
   switch (sliderType) {
@@ -457,6 +536,9 @@ const openSlider = (sliderType) => {
     case 'return':
       showReturnSlider.value = true
       break
+    case 'inheritanceTimeline':
+      showInheritanceTimelineSlider.value = true
+      break
   }
 }
 
@@ -466,6 +548,7 @@ const conversionYears = ref(3)
 const parentTaxRate = ref(24)
 const childrenTaxRates = ref([22, 24, 22, 24]) // 4 children
 const returnRate = ref(6.0)
+const yearsUntilInheritance = ref(15) // 15 years default
 
 // Helper functions for descriptions
 const getTaxBracketDescription = (rate) => {
@@ -485,6 +568,13 @@ const getReturnDescription = (rate) => {
   return 'Very aggressive'
 }
 
+const getInheritanceTimelineDescription = (years) => {
+  if (years <= 5) return 'Near term'
+  if (years <= 15) return 'Medium term'
+  if (years <= 25) return 'Long term'
+  return 'Very long term'
+}
+
 // Modal actions
 const cancelPersonalization = () => {
   emit('cancel')
@@ -498,7 +588,8 @@ const applyPersonalization = () => {
     conversionYears: conversionYears.value,
     parentTaxRate: parentTaxRate.value,
     childrenTaxRates: [...childrenTaxRates.value],
-    returnRate: returnRate.value
+    returnRate: returnRate.value,
+    yearsUntilInheritance: yearsUntilInheritance.value
   }
   
   emit('apply-changes', personalizedValues)

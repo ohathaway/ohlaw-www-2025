@@ -48,6 +48,10 @@
               <strong>Return Rate:</strong> 
               {{ personalizedValues.returnRate }}%
             </div>
+            <div>
+              <strong>Years Until Inheritance:</strong> 
+              {{ personalizedValues.yearsUntilInheritance }} years
+            </div>
             <div class="md:col-span-2">
               <strong>Children's Rates:</strong> 
               {{ personalizedValues.childrenTaxRates.join('%, ') }}%

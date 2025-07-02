@@ -479,10 +479,20 @@ export const useRothCalculations = (options = {}) => {
    * @returns {Object} Chart.js options
    */
   const generateChartOptions = (scenarioCalculations) => {
-    const maxSavings = Math.max(...scenarioCalculations.map(calc => calc.netFamilySavings))
-    const minSavings = Math.min(...scenarioCalculations.map(calc => calc.netFamilySavings))
+    const savingsValues = scenarioCalculations.map(calc => calc.netFamilySavings)
+    const maxSavings = Math.max(...savingsValues)
+    const minSavings = Math.min(...savingsValues)
     const range = maxSavings - minSavings
-    const padding = range * 0.1
+    
+    // Handle single scenario case where range = 0
+    let padding
+    if (range === 0) {
+      // For single scenario, create reasonable padding around the value
+      const absValue = Math.abs(maxSavings)
+      padding = Math.max(absValue * 0.2, 50000) // At least $50K padding
+    } else {
+      padding = range * 0.1
+    }
 
     return {
       responsive: true,

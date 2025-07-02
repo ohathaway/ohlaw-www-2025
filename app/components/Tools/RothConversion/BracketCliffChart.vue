@@ -17,7 +17,7 @@
     <div class="bg-white border border-slate-200 rounded-lg p-6 shadow-sm">
       <div class="h-64 md:h-80 lg:h-96">
         <Chart
-          v-if="chartData && chartData.labels.length > 0"
+          v-if="chartData && chartData.labels && chartData.labels.length > 0"
           type="bar"
           :data="chartData"
           :options="chartOptions"
@@ -27,7 +27,8 @@
         <div v-else class="flex items-center justify-center h-full text-slate-500">
           <div class="text-center">
             <i class="pi pi-chart-line text-4xl mb-2"></i>
-            <p>Chart will appear after calculating scenarios</p>
+            <p>{{ scenarioCalculations.length === 0 ? 'Chart will appear after calculating scenarios' : 'Loading chart...' }}</p>
+            <p class="text-xs mt-1">{{ scenarioCalculations.length }} scenario(s) available</p>
           </div>
         </div>
       </div>
