@@ -33,6 +33,7 @@
 │   │   ├── Blog
 │   │   │   ├── Card.vue
 │   │   │   ├── FeaturedPost.vue
+│   │   │   ├── FeaturedPostCard.vue
 │   │   │   ├── Header.vue
 │   │   │   ├── PostList.vue
 │   │   │   ├── PostListRow.vue
@@ -44,6 +45,7 @@
 │   │   │   │   ├── Modifier.vue
 │   │   │   │   ├── OrderedList.vue
 │   │   │   │   └── UnOrderedList.vue
+│   │   │   ├── SearchSidebar.vue
 │   │   │   └── TOC.vue
 │   │   ├── BookingDialog.vue
 │   │   ├── BookingLanding.vue
@@ -60,6 +62,7 @@
 │   │   │   ├── BreadcrumbNav.vue
 │   │   │   ├── FooterView.vue
 │   │   │   ├── HeaderView.vue
+│   │   │   ├── InfoIcon.vue
 │   │   │   ├── MediaFocus.vue
 │   │   │   ├── MediaListing.vue
 │   │   │   └── MobileMenuSidebar.vue
@@ -81,17 +84,29 @@
 │   │   │   ├── Offerings.vue
 │   │   │   ├── PflPromise.vue
 │   │   │   └── Process.vue
-│   │   └── TestimonialCarousel.vue
+│   │   ├── TestimonialCarousel.vue
+│   │   └── Tools
+│   │       ├── Disclaimer.vue
+│   │       └── RothConversion
+│   │           ├── BracketCliffChart.vue
+│   │           ├── ColorTest.vue
+│   │           ├── InputForm.vue
+│   │           ├── PersonalizationModal.vue
+│   │           └── ScenarioComparison.vue
 │   ├── composables
 │   │   ├── useAutoLayout.ts
 │   │   ├── useBackgroundStyle.js
+│   │   ├── useMeilisearch.js
+│   │   ├── useMeilisearchInstant.js
+│   │   ├── useRothCalculations.js
 │   │   └── useSeo.js
 │   ├── error.vue
 │   ├── layouts
 │   │   ├── base.vue
 │   │   ├── blog.vue
 │   │   ├── default.vue
-│   │   └── policy.vue
+│   │   ├── policy.vue
+│   │   └── services.vue
 │   ├── pages
 │   │   ├── about-us.vue
 │   │   ├── about.vue
@@ -101,16 +116,18 @@
 │   │   │   │   ├── [category].vue
 │   │   │   │   └── index.vue
 │   │   │   ├── index.vue
+│   │   │   ├── search.vue
 │   │   │   └── tags
 │   │   │       ├── [tag].vue
 │   │   │       └── index.vue
-│   │   ├── color-test.vue
 │   │   ├── contact-us.vue
 │   │   ├── contact.vue
 │   │   ├── index.vue
 │   │   ├── index.vue.oem
 │   │   ├── landings
-│   │   │   └── booking.vue
+│   │   │   ├── booking.vue
+│   │   │   └── payment-thank-you.vue
+│   │   ├── make-a-payment.vue
 │   │   ├── policies
 │   │   │   ├── fees.vue
 │   │   │   ├── index.vue
@@ -119,22 +136,28 @@
 │   │   │   └── unbundled.vue
 │   │   ├── quizzes
 │   │   │   └── [...slug].vue
-│   │   └── services
-│   │       ├── bankruptcy
-│   │       │   └── index.vue
-│   │       ├── estate-planning
-│   │       │   ├── gun-trusts
-│   │       │   │   └── index.vue
-│   │       │   ├── GunTrusts.vue
-│   │       │   └── index.vue
-│   │       ├── index.vue
-│   │       ├── nonprofits
-│   │       │   └── index.vue
-│   │       └── small-business
-│   │           └── index.vue
+│   │   ├── services
+│   │   │   ├── bankruptcy
+│   │   │   │   └── index.vue
+│   │   │   ├── estate-planning
+│   │   │   │   ├── gun-trusts
+│   │   │   │   │   └── index.vue
+│   │   │   │   ├── GunTrusts.vue
+│   │   │   │   └── index.vue
+│   │   │   ├── index.vue
+│   │   │   ├── nonprofits
+│   │   │   │   └── index.vue
+│   │   │   └── small-business
+│   │   │       └── index.vue
+│   │   ├── test-personalization.vue
+│   │   └── tools
+│   │       └── RothConversionModel.vue
 │   ├── plugins
-│   │   └── fontawesome.js
+│   │   ├── console-message.js
+│   │   ├── fontawesome.js
+│   │   └── vue-instantsearch.js
 │   ├── stores
+│   │   ├── blogStore.js
 │   │   ├── mainStore.js
 │   │   └── quizStore.js
 │   └── utils
@@ -143,14 +166,20 @@
 │       ├── dates.js
 │       ├── forms.js
 │       ├── glossary.js
+│       ├── menuUtils.js
+│       ├── numbers.js
 │       ├── ohlaw.js
 │       ├── quizQueries.js
 │       ├── scheduling.js
 │       └── strings.js
+├── CLAUDE.md
 ├── doc
+│   ├── color-test.vue
 │   ├── file_tree.txt
+│   ├── infrastructure-audit-phase2a.md
 │   ├── ohlawPreset.json
-│   └── ohlawPreset2.json
+│   ├── ohlawPreset2.json
+│   └── quizDiyEstatePlanning.json
 ├── eslint.config.mjs
 ├── formkit.config.js
 ├── formkit.theme.ts
@@ -158,7 +187,7 @@
 ├── nuxt.config.ts
 ├── package.json
 ├── pnpm-lock.yaml
-├── primevue.ohlaw.js
+├── primevue.ohlaw.ts
 ├── public
 │   ├── favicon.ico
 │   ├── icons
@@ -192,25 +221,28 @@
 ├── server
 │   ├── api
 │   │   ├── ai-ping.get.js
+│   │   ├── mail-ping.get.js
 │   │   ├── ping.ts
 │   │   ├── quizzes
 │   │   │   └── generate-report.post.js
 │   │   └── subscribe.post.js
 │   ├── tsconfig.json
 │   └── utils
+│       ├── ai.ts
 │       ├── functional.ts
 │       ├── images.js
+│       ├── mailersend
+│       │   └── index.js
 │       ├── quizzes
 │       │   ├── aiAnalysis.js
 │       │   ├── renderRichText2Pdf.js
 │       │   ├── reportContent.js
 │       │   ├── richText2Pdf.js
 │       │   └── utils.js
-│       └── r2.ts
-├── test-output
-│   ├── Hathaway-Owen-report-1747353527086.pdf
-│   ├── Hathaway-Owen-report-1747353645135.pdf
-│   └── Hathaway-Owen-report-1747353734792.pdf
+│       ├── r2.ts
+│       ├── reports
+│       │   └── index.js
+│       └── strings.js
 └── tsconfig.json
 
-40 directories, 174 files
+44 directories, 202 files

@@ -237,8 +237,8 @@
           </Card>
         </div>
 
-        <!-- Personalization Mode: Baseline + Custom Placeholder -->
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Personalization Mode: Baseline + Custom Scenarios -->
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <!-- Baseline Scenario Card -->
           <Card
             :key="selectedBaseline.scenario.name"
@@ -315,8 +315,107 @@
             </template>
           </Card>
 
-          <!-- Custom Scenario Placeholder Card -->
-          <Card class="custom-placeholder-card border-2 border-dashed border-primary-300 bg-primary-25 hover:bg-primary-50 transition-all duration-200 cursor-pointer">
+          <!-- Multiple Custom Scenario Cards -->
+          <Card 
+            v-for="customScenario in customScenarios"
+            :key="customScenario.id"
+            class="scenario-card cursor-pointer transition-all duration-200 hover:shadow-md border-2 border-success-300 bg-success-25"
+            @click="editCustomScenario(customScenario)"
+            role="button"
+            :aria-label="`Edit ${customScenario.scenario.name}`"
+            tabindex="0"
+            @keydown.enter="editCustomScenario(customScenario)"
+            @keydown.space.prevent="editCustomScenario(customScenario)"
+          >
+            <template #title>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-lg font-semibold text-success-800">{{ customScenario.scenario.name }}</h3>
+                  <Tag
+                    value="Custom"
+                    severity="success"
+                    class="text-xs"
+                  />
+                </div>
+                <i class="pi pi-user text-success-600 text-xl"></i>
+              </div>
+            </template>
+            
+            <template #content>
+              <div class="space-y-3">
+                <!-- Based on Baseline -->
+                <div class="text-xs text-success-600 bg-success-100 px-2 py-1 rounded">
+                  Based on {{ customScenario.baselineSource }}
+                </div>
+                
+                <!-- Conversion Amount -->
+                <div class="flex justify-between items-center">
+                  <span class="text-sm font-medium text-slate-600">Conversion Amount:</span>
+                  <span class="font-semibold">{{ formatCurrency(customScenario.scenario.conversionAmount) }}</span>
+                </div>
+                
+                <!-- Parent Tax Rate -->
+                <div class="flex justify-between items-center">
+                  <span class="text-sm font-medium text-slate-600">Parent Tax Rate:</span>
+                  <span class="font-semibold">{{ customScenario.scenario.parentTaxRate }}%</span>
+                </div>
+                
+                <!-- Net Family Savings (Real Calculation) -->
+                <div class="flex justify-between items-center pt-2 border-t border-slate-200">
+                  <span class="text-sm font-medium text-slate-600">Net Family Savings:</span>
+                  <span 
+                    class="font-bold text-lg"
+                    :class="customScenario.netFamilySavings > 0 ? 'text-success-700' : 'text-danger-700'"
+                  >
+                    {{ customScenario.netFamilySavings > 0 ? '+' : '' }}{{ formatCurrency(customScenario.netFamilySavings) }}
+                  </span>
+                </div>
+                
+                <!-- Custom Success indicator -->
+                <div class="flex items-center gap-2 p-2 bg-success-50 border border-success-200 rounded-md mt-3">
+                  <i class="pi pi-check text-success-600"></i>
+                  <span class="text-sm font-medium text-success-700">
+                    Personalized analysis
+                  </span>
+                </div>
+              </div>
+            </template>
+            
+            <template #footer>
+              <div class="space-y-2">
+                <!-- Edit Button -->
+                <div class="text-center">
+                  <Button
+                    @click.stop="editCustomScenario(customScenario)"
+                    severity="success"
+                    size="small"
+                    icon="pi pi-pencil"
+                    label="Edit Custom Strategy"
+                    class="w-full"
+                  />
+                </div>
+                
+                <!-- Delete Button -->
+                <div class="text-center">
+                  <Button
+                    @click.stop="deleteCustomScenario(customScenario)"
+                    severity="secondary"
+                    size="small"
+                    icon="pi pi-trash"
+                    label="Delete"
+                    class="w-full text-sm"
+                  />
+                </div>
+              </div>
+            </template>
+          </Card>
+
+          <!-- Dynamic Add Custom Scenario Placeholder -->
+          <Card 
+            v-if="customScenarios.length === 0"
+            class="custom-placeholder-card border-2 border-dashed border-primary-300 bg-primary-25 hover:bg-primary-50 transition-all duration-200 cursor-pointer"
+            @click="openPersonalizationModal"
+          >
             <template #title>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
@@ -355,6 +454,90 @@
                   label="Personalize This Strategy"
                   class="w-full font-semibold"
                 />
+              </div>
+            </template>
+          </Card>
+
+          <!-- Add Another Custom Scenario Placeholder (1-2 scenarios exist) -->
+          <Card 
+            v-else-if="customScenarios.length < 3"
+            class="custom-placeholder-card border-2 border-dashed border-primary-300 bg-primary-25 hover:bg-primary-50 transition-all duration-200 cursor-pointer"
+            @click="openPersonalizationModal"
+          >
+            <template #title>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-lg font-semibold text-primary-700">
+                    {{ customScenarios.length === 1 ? 'Add Another Custom Scenario' : 'Add Third Custom Scenario' }}
+                  </h3>
+                  <Tag
+                    :value="`${customScenarios.length + 1} of 3`"
+                    severity="info"
+                    class="text-xs"
+                  />
+                </div>
+                <i class="pi pi-plus-circle text-primary-600 text-xl"></i>
+              </div>
+            </template>
+            
+            <template #content>
+              <div class="space-y-4 text-center py-4">
+                <div class="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
+                  <i class="pi pi-sliders-h text-primary-600 text-2xl"></i>
+                </div>
+                <div>
+                  <p class="text-primary-700 font-medium mb-2">Create {{ customScenarios.length === 1 ? 'a second' : 'a third' }} personalized scenario</p>
+                  <p class="text-primary-600 text-sm">
+                    Compare multiple strategies with different assumptions side-by-side
+                  </p>
+                </div>
+              </div>
+            </template>
+            
+            <template #footer>
+              <div class="text-center">
+                <Button
+                  @click="openPersonalizationModal"
+                  severity="primary"
+                  size="small"
+                  icon="pi pi-plus"
+                  :label="`Add ${customScenarios.length === 1 ? 'Second' : 'Third'} Scenario`"
+                  class="w-full font-semibold"
+                />
+              </div>
+            </template>
+          </Card>
+
+          <!-- Maximum Reached Indicator (3 scenarios exist) -->
+          <Card 
+            v-else-if="customScenarios.length >= 3"
+            class="max-reached-card border-2 border-dashed border-slate-300 bg-slate-50 opacity-60"
+          >
+            <template #title>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-lg font-semibold text-slate-500">Maximum Custom Scenarios</h3>
+                  <Tag
+                    value="3 of 3"
+                    severity="secondary"
+                    class="text-xs"
+                  />
+                </div>
+                <i class="pi pi-check-circle text-slate-400 text-xl"></i>
+              </div>
+            </template>
+            
+            <template #content>
+              <div class="space-y-4 text-center py-4">
+                <div class="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                  <i class="pi pi-check text-slate-400 text-2xl"></i>
+                </div>
+                <div>
+                  <p class="text-slate-500 font-medium mb-2">You've reached the maximum of 3 custom scenarios</p>
+                  <p class="text-slate-400 text-sm">
+                    Edit or delete existing scenarios to create new ones
+                  </p>
+                </div>
               </div>
             </template>
           </Card>
@@ -503,6 +686,7 @@
     <!-- Personalization Modal -->
     <ToolsRothConversionPersonalizationModal
       v-model:visible="showPersonalizationModal"
+      :baseline-values="modalPersonalizationValues"
       @apply-changes="handlePersonalizationApply"
       @cancel="handlePersonalizationCancel"
     />
@@ -529,6 +713,7 @@ const emit = defineEmits(['scenario-selected'])
 // Use the Roth calculations composable
 const { 
   calculateAllScenarios, 
+  calculateScenario,
   getScenarioClasses, 
   getScenarioIcon,
   formatTableData 
@@ -542,14 +727,21 @@ const scenarioCalculations = computed(() => {
   return calculateAllScenarios(props.inputs)
 })
 
-// Phase 4A1.3: Filtered scenarios for baseline + custom placeholder
+// Phase 4A2: Filtered scenarios for baseline + custom scenario
 const filteredScenarios = computed(() => {
   if (!personalizationMode.value || !selectedBaseline.value) {
     // Standard mode - show all 4 presets
     return scenarioCalculations.value
   } else {
-    // Personalization mode with baseline - show only selected baseline
-    return [selectedBaseline.value]
+    // Personalization mode with baseline - show baseline + custom scenarios
+    const scenarios = [selectedBaseline.value]
+    
+    // Add custom scenarios if they exist
+    if (customScenarios.value.length > 0) {
+      scenarios.push(...customScenarios.value)
+    }
+    
+    return scenarios
   }
 })
 
@@ -563,6 +755,33 @@ const showPersonalizationModal = ref(false)
 
 // Phase 4A1.2: Baseline selection state
 const selectedBaseline = ref(null)
+
+// Phase 4A1.4: Custom scenarios state (future-ready array)
+const customScenarios = ref([])
+
+// Modal editing state
+const editingCustomScenario = ref(null)
+
+// Values for modal pre-population (baseline or custom scenario)
+const modalPersonalizationValues = computed(() => {
+  // If editing a custom scenario, use its values
+  if (editingCustomScenario.value) {
+    return editingCustomScenario.value.personalizedValues
+  }
+  
+  // Otherwise use baseline values for new custom scenario
+  if (!selectedBaseline.value) return null
+  
+  const scenario = selectedBaseline.value.scenario
+  return {
+    conversionAmount: scenario.conversionAmount,
+    conversionYears: 3, // Default from mock data
+    parentTaxRate: scenario.parentTaxRate,
+    childrenTaxRates: [...scenario.childTaxRates], // Clone array
+    returnRate: 6.0, // Default from app config
+    yearsUntilInheritance: 15 // Default from Phase 4A1+
+  }
+})
 
 // Table data computed properties
 const tableData = computed(() => {
@@ -674,21 +893,107 @@ const openPersonalizationModal = () => {
 }
 
 /**
- * Handle personalization modal apply (static for now)
+ * Handle personalization modal apply - create custom scenario with real calculations
  * @param {Object} personalizedValues - User's personalized inputs
  */
 const handlePersonalizationApply = (personalizedValues) => {
+  if (!selectedBaseline.value || !props.inputs) return
+  
+  // Determine scenario name and index for multiple scenarios
+  const isEditing = editingCustomScenario.value !== null
+  const scenarioNumber = isEditing 
+    ? editingCustomScenario.value.scenario.name.match(/\d+/)?.[0] || customScenarios.value.length + 1
+    : customScenarios.value.length + 1
+  
+  // Create custom scenario object for calculation
+  const customScenarioTemplate = {
+    name: `Custom Scenario ${scenarioNumber}`,
+    conversionAmount: personalizedValues.conversionAmount,
+    conversionYears: personalizedValues.conversionYears,
+    parentTaxRate: personalizedValues.parentTaxRate,
+    childTaxRates: [...personalizedValues.childrenTaxRates],
+    returnRate: personalizedValues.returnRate,
+    yearsUntilInheritance: personalizedValues.yearsUntilInheritance,
+    colorTheme: 'success', // Green theme for custom
+    isSweetSpot: false,
+    isDangerous: false,
+    isCustom: true
+  }
+  
+  // Calculate real scenario results using useRothCalculations
+  const calculationResult = calculateScenario(props.inputs, customScenarioTemplate)
+  
+  if (!calculationResult) {
+    console.error('Failed to calculate custom scenario')
+    return
+  }
+  
+  // Create custom scenario with real calculation results
+  const customScenario = {
+    id: isEditing ? editingCustomScenario.value.id : `custom-${Date.now()}`, // Preserve ID when editing
+    scenario: customScenarioTemplate,
+    // Real calculation results
+    netFamilySavings: calculationResult.netFamilySavings,
+    growthTaxSavings: calculationResult.growthTaxSavings,
+    doNothing: calculationResult.doNothing,
+    strategic: calculationResult.strategic,
+    totalGrowthAtStake: calculationResult.totalGrowthAtStake,
+    personalizedValues: { ...personalizedValues }, // Store for editing
+    baselineSource: selectedBaseline.value.scenario.name,
+    isCustom: true
+  }
+  
+  // Phase 4A1.5: Support multiple custom scenarios (max 3)
+  if (isEditing) {
+    // Update existing scenario
+    const editIndex = customScenarios.value.findIndex(cs => cs.id === editingCustomScenario.value.id)
+    if (editIndex !== -1) {
+      customScenarios.value[editIndex] = customScenario
+    }
+  } else {
+    // Add new scenario (max 3 total)
+    if (customScenarios.value.length < 3) {
+      customScenarios.value.push(customScenario)
+    }
+  }
+  
   showPersonalizationModal.value = false
-  console.log('Personalization applied (static):', personalizedValues)
-  // TODO: In Phase 4A2, this will update calculations
+  editingCustomScenario.value = null // Clear editing state
+  console.log('Custom scenario created with real calculations:', customScenario)
 }
+
 
 /**
  * Handle personalization modal cancel
  */
 const handlePersonalizationCancel = () => {
   showPersonalizationModal.value = false
+  editingCustomScenario.value = null // Clear editing state
   console.log('Personalization cancelled')
+}
+
+/**
+ * Edit custom scenario - reopen modal with current values
+ * @param {Object} customScenario - Custom scenario to edit
+ */
+const editCustomScenario = (customScenario) => {
+  // Set editing context so modal uses custom scenario values
+  editingCustomScenario.value = customScenario
+  showPersonalizationModal.value = true
+  console.log('Editing custom scenario:', customScenario.scenario.name)
+}
+
+/**
+ * Delete custom scenario - remove from array and update placeholders
+ * @param {Object} customScenario - Custom scenario to delete
+ */
+const deleteCustomScenario = (customScenario) => {
+  const deleteIndex = customScenarios.value.findIndex(cs => cs.id === customScenario.id)
+  if (deleteIndex !== -1) {
+    customScenarios.value.splice(deleteIndex, 1)
+    console.log('Deleted custom scenario:', customScenario.scenario.name)
+    console.log('Remaining scenarios:', customScenarios.value.length)
+  }
 }
 
 

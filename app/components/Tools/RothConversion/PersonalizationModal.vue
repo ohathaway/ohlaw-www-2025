@@ -496,6 +496,10 @@ const props = defineProps({
   visible: {
     type: Boolean,
     default: false
+  },
+  baselineValues: {
+    type: Object,
+    default: null
   }
 })
 
@@ -542,13 +546,29 @@ const openSlider = (sliderType) => {
   }
 }
 
-// Mock variable values
+// Variable values - initialize from baseline or use defaults
 const conversionAmount = ref(545000) // $545K
 const conversionYears = ref(3)
 const parentTaxRate = ref(24)
 const childrenTaxRates = ref([22, 24, 22, 24]) // 4 children
 const returnRate = ref(6.0)
 const yearsUntilInheritance = ref(15) // 15 years default
+
+// Initialize values from baseline when provided
+const initializeFromBaseline = () => {
+  if (props.baselineValues) {
+    conversionAmount.value = props.baselineValues.conversionAmount
+    conversionYears.value = props.baselineValues.conversionYears
+    parentTaxRate.value = props.baselineValues.parentTaxRate
+    childrenTaxRates.value = [...props.baselineValues.childrenTaxRates]
+    returnRate.value = props.baselineValues.returnRate
+    yearsUntilInheritance.value = props.baselineValues.yearsUntilInheritance
+    console.log('Initialized from baseline:', props.baselineValues)
+  }
+}
+
+// Watch for baseline values changes
+watch(() => props.baselineValues, initializeFromBaseline, { immediate: true })
 
 // Helper functions for descriptions
 const getTaxBracketDescription = (rate) => {
