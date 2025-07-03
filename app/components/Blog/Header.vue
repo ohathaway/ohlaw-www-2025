@@ -165,7 +165,10 @@ const openSearch = event => {
 const handleSearch = () => {
   blogStore.searchPosts()
   router.push({ path: '/blog/search', query: { search: searchTerm.value } })
+  
+  // Close both desktop popover and mobile drawer
   searchPop.value.toggle()
+  mobileSearchVisible.value = false
 }
 </script>
 
