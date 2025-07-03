@@ -1,13 +1,27 @@
 <template>
-  <div class="grid grid-cols-2 post-title px-20">
-    <div class="col-span 2 md:col-1 print-d-none">
-      <LayoutMediaFocus
-        :source="getStrapiUrl(postREST.Image)"
-        :title="postREST.Title"
-      />
+  <div class="post-title px-4 md:px-8 lg:px-20">
+    <!-- Mobile: Stack title above image -->
+    <div class="block md:hidden mb-6">
+      <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">{{ postREST.Title }}</h1>
+      <div class="w-full">
+        <LayoutMediaFocus
+          :source="getStrapiUrl(postREST.Image)"
+          :title="postREST.Title"
+        />
+      </div>
     </div>
-    <div class="col-span-2 md:col-span-1 flex items-center">
-      <h1 class="pb-5">{{ postREST.Title }}</h1>
+    
+    <!-- Desktop: Side by side layout -->
+    <div class="hidden md:grid md:grid-cols-2 md:gap-8">
+      <div class="print-d-none">
+        <LayoutMediaFocus
+          :source="getStrapiUrl(postREST.Image)"
+          :title="postREST.Title"
+        />
+      </div>
+      <div class="flex items-center">
+        <h1 class="text-3xl lg:text-4xl font-bold pb-5 leading-tight">{{ postREST.Title }}</h1>
+      </div>
     </div>
   </div>
   <div class="grid grid-cols-4 m-0 p-0">
@@ -36,7 +50,7 @@
         <BlogTOC :content="postREST.Content" />
       </div>
     </div>
-    <div class="col-span-12 md:col-span-8 lg:col-span-6 px-4">
+    <div class="col-span-12 md:col-span-8 lg:col-span-6 px-0 md:px-4">
       <span class="italic text-xl">{{ formatDateFull(postREST.publishDate) }}</span>
       <BlogRichText
         :block="postREST.Content"
