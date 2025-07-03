@@ -23,7 +23,7 @@
                 <font-awesome-icon 
                   v-else-if="feature.faIcon" 
                   :icon="parseFontAwesomeIcon(feature.faIcon)"
-                  class="text-primary-500 text-4xl mb-4"
+                  class="text-orange-900 text-4xl mb-4"
                 />
                 
                 <h3 class="text-xl font-semibold mb-3 text-primary-700">{{ feature.title }}</h3>

@@ -16,7 +16,7 @@
         <i class="bi bi-calendar-check me-4"></i>
         <span v-if="!isMobile">Schedule a Consultation</span>
         <span v-else>Book Now</span>
-        <i @click="dismiss" class="pi pi-times-circle btn-close text-gray-300 absolute top-[20px] right-[20px]"></i>
+        <i @click="dismiss" class="pi pi-times-circle btn-close text-gray-300"></i>
       </Button>
     </div>
   </Teleport>
@@ -281,6 +281,7 @@ onUnmounted(() => {
     align-items: center;
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
     
     &:hover {
       background-color: color-mix(in srgb, --var(primary-600), black 10%);
@@ -294,7 +295,18 @@ onUnmounted(() => {
   .btn-close {
     opacity: 0;
     transition: opacity 0.2s ease;
-    transform: translate(50%, -50%);
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
   }
   
   &:hover .btn-close {
@@ -322,6 +334,9 @@ onUnmounted(() => {
       width: 24px;
       height: 24px;
       opacity: 1;
+      top: -6px;
+      right: -6px;
+      font-size: 0.9rem;
     }
     
     .cta-button {

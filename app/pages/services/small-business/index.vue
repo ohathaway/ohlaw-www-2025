@@ -106,7 +106,7 @@ const whyItMattersFeatures = [
     description: `Proper legal structures and agreements protect your personal assets from business risks and liabilities.`
   },
   {
-    icon: 'fa-file-signature',
+    faIcon: 'fa-file-signature',
     title: `Contract Security`,
     description: `Well-drafted contracts protect your interests, clarify relationships, and provide recourse if things go wrong.`
   },
