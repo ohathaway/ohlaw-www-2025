@@ -136,6 +136,9 @@ const generateAnalysis = async () => {
     // Dispatch to store - triggers analysis generation
     store.generateAnalysis({ ...formData })
     
+    // Scroll to top to reveal ScenarioGridView
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    
   } catch (error) {
     // Error handling without console output
   } finally {
