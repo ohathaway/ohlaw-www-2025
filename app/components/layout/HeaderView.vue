@@ -22,7 +22,8 @@
         <NuxtLink to="/" class="block">
           <h1 :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
             scrolled ? 'hidden' : '']">
-            The Law Offices<br />of<br />Owen Hathaway
+            <span v-if="isLandscape">The Law Offices of Owen Hathaway</span>
+            <span v-else>The Law Offices<br />of<br />Owen Hathaway</span>
           </h1>
           <h1 :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
             scrolled ? '' : 'hidden']">
@@ -246,13 +247,25 @@ const handleScroll = () => {
   scrolled.value = window.scrollY > 50
 }
 
+// Landscape orientation detection for mobile
+const isLandscape = ref(false)
+const checkOrientation = () => {
+  // Check if we're in mobile range and landscape orientation
+  isLandscape.value = window.innerWidth < 1024 && window.innerWidth > window.innerHeight
+}
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  window.addEventListener('resize', checkOrientation)
+  window.addEventListener('orientationchange', checkOrientation)
   handleScroll() // Initial check
+  checkOrientation() // Initial check
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', checkOrientation)
+  window.removeEventListener('orientationchange', checkOrientation)
 })
 
 // theme token overrides
