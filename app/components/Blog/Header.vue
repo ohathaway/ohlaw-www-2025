@@ -166,9 +166,18 @@ const handleSearch = () => {
   blogStore.searchPosts()
   router.push({ path: '/blog/search', query: { search: searchTerm.value } })
   
-  // Close both desktop popover and mobile drawer
-  searchPop.value.toggle()
+  // Close mobile drawer
   mobileSearchVisible.value = false
+  
+  // Close desktop popover if it exists (use try/catch to handle any edge cases)
+  try {
+    if (searchPop.value) {
+      searchPop.value.hide()
+    }
+  } catch (error) {
+    // Silently handle popover errors (likely means we're on mobile)
+    console.debug('Popover hide error (expected on mobile):', error)
+  }
 }
 </script>
 
