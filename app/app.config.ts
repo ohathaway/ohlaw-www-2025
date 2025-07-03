@@ -122,7 +122,7 @@ export default defineAppConfig({
             conservative: 20,
             moderate: 21,
             aggressive: 21,
-            danger: 22,
+            danger: 24,
           },
           children: {
             conservative: 22,
@@ -131,6 +131,13 @@ export default defineAppConfig({
             danger: 18,
           },
         },
+      },
+
+      // Pre-filled form values for input form
+      formDefaults: {
+        totalPreTaxAccounts: 2180000,  // $2.18M
+        totalRothAccounts: 105000,     // $105K
+        numberOfChildren: 4            // 4 children
       },
 
       // Chart styling configuration
@@ -144,6 +151,34 @@ export default defineAppConfig({
           info: '#0ea5e9',
           warning: '#f59e0b',
           danger: '#ef4444',
+        },
+      },
+
+      // Phase 5A: Performance-based color bands
+      performanceBands: {
+        excellent: { 
+          threshold: 6, // >6% of starting IRA value saved
+          severity: 'info', 
+          color: 'blue',
+          label: 'Excellent Performance'
+        },
+        good: { 
+          threshold: 5, // 3-5% of starting IRA value saved
+          severity: 'success', 
+          color: 'green',
+          label: 'Good Performance'
+        },
+        marginal: { 
+          threshold: 1, // 1-2% of starting IRA value saved
+          severity: 'warn', 
+          color: 'orange',
+          label: 'Marginal Performance'
+        },
+        negative: { 
+          threshold: 0, // ≤0% family loses money
+          severity: 'danger', 
+          color: 'red',
+          label: 'Negative Performance'
         },
       },
     },

@@ -41,7 +41,7 @@
         :key="scenario.scenario.name"
         class="p-3 rounded-md border transition-all duration-200 cursor-pointer hover:shadow-md"
         :class="[
-          getScenarioClasses(scenario.scenario),
+          getScenarioClasses(scenario.scenario, scenario.netFamilySavings, totalPreTaxAccounts),
           selectedIndex === index ? 'ring-2 ring-primary-500 ring-offset-2' : ''
         ]"
         @click="selectScenario(index)"
@@ -96,6 +96,10 @@ const props = defineProps({
   scenarioCalculations: {
     type: Array,
     required: true
+  },
+  totalPreTaxAccounts: {
+    type: Number,
+    default: null
   }
 })
 
@@ -111,7 +115,7 @@ const {
 
 // Chart data and options
 const chartData = computed(() => {
-  return generateChartData(props.scenarioCalculations)
+  return generateChartData(props.scenarioCalculations, props.totalPreTaxAccounts)
 })
 
 const chartOptions = computed(() => {

@@ -350,18 +350,43 @@ export const useRothCalculations = (options = {}) => {
   }
 
   /**
-   * Gets CSS classes for scenario styling based on color theme
+   * Gets CSS classes for scenario styling based on performance bands or fallback to color theme
    * @param {Object} scenario - Scenario object with colorTheme property
+   * @param {number} netFamilySavings - Net family savings for performance calculation
+   * @param {number} totalPreTaxAccounts - Starting pre-tax IRA value for performance bands
    * @returns {Array} Array of CSS classes
    */
-  const getScenarioClasses = (scenario) => {
-    if (!scenario || !scenario.colorTheme) return []
+  const getScenarioClasses = (scenario, netFamilySavings = null, totalPreTaxAccounts = null) => {
+    if (!scenario) return []
     
-    const theme = scenario.colorTheme
+    let severity
+    
+    // Phase 5A: Use performance bands if data is available
+    if (netFamilySavings !== null && totalPreTaxAccounts) {
+      const performanceBand = calculatePerformanceBand(netFamilySavings, totalPreTaxAccounts)
+      severity = performanceBand.severity
+    } else {
+      // Fallback to static colorTheme mapping
+      const themeToSeverityMap = {
+        'success': 'success',
+        'info': 'info',
+        'warning': 'warn',
+        'danger': 'danger'
+      }
+      severity = themeToSeverityMap[scenario.colorTheme] || 'secondary'
+    }
+
+    // Map severity to CSS classes using PrimeVue color naming
+    const severityToClassMap = {
+      'info': ['bg-info-50', 'border-info-200', 'text-info-800'],
+      'success': ['bg-success-50', 'border-success-200', 'text-success-800'],
+      'warn': ['bg-warning-50', 'border-warning-200', 'text-warning-800'],
+      'danger': ['bg-danger-50', 'border-danger-200', 'text-danger-800'],
+      'secondary': ['bg-slate-50', 'border-slate-200', 'text-slate-800']
+    }
+
     return [
-      `bg-${theme}-50`,
-      `border-${theme}-200`,
-      `text-${theme}-800`,
+      ...(severityToClassMap[severity] || severityToClassMap['secondary']),
       'border'
     ]
   }
@@ -409,9 +434,10 @@ export const useRothCalculations = (options = {}) => {
   /**
    * Generates Chart.js compatible data showing bracket cliff effect
    * @param {Array} scenarioCalculations - Array of calculated scenarios
+   * @param {number} totalPreTaxAccounts - Starting pre-tax IRA value for performance bands
    * @returns {Object} Chart.js data structure
    */
-  const generateChartData = (scenarioCalculations) => {
+  const generateChartData = (scenarioCalculations, totalPreTaxAccounts = null) => {
     if (!scenarioCalculations || scenarioCalculations.length === 0) {
       return { labels: [], datasets: [] }
     }
@@ -420,24 +446,48 @@ export const useRothCalculations = (options = {}) => {
     const netSavingsData = scenarioCalculations.map(calc => calc.netFamilySavings)
     const conversionAmounts = scenarioCalculations.map(calc => calc.scenario.conversionAmount)
 
-    // Define semantic colors for chart (using CSS custom property values)
+    // Phase 5A: Generate dynamic colors based on performance bands
     const backgroundColors = scenarioCalculations.map(calc => {
-      switch (calc.scenario.colorTheme) {
-        case 'success': return 'rgba(16, 185, 129, 0.2)' // emerald-500 with opacity
-        case 'info': return 'rgba(14, 165, 233, 0.2)' // sky-500 with opacity  
-        case 'warning': return 'rgba(245, 158, 11, 0.2)' // amber-500 with opacity
-        case 'danger': return 'rgba(239, 68, 68, 0.2)' // rose-500 with opacity
-        default: return 'rgba(156, 163, 175, 0.2)' // gray-400 with opacity
+      if (totalPreTaxAccounts) {
+        const performanceBand = calculatePerformanceBand(calc.netFamilySavings, totalPreTaxAccounts)
+        switch (performanceBand.severity) {
+          case 'info': return 'rgba(14, 165, 233, 0.2)' // blue with opacity
+          case 'success': return 'rgba(16, 185, 129, 0.2)' // green with opacity
+          case 'warn': return 'rgba(245, 158, 11, 0.2)' // orange with opacity
+          case 'danger': return 'rgba(239, 68, 68, 0.2)' // red with opacity
+          default: return 'rgba(156, 163, 175, 0.2)' // gray with opacity
+        }
+      } else {
+        // Fallback to static colorTheme if totalPreTaxAccounts not provided
+        switch (calc.scenario.colorTheme) {
+          case 'success': return 'rgba(16, 185, 129, 0.2)' // emerald-500 with opacity
+          case 'info': return 'rgba(14, 165, 233, 0.2)' // sky-500 with opacity  
+          case 'warning': return 'rgba(245, 158, 11, 0.2)' // amber-500 with opacity
+          case 'danger': return 'rgba(239, 68, 68, 0.2)' // rose-500 with opacity
+          default: return 'rgba(156, 163, 175, 0.2)' // gray-400 with opacity
+        }
       }
     })
 
     const borderColors = scenarioCalculations.map(calc => {
-      switch (calc.scenario.colorTheme) {
-        case 'success': return 'rgb(16, 185, 129)' // emerald-500
-        case 'info': return 'rgb(14, 165, 233)' // sky-500
-        case 'warning': return 'rgb(245, 158, 11)' // amber-500
-        case 'danger': return 'rgb(239, 68, 68)' // rose-500
-        default: return 'rgb(156, 163, 175)' // gray-400
+      if (totalPreTaxAccounts) {
+        const performanceBand = calculatePerformanceBand(calc.netFamilySavings, totalPreTaxAccounts)
+        switch (performanceBand.severity) {
+          case 'info': return 'rgb(14, 165, 233)' // blue
+          case 'success': return 'rgb(16, 185, 129)' // green
+          case 'warn': return 'rgb(245, 158, 11)' // orange
+          case 'danger': return 'rgb(239, 68, 68)' // red
+          default: return 'rgb(156, 163, 175)' // gray
+        }
+      } else {
+        // Fallback to static colorTheme if totalPreTaxAccounts not provided
+        switch (calc.scenario.colorTheme) {
+          case 'success': return 'rgb(16, 185, 129)' // emerald-500
+          case 'info': return 'rgb(14, 165, 233)' // sky-500
+          case 'warning': return 'rgb(245, 158, 11)' // amber-500
+          case 'danger': return 'rgb(239, 68, 68)' // rose-500
+          default: return 'rgb(156, 163, 175)' // gray-400
+        }
       }
     })
 
@@ -453,21 +503,6 @@ export const useRothCalculations = (options = {}) => {
           borderWidth: 2,
           borderRadius: 4,
           borderSkipped: false,
-        },
-        {
-          type: 'line',
-          label: 'Bracket Cliff Trend',
-          data: netSavingsData,
-          borderColor: 'rgb(75, 85, 99)', // gray-600
-          backgroundColor: 'rgba(75, 85, 99, 0.1)',
-          borderWidth: 3,
-          fill: false,
-          tension: 0.4,
-          pointBackgroundColor: borderColors,
-          pointBorderColor: borderColors,
-          pointBorderWidth: 2,
-          pointRadius: 6,
-          pointHoverRadius: 8,
         }
       ]
     }
@@ -504,7 +539,7 @@ export const useRothCalculations = (options = {}) => {
       plugins: {
         title: {
           display: true,
-          text: 'Tax Bracket Cliff Effect',
+          text: 'Scenario Performance Comparison',
           font: {
             size: 18,
             weight: 'bold',
@@ -549,11 +584,7 @@ export const useRothCalculations = (options = {}) => {
               const savings = formatCurrency(context.parsed.y)
               const conversion = formatCurrency(calc.scenario.conversionAmount)
               
-              if (context.datasetIndex === 0) {
-                return `Net Savings: ${savings} (${conversion} conversion)`
-              } else {
-                return `Trend: ${savings}`
-              }
+              return `Net Savings: ${savings} (${conversion} conversion)`
             },
             afterBody: function(context) {
               const calc = scenarioCalculations[context[0].dataIndex]
@@ -631,6 +662,34 @@ export const useRothCalculations = (options = {}) => {
     }
   }
 
+  /**
+   * Calculates performance band based on net family savings as percentage of starting IRA value
+   * @param {number} netFamilySavings - Net family savings amount
+   * @param {number} totalPreTaxAccounts - Starting pre-tax IRA value
+   * @returns {Object} Performance band with severity, color, and label
+   */
+  const calculatePerformanceBand = (netFamilySavings, totalPreTaxAccounts) => {
+    if (!totalPreTaxAccounts || totalPreTaxAccounts === 0) {
+      return appConfig.tools?.rothConversion?.performanceBands?.negative || { severity: 'danger', color: 'red', label: 'Negative Performance' }
+    }
+
+    // Calculate savings as percentage of starting IRA value
+    const savingsPercentage = (netFamilySavings / totalPreTaxAccounts) * 100
+    const bands = appConfig.tools?.rothConversion?.performanceBands
+
+
+    // Check thresholds from highest to lowest
+    if (savingsPercentage > (bands?.excellent?.threshold || 10)) {
+      return bands?.excellent || { severity: 'info', color: 'blue', label: 'Excellent Performance' }
+    } else if (savingsPercentage > (bands?.good?.threshold || 5)) {
+      return bands?.good || { severity: 'success', color: 'green', label: 'Good Performance' }
+    } else if (savingsPercentage > (bands?.marginal?.threshold || 1)) {
+      return bands?.marginal || { severity: 'warn', color: 'orange', label: 'Marginal Performance' }
+    } else {
+      return bands?.negative || { severity: 'danger', color: 'red', label: 'Negative Performance' }
+    }
+  }
+
   return {
     generateScenarios,
     calculateScenario,
@@ -640,6 +699,7 @@ export const useRothCalculations = (options = {}) => {
     getScenarioIcon,
     getTableRowClasses,
     generateChartData,
-    generateChartOptions
+    generateChartOptions,
+    calculatePerformanceBand
   }
 }

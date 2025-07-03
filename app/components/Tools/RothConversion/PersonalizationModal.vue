@@ -68,7 +68,7 @@
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
                   <p class="text-info-800 text-sm">
-                    <strong>Current:</strong> $545K (25% of $2.18M)<br>
+                    <strong>Current:</strong> ${{ (conversionAmount / 1000).toFixed(0) }}K ({{ Math.round((conversionAmount / 2180000) * 100) }}% of $2.18M)<br>
                     <strong>Range:</strong> $0 to $2.18M (your total pre-tax accounts)
                   </p>
                 </div>
@@ -132,7 +132,7 @@
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
                   <p class="text-info-800 text-sm">
-                    <strong>Current:</strong> 3 years<br>
+                    <strong>Current:</strong> {{ conversionYears }} {{ conversionYears === 1 ? 'year' : 'years' }}<br>
                     <strong>Range:</strong> 1 to 10 years
                   </p>
                 </div>
@@ -196,8 +196,9 @@
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
                   <p class="text-info-800 text-sm">
-                    <strong>Current:</strong> 24% (22% federal + 2% state)<br>
-                    <strong>Range:</strong> 10% to 37%
+                    <strong>Current:</strong> {{ parentTaxRate }}% ({{ getTaxBracketDescription(parentTaxRate) }})<br>
+                    <strong>Range:</strong> 10% to 37%<br>
+                    <strong>Common rates:</strong> 12%, 22%, 24%, 32%, 35%
                   </p>
                 </div>
               </div>
@@ -217,14 +218,6 @@
                 <div class="flex justify-between text-xs text-slate-500">
                   <span>10%</span>
                   <span>37%</span>
-                </div>
-                <!-- Tax Bracket Markers -->
-                <div class="flex justify-between text-xs text-slate-400 mt-1">
-                  <span>12%</span>
-                  <span>22%</span>
-                  <span>24%</span>
-                  <span>32%</span>
-                  <span>35%</span>
                 </div>
                 <Button 
                   @click="showParentTaxSlider = false"
@@ -268,7 +261,7 @@
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
                   <p class="text-info-800 text-sm">
-                    <strong>Current:</strong> 22-24% for all children<br>
+                    <strong>Current:</strong> {{ childrenTaxRates.join('%, ') }}% for children<br>
                     <strong>Range:</strong> 10% to 37% each
                   </p>
                 </div>
@@ -279,7 +272,10 @@
                   <div v-for="(rate, index) in childrenTaxRates" :key="index" class="space-y-2">
                     <div class="flex justify-between items-center">
                       <span class="text-sm font-medium">Child {{ index + 1 }}</span>
-                      <span class="text-lg font-bold text-primary-700">{{ rate }}%</span>
+                      <div class="text-right">
+                        <span class="text-lg font-bold text-primary-700">{{ rate }}%</span>
+                        <div class="text-xs text-slate-500">{{ getTaxBracketDescription(rate) }}</div>
+                      </div>
                     </div>
                     <Slider 
                       v-model="childrenTaxRates[index]" 
@@ -332,7 +328,7 @@
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
                   <p class="text-info-800 text-sm">
-                    <strong>Current:</strong> 6% annually<br>
+                    <strong>Current:</strong> {{ returnRate }}% annually ({{ getReturnDescription(returnRate) }})<br>
                     <strong>Range:</strong> 2% (conservative) to 18% (aggressive)<br>
                     <strong>Note:</strong> Historical stock market average is ~10%
                   </p>
@@ -349,21 +345,16 @@
                     v-model="returnRate" 
                     :min="2" 
                     :max="18" 
-                    :step="0.5"
+                    :step="1"
                     class="w-full"
                   />
                   <div class="flex justify-between text-xs text-slate-500 mt-1">
                     <span>2%</span>
-                    <span>6%</span>
-                    <span>10%</span>
+                    <span>7%</span>
+                    <span>12%</span>
                     <span>18%</span>
                   </div>
-                  <div class="flex justify-between text-xs text-slate-400 mt-1">
-                    <span>Conservative</span>
-                    <span>Moderate</span>
-                    <span>Historical Avg</span>
-                    <span>Aggressive</span>
-                  </div>
+                  <!-- Dynamic description shown in the main display above -->
                 </div>
                 <div class="text-center">
                   <Button 
@@ -409,7 +400,7 @@
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
                   <p class="text-info-800 text-sm">
-                    <strong>Planning Estimate:</strong> 15 years<br>
+                    <strong>Planning Estimate:</strong> {{ yearsUntilInheritance }} {{ yearsUntilInheritance === 1 ? 'year' : 'years' }} ({{ getInheritanceTimelineDescription(yearsUntilInheritance) }})<br>
                     <strong>Range:</strong> 1 to 30 years<br>
                     <strong>Note:</strong> Consider health, family history, and planning horizon
                   </p>
@@ -563,7 +554,6 @@ const initializeFromBaseline = () => {
     childrenTaxRates.value = [...props.baselineValues.childrenTaxRates]
     returnRate.value = props.baselineValues.returnRate
     yearsUntilInheritance.value = props.baselineValues.yearsUntilInheritance
-    console.log('Initialized from baseline:', props.baselineValues)
   }
 }
 
@@ -580,12 +570,12 @@ const getTaxBracketDescription = (rate) => {
 }
 
 const getReturnDescription = (rate) => {
-  if (rate <= 3) return 'Very conservative'
-  if (rate <= 5) return 'Conservative'
-  if (rate <= 7) return 'Moderate'
-  if (rate <= 10) return 'Historical average'
-  if (rate <= 12) return 'Optimistic'
-  return 'Very aggressive'
+  if (rate <= 4) return 'Very conservative'
+  if (rate <= 7) return 'Conservative'
+  if (rate <= 10) return 'Moderate'
+  if (rate <= 12) return 'Historical average'
+  if (rate <= 15) return 'Optimistic'
+  return 'Aggressive'
 }
 
 const getInheritanceTimelineDescription = (years) => {
