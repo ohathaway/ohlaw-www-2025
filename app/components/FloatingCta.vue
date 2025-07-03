@@ -16,8 +16,8 @@
         <i class="bi bi-calendar-check me-4"></i>
         <span v-if="!isMobile">Schedule a Consultation</span>
         <span v-else>Book Now</span>
-        <i @click="dismiss" class="pi pi-times-circle btn-close text-gray-300"></i>
       </Button>
+      <i @click="dismiss" class="pi pi-times-circle btn-close text-gray-300"></i>
     </div>
   </Teleport>
 </template>
@@ -228,9 +228,15 @@ onMounted(() => {
       position.value = JSON.parse(savedPosition)
     }
     
-    // Check if previously dismissed in this session
+    // Check if previously dismissed in this session only
+    // Hard page reloads will clear sessionStorage, making component visible again
     const wasDismissed = sessionStorage.getItem('floatingCtaDismissed') === 'true'
     isDismissed.value = wasDismissed
+    
+    // If not explicitly dismissed in this session, ensure it can be visible
+    if (!wasDismissed) {
+      isDismissed.value = false
+    }
   } catch (e) {
     console.warn('Error accessing storage', e)
   }
@@ -281,7 +287,6 @@ onUnmounted(() => {
     align-items: center;
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
     
     &:hover {
       background-color: color-mix(in srgb, --var(primary-600), black 10%);
@@ -307,6 +312,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
+    cursor: pointer;
   }
   
   &:hover .btn-close {
