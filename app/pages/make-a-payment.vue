@@ -15,7 +15,7 @@
             Secure Payment Portal
           </h1>
           <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-            You'll be directed to our secure payment system to complete your transaction safely and securely.
+            Use our our secure payment system to complete your transaction safely and securely.
           </p>
         </div>
 
@@ -88,7 +88,7 @@
             Continue to Payment Form
           </button>
           <p class="text-xs text-slate-500 mt-3">
-            You'll be redirected to our secure payment provider
+            You'll be taken to our secure payment provider
           </p>
         </div>
 

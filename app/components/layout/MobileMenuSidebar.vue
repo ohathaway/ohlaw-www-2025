@@ -60,7 +60,10 @@ const visibleModel = computed({
 })
 
 // Convert route-based menu items to command-based for PanelMenu
-const navigationMenuItems = computed(() => convertRoutesToCommands(props.menuItems))
+const navigationMenuItems = computed(() => convertRoutesToCommands(props.menuItems, () => {
+  // Close mobile menu after navigation
+  emit('update:visible', false)
+}))
 
 // Method to handle updating the visible state
 const updateVisible = (value) => {
