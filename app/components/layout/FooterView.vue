@@ -66,12 +66,101 @@
           </ClientOnly>
         </div>
       </div>
-      <div class="grid mt-6 lg:mt-0">
+      <div class="grid mt-6 lg:mt-0 gap-6">
         <div>
           <!-- <NewsletterSignupForm /> -->
         </div>
         <div>
           <TestimonialCarousel />
+        </div>
+        <div>
+          <h5 class="text-xl pb-3 underline">Helpful Resources</h5>
+          <ul class="list-none pl-0 space-y-2">
+            <li class="flex items-start">
+              <i class="pi pi-file-edit text-slate-300 mt-1 mr-3" />
+              <NuxtLink to="/policies" class="text-slate-200 hover:text-white">
+                Our Terms and Conditions
+              </NuxtLink>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://www.coloradojudicial.gov/self-help-forms" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+              >
+                Colorado Courts Self-Help Forms
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://www.211colorado.org/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+                title="211 Colorado streamlines services and provides one central location where people can get connected to the resources they need."
+              >
+                211 Colorado - Database of Resources
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://www.healthfirstcolorado.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+              >
+                Health First Colorado (Medicaid)
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://www.sciencecare.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+              >
+                Science Care - Donate Your Body
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://ohlawco.kidsprotectionplan.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+              >
+                Kids Protection Plan
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://moneysharp.org" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+              >
+                Money Sharp - Bankruptcy Courses
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a 
+                href="https://ndc.org" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="text-slate-200 hover:text-white"
+              >
+                National Bankruptcy Data
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
