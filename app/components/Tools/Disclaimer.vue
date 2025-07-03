@@ -7,6 +7,9 @@
         Actual tax and investment consequences depend on many factors including future tax law changes, income levels, 
         and specific implementation strategies. Consult with tax and financial professionals for personalized advice.
       </p>
+      <p class="text-sm text-blue-800 pr-16">
+        A quick heads up: These numbers assume your beneficiaries are working adults in their peak earning years. Special needs children, non-working adult kids, or specialized trust structures? The math gets more complicated. Consider this your conversation starter, not your final strategy.
+      </p>
       <Button
         @click="hideDisclaimer"
         size="small"

@@ -92,34 +92,49 @@ export const useRothCalculations = (options = {}) => {
   const generateScenarios = (inputs) => {
     if (!inputs || !inputs.totalPreTaxAccounts) return []
     
+    // Get configuration values from app.config.ts
+    const config = appConfig.tools?.rothConversion?.defaults
+    const percentages = config?.conversionPercentages || [0.15, 0.25, 0.35, 0.45]
+    const parentRates = config?.defaultTaxRates?.parent || {
+      conservative: 20,
+      moderate: 21,
+      aggressive: 21,
+      danger: 24
+    }
+    const childRates = config?.defaultTaxRates?.children || {
+      conservative: 18,
+      moderate: 22,
+      aggressive: 24,
+      danger: 26
+    }
+    
     return [
       {
-        name: 'Conservative',
-        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.15), // 15%
-        parentTaxRate: 20,
-        childTaxRates: Array(inputs.numberOfChildren).fill(22), // Peak earning years
+        name: 'Play It Safe',
+        conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[0]),
+        parentTaxRate: parentRates.conservative,
+        childTaxRates: Array(inputs.numberOfChildren).fill(childRates.conservative),
         colorTheme: 'success' // emerald
       },
       {
-        name: 'Moderate', 
-        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.25), // 25%
-        parentTaxRate: 21,
-        childTaxRates: Array(inputs.numberOfChildren).fill(24), // Higher income
-        colorTheme: 'info', // sky
-        isSweetSpot: true
+        name: 'Sweet Spot Strategy', 
+        conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[1]),
+        parentTaxRate: parentRates.moderate,
+        childTaxRates: Array(inputs.numberOfChildren).fill(childRates.moderate),
+        colorTheme: 'info' // sky
       },
       {
-        name: 'Aggressive',
-        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.45), // 40%
-        parentTaxRate: 21,
-        childTaxRates: Array(inputs.numberOfChildren).fill(24), // High earners
+        name: 'Go Big or Go Home',
+        conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[2]),
+        parentTaxRate: parentRates.aggressive,
+        childTaxRates: Array(inputs.numberOfChildren).fill(childRates.aggressive),
         colorTheme: 'warning' // amber
       },
       {
-        name: 'Danger Zone',
-        conversionAmount: Math.round(inputs.totalPreTaxAccounts * 0.45), // 60%
-        parentTaxRate: 22,
-        childTaxRates: Array(inputs.numberOfChildren).fill(18), // Maximum rates
+        name: 'The Universe Had Other Plans',
+        conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[3]),
+        parentTaxRate: parentRates.danger,
+        childTaxRates: Array(inputs.numberOfChildren).fill(childRates.danger),
         colorTheme: 'danger', // rose
         isDangerous: true
       }
@@ -496,7 +511,7 @@ export const useRothCalculations = (options = {}) => {
       datasets: [
         {
           type: 'bar',
-          label: 'Net Family Savings',
+          label: 'More for Your Kids',
           data: netSavingsData,
           backgroundColor: backgroundColors,
           borderColor: borderColors,
@@ -548,17 +563,7 @@ export const useRothCalculations = (options = {}) => {
           color: 'rgb(55, 65, 81)', // gray-700
         },
         legend: {
-          position: 'bottom',
-          labels: {
-            usePointStyle: true,
-            padding: 20,
-            color: 'rgb(75, 85, 99)', // gray-600
-            font: {
-              size: 14,
-              weight: '500',
-              family: 'system-ui, -apple-system, sans-serif'
-            }
-          }
+          display: false
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -641,7 +646,7 @@ export const useRothCalculations = (options = {}) => {
           },
           title: {
             display: true,
-            text: 'Net Family Tax Savings',
+            text: 'Less for The Taxman',
             color: 'rgb(75, 85, 99)', // gray-600
             font: {
               size: 16,

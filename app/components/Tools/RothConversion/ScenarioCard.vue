@@ -17,12 +17,6 @@
         <div class="flex items-center gap-2">
           <h3 class="text-lg font-semibold">{{ scenarioData.scenario.name }}</h3>
           <Tag
-            v-if="scenarioData.scenario.isSweetSpot"
-            severity="success"
-            value="Sweet Spot"
-            class="text-xs"
-          />
-          <Tag
             v-if="cardType === 'custom'"
             value="Custom"
             severity="success"
@@ -60,7 +54,7 @@
         
         <!-- Net Family Savings -->
         <div class="flex justify-between items-center pt-2 border-t border-slate-200">
-          <span class="text-sm font-medium text-slate-600">{{ cardType === 'custom' ? 'Net Family Savings:' : 'Net Family Savings:' }}</span>
+          <span class="text-sm font-medium text-slate-600">More for Your Kids</span>
           <span 
             class="font-bold text-lg"
             :class="scenarioData.netFamilySavings > 0 ? 'text-success-700' : 'text-danger-700'"
@@ -248,7 +242,19 @@ const showBaselineActions = computed(() => {
 const handleCardClick = () => {
   // For custom scenarios, clicking the card itself should not trigger any action
   // since we now have explicit "Show Details" and "Edit" buttons
-  if (props.cardType !== 'custom') {
+  if (props.cardType === 'custom') {
+    return
+  }
+  
+  // If in baseline selection mode (personalization mode active but no baseline selected),
+  // card clicks should trigger baseline selection, not details view
+  if (showBaselineActions.value && !props.isBaseline) {
+    emit('baseline-selected', props.scenarioData)
+    return
+  }
+  
+  // Otherwise, show details view (standard mode or already have a baseline)
+  if (showStandardActions.value || props.isBaseline) {
     emit('card-clicked', props.scenarioData)
   }
 }

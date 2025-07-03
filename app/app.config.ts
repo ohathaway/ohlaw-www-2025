@@ -116,19 +116,19 @@ export default defineAppConfig({
       // Default calculation parameters
       defaults: {
         maxChildren: 4,
-        conversionPercentages: [0.15, 0.25, 0.45, 0.45], // Conservative, Moderate, Aggressive, Danger
+        conversionPercentages: [0.15, 0.25, 0.40, 0.50], // Conservative, Moderate, Aggressive, Danger
         defaultTaxRates: {
           parent: {
-            conservative: 20,
-            moderate: 21,
-            aggressive: 21,
-            danger: 24,
+            conservative: 22,
+            moderate: 24,
+            aggressive: 24,
+            danger: 37,
           },
           children: {
             conservative: 22,
             moderate: 24,
-            aggressive: 24,
-            danger: 18,
+            aggressive: 28,
+            danger: 20,
           },
         },
       },
@@ -157,19 +157,19 @@ export default defineAppConfig({
       // Phase 5A: Performance-based color bands
       performanceBands: {
         excellent: { 
-          threshold: 6, // >6% of starting IRA value saved
+          threshold: 10, // >10% of starting IRA value saved
           severity: 'info', 
           color: 'blue',
           label: 'Excellent Performance'
         },
         good: { 
-          threshold: 5, // 3-5% of starting IRA value saved
+          threshold: 5, // 5-9% of starting IRA value saved
           severity: 'success', 
           color: 'green',
           label: 'Good Performance'
         },
         marginal: { 
-          threshold: 1, // 1-2% of starting IRA value saved
+          threshold: 2, // 1-2% of starting IRA value saved
           severity: 'warn', 
           color: 'orange',
           label: 'Marginal Performance'

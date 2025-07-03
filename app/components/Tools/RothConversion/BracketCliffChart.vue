@@ -1,15 +1,16 @@
 <template>
   <div class="mb-8">
     <!-- Educational Header -->
-    <div class="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
+    <div class="mb-6 lg:mx-5 p-4 bg-primary-50 border border-primary-200 rounded-lg">
       <h3 class="text-lg font-semibold text-primary-800 mb-2 flex items-center gap-2">
         <i class="pi pi-chart-line text-primary-600"></i>
-        Understanding the Tax Bracket Cliff Effect
+        What This Really Means for Your Family
       </h3>
       <p class="text-primary-700 text-sm">
-        The real advantage isn't just tax savings on the conversion amount—it's the <strong>tax savings on ALL the growth</strong> 
-        that occurs during the 10-year distribution period. The chart below shows how each strategy impacts your total family savings, 
-        including taxes saved on investment growth that children would otherwise pay during their peak earning years.
+        Every dollar that grows tax-free in a Roth account is a dollar your children keep instead of sending to the IRS. The chart below shows how different strategies impact what you actually leave behind.
+      </p>
+      <p class="text-primary-600 text-sm mt-2">
+        <strong>Implementation note:</strong> These results assume properly structured trusts or beneficiary designations that allow favorable tax treatment. The legal framework matters as much as the strategy.
       </p>
     </div>
 
@@ -75,10 +76,6 @@
         </span>
       </div>
       
-      <!-- Sweet Spot Badge -->
-      <div v-if="selectedScenario.scenario.isSweetSpot" class="mt-2">
-        <Tag severity="success" value="🎯 Optimal Balance" class="text-xs" />
-      </div>
       
       <!-- Danger Warning -->
       <div v-if="selectedScenario.scenario.isDangerous && selectedScenario.netFamilySavings < 0" class="mt-2">

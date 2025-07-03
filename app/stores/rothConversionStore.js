@@ -229,7 +229,6 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
       returnRate: personalizedValues.returnRate || 6.0,
       yearsUntilInheritance: personalizedValues.yearsUntilInheritance || 15,
       colorTheme: 'success', // Green theme for custom scenarios
-      isSweetSpot: false,
       isDangerous: false,
       isCustom: true
     }
