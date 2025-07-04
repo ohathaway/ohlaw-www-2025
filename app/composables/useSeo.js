@@ -60,10 +60,18 @@ export function useSeo(pageMeta = {}) {
     }
   }
 
-  // Merge with page-specific structured data if provided
-  const structuredData = pageMeta.structuredData 
-    ? { ...defaultStructuredData, ...pageMeta.structuredData }
-    : defaultStructuredData
+  // Handle structured data - can be object, array, or merge with default
+  let structuredData
+  if (Array.isArray(pageMeta.structuredData)) {
+    // If page provides an array, use it directly and add default as first item
+    structuredData = [defaultStructuredData, ...pageMeta.structuredData]
+  } else if (pageMeta.structuredData) {
+    // If page provides an object, merge with default
+    structuredData = { ...defaultStructuredData, ...pageMeta.structuredData }
+  } else {
+    // Use default only
+    structuredData = defaultStructuredData
+  }
 
   return {
     title,
@@ -84,11 +92,16 @@ export function useSeo(pageMeta = {}) {
     link: [
       { rel: 'canonical', href: url }
     ],
-    script: [
-      {
-        type: 'application/ld+json',
-        children: JSON.stringify(structuredData)
-      }
-    ]
+    script: Array.isArray(structuredData) 
+      ? structuredData.map(data => ({
+          type: 'application/ld+json',
+          children: JSON.stringify(data)
+        }))
+      : [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify(structuredData)
+          }
+        ]
   }
 }

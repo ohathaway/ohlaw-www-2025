@@ -69,47 +69,6 @@ const { schedulingLinks: { newBankruptcyClient: link } } = useAppConfig()
 // SEO metadata with enhanced local targeting
 const { seo } = useAppConfig()
 
-useHead(useSeo({
-  title: 'Bankruptcy Attorney Fort Collins | Chapter 7 & 13 Colorado | Owen Hathaway',
-  description: 'Experienced bankruptcy attorney serving Fort Collins and Northern Colorado. Stop creditor harassment, eliminate debt, and get a fresh start with Chapter 7 or Chapter 13 bankruptcy. Free consultation.',
-  keywords: seo.localKeywords.bankruptcy + ', Fort Collins bankruptcy lawyer, Colorado debt relief, bankruptcy protection Northern Colorado, stop foreclosure Fort Collins',
-  structuredData: {
-    '@type': ['LegalService', 'Attorney'],
-    'serviceType': 'Bankruptcy Law',
-    'areaServed': seo.serviceAreas,
-    'hasOfferCatalog': {
-      '@type': 'OfferCatalog', 
-      'name': 'Bankruptcy Services',
-      'itemListElement': [
-        {
-          '@type': 'Offer',
-          'itemOffered': {
-            '@type': 'Service',
-            'name': 'Chapter 7 Bankruptcy',
-            'description': 'Liquidation bankruptcy for individuals and families in Colorado'
-          }
-        },
-        {
-          '@type': 'Offer',
-          'itemOffered': {
-            '@type': 'Service',
-            'name': 'Chapter 13 Bankruptcy', 
-            'description': 'Reorganization bankruptcy with payment plans for Colorado residents'
-          }
-        },
-        {
-          '@type': 'Offer',
-          'itemOffered': {
-            '@type': 'Service',
-            'name': 'Debt Relief Consultation',
-            'description': 'Free bankruptcy consultation and debt analysis in Fort Collins'
-          }
-        }
-      ]
-    }
-  }
-}))
-
 // Introduction section features
 const introFeatures = [
   {
@@ -312,4 +271,59 @@ const bankruptcyFaqs = [
     answer: `Credit rebuilding can begin immediately after your bankruptcy discharge. We recommend starting with a secured credit card to pay regular bills, and paying each month's balance in full. There are nuances to making this cash-flow neutral, so talk to us about this works. Many clients see significant credit score improvements within 12-18 months using responsible credit practices. Some clients qualify for car loans immediately after discharge and for mortgages within 2-4 years, depending on their overall financial situation and down payment ability.`
   }
 ]
+
+// Set up SEO after FAQ data is defined
+useHead(useSeo({
+  title: 'Bankruptcy Attorney Fort Collins | Chapter 7 & 13 Colorado | Owen Hathaway',
+  description: 'Experienced bankruptcy attorney serving Fort Collins and Northern Colorado. Stop creditor harassment, eliminate debt, and get a fresh start with Chapter 7 or Chapter 13 bankruptcy. Free consultation.',
+  keywords: seo.localKeywords.bankruptcy + ', Fort Collins bankruptcy lawyer, Colorado debt relief, bankruptcy protection Northern Colorado, stop foreclosure Fort Collins',
+  structuredData: [
+    {
+      '@type': 'LegalService',
+      'serviceType': 'Bankruptcy Law',
+      'areaServed': seo.serviceAreas,
+      'hasOfferCatalog': {
+        '@type': 'OfferCatalog', 
+        'name': 'Bankruptcy Services',
+        'itemListElement': [
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Chapter 7 Bankruptcy',
+              'description': 'Liquidation bankruptcy for individuals and families in Colorado'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Chapter 13 Bankruptcy', 
+              'description': 'Reorganization bankruptcy with payment plans for Colorado residents'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Debt Relief Consultation',
+              'description': 'Free bankruptcy consultation and debt analysis in Fort Collins'
+            }
+          }
+        ]
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      'mainEntity': bankruptcyFaqs.map(faq => ({
+        '@type': 'Question',
+        'name': faq.question,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': faq.answer.replace(/<[^>]*>/g, '').trim() // Strip HTML for schema
+        }
+      }))
+    }
+  ]
+}))
 </script>
