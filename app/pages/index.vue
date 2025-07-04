@@ -46,11 +46,12 @@ const services = [
   }
 ]
 
-// Use your SEO composable to set page meta
+// Use your SEO composable to set page meta with explicit image
 const pageMeta = {
-  // title: 'The Law Offices of Owen Hathaway | Family and Business Legal Solutions',
-  // description: 'A family-operated law firm helping families and businesses establish rock-solid legal foundations in estate planning, small business, nonprofit, and bankruptcy law.',
-  keywords: 'estate planning, small business law, bankruptcy, nonprofit law, Fort Collins attorney',
+  title: 'The Law Offices of Owen Hathaway | Colorado Heart-Centered Legal Services',
+  description: 'Family-owned law firm in Fort Collins, Colorado helping families and businesses with estate planning, bankruptcy, small business law, and nonprofit legal services. Expert, compassionate legal guidance.',
+  image: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png',
+  keywords: 'estate planning, small business law, bankruptcy, nonprofit law, Fort Collins attorney, Colorado lawyer, family law firm',
   // Enhanced structured data that includes your services
   structuredData: {
     '@type': 'LegalService',
@@ -71,6 +72,27 @@ const pageMeta = {
   }
 }
 
-// Set up meta tags
+// Set up meta tags with explicit image priority
 useHead(useSeo(pageMeta))
+
+// Add additional meta tags to ensure proper social media image
+useHead({
+  meta: [
+    // Force the correct image for social media with unique IDs to prevent conflicts
+    { hid: 'og:image', property: 'og:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png' },
+    { hid: 'og:image:type', property: 'og:image:type', content: 'image/png' },
+    { hid: 'og:image:width', property: 'og:image:width', content: '512' },
+    { hid: 'og:image:height', property: 'og:image:height', content: '512' },
+    { hid: 'og:image:alt', property: 'og:image:alt', content: 'The Law Offices of Owen Hathaway Logo' },
+    { hid: 'twitter:image', name: 'twitter:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png' },
+    { hid: 'twitter:image:alt', name: 'twitter:image:alt', content: 'The Law Offices of Owen Hathaway Logo' }
+  ]
+})
+
+// Additional strategy: Add a preload link for the image to signal its importance
+useHead({
+  link: [
+    { rel: 'preload', as: 'image', href: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png' }
+  ]
+})
 </script>

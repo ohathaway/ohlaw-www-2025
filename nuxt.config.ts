@@ -298,9 +298,7 @@ export default defineNuxtConfig({
   robots: {
     disallow: [
       '/color-test',
-      '/contact',
       '/glossary',
-      '/services',
       '/blog/categories',
       '/blog/tags',
       '/landings/booking',
