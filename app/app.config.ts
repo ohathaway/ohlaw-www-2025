@@ -21,10 +21,10 @@ export default defineAppConfig({
     siteName: 'The Law Offices of Owen Hathaway',
     siteUrl: 'https://ohlawcolorado.com',
     logo: 'https://ohlawcolorado.com/files/ohlaw-logo-trans-450.D38LfYoB.svg',
+    defaultImage: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png',
     defaultTitle: 'The Law Offices of Owen Hathaway | Colorado Heart-Centered Legal Services',
     defaultDescription: 'A family-owned law firm helping other families and small businesses build rock-solid legal foundations.',
     defaultKeywords: 'law firm, Colorado attorney, Fort Collins lawyer, family-owned',
-    defaultImage: 'https://ohlawcolorado.com/files/ohlaw-logo-trans-450.D38LfYoB.svg',
     phone: '970-818-3052',
     smsNumber: '970-818-5559',
     address: {

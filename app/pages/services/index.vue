@@ -280,29 +280,110 @@
 </template>
 
 <script setup>
-// SEO metadata
+// SEO metadata with enhanced local targeting
+const { seo } = useAppConfig()
+
 useHead(useSeo({
-  title: 'Legal Services for Families and Small Businesses | The Law Offices of Owen Hathaway',
-  meta: [
+  title: 'Legal Services Fort Collins | Estate Planning, Business Law, Bankruptcy | Owen Hathaway',
+  description: 'Comprehensive legal services for families and small businesses in Fort Collins, Colorado. Expert estate planning, business law, bankruptcy, and nonprofit formation with transparent fixed-fee pricing.',
+  keywords: `${seo.localKeywords.estate}, ${seo.localKeywords.business}, ${seo.localKeywords.bankruptcy}, ${seo.localKeywords.nonprofit}, Fort Collins legal services, Colorado family law firm`,
+  image: seo.defaultImage,
+  structuredData: [
     {
-      name: 'description',
-      content: 'Comprehensive legal services including estate planning, small business law, bankruptcy, and nonprofit formation. Serving families and entrepreneurs in Colorado with transparent, fixed-fee pricing.'
+      '@type': 'LegalService',
+      'serviceType': 'Legal Services',
+      'areaServed': seo.serviceAreas,
+      'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': 'Comprehensive Legal Services',
+        'itemListElement': [
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Estate Planning',
+              'description': 'Comprehensive estate planning services including wills, trusts, and healthcare directives for Colorado families',
+              'url': 'https://ohlawcolorado.com/services/estate-planning'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Small Business Law',
+              'description': 'Business formation, contracts, and legal support for Colorado entrepreneurs and small businesses',
+              'url': 'https://ohlawcolorado.com/services/small-business'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Bankruptcy Services',
+              'description': 'Chapter 7 and Chapter 13 bankruptcy services for debt relief and fresh start solutions in Colorado',
+              'url': 'https://ohlawcolorado.com/services/bankruptcy'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Nonprofit Formation',
+              'description': '501(c)(3) formation and legal support for nonprofit organizations in Colorado',
+              'url': 'https://ohlawcolorado.com/services/nonprofits'
+            }
+          }
+        ]
+      }
     },
     {
-      name: 'keywords',
-      content: 'legal services Colorado, estate planning, small business law, bankruptcy attorney, nonprofit formation, Fort Collins lawyer, family law firm'
-    },
-    { property: 'og:title', content: 'Legal Services for Families and Small Businesses | The Law Offices of Owen Hathaway' },
-    { property: 'og:description', content: 'Comprehensive legal services including estate planning, small business law, bankruptcy, and nonprofit formation. Serving families and entrepreneurs in Colorado with transparent, fixed-fee pricing.' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://ohlawcolorado.com/services' },
-    { property: 'og:image', content: 'https://ohlawcolorado.com/files/ohlaw-logo-trans-450.D38LfYoB.svg' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'Legal Services for Families and Small Businesses | The Law Offices of Owen Hathaway' },
-    { name: 'twitter:description', content: 'Comprehensive legal services including estate planning, small business law, bankruptcy, and nonprofit formation. Serving families and entrepreneurs in Colorado with transparent, fixed-fee pricing.' }
-  ],
-  link: [
-    { rel: 'canonical', href: 'https://ohlawcolorado.com/services' }
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      'name': 'Legal Services Overview',
+      'description': 'Comprehensive legal services for families and small businesses in Fort Collins, Colorado',
+      'url': 'https://ohlawcolorado.com/services',
+      'mainEntity': {
+        '@type': 'ItemList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'item': {
+              '@type': 'Service',
+              'name': 'Estate Planning',
+              'url': 'https://ohlawcolorado.com/services/estate-planning'
+            }
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'item': {
+              '@type': 'Service',
+              'name': 'Small Business Law',
+              'url': 'https://ohlawcolorado.com/services/small-business'
+            }
+          },
+          {
+            '@type': 'ListItem',
+            'position': 3,
+            'item': {
+              '@type': 'Service',
+              'name': 'Bankruptcy Services',
+              'url': 'https://ohlawcolorado.com/services/bankruptcy'
+            }
+          },
+          {
+            '@type': 'ListItem',
+            'position': 4,
+            'item': {
+              '@type': 'Service',
+              'name': 'Nonprofit Formation',
+              'url': 'https://ohlawcolorado.com/services/nonprofits'
+            }
+          }
+        ]
+      }
+    }
   ]
 }))
 </script>

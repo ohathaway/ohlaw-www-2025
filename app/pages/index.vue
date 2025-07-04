@@ -75,16 +75,17 @@ const pageMeta = {
 // Set up meta tags with explicit image priority
 useHead(useSeo(pageMeta))
 
-// Add additional meta tags to ensure proper social media image
+// Add additional meta tags to ensure proper social media image with cache busting
 useHead({
   meta: [
     // Force the correct image for social media with unique IDs to prevent conflicts
-    { hid: 'og:image', property: 'og:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png' },
+    { hid: 'og:image', property: 'og:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png?v=2' },
+    { hid: 'og:image:secure_url', property: 'og:image:secure_url', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png?v=2' },
     { hid: 'og:image:type', property: 'og:image:type', content: 'image/png' },
     { hid: 'og:image:width', property: 'og:image:width', content: '512' },
     { hid: 'og:image:height', property: 'og:image:height', content: '512' },
     { hid: 'og:image:alt', property: 'og:image:alt', content: 'The Law Offices of Owen Hathaway Logo' },
-    { hid: 'twitter:image', name: 'twitter:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png' },
+    { hid: 'twitter:image', name: 'twitter:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png?v=2' },
     { hid: 'twitter:image:alt', name: 'twitter:image:alt', content: 'The Law Offices of Owen Hathaway Logo' }
   ]
 })
@@ -92,7 +93,7 @@ useHead({
 // Additional strategy: Add a preload link for the image to signal its importance
 useHead({
   link: [
-    { rel: 'preload', as: 'image', href: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png' }
+    { rel: 'preload', as: 'image', href: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png?v=2' }
   ]
 })
 </script>
