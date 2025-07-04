@@ -40,4 +40,33 @@ spotlightPosts = dedupPosts(spotlightPosts)
 const fetchUrl = allPostsQueryREST(9)
 const { strapiUrl } = useAppConfig()
 const { data: { value: { data: allPostsREST } } } = await useFetch(`${strapiUrl}/api/posts?${fetchUrl}`)
+
+// SEO Meta Tags for Blog Home
+const { href: fullPath } = useRequestURL()
+
+useHead({
+  title: 'Legal Resources & Insights | The Law Offices of Owen Hathaway',
+  meta: [
+    { 
+      name: 'description', 
+      content: 'Expert legal insights on estate planning, bankruptcy, small business law, and elder care from Colorado attorney Owen Hathaway. Practical advice for life and legacy planning.' 
+    },
+    { property: 'og:title', content: 'Legal Resources & Insights | The Law Offices of Owen Hathaway' },
+    { 
+      property: 'og:description', 
+      content: 'Expert legal insights on estate planning, bankruptcy, small business law, and elder care from Colorado attorney Owen Hathaway. Practical advice for life and legacy planning.' 
+    },
+    { property: 'og:url', content: fullPath },
+    { property: 'og:image', content: `${fullPath.split('/blog')[0]}/img/blog_header.webp` },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: 'The Law Offices of Owen Hathaway' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Legal Resources & Insights | OHLaw Colorado' },
+    { 
+      name: 'twitter:description', 
+      content: 'Expert legal insights on estate planning, bankruptcy, small business law, and elder care from Colorado attorney Owen Hathaway.' 
+    },
+    { name: 'twitter:image', content: `${fullPath.split('/blog')[0]}/img/blog_header.webp` }
+  ]
+})
 </script>

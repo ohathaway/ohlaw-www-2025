@@ -129,26 +129,52 @@ if (relatedPosts.length > 0) {
 }
 */
 
-/*
-const { href: fullPath  } = useRequestURL()
+// SEO and Social Media Meta Tags
+const { href: fullPath } = useRequestURL()
+const { strapiUrl: baseUrl } = useAppConfig()
 
-const description = richTextToPlainText(post.Snippet)
+// Generate description from content or use excerpt
+const description = computed(() => {
+  if (postREST?.Snippet) {
+    // Convert rich text to plain text and ensure minimum 100 characters
+    const plainText = richTextToPlainText(postREST.Snippet)
+    return plainText.length >= 100 ? plainText : plainText + ' Learn more about this important topic and how it affects you.'
+  }
+  return `Read this insightful article by The Law Offices of Owen Hathaway. Expert legal guidance on estate planning, bankruptcy, and small business law in Colorado.`
+})
+
+// Generate image URL
+const imageUrl = computed(() => {
+  if (postREST?.Image) {
+    const strapiImageUrl = getStrapiUrl(postREST.Image)
+    return strapiImageUrl.startsWith('http') ? strapiImageUrl : `${baseUrl}${strapiImageUrl}`
+  }
+  return `${fullPath.split('/blog')[0]}/img/ohlaw_icon_circle_gray.svg`
+})
 
 useHead({
-  title: post.Title,
+  title: postREST?.Title || 'Blog Post - OHLaw Colorado',
   meta: [
-    { hid: 'og:title', property: 'og:title', content: post.Title },
-    { hid: 'og:url', property: 'og:url', content: fullPath },
-    { hid: 'og:description', property: 'og:description', content: description },
-    { hid: 'og:image', property: 'og:image', content: `${process.env.baseUrl}/${getStrapiUrl(post.Image)}` }
+    { name: 'description', content: description.value },
+    { property: 'og:title', content: postREST?.Title || 'Blog Post - OHLaw Colorado' },
+    { property: 'og:description', content: description.value },
+    { property: 'og:url', content: fullPath },
+    { property: 'og:image', content: imageUrl.value },
+    { property: 'og:type', content: 'article' },
+    { property: 'og:site_name', content: 'The Law Offices of Owen Hathaway' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: postREST?.Title || 'Blog Post - OHLaw Colorado' },
+    { name: 'twitter:description', content: description.value },
+    { name: 'twitter:image', content: imageUrl.value },
+    { property: 'article:author', content: 'Owen Hathaway' },
+    { property: 'article:published_time', content: postREST?.publishDate },
+    { property: 'article:modified_time', content: postREST?.updatedAt }
   ]
 })
 
 useSeoMeta({
-  // will be inferred as the lastmod value in the sitemap
-  articleModifiedTime: getDateAsPaddedString(post.updatedAt)
+  articleModifiedTime: postREST?.updatedAt
 })
-*/
 
 if (isEmpty(postREST)) {
   showError({'404': 'Page not found'})

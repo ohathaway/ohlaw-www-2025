@@ -166,9 +166,41 @@ export default defineNuxtConfig({
         {
           name: "google-site-verification",
           content: "Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU"
+        },
+        {
+          name: 'description',
+          content: 'Expert estate planning, bankruptcy, and small business legal services in Colorado. The Law Offices of Owen Hathaway provides heart-centered legal guidance to help you protect your family and business legacy.'
+        },
+        {
+          property: 'og:site_name',
+          content: 'The Law Offices of Owen Hathaway'
+        },
+        {
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          property: 'og:locale',
+          content: 'en_US'
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        },
+        {
+          name: 'twitter:site',
+          content: '@ohlawcolorado'
         }
       ]
     }
+  },
+
+  // SEO Configuration
+  site: {
+    url: 'https://ohlawcolorado.com',
+    name: 'The Law Offices of Owen Hathaway',
+    description: 'Expert estate planning, bankruptcy, and small business legal services in Colorado. Heart-centered legal guidance to protect your family and business legacy.',
+    defaultLocale: 'en'
   },
 
   css: [
