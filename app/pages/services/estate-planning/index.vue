@@ -69,71 +69,6 @@ const { schedulingLinks: { estatePlanEducation: link } } = useAppConfig()
 // SEO metadata with enhanced local targeting
 const { seo } = useAppConfig()
 
-useHead(useSeo({
-  title: 'Estate Planning Attorney Fort Collins | Wills & Trusts Colorado | Owen Hathaway',
-  description: 'Trusted estate planning attorney serving Fort Collins and Northern Colorado. Protect your family\'s future with comprehensive wills, trusts, and estate plans. Free consultation available.',
-  keywords: seo.localKeywords.estate + ', estate attorney Fort Collins, will preparation Colorado, trust attorney Northern Colorado, probate avoidance Fort Collins, family estate planning',
-  structuredData: [
-    {
-      '@type': 'LegalService',
-      'serviceType': 'Estate Planning',
-      'areaServed': seo.serviceAreas,
-      'hasOfferCatalog': {
-        '@type': 'OfferCatalog',
-        'name': 'Estate Planning Services',
-        'itemListElement': [
-          {
-            '@type': 'Offer',
-            'itemOffered': {
-              '@type': 'Service',
-              'name': 'Wills and Testament Preparation',
-              'description': 'Comprehensive will preparation for Colorado residents'
-            }
-          },
-          {
-            '@type': 'Offer', 
-            'itemOffered': {
-              '@type': 'Service',
-              'name': 'Revocable Living Trust',
-              'description': 'Trust creation and funding services to avoid probate'
-            }
-          },
-          {
-            '@type': 'Offer',
-            'itemOffered': {
-              '@type': 'Service', 
-              'name': 'Healthcare Directives',
-              'description': 'Medical power of attorney and advance directive preparation'
-            }
-          },
-          {
-            '@type': 'Offer',
-            'itemOffered': {
-              '@type': 'Service',
-              'name': 'Guardianship Planning',
-              'description': 'Minor children guardianship and care planning'
-            }
-          }
-        ]
-      }
-    },
-    {
-      '@type': 'FAQPage',
-      'mainEntity': faqItems.map(faq => ({
-        '@type': 'Question',
-        'name': faq.question,
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': faq.answer.replace(/<[^>]*>/g, '').trim() // Strip HTML for schema
-        }
-      }))
-    }
-  ],
-  link: [
-    { rel: 'canonical', href: 'https://ohlawcolorado.com/services/estate-planning' }
-  ]
-}))
-
 // Introduction section features
 const introFeatures = [
   {
@@ -364,4 +299,70 @@ const faqItems = [
     answer: `Protecting minor children is one of the most important aspects of estate planning for parents. We have a specific process, called the <a target="_blank" href="https://ohlawco.kidsprotectionplan.com/">Kids Protection Plan</a>, for making sure your plan covers your minor children in case something happens to you.`
   }
 ]
+
+// Set up SEO after FAQ data is defined
+useHead(useSeo({
+  title: 'Estate Planning Attorney Fort Collins | Wills & Trusts Colorado | Owen Hathaway',
+  description: 'Trusted estate planning attorney serving Fort Collins and Northern Colorado. Protect your family\'s future with comprehensive wills, trusts, and estate plans. Free consultation available.',
+  keywords: seo.localKeywords.estate + ', estate attorney Fort Collins, will preparation Colorado, trust attorney Northern Colorado, probate avoidance Fort Collins, family estate planning',
+  structuredData: [
+    {
+      '@type': 'LegalService',
+      'serviceType': 'Estate Planning',
+      'areaServed': seo.serviceAreas,
+      'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': 'Estate Planning Services',
+        'itemListElement': [
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Wills and Testament Preparation',
+              'description': 'Comprehensive will preparation for Colorado residents'
+            }
+          },
+          {
+            '@type': 'Offer', 
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Revocable Living Trust',
+              'description': 'Trust creation and funding services to avoid probate'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service', 
+              'name': 'Healthcare Directives',
+              'description': 'Medical power of attorney and advance directive preparation'
+            }
+          },
+          {
+            '@type': 'Offer',
+            'itemOffered': {
+              '@type': 'Service',
+              'name': 'Guardianship Planning',
+              'description': 'Minor children guardianship and care planning'
+            }
+          }
+        ]
+      }
+    },
+    {
+      '@type': 'FAQPage',
+      'mainEntity': faqItems.map(faq => ({
+        '@type': 'Question',
+        'name': faq.question,
+        'acceptedAnswer': {
+          '@type': 'Answer',
+          'text': faq.answer.replace(/<[^>]*>/g, '').trim() // Strip HTML for schema
+        }
+      }))
+    }
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://ohlawcolorado.com/services/estate-planning' }
+  ]
+}))
 </script>
