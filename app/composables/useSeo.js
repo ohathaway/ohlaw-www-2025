@@ -12,7 +12,7 @@ export function useSeo(pageMeta = {}) {
   const path = pageMeta.path || route.path
   const url = `${seo.siteUrl}${path}`
   
-  // Build default structured data
+  // Build default structured data with enhanced local SEO
   const defaultStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
@@ -34,10 +34,30 @@ export function useSeo(pageMeta = {}) {
     'founder': {
       '@type': 'Person',
       'name': seo.founder.name,
-      'jobTitle': seo.founder.jobTitle
+      'jobTitle': seo.founder.jobTitle,
+      'hasCredential': seo.founder.credentials
     },
     'slogan': seo.slogan,
-    'knowsAbout': seo.services
+    'knowsAbout': seo.services,
+    'areaServed': seo.serviceAreas?.map(area => ({
+      '@type': 'City',
+      'name': area
+    })),
+    'openingHours': seo.hours ? [
+      'Mo-Fr 09:00-17:00',
+      'Sa 09:00-17:00'
+    ] : undefined,
+    'hasOfferCatalog': {
+      '@type': 'OfferCatalog',
+      'name': 'Legal Services',
+      'itemListElement': seo.services.map((service, index) => ({
+        '@type': 'Offer',
+        'itemOffered': {
+          '@type': 'Service',
+          'name': service
+        }
+      }))
+    }
   }
 
   // Merge with page-specific structured data if provided

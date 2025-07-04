@@ -66,15 +66,48 @@
 <script setup>
 // Get the scheduling link from app config
 const { schedulingLinks: { newBankruptcyClient: link } } = useAppConfig()
-// SEO metadata
+// SEO metadata with enhanced local targeting
+const { seo } = useAppConfig()
+
 useHead(useSeo({
-  title: 'Bankruptcy Services',
-  meta: [
-    {
-      name: 'description',
-      content: `Explore our compassionate bankruptcy services. We help individuals and families overcome debt, stop creditor harassment, and regain financial control through Chapter 7 and Chapter 13 bankruptcy.`
+  title: 'Bankruptcy Attorney Fort Collins | Chapter 7 & 13 Colorado | Owen Hathaway',
+  description: 'Experienced bankruptcy attorney serving Fort Collins and Northern Colorado. Stop creditor harassment, eliminate debt, and get a fresh start with Chapter 7 or Chapter 13 bankruptcy. Free consultation.',
+  keywords: seo.localKeywords.bankruptcy + ', Fort Collins bankruptcy lawyer, Colorado debt relief, bankruptcy protection Northern Colorado, stop foreclosure Fort Collins',
+  structuredData: {
+    '@type': ['LegalService', 'Attorney'],
+    'serviceType': 'Bankruptcy Law',
+    'areaServed': seo.serviceAreas,
+    'hasOfferCatalog': {
+      '@type': 'OfferCatalog', 
+      'name': 'Bankruptcy Services',
+      'itemListElement': [
+        {
+          '@type': 'Offer',
+          'itemOffered': {
+            '@type': 'Service',
+            'name': 'Chapter 7 Bankruptcy',
+            'description': 'Liquidation bankruptcy for individuals and families in Colorado'
+          }
+        },
+        {
+          '@type': 'Offer',
+          'itemOffered': {
+            '@type': 'Service',
+            'name': 'Chapter 13 Bankruptcy', 
+            'description': 'Reorganization bankruptcy with payment plans for Colorado residents'
+          }
+        },
+        {
+          '@type': 'Offer',
+          'itemOffered': {
+            '@type': 'Service',
+            'name': 'Debt Relief Consultation',
+            'description': 'Free bankruptcy consultation and debt analysis in Fort Collins'
+          }
+        }
+      ]
     }
-  ]
+  }
 }))
 
 // Introduction section features

@@ -33,6 +33,27 @@ export default defineAppConfig({
       state: 'CO',
       zip: '80528',
     },
+    serviceAreas: [
+      'Fort Collins',
+      'Loveland', 
+      'Greeley',
+      'Windsor',
+      'Wellington',
+      'Timnath',
+      'Berthoud',
+      'Longmont',
+      'Boulder',
+      'Denver',
+      'Colorado Springs',
+      'Northern Colorado',
+      'Front Range Colorado'
+    ],
+    localKeywords: {
+      estate: 'estate planning Fort Collins, wills and trusts Colorado, probate attorney Northern Colorado, estate lawyer Front Range, guardianship Fort Collins',
+      bankruptcy: 'bankruptcy attorney Fort Collins, Chapter 7 Colorado, Chapter 13 Northern Colorado, debt relief Fort Collins, bankruptcy lawyer Loveland',
+      business: 'small business attorney Fort Collins, business formation Colorado, business lawyer Northern Colorado, LLC formation Fort Collins, corporate attorney Loveland',
+      nonprofit: 'nonprofit attorney Colorado, 501c3 formation Fort Collins, nonprofit lawyer Northern Colorado, charity legal services Colorado'
+    },
     socialProfiles: {
       google: 'https://www.google.com/search?q=the+law+offices+of+owen+hathaway',
       linkedIn: 'https://www.linkedin.com/company/ohlawco',
@@ -43,6 +64,8 @@ export default defineAppConfig({
     founder: {
       name: 'Owen Hathaway',
       jobTitle: 'Attorney',
+      credentials: 'Colorado Licensed Attorney',
+      barNumber: 'Colorado Bar #48969'
     },
     slogan: 'Make money by doing good things and build cool stuff.',
     services: [
@@ -51,6 +74,16 @@ export default defineAppConfig({
       'Bankruptcy',
       'Nonprofit Legal Services',
     ],
+    hours: {
+      monday: '9:00 AM - 5:00 PM',
+      tuesday: '9:00 AM - 5:00 PM', 
+      wednesday: '9:00 AM - 5:00 PM',
+      thursday: '9:00 AM - 5:00 PM',
+      friday: '9:00 AM - 5:00 PM',
+      saturday: 'By Appointment',
+      sunday: 'Closed'
+    },
+    googleBusinessProfile: 'https://g.page/ohlawcolorado'
   },
   meilisearch: {
     host: 'https://search.ohlawcolorado.com',
