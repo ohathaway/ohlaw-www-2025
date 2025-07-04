@@ -314,6 +314,7 @@ useHead(useSeo({
       }
     },
     {
+      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       'mainEntity': bankruptcyFaqs.map(faq => ({
         '@type': 'Question',

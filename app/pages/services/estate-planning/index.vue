@@ -350,6 +350,7 @@ useHead(useSeo({
       }
     },
     {
+      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       'mainEntity': faqItems.map(faq => ({
         '@type': 'Question',
