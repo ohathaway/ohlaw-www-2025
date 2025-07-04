@@ -95,12 +95,12 @@ export function useSeo(pageMeta = {}) {
     script: Array.isArray(structuredData) 
       ? structuredData.map(data => ({
           type: 'application/ld+json',
-          children: JSON.stringify(data)
+          innerHTML: JSON.stringify(data)
         }))
       : [
           {
             type: 'application/ld+json',
-            children: JSON.stringify(structuredData)
+            innerHTML: JSON.stringify(structuredData)
           }
         ]
   }
