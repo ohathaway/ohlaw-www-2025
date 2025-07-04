@@ -90,10 +90,4 @@ useHead({
   ]
 })
 
-// Additional strategy: Add a preload link for the image to signal its importance
-useHead({
-  link: [
-    { rel: 'preload', as: 'image', href: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png?v=2' }
-  ]
-})
 </script>
