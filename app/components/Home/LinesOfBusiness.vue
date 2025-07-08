@@ -23,7 +23,7 @@
           <!-- Content area -->
           <div class="relative h-full p-6 flex flex-col justify-between z-10">
             <div>
-              <h3 class="text-white text-2xl font-semibold mb-4"><span v-html="service.title" /></h3>
+              <h2 class="text-white text-2xl font-semibold mb-4"><span v-html="service.title" /></h2>
               
               <!-- Description shown when expanded -->
               <p 

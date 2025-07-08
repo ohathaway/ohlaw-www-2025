@@ -65,6 +65,8 @@
                 :href="href"
                 v-bind="props.action"
                 @click="navigate"
+                role="menuitem"
+                :aria-label="item.ariaLabel || item.label"
               >
                 <span :class="item.icon" />
                 <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
@@ -77,6 +79,9 @@
               :href="item.url"
               :target="item.target"
               v-bind="props.action"
+              :role="hasSubmenu ? 'button' : 'menuitem'"
+              :aria-haspopup="hasSubmenu ? 'true' : undefined"
+              :aria-expanded="hasSubmenu ? 'false' : undefined"
             >
               <span :class="item.icon" />
               <span>{{ item.label }}</span>
@@ -112,6 +117,7 @@
                   :href="href"
                   v-bind="props.action"
                   @click="navigate"
+                  role="menuitem"
                   :aria-label="item.ariaLabel || item.label"
                 >
                   <span
@@ -132,6 +138,9 @@
                 :href="item.url"
                 :target="item.target"
                 v-bind="props.action"
+                :role="hasSubmenu ? 'button' : 'menuitem'"
+                :aria-haspopup="hasSubmenu ? 'true' : undefined"
+                :aria-expanded="hasSubmenu ? 'false' : undefined"
                 :aria-label="item.ariaLabel || item.label"
               >
                 <span :class="item.icon" />

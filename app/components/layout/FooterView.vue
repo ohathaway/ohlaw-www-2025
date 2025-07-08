@@ -2,7 +2,7 @@
   <footer class="bg-primary-800 py-6 text-slate-200">
     <div class="grid px-4 sm:px-6 md:px-12 lg:px-20 py-6 sm:py-8 md:py-10 grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-4">
       <div class="">
-        <h5 class="text-xl sm:text-2xl pb-3 sm:pb-5"><NuxtLink to="/contact-us">The Law Offices of Owen Hathaway</NuxtLink></h5>
+        <h1 class="text-xl sm:text-2xl pb-3 sm:pb-5"><NuxtLink to="/contact-us">The Law Offices of Owen Hathaway</NuxtLink></h1>
         <div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-0">
             <div class="mb-4 sm:mb-0">
