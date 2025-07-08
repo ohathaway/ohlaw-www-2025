@@ -17,6 +17,7 @@ export default defineAppConfig({
     petitionReviewInPerson: 'https://booking.ohlawcolorado.com/bk-review-in-person',
     petitionReviewRemote: 'https://booking.ohlawcolorado.com/bk-review-remote',
   },
+  makeAPaymentLink: 'https://app.lawmatics.com/forms/share/71c062ba-8e47-4a63-8252-0bc3482aa6ec',
   seo: {
     siteName: 'The Law Offices of Owen Hathaway',
     siteUrl: 'https://ohlawcolorado.com',

@@ -140,7 +140,7 @@ useHead({
 
 const proceedToPayment = () => {
   // Redirect to the Lawmatics payment form
-  window.location.href = 'https://app.lawmatics.com/forms/preview/71c062ba-8e47-4a63-8252-0bc3482aa6ec'
+  window.location.href = useAppConfig().makeAPaymentLink
 }
 </script>
 
