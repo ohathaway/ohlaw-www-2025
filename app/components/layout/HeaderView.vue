@@ -63,9 +63,8 @@
                 v-ripple
                 v-tooltip.bottom="item.tooltip"
                 :href="href"
-                v-bind="props.action"
+                v-bind="{ ...props.action, role: undefined }"
                 @click="navigate"
-                role="menuitem"
                 :aria-label="item.ariaLabel || item.label"
               >
                 <span :class="item.icon" />
@@ -78,8 +77,7 @@
               v-tooltip.bottom="item.tooltip"
               :href="item.url"
               :target="item.target"
-              v-bind="props.action"
-              :role="hasSubmenu ? 'button' : 'menuitem'"
+              v-bind="{ ...props.action, role: undefined }"
               :aria-haspopup="hasSubmenu ? 'true' : undefined"
               :aria-expanded="hasSubmenu ? 'false' : undefined"
             >
@@ -115,9 +113,8 @@
                   v-ripple
                   v-tooltip.bottom="item.tooltip"
                   :href="href"
-                  v-bind="props.action"
+                  v-bind="{ ...props.action, role: undefined }"
                   @click="navigate"
-                  role="menuitem"
                   :aria-label="item.ariaLabel || item.label"
                 >
                   <span
@@ -137,8 +134,7 @@
                 v-tooltip.bottom="item.tooltip"
                 :href="item.url"
                 :target="item.target"
-                v-bind="props.action"
-                :role="hasSubmenu ? 'button' : 'menuitem'"
+                v-bind="{ ...props.action, role: undefined }"
                 :aria-haspopup="hasSubmenu ? 'true' : undefined"
                 :aria-expanded="hasSubmenu ? 'false' : undefined"
                 :aria-label="item.ariaLabel || item.label"
