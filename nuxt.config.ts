@@ -104,10 +104,10 @@ export default defineNuxtConfig({
 
   // https://devtools.nuxt.com
   devtools: {
-    enabled: true,
+    enabled: process.env.NODE_ENV === 'development',
 
     timeline: {
-      enabled: true
+      enabled: process.env.NODE_ENV === 'development'
     }
   },
 
@@ -248,7 +248,11 @@ export default defineNuxtConfig({
     },
     plugins: [
       tailwindcss()
-    ]
+    ],
+    build: {
+      target: 'es2020',
+      cssTarget: 'chrome80'
+    }
   },
 
   postcss: {
@@ -272,6 +276,20 @@ export default defineNuxtConfig({
       '@formkit/themes',
       '@formkit/vue'
     ]
+  },
+
+  // Production optimizations
+  experimental: {
+    payloadExtraction: false,
+    inlineSSRStyles: false
+  },
+
+  optimization: {
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true
+    }
   },
 
   imports: {
