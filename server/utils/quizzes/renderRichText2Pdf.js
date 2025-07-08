@@ -1,12 +1,14 @@
 // server/utils/quizzes/renderRichTextToPdf.js
 
+import { renderQRBlock } from '../qrcode/index.js'
+
 /**
  * Renders rich text content to a PDFKit document
  * @param {PDFDocument} doc - The PDFKit document
  * @param {Array} blocks - The rich text content blocks from richTextToPdf
  * @param {Object} options - Configuration options
  */
-export const renderRichTextToPdf = (doc, blocks = [], options = {}) => {
+export const renderRichTextToPdf = async (doc, blocks = [], options = {}) => {
   const config = {
     baseFont: 'app/assets/fonts/PlusJakartaSans-Regular.ttf',
     boldFont: 'app/assets/fonts/PlusJakartaSans-Bold.ttf',
@@ -15,36 +17,40 @@ export const renderRichTextToPdf = (doc, blocks = [], options = {}) => {
     codeFont: 'app/assets/fonts/NotoSansMono-Regular.ttf',
     baseFontSize: 12,
     baseLineHeight: 1.5,
-    margins: { left: 50, right: 50 },
+    margins: { left: 50, right: 50, bottom: 50 },
     contentWidth: doc.page.width - 100, // Default, can be overridden
     checkPageBreak: needsPageBreak,
     ...options
   }
   
   // Pipe each block through the rendering pipeline
-  blocks.forEach(block => {
+  for (const block of blocks) {
     if (config.checkPageBreak(doc, block, config)) {
       doc.addPage()
     }
     
-    renderBlock(doc, block, config)
-  })
+    await renderBlock(doc, block, config)
+  }
   
   return doc // Return doc for potential chaining
 }
 
 // Main block renderer - dispatches to type-specific renderers
-const renderBlock = (doc, block, config) => {
+const renderBlock = async (doc, block, config) => {
   const renderers = {
     heading: renderHeading,
     paragraph: renderParagraph,
     list: renderList,
     spacer: renderSpacer,
+    'qr-code': renderQRBlock,
     // Add more as needed
   }
   
   const renderer = renderers[block.type]
-  return renderer ? renderer(doc, block, config) : doc
+  if (renderer) {
+    return await renderer(doc, block, config)
+  }
+  return doc
 }
 
 // Type-specific renderers
@@ -225,6 +231,20 @@ const needsPageBreak = (doc, block, config) => {
     },
     list: (block) => (block.items?.length || 1) * doc.currentLineHeight() * 1.5,
     spacer: (block) => block.height,
+    'qr-code': (block) => {
+      // Size mapping for QR codes
+      const sizeMap = {
+        small: 80,
+        medium: 120,
+        large: 160,
+        print: 200
+      }
+      const qrSize = sizeMap[block.size] || 120
+      const captionHeight = block.caption ? 30 : 0
+      const margin = 20
+      
+      return qrSize + captionHeight + margin
+    },
     default: () => doc.currentLineHeight() * 2
   }
   
@@ -233,7 +253,7 @@ const needsPageBreak = (doc, block, config) => {
   
   // Calculate space and check
   const spaceNeeded = estimator(block)
-  const spaceAvailable = doc.page.height - doc.y - 100 // 100 for footer
+  const spaceAvailable = doc.page.height - doc.y - (config.margins.bottom || 100)
   
   return spaceNeeded > spaceAvailable
 }

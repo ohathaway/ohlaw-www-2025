@@ -91,7 +91,7 @@ Critical environment variables for:
 - **Layout Mapping**: Configured in `app.config.ts` with pattern matching (e.g., `/services/**` → `services` layout)
 - **Manual Layout**: Pages can override auto-layout by explicitly defining layout in `<script setup>`
 - **Available Layouts**: `base`, `blog`, `policy`, `services`, `default`
-- **IMPORTANT**: This project uses TailwindCSS 4. Java/Typescript config files are deprecated. TailwindCSS 4 uses pure CSS.
+- **IMPORTANT**: This project uses TailwindCSS 4. Java/Typescript config files are deprecated. TailwindCSS 4 uses pure CSS. NEVER try to use tailwind.config files!
 - **IMPORTANT**: Do not manually add `<NuxtLayout>` tags to pages - the auto-layout system handles this automatically
 
 ### Code Style
