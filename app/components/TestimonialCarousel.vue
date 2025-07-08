@@ -29,7 +29,7 @@
           
           <div class="mt-2 flex items-center text-xs text-slate-700">
             <img 
-              src="/img/Search_GSA.original.png" 
+              src="/img/Search_GSA.original.webp" 
               alt="Google Review" 
               class="h-4 w-4 mr-1" 
             />

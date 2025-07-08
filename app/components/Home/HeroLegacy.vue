@@ -1,7 +1,7 @@
 <template>
   <section 
     class="relative hidden lg:flex w-full h-[462px] bg-cover bg-center items-center justify-center"
-    style="background-image: url('/img/horsetooth_hiker_1275_485_smallest.jpg')"
+    style="background-image: url('/img/horsetooth_hiker_1275_485.webp')"
   >
     <div class="row flex items-center w-full">
       <div class="col w-full">
