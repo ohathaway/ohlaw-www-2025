@@ -204,7 +204,7 @@ export const renderQRBlock = async (doc, block, config) => {
 export const generateOHLawContactQRForServer = async (contactInfo = {}) => {
   try {
     // Use the app config for default contact info  
-    const appConfig = await import('../../../app.config.ts').then(m => m.default())
+    const appConfig = await import('../../../app/app.config.ts').then(m => m.default())
 
     const defaultContact = {
       name: appConfig.seo.founder.name,
