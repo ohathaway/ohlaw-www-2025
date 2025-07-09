@@ -2,7 +2,7 @@
   <div class="max-w-4xl mx-auto">
     <div class="mb-8">
       <h1 class="text-3xl font-bold mb-2">Your Retirement Accounts Have a Tax Problem</h1>
-      <p class="text-slate-600">The SECURE 2.0 Act in 2022 turned traditional retirement planning on its head. Your beneficiary designations that made perfect sense in 2021?</p>
+      <p class="text-slate-600">The <NuxtLink noopener noreferrer to="https://www.retirementplanningsecureact.com/understanding-the-differences-secure-act-vs-secure-act-2-0-explained" target="blank" v-tooltip.bottom="'The SECURE Act passed in 2019. SECURE 2.0 Act passed in 2022. Learn about both here'">SECURE 2.0 Act in 2022</NuxtLink> turned traditional retirement planning on its head.</p>
       <p class="text-slate-600">Your beneficiary designations that made perfect sense in 2021? They might be setting your family up for a massive tax bill. But you have options.</p>
       <p class="text-slate-600">This analysis takes about 2 minutes and usually leads to some very important conversations with your financial team.</p>
     </div>
