@@ -9,10 +9,8 @@ import {
   generateQRCode,
   generateQRSVG,
   createStyledQRCode,
-  OHLawQRTypes,
-  validateQRContent,
-  formatQRContent,
-} from '#app/utils/qrcode'
+} from '../../../app/utils/qrcode/generator.js'
+import { validateQRContent, formatQRContent } from '../../../app/utils/qrcode/validation.js'
 
 /**
  * Generates QR code for PDF embedding
@@ -205,8 +203,8 @@ export const renderQRBlock = async (doc, block, config) => {
  */
 export const generateOHLawContactQRForServer = async (contactInfo = {}) => {
   try {
-    // Use the app config for default contact info
-    const appConfig = useAppConfig()
+    // Use the app config for default contact info  
+    const appConfig = await import('../../app.config.js').then(m => m.default())
 
     const defaultContact = {
       name: appConfig.seo.founder.name,
@@ -248,7 +246,7 @@ export const generateOHLawContactQRForServer = async (contactInfo = {}) => {
  */
 export const generateOHLawLocationQRForServer = async () => {
   try {
-    const appConfig = useAppConfig()
+    const appConfig = await import('../../app.config.js').then(m => m.default())
 
     const address = `${appConfig.seo.address.street}, ${appConfig.seo.address.city}, ${appConfig.seo.address.state} ${appConfig.seo.address.zip}`
     const locationQuery = `${appConfig.seo.siteName} ${address}`
