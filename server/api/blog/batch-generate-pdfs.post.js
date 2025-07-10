@@ -9,6 +9,7 @@ import { uploadPdfToR2 } from '../../utils/reports/index.js'
 export default defineEventHandler(async (event) => {
   const startTime = Date.now()
   const BATCH_SIZE = 5
+  const isDev = process.env.NODE_ENV === 'development'
 
   try {
     console.log('🚀 Starting batch blog PDF generation...')
@@ -80,30 +81,35 @@ async function fetchAllBlogPosts() {
   let page = 1
   let hasMore = true
   const strapiUrl = useRuntimeConfig().public.strapiUrl
+  const isDev = process.env.NODE_ENV === 'development'
 
-  console.log(`Fetching blog posts from: ${strapiUrl}`)
+  if (isDev) console.log(`Fetching blog posts from: ${strapiUrl}`)
 
   while (hasMore) {
     try {
-      console.log(`Fetching page ${page}...`)
+      if (isDev) console.log(`Fetching page ${page}...`)
       
       const url = `${strapiUrl}/api/posts?pagination[page]=${page}&pagination[pageSize]=25&filters[publishedAt][$notNull]=true&sort[0]=publishedAt:desc&populate=*`
-      console.log(`=== FETCHING URL ===`)
-      console.log(url)
-      console.log(`=== END URL ===`)
+      if (isDev) {
+        console.log(`=== FETCHING URL ===`)
+        console.log(url)
+        console.log(`=== END URL ===`)
+      }
       
       const response = await $fetch(url)
 
-      console.log(`Page ${page} response:`, {
-        dataLength: response.data?.length || 0,
-        pagination: response.meta?.pagination,
-      })
+      if (isDev) {
+        console.log(`Page ${page} response:`, {
+          dataLength: response.data?.length || 0,
+          pagination: response.meta?.pagination,
+        })
 
-      // Debug: Log first post structure to understand data format
-      if (response.data && response.data.length > 0 && page === 1) {
-        console.log('=== FIRST POST STRUCTURE ===')
-        console.log(JSON.stringify(response.data[0], null, 2))
-        console.log('=== END POST STRUCTURE ===')
+        // Debug: Log first post structure to understand data format
+        if (response.data && response.data.length > 0 && page === 1) {
+          console.log('=== FIRST POST STRUCTURE ===')
+          console.log(JSON.stringify(response.data[0], null, 2))
+          console.log('=== END POST STRUCTURE ===')
+        }
       }
 
       if (response.data) {
@@ -129,20 +135,47 @@ async function fetchAllBlogPosts() {
  */
 async function processBatch(posts) {
   const results = []
+  const isDev = process.env.NODE_ENV === 'development'
 
   for (const post of posts) {
     try {
-      console.log(`Processing: ${post.Title} (${post.slug})`)
-      console.log(`Post data:`, {
-        documentId: post.documentId,
-        slug: post.slug,
-        title: post.Title,
-        hasContent: !!post.Content,
-      })
+      if (isDev) {
+        console.log(`Processing: ${post.Title} (${post.slug})`)
+        console.log(`Post data:`, {
+          documentId: post.documentId,
+          slug: post.slug,
+          title: post.Title,
+          hasContent: !!post.Content,
+        })
+      }
       
-      // Temporarily skip PDF generation to debug data structure
-      console.log('Skipping PDF generation for debugging...')
-      const pdfUrl = 'https://example.com/debug.pdf'
+      // Generate PDF buffer
+      if (isDev) console.log('Generating PDF buffer...')
+      const { buffer: pdfBuffer } = await generateBlogPDFBuffer(post.documentId)
+      if (isDev) console.log(`PDF buffer generated: ${pdfBuffer.length} bytes`)
+      
+      // Store in NuxtHub blob storage
+      const filename = `${post.slug}.pdf`
+      if (isDev) console.log(`Storing PDF: ${filename}`)
+      
+      let pdfUrl
+      try {
+        // Use the public bucket for blog PDFs
+        const appConfig = useAppConfig()
+        const bucketName = appConfig.blogPdfs.bucketName
+        const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
+        
+        if (isDev) console.log(`Uploading to R2: ${bucketName}/${keyName}`)
+        await uploadPdfToR2(pdfBuffer, keyName, bucketName)
+        
+        // Construct the public URL
+        pdfUrl = `${appConfig.blogPdfs.publicDomain}/${keyName}`
+        if (isDev) console.log(`PDF stored successfully: ${filename} -> ${pdfUrl}`)
+      }
+      catch (storageError) {
+        console.error('R2 storage error:', storageError)
+        throw new Error(`Failed to store PDF: ${storageError.message}`)
+      }
       
       results.push({
         success: true,

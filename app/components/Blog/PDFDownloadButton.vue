@@ -1,5 +1,5 @@
 <template>
-  <div class="pdf-download-button">
+  <div v-if="pdfUrl || (!isChecking && !hasError)" class="pdf-download-button">
     <Button
       v-if="pdfUrl"
       :loading="isDownloading"
@@ -9,7 +9,7 @@
       class="gap-2"
     >
       <i class="pi pi-file-pdf text-red-600" />
-      Download PDF
+      <span class="hidden sm:inline">Download PDF</span>
     </Button>
     
     <Button
@@ -21,12 +21,12 @@
       class="gap-2"
     >
       <i class="pi pi-file-pdf text-gray-400" />
-      Generate PDF
+      <span class="hidden sm:inline">Generate PDF</span>
     </Button>
     
     <div v-else class="text-sm text-gray-500">
       <i class="pi pi-spinner animate-spin" />
-      Checking PDF...
+      <span class="hidden sm:inline ml-2">Checking PDF...</span>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@
  * Handles PDF generation and download for blog posts
  */
 
-defineProps({
+const props = defineProps({
   slug: {
     type: String,
     required: true,
@@ -55,14 +55,17 @@ const pdfUrl = ref(null)
 const isChecking = ref(true)
 const isGenerating = ref(false)
 const isDownloading = ref(false)
+const hasError = ref(false)
 
 // Check if PDF exists on mount
 onMounted(async () => {
   try {
     pdfUrl.value = await getPDFUrl(props.slug)
+    hasError.value = false
   }
   catch (error) {
     console.warn('PDF not found:', error.message)
+    hasError.value = true
   }
   finally {
     isChecking.value = false

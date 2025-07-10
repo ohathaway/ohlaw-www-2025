@@ -11,12 +11,14 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     
     // Log webhook for debugging
-    console.log('Blog webhook received:', {
-      model: body.model,
-      event: body.event,
-      entry: body.entry?.documentId,
-      slug: body.entry?.slug,
-    })
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Blog webhook received:', {
+        model: body.model,
+        event: body.event,
+        entry: body.entry?.documentId,
+        slug: body.entry?.slug,
+      })
+    }
 
     // Only process blog post events
     if (body.model !== 'api::post.post') {

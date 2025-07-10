@@ -2,7 +2,9 @@
   <div class="post-title px-4 md:px-8 lg:px-20">
     <!-- Mobile: Stack title above image -->
     <div class="block md:hidden mb-6">
-      <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">{{ postREST.Title }}</h1>
+      <div class="mb-4">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{{ postREST.Title }}</h1>
+      </div>
       <div class="w-full">
         <LayoutMediaFocus
           :source="getStrapiUrl(postREST.Image)"
@@ -20,7 +22,9 @@
         />
       </div>
       <div class="flex items-center">
-        <h1 class="text-3xl lg:text-4xl font-bold pb-5 leading-tight">{{ postREST.Title }}</h1>
+        <div class="flex-1">
+          <h1 class="text-3xl lg:text-4xl font-bold pb-5 leading-tight">{{ postREST.Title }}</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +55,13 @@
       </div>
     </div>
     <div class="col-span-12 md:col-span-8 lg:col-span-6 px-0 md:px-4">
-      <span class="italic text-xl">{{ formatDateFull(postREST.publishDate) }}</span>
+      <div class="flex items-center justify-between mb-4">
+        <span class="italic text-xl">{{ formatDateFull(postREST.publishDate) }}</span>
+        <BlogPDFDownloadButton 
+          :slug="postREST.slug"
+          :title="postREST.Title"
+        />
+      </div>
       <BlogRichText
         :block="postREST.Content"
       />

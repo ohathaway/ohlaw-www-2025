@@ -134,6 +134,14 @@ const addBlogContent = async (doc, post, config) => {
     return
   }
 
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Content structure:', {
+      isArray: Array.isArray(post.Content),
+      length: post.Content?.length,
+      firstItem: post.Content?.[0],
+    })
+  }
+
   // Use existing rich text renderer with blog-specific configuration
   const blogConfig = {
     ...config,
@@ -154,7 +162,101 @@ const addBlogContent = async (doc, post, config) => {
     listIndent: 20,
   }
 
-  await renderRichTextToPdf(doc, post.Content, blogConfig)
+  try {
+    // Convert Strapi 5 rich text format to simple text for now
+    await renderSimpleBlogContent(doc, post.Content, blogConfig)
+  }
+  catch (error) {
+    console.error('Error in renderSimpleBlogContent:', error)
+    // Fallback: add simple text
+    doc.font(config.baseFont)
+      .fontSize(12)
+      .fillColor(config.colors.text)
+      .text('Error rendering content', config.margins.left, doc.y)
+  }
+}
+
+/**
+ * Simple blog content renderer for Strapi 5 rich text format
+ */
+const renderSimpleBlogContent = async (doc, content, config) => {
+  for (const block of content) {
+    switch (block.type) {
+      case 'paragraph':
+        await renderParagraphBlock(doc, block, config)
+        break
+      case 'heading':
+        await renderHeadingBlock(doc, block, config)
+        break
+      case 'list':
+        await renderListBlock(doc, block, config)
+        break
+      default:
+        // Skip unknown block types
+        console.warn(`Unknown block type: ${block.type}`)
+    }
+  }
+}
+
+const renderParagraphBlock = async (doc, block, config) => {
+  const text = extractTextFromChildren(block.children)
+  if (text.trim()) {
+    doc.font(config.baseFont)
+      .fontSize(config.paragraphSize || 12)
+      .fillColor(config.colors.text)
+      .text(text, config.margins.left, doc.y, {
+        width: config.contentWidth,
+        align: 'left',
+      })
+    
+    doc.y += config.paragraphSpacing || 12
+  }
+}
+
+const renderHeadingBlock = async (doc, block, config) => {
+  const text = extractTextFromChildren(block.children)
+  const level = block.level || 1
+  const fontSize = config.headingSizes[`h${level}`] || 16
+  
+  doc.font(config.headingFont)
+    .fontSize(fontSize)
+    .fillColor(config.colors.text)
+    .text(text, config.margins.left, doc.y, {
+      width: config.contentWidth,
+      align: 'left',
+    })
+  
+  doc.y += config.headingSpacing || 20
+}
+
+const renderListBlock = async (doc, block, config) => {
+  // For now, just render as simple text
+  const text = extractTextFromChildren(block.children)
+  if (text.trim()) {
+    doc.font(config.baseFont)
+      .fontSize(config.paragraphSize || 12)
+      .fillColor(config.colors.text)
+      .text(`• ${text}`, config.margins.left, doc.y, {
+        width: config.contentWidth,
+        align: 'left',
+      })
+    
+    doc.y += config.paragraphSpacing || 12
+  }
+}
+
+const extractTextFromChildren = (children) => {
+  if (!children || !Array.isArray(children)) return ''
+  
+  return children.map(child => {
+    if (child.type === 'text') {
+      return child.text || ''
+    }
+    if (child.children) {
+      return extractTextFromChildren(child.children)
+    }
+    return ''
+  }).join('')
 }
 
 /**
@@ -255,23 +357,33 @@ export const generateBlogPDFBuffer = async (documentId) => {
 }
 
 /**
- * Generates and stores blog PDF in NuxtHub blob storage
+ * Generates and stores blog PDF in public R2 bucket
  * @param {string} documentId - Strapi document ID
  * @param {string} slug - Blog post slug
- * @returns {Promise<string>} Blob storage URL
+ * @returns {Promise<string>} Public PDF URL
  */
 export const generateAndStoreBlogPDF = async (documentId, slug) => {
   try {
+    // Import here to avoid circular dependency
+    const { uploadPdfToR2 } = await import('../reports/index.js')
+    
     // Generate PDF buffer
     const { buffer: pdfBuffer } = await generateBlogPDFBuffer(documentId)
 
-    // Store in NuxtHub blob storage
+    // Store in public R2 bucket
+    const appConfig = useAppConfig()
     const filename = `${slug}.pdf`
-    const { url } = await hubBlob().put(`blog-pdfs/${filename}`, pdfBuffer, {
-      contentType: 'application/pdf',
-    })
-
-    console.log(`Generated blog PDF: ${filename} (${url})`)
+    const bucketName = appConfig.blogPdfs.bucketName
+    const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
+    
+    await uploadPdfToR2(pdfBuffer, keyName, bucketName)
+    
+    // Construct the public URL
+    const url = `${appConfig.blogPdfs.publicDomain}/${keyName}`
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Generated blog PDF: ${filename} (${url})`)
+    }
     return url
   }
   catch (error) {
@@ -297,17 +409,30 @@ export const blogPDFExists = async (slug) => {
 }
 
 /**
- * Gets blog PDF URL from blob storage
+ * Gets blog PDF URL from public R2 bucket
  * @param {string} slug - Blog post slug
  * @returns {Promise<string|null>} PDF URL or null if not found
  */
 export const getBlogPDFUrl = async (slug) => {
   try {
-    const filename = `blog-pdfs/${slug}.pdf`
-    const { url } = await hubBlob().head(filename)
-    return url
+    const appConfig = useAppConfig()
+    const filename = `${slug}.pdf`
+    const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
+    
+    // For public bucket, we can construct the URL directly
+    const url = `${appConfig.blogPdfs.publicDomain}/${keyName}`
+    
+    // Test if the file exists by making a HEAD request
+    const response = await fetch(url, { method: 'HEAD' })
+    
+    if (response.ok) {
+      return url
+    }
+    
+    return null
   }
   catch (error) {
+    console.error(`Failed to get PDF URL for ${slug}:`, error)
     return null
   }
 }
