@@ -3,8 +3,6 @@
  * Handles Strapi webhooks for automatic PDF generation
  */
 
-import { generateAndStoreBlogPDF } from '../../utils/blog/generateBlogPDF.js'
-
 export default defineEventHandler(async (event) => {
   try {
     // Verify webhook source (optional - add webhook secret validation)
