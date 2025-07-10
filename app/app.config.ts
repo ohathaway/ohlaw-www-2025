@@ -111,6 +111,11 @@ export default defineAppConfig({
       },
     },
   },
+  blogPdfs: {
+    bucketName: 'ohlaw-resources',
+    publicDomain: 'https://downloads.ohlawcolorado.com',
+    prefix: 'blog-pdfs',
+  },
   routeTitles: {
     policies: 'Policies',
     fees: 'Fees and Charges',

@@ -9,7 +9,8 @@
     "preview": "npx nuxthub preview",
     "deploy": "npx nuxthub deploy",
     "postinstall": "nuxt prepare",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate-blog-pdfs": "node scripts/generate-blog-pdfs-simple.js"
   },
   "dependencies": {
     "@ai-sdk/vue": "^1.2.12",

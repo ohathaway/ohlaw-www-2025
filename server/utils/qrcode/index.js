@@ -9,10 +9,8 @@ import {
   generateQRCode,
   generateQRSVG,
   createStyledQRCode,
-  OHLawQRTypes,
-  validateQRContent,
-  formatQRContent,
-} from '#app/utils/qrcode'
+} from '~/utils/qrcode/generator.js'
+import { validateQRContent, formatQRContent } from '~/utils/qrcode/validation.js'
 
 /**
  * Generates QR code for PDF embedding
@@ -205,7 +203,7 @@ export const renderQRBlock = async (doc, block, config) => {
  */
 export const generateOHLawContactQRForServer = async (contactInfo = {}) => {
   try {
-    // Use the app config for default contact info
+    // Use the app config for default contact info  
     const appConfig = useAppConfig()
 
     const defaultContact = {

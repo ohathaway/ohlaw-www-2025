@@ -27,26 +27,33 @@ defineProps({
 });
 </script>
 
-<style lang="scss">
-.faq-accordion {
-  .p-accordion-header-text {
-    @apply text-base font-medium;
-  }
-  
-  .p-accordion-header-link {
-    @apply bg-white hover:bg-slate-50 transition-colors;
-    
-    &:focus {
-      @apply ring-2 ring-primary-300 ring-offset-2 outline-none;
-    }
-    
-    &.p-accordion-header-link-active {
-      @apply bg-white;
-    }
-  }
-  
-  .p-accordion-content {
-    @apply p-4 bg-white;
-  }
+<style>
+.faq-accordion .p-accordion-header-text {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.faq-accordion .p-accordion-header-link {
+  background-color: white;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.faq-accordion .p-accordion-header-link:hover {
+  background-color: rgb(248 250 252);
+}
+
+.faq-accordion .p-accordion-header-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.faq-accordion .p-accordion-header-link.p-accordion-header-link-active {
+  background-color: white;
+}
+
+.faq-accordion .p-accordion-content {
+  padding: 1rem;
+  background-color: white;
 }
 </style>
