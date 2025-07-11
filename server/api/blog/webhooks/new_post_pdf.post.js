@@ -12,14 +12,15 @@ export default defineEventHandler(async (event) => {
     if (process.env.NODE_ENV === 'development') {
       console.log('Blog webhook received:', {
         model: body.model,
+        uid: body.uid,
         event: body.event,
         entry: body.entry?.documentId,
         slug: body.entry?.slug,
       })
     }
 
-    // Only process blog post events
-    if (body.model !== 'api::post.post') {
+    // Only process blog post events - check both model and uid
+    if (body.model !== 'post' || body.uid !== 'api::post.post') {
       return { success: true, message: 'Not a blog post event' }
     }
 

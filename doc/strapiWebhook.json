@@ -1,0 +1,393 @@
+{
+  "event": "entry.publish",
+  "createdAt": "2025-07-11T18:16:36.865Z",
+  "model": "post",
+  "uid": "api::post.post",
+  "entry": {
+    "id": 1927,
+    "Content": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Ah, February – the month of love, where hearts flutter and chocolates abound (single people, stay with me here). But amidst the romantic whirlwind, there's a different kind of love that deserves our attention: the love we show ourselves and our family through thoughtful financial planning. ",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Now I know what you’re thinking – that doesn’t sound as fun or showy as a fancy night out or a bouquet of flowers (or a night in with Netflix). But trust me, making smart planning decisions with your assets is one of the best gifts you can give – and a gift that keeps giving over time.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "This week, we explore seven tax planning tips that not only secure your financial future but also spread love and prosperity to those you cherish most. ",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          {
+            "text": "1 - Make a Qualified Charitable Distribution (QCD)",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Want to spread love to a charity you're passionate about? Is your retirement account looking good? Consider making a Qualified Charitable Distribution from your account directly to charity. Not only does this fulfill your required minimum distributions, but it also exempts the amount from your taxable income. By giving back to causes close to your heart, you can make a meaningful impact while reducing your tax burden.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          { "text": "2 - Front-load your 401(k) contributions", "type": "text" }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Show love to your future self by maximizing your 401(k) contributions early in the year as opposed to spreading them out evenly over 12 months. By reaching the 2024 limits of $23,000 sooner, your investments will have more time to grow, potentially enhancing your retirement nest egg even more. It's a proactive step toward securing financial stability for yourself and your family down the road.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          { "text": "3 - Set Up an IRA for a Child", "type": "text" }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Want to inspire financial skills in your kids while getting a tax advantage? Teach the next generation the value of financial planning and responsibility by setting up and contributing to an IRA for a child with earned income. Whether it's from babysitting or odd jobs, every dollar invested grows tax-free, providing a solid foundation for their future financial well-being.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          {
+            "text": "4 - Make Donations During Spring Cleaning",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Oh, the annual ritual of spring cleaning. This year, let's infuse this mundane task with a dose of love and generosity. As you sift through your belongings, consider the items that no longer serve you but could bring joy to others. From gently used household furnishings to clothing and books, each item holds the potential to make a difference in someone's life. ",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Here's the cherry on top: for items in good condition, you may claim a charitable deduction on your 2024 income tax return, making your act of kindness even sweeter. So, as you purge the old and welcome the new, keep receipts of your donations – it may add up to some real tax savings.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          {
+            "text": "5 - Give the Gift of Appreciated Stock Shares",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Strengthen familial bonds while supporting charitable causes by giving appreciated securities and stock shares directly to your sibling's favorite charity. By donating your appreciated stock instead of selling it, you can potentially avoid recognizing the gain as your income, maximizing the impact of your charitable giving while minimizing your tax liability. Sweet deal, right?",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          { "text": "6 - Establish a 529 College Plan", "type": "text" }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Invest in the educational future of your loved ones by setting up a 529 plan. While the contributions you make to a 529 account aren’t tax deductible, contributions to these plans grow tax-free and can be withdrawn tax-free when used by your loved one for qualified education expenses like housing, books, tuition, and more. Whether it's for your child, grandchild, niece, nephew, or another family member, a 529 plan is a gift that keeps on giving.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [{ "text": "7 - Roth Conversion", "type": "text" }]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Show love to your retirement savings by considering a Roth conversion on a traditional IRA. If your traditional IRA has declined in value, now is the ideal time to convert it to a tax-saving Roth. Doing so can reduce your income tax liability later on and let you potentially enjoy tax-free withdrawals in retirement. It's a strategic move that can optimize your retirement income while minimizing tax obligations.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "level": 1,
+        "children": [
+          {
+            "text": "Let Us Help You Show Your Finances Some Love",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "February offers a perfect opportunity to demonstrate love not only through romantic gestures but also through practical Life & Legacy Planning®.  By incorporating these tax planning tips into your overall planning strategy, you can secure a brighter future for yourself and your loved ones while making a positive impact on your community.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "Not sure where to start?  We’re here to guide you through every step of your planning journey, from taking inventory of what you have and what’s important to you, to the practical steps of how to plan for the life and legacy you dream of.",
+            "type": "text"
+          }
+        ]
+      },
+      { "type": "paragraph", "children": [{ "text": "", "type": "text" }] }
+    ],
+    "Title": "14 Ways to Show Your Finances Some Love This Year - Part 1",
+    "createdAt": "2024-02-23T23:32:06.954Z",
+    "updatedAt": "2025-07-11T18:16:35.473Z",
+    "publishedAt": "2025-07-11T18:16:36.162Z",
+    "slug": "14-ways-to-show-your-finances-some-love-this-year-part-1",
+    "publishDate": "2024-02-23",
+    "Snippet": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "February is the month of love – but there's a different kind of love that deserves our attention: the love we show ourselves, our family, and our pocketbook through thoughtful financial planning.",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "CTA": [
+      {
+        "type": "paragraph",
+        "children": [
+          { "text": "", "type": "text" },
+          {
+            "url": "https://app.lawmatics.com/booking/share/bd7a0579-85cf-42be-9c8d-6b49988ee5b0",
+            "type": "link",
+            "children": [{ "text": "Book a time to talk", "type": "text" }]
+          },
+          { "text": "", "type": "text" }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "This article is a service of The Law Offices of Owen Hathaway, a Personal Family Lawyer® Firm. We don’t just draft documents; we ensure you make informed and empowered decisions about life and death, for yourself and the people you love. That's why we offer a Family Wealth Planning Session™, during which you will get more financially organized than you’ve ever been before and make all the best choices for the people you love. You can begin by calling our office today to schedule a Family Wealth Planning Session.",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "text": "The content is sourced from Personal Family Lawyer® for use by Personal Family Lawyer® firms, a source believed to be providing accurate information. This material was created for educational and informational purposes only and is not intended as ERISA, tax, legal, or investment advice. If you are seeking legal advice specific to your needs, such advice services must be obtained on your own separate from this educational material.",
+            "type": "text"
+          }
+        ]
+      }
+    ],
+    "documentId": "k0mi7q3tfu63pajjsanvbsz3",
+    "url_alias": [
+      {
+        "id": 438,
+        "documentId": "k1ptbh6r48htvxcp0k4997ke",
+        "url_path": "/posts/14-ways-to-show-your-finances-some-love-this-year-part-1",
+        "generated": true,
+        "contenttype": "api::post.post",
+        "createdAt": "2025-03-26T17:37:05.774Z",
+        "updatedAt": "2025-07-11T18:16:35.438Z",
+        "publishedAt": "2025-07-11T18:16:35.418Z",
+        "locale": "en"
+      }
+    ],
+    "Image": {
+      "id": 1664,
+      "name": "2024.02.23 PFL 14 Ways to Show Your Finances Some Love This Year - Part 1.webp",
+      "alternativeText": null,
+      "caption": null,
+      "width": 3911,
+      "height": 2609,
+      "formats": {
+        "large": {
+          "ext": ".webp",
+          "url": "/uploads/large_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791.webp",
+          "hash": "large_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791",
+          "mime": "image/webp",
+          "name": "large_2024.02.23 PFL 14 Ways to Show Your Finances Some Love This Year - Part 1.webp",
+          "path": null,
+          "size": 51.45,
+          "width": 1000,
+          "height": 667
+        },
+        "small": {
+          "ext": ".webp",
+          "url": "/uploads/small_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791.webp",
+          "hash": "small_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791",
+          "mime": "image/webp",
+          "name": "small_2024.02.23 PFL 14 Ways to Show Your Finances Some Love This Year - Part 1.webp",
+          "path": null,
+          "size": 22.78,
+          "width": 500,
+          "height": 334
+        },
+        "medium": {
+          "ext": ".webp",
+          "url": "/uploads/medium_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791.webp",
+          "hash": "medium_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791",
+          "mime": "image/webp",
+          "name": "medium_2024.02.23 PFL 14 Ways to Show Your Finances Some Love This Year - Part 1.webp",
+          "path": null,
+          "size": 37.06,
+          "width": 750,
+          "height": 500
+        },
+        "thumbnail": {
+          "ext": ".webp",
+          "url": "/uploads/thumbnail_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791.webp",
+          "hash": "thumbnail_2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791",
+          "mime": "image/webp",
+          "name": "thumbnail_2024.02.23 PFL 14 Ways to Show Your Finances Some Love This Year - Part 1.webp",
+          "path": null,
+          "size": 8.29,
+          "width": 234,
+          "height": 156
+        }
+      },
+      "hash": "2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791",
+      "ext": ".webp",
+      "mime": "image/webp",
+      "size": 266.7,
+      "url": "/uploads/2024_02_23_PFL_14_Ways_to_Show_Your_Finances_Some_Love_This_Year_Part_1_6e33673791.webp",
+      "previewUrl": null,
+      "provider": "local",
+      "provider_metadata": null,
+      "createdAt": "2024-02-23T23:14:48.098Z",
+      "updatedAt": "2024-09-06T22:11:22.811Z",
+      "documentId": "f4lhhwfplbwm756ymsm2fzim",
+      "publishedAt": "2025-03-25T22:00:39.784Z"
+    },
+    "tags": [
+      {
+        "id": 1700,
+        "Name": "retirement planning",
+        "createdAt": "2023-12-11T21:14:11.308Z",
+        "updatedAt": "2025-03-26T17:37:02.892Z",
+        "slug": "retirement-planning",
+        "documentId": "h6k9eerfhx3cod75a4fyzt31",
+        "publishedAt": "2025-03-26T17:37:02.775Z"
+      },
+      {
+        "id": 1717,
+        "Name": "charitable giving",
+        "createdAt": "2024-02-23T23:38:38.869Z",
+        "updatedAt": "2025-03-26T17:37:05.904Z",
+        "slug": "charitable-giving",
+        "documentId": "ufqqtzsf0q5249b2cacvzvjp",
+        "publishedAt": "2025-03-26T17:37:05.824Z"
+      },
+      {
+        "id": 1716,
+        "Name": "financial planning",
+        "createdAt": "2024-02-23T23:37:17.952Z",
+        "updatedAt": "2025-03-26T17:37:05.752Z",
+        "slug": "financial-planning",
+        "documentId": "f75gup41fsjxftyalbyi0c9f",
+        "publishedAt": "2025-03-26T17:37:05.655Z"
+      }
+    ],
+    "category": {
+      "id": 233,
+      "Name": "Being Human",
+      "createdAt": "2023-12-09T21:25:21.612Z",
+      "updatedAt": "2025-03-27T20:33:03.661Z",
+      "slug": "being-human",
+      "documentId": "nm43zmi8rmgej5jngiy72knb",
+      "publishedAt": "2025-03-27T20:33:03.375Z",
+      "hero": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Life isn't just about legal documents and financial decisions. It's about navigating the complex, messy, and beautiful experience of being human. In this section, you'll find reflections on the shared experiences that connect us all – from family relationships and personal growth to navigating life's unexpected challenges.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "I believe in something I call \"the belly button principle\" – the idea that while each of us is unique, we share fundamental human experiences. Here you'll find thoughts on how these universal experiences inform the way we plan our lives, protect what matters most, and create meaningful legacies.",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "text": "Whether you're reflecting on your life's work, preparing for unexpected events, or simply trying to make sense of the human journey, these articles offer perspective, practical wisdom, and occasionally, a touch of humor. Because at the end of the day, even the most carefully crafted legal plans serve a deeply human purpose – protecting the people and values we cherish.",
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    "terms": [],
+    "metadata": null
+  }
+}
