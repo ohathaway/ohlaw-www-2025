@@ -1,7 +1,7 @@
 <template>
   <div
     id="toc"
-    class="sticky top-0 py-8 ps-8 pe-4"
+    :class="['sticky py-8 ps-8 pe-4 z-[999] transition-all duration-300', scrolled ? 'top-[50px]' : 'top-[80px]']"
   >
     <h4>In This Article</h4>
     <div v-for="brick in content">
@@ -22,6 +22,21 @@
 
 <script setup>
 const { content } = defineProps(['content'])
+
+// Scroll detection for responsive top positioning
+const scrolled = ref(false)
+const handleScroll = () => {
+  scrolled.value = window.scrollY > 50
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+  handleScroll() // Initial check
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style scoped>
