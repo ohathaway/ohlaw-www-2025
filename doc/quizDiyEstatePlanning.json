@@ -25,125 +25,429 @@
         "successMessage": null,
         "documentId": "phptilwjr16lt4locbvpz4d1",
         "createdAt": "2025-04-15T01:42:37.927Z",
-        "updatedAt": "2025-05-22T21:55:56.428Z",
-        "publishedAt": "2025-05-22T21:55:56.704Z",
+        "updatedAt": "2025-07-15T21:50:38.531Z",
+        "publishedAt": "2025-07-15T21:50:38.808Z",
         "leadMagnet": [],
         "questions": [
           {
-            "id": "134",
+            "id": "227",
             "questionText": "Who do you have in your life?",
             "description": [
               {
                 "type": "paragraph",
                 "children": [
                   {
-                    "text": "Which best describes your family situation?",
+                    "text": "Which of these describe your family situation?",
                     "type": "text"
                   }
                 ]
               }
             ],
-            "type": "single_choice",
+            "type": "multiple_choice",
             "questionId": "q1",
             "required": true,
             "order": 1,
             "media": [],
             "answers": [
               {
-                "id": "701",
+                "id": "1189",
                 "answerText": "Single with no children",
                 "value": 2,
                 "answerId": "q1a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Without a spouse or children, state law may direct your assets to distant relatives or the state, requiring deliberate planning to ensure your chosen beneficiaries receive your assets.",
-                "impact": "Requires clear documentation of beneficiaries and decision-makers since there are no automatic legal heirs, but can often be addressed with standard estate planning documents."
+                "forFurtherReference": null
               },
               {
-                "id": "702",
+                "id": "1190",
                 "answerText": "Married/partnered with no children",
                 "value": 1,
                 "answerId": "q1a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "This represents one of the simplest estate planning scenarios, with most assets transferring automatically between spouses and clear planning needed only for after both partners are gone.",
-                "impact": "Generally allows for straightforward estate planning with standard documents, though you'll need to designate ultimate beneficiaries after both spouses."
+                "forFurtherReference": null
               },
               {
-                "id": "703",
-                "answerText": "Single with adult children",
+                "id": "1191",
+                "answerText": "Single with children",
                 "value": 3,
                 "answerId": "q1a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Without spousal transfer benefits, your assets pass directly to the next generation, requiring consideration of inheritance timing and potential tax implications.",
-                "impact": "Moderate complexity due to lack of spousal transfers and need to consider whether adult children should inherit outright or through protective structures."
+                "forFurtherReference": null
               },
               {
-                "id": "704",
+                "id": "1192",
                 "answerText": "Married/partnered with children from current relationship only",
                 "value": 2,
                 "answerId": "q1a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "This nuclear family structure allows for standard estate planning approaches, with assets typically flowing from spouse to children in a predictable pattern.",
-                "impact": "Standard complexity that can usually be addressed with basic estate planning documents, though minor children may require guardian designation and trust considerations."
+                "forFurtherReference": null
               },
               {
-                "id": "705",
+                "id": "1193",
                 "answerText": " Blended family (children from previous relationships)",
                 "value": 5,
                 "answerId": "q1a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Blended families create unique inheritance challenges that require specialized planning regardless of other factors. DIY mistakes here often result in children from previous relationships being completely disinherited when the surviving spouse remarries or dies.",
-                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY errors in blended family planning frequently lead to costly family litigation, permanent relationship damage, and unintended disinheritance that can't be corrected after death."
+                "forFurtherReference": {
+                  "Title": "Parents, Step-Parents And Children, Oh My! Blended Families + Death = A Potential Nightmare",
+                  "tags": [
+                    {
+                      "documentId": "tsqga9i29d0uocwaup04gim2",
+                      "Name": "children's well-being",
+                      "slug": "children-well-being",
+                      "createdAt": "2024-01-05T23:41:10.305Z",
+                      "updatedAt": "2025-03-26T17:37:04.727Z",
+                      "publishedAt": "2025-03-26T17:37:04.634Z"
+                    },
+                    {
+                      "documentId": "a85w0z4umemxdpo7svwktxr6",
+                      "Name": "legacy planning",
+                      "slug": "legacy-planning",
+                      "createdAt": "2023-12-10T02:50:41.009Z",
+                      "updatedAt": "2025-03-26T17:37:01.442Z",
+                      "publishedAt": "2025-03-26T17:37:01.273Z"
+                    },
+                    {
+                      "documentId": "ag8l86kgz19xjjrqlh89n50m",
+                      "Name": "blended families",
+                      "slug": "blended-families",
+                      "createdAt": "2024-03-25T22:33:23.795Z",
+                      "updatedAt": "2025-03-26T17:37:06.988Z",
+                      "publishedAt": "2025-03-26T17:37:06.868Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "xe6tyiousansufqgyrgyk262",
+                    "name": "2024.03.22 PFL Parents, Step-Parents and Children Oh My.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 1180,
+                    "height": 787,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764.webp",
+                        "hash": "large_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764",
+                        "mime": "image/webp",
+                        "name": "large_2024.03.22 PFL Parents, Step-Parents and Children Oh My.webp",
+                        "path": null,
+                        "size": 75.06,
+                        "width": 1000,
+                        "height": 667
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764.webp",
+                        "hash": "small_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764",
+                        "mime": "image/webp",
+                        "name": "small_2024.03.22 PFL Parents, Step-Parents and Children Oh My.webp",
+                        "path": null,
+                        "size": 25.95,
+                        "width": 500,
+                        "height": 333
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764.webp",
+                        "hash": "medium_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764",
+                        "mime": "image/webp",
+                        "name": "medium_2024.03.22 PFL Parents, Step-Parents and Children Oh My.webp",
+                        "path": null,
+                        "size": 48.31,
+                        "width": 750,
+                        "height": 500
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764.webp",
+                        "hash": "thumbnail_2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764",
+                        "mime": "image/webp",
+                        "name": "thumbnail_2024.03.22 PFL Parents, Step-Parents and Children Oh My.webp",
+                        "path": null,
+                        "size": 8.58,
+                        "width": 234,
+                        "height": 156
+                      }
+                    },
+                    "hash": "2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 119.93,
+                    "url": "/uploads/2024_03_22_PFL_Parents_Step_Parents_and_Children_Oh_My_ceb1253764.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2024-03-25T22:23:55.869Z",
+                    "updatedAt": "2024-09-06T22:11:23.251Z",
+                    "publishedAt": "2025-03-25T22:00:39.784Z"
+                  },
+                  "slug": "parents-step-parents-and-children-oh-my-blended-families-death-a-potential-nightmare",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "This week we look at a real-life cautionary tale about what can happen in any blended family when the parents leave decisions about their children’s care and inheritance up to their surviving spouse and the state’s laws.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "706",
+                "id": "1194",
                 "answerText": "Have dependents with special needs",
                 "value": 5,
                 "answerId": "q1a6",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 25,
-                "maximumResultScore": null,
-                "whyItMatters": "Special needs dependents require specialized planning that preserves government benefits. A direct inheritance mistake can immediately disqualify them from essential Medicaid, SSI, and housing assistance, potentially costing hundreds of thousands in lost benefits.",
-                "impact": "Requires comprehensive professional planning regardless of other factors - DIY errors with special needs planning can permanently disqualify dependents from crucial government benefits, leaving families financially devastated and unable to provide necessary care."
+                "forFurtherReference": {
+                  "Title": "Special Needs Planning: Preserving Government Benefits",
+                  "tags": [
+                    {
+                      "documentId": "uml1kiousvsf23fg7apgfg51",
+                      "Name": "disability planning",
+                      "slug": "disability-planning",
+                      "createdAt": "2025-07-11T00:20:42.506Z",
+                      "updatedAt": "2025-07-11T00:20:42.562Z",
+                      "publishedAt": "2025-07-11T00:20:42.501Z"
+                    },
+                    {
+                      "documentId": "gertio6jcnq7b30o1lec0nmn",
+                      "Name": "mistakes",
+                      "slug": "mistakes",
+                      "createdAt": "2024-08-06T18:36:38.180Z",
+                      "updatedAt": "2025-03-26T17:37:09.255Z",
+                      "publishedAt": "2025-03-26T17:37:09.164Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "l679z03d25weu5odnspq1wd1",
+                    "name": "benefits cliff.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 1536,
+                    "height": 1024,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_benefits_cliff_4240ec1ff8.webp",
+                        "hash": "large_benefits_cliff_4240ec1ff8",
+                        "mime": "image/webp",
+                        "name": "large_benefits cliff.webp",
+                        "path": null,
+                        "size": 68.64,
+                        "width": 1000,
+                        "height": 667,
+                        "sizeInBytes": 68642
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_benefits_cliff_4240ec1ff8.webp",
+                        "hash": "small_benefits_cliff_4240ec1ff8",
+                        "mime": "image/webp",
+                        "name": "small_benefits cliff.webp",
+                        "path": null,
+                        "size": 19.31,
+                        "width": 500,
+                        "height": 333,
+                        "sizeInBytes": 19314
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_benefits_cliff_4240ec1ff8.webp",
+                        "hash": "medium_benefits_cliff_4240ec1ff8",
+                        "mime": "image/webp",
+                        "name": "medium_benefits cliff.webp",
+                        "path": null,
+                        "size": 37.49,
+                        "width": 750,
+                        "height": 500,
+                        "sizeInBytes": 37490
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_benefits_cliff_4240ec1ff8.webp",
+                        "hash": "thumbnail_benefits_cliff_4240ec1ff8",
+                        "mime": "image/webp",
+                        "name": "thumbnail_benefits cliff.webp",
+                        "path": null,
+                        "size": 6.65,
+                        "width": 234,
+                        "height": 156,
+                        "sizeInBytes": 6650
+                      }
+                    },
+                    "hash": "benefits_cliff_4240ec1ff8",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 271.82,
+                    "url": "/uploads/benefits_cliff_4240ec1ff8.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-07-11T00:20:07.997Z",
+                    "updatedAt": "2025-07-11T00:20:07.997Z",
+                    "publishedAt": "2025-07-11T00:20:07.998Z"
+                  },
+                  "slug": "special-needs-planning-preserving-government-benefits",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "A $25,000 inheritance just cost a disabled person their healthcare, housing assistance, and $50,000+ in annual waiver services. Learn how special needs planning protects government benefits while still providing for your loved one's future—and why DIY approaches fail catastrophically in this specialized area.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "707",
+                "id": "1195",
+                "answerText": "I have minor children",
+                "value": 3,
+                "answerId": "q1a7",
+                "isCorrect": null,
+                "branchToQuestion": null,
+                "media": [],
+                "forFurtherReference": null
+              },
+              {
+                "id": "1196",
                 "answerText": " Other complex family structure",
                 "value": 5,
-                "answerId": "q1a7",
+                "answerId": "q1a8",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Complex family structures create unique planning challenges that standard approaches don't adequately address. DIY mistakes often result in unintended beneficiaries, family conflicts that destroy relationships, and costly probate litigation.",
-                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY errors with complex family dynamics frequently lead to expensive legal battles, permanent family rifts, and outcomes completely opposite to your intentions."
+                "forFurtherReference": {
+                  "Title": "Til Death Do Us Part? Why Unmarried Couples Must Have An Estate Plan That Works For the People They Love",
+                  "tags": [
+                    {
+                      "documentId": "ag8l86kgz19xjjrqlh89n50m",
+                      "Name": "blended families",
+                      "slug": "blended-families",
+                      "createdAt": "2024-03-25T22:33:23.795Z",
+                      "updatedAt": "2025-03-26T17:37:06.988Z",
+                      "publishedAt": "2025-03-26T17:37:06.868Z"
+                    },
+                    {
+                      "documentId": "p9t4z2xi67lm2wpmv4o9t4xa",
+                      "Name": "legal pitfalls",
+                      "slug": "legal-pitfalls",
+                      "createdAt": "2023-12-10T02:30:59.139Z",
+                      "updatedAt": "2025-03-26T17:37:01.670Z",
+                      "publishedAt": "2025-03-26T17:37:01.540Z"
+                    },
+                    {
+                      "documentId": "uqtust85f26p3z8sm30f3u16",
+                      "Name": "myths",
+                      "slug": "myths",
+                      "createdAt": "2024-09-06T21:54:23.961Z",
+                      "updatedAt": "2025-03-26T17:37:09.402Z",
+                      "publishedAt": "2025-03-26T17:37:09.311Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "y5gds7qpw8o4gttndkdkfpt2",
+                    "name": "2025.03.14 PFL Til Death Do Us Part Why Unmarried Couples Must Have An Estate Plan That Works For the People They Love.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 1063,
+                    "height": 620,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f.webp",
+                        "hash": "large_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f",
+                        "mime": "image/webp",
+                        "name": "large_2025.03.14 PFL Til Death Do Us Part Why Unmarried Couples Must Have An Estate Plan That Works For the People They Love.webp",
+                        "path": null,
+                        "size": 30.91,
+                        "width": 1000,
+                        "height": 583,
+                        "sizeInBytes": 30912
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f.webp",
+                        "hash": "small_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f",
+                        "mime": "image/webp",
+                        "name": "small_2025.03.14 PFL Til Death Do Us Part Why Unmarried Couples Must Have An Estate Plan That Works For the People They Love.webp",
+                        "path": null,
+                        "size": 14.26,
+                        "width": 500,
+                        "height": 292,
+                        "sizeInBytes": 14262
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f.webp",
+                        "hash": "medium_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f",
+                        "mime": "image/webp",
+                        "name": "medium_2025.03.14 PFL Til Death Do Us Part Why Unmarried Couples Must Have An Estate Plan That Works For the People They Love.webp",
+                        "path": null,
+                        "size": 22.96,
+                        "width": 750,
+                        "height": 437,
+                        "sizeInBytes": 22962
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f.webp",
+                        "hash": "thumbnail_2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f",
+                        "mime": "image/webp",
+                        "name": "thumbnail_2025.03.14 PFL Til Death Do Us Part Why Unmarried Couples Must Have An Estate Plan That Works For the People They Love.webp",
+                        "path": null,
+                        "size": 5.7,
+                        "width": 245,
+                        "height": 143,
+                        "sizeInBytes": 5696
+                      }
+                    },
+                    "hash": "2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 39.89,
+                    "url": "/uploads/2025_03_14_PFL_Til_Death_Do_Us_Part_Why_Unmarried_Couples_Must_Have_An_Estate_Plan_That_Works_For_the_People_They_Love_e29b79f30f.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-03-21T02:00:03.455Z",
+                    "updatedAt": "2025-03-26T22:43:53.711Z",
+                    "publishedAt": "2025-03-25T22:00:39.784Z"
+                  },
+                  "slug": "unmarried-couples-need-estate-plan-protect-loved-ones-legal-financial-protection",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "Without marriage's legal protections, unmarried couples face unique estate planning challenges that could leave partners vulnerable and children at risk. Learn how to protect your loved ones and assets with proper planning.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           },
           {
-            "id": "135",
+            "id": "228",
             "questionText": "What do you have in your life?",
             "description": [
               {
@@ -163,126 +467,632 @@
             "media": [],
             "answers": [
               {
-                "id": "708",
+                "id": "1197",
                 "answerText": "Primary residence",
                 "value": 2,
                 "answerId": "q2a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Your home is likely your most valuable asset and requires specific planning to transfer efficiently to your loved ones without unnecessary probate delays or costs.",
-                "impact": "Moderate complexity - can often be handled through basic estate planning tools like wills, transfer-on-death deeds, or simple trusts, depending on your state's laws."
+                "forFurtherReference": {
+                  "Title": "Trusts & Homeowner’s Insurance: What You Need to Know So You Don’t Get a Claim Denied In the Future",
+                  "tags": [
+                    {
+                      "documentId": "hbmnvsx0yknfwmeh7zutqevo",
+                      "Name": "insurance",
+                      "slug": "insurance",
+                      "createdAt": "2024-03-01T23:53:12.588Z",
+                      "updatedAt": "2025-03-26T17:37:06.197Z",
+                      "publishedAt": "2025-03-26T17:37:06.108Z"
+                    },
+                    {
+                      "documentId": "vqmbei85woip5m94rjjvtqa5",
+                      "Name": "risk management",
+                      "slug": "risk-management",
+                      "createdAt": "2025-02-11T21:19:33.839Z",
+                      "updatedAt": "2025-03-26T17:37:09.755Z",
+                      "publishedAt": "2025-03-26T17:37:09.655Z"
+                    },
+                    {
+                      "documentId": "gertio6jcnq7b30o1lec0nmn",
+                      "Name": "mistakes",
+                      "slug": "mistakes",
+                      "createdAt": "2024-08-06T18:36:38.180Z",
+                      "updatedAt": "2025-03-26T17:37:09.255Z",
+                      "publishedAt": "2025-03-26T17:37:09.164Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "atxtf98z5lb6slietnth6vn2",
+                    "name": "2025.01.31 PFL [SMP] Your Trust and Home Insurance- What You Need to Know.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 3911,
+                    "height": 2604,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25.webp",
+                        "hash": "large_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25",
+                        "mime": "image/webp",
+                        "name": "large_2025.01.31 PFL [SMP] Your Trust and Home Insurance- What You Need to Know.webp",
+                        "path": null,
+                        "size": 156.52,
+                        "width": 1000,
+                        "height": 666,
+                        "sizeInBytes": 156518
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25.webp",
+                        "hash": "small_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25",
+                        "mime": "image/webp",
+                        "name": "small_2025.01.31 PFL [SMP] Your Trust and Home Insurance- What You Need to Know.webp",
+                        "path": null,
+                        "size": 42.77,
+                        "width": 500,
+                        "height": 333,
+                        "sizeInBytes": 42768
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25.webp",
+                        "hash": "medium_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25",
+                        "mime": "image/webp",
+                        "name": "medium_2025.01.31 PFL [SMP] Your Trust and Home Insurance- What You Need to Know.webp",
+                        "path": null,
+                        "size": 91.08,
+                        "width": 750,
+                        "height": 499,
+                        "sizeInBytes": 91082
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25.webp",
+                        "hash": "thumbnail_2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25",
+                        "mime": "image/webp",
+                        "name": "thumbnail_2025.01.31 PFL [SMP] Your Trust and Home Insurance- What You Need to Know.webp",
+                        "path": null,
+                        "size": 10.68,
+                        "width": 234,
+                        "height": 156,
+                        "sizeInBytes": 10680
+                      }
+                    },
+                    "hash": "2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 1621.79,
+                    "url": "/uploads/2025_01_31_PFL_SMP_Your_Trust_and_Home_Insurance_What_You_Need_to_Know_c1fa8d8b25.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-02-11T21:55:49.870Z",
+                    "updatedAt": "2025-02-11T21:55:49.870Z",
+                    "publishedAt": "2025-03-25T22:00:39.784Z"
+                  },
+                  "slug": "trusts-homeowners-insurance-what-to-know-prevent-denied-claims-coverage-gaps",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "Putting your home in a trust is a smart estate planning move, but it can create unexpected insurance complications if not handled correctly. Learn how to protect one of your most valuable assets by properly aligning your homeowner's insurance with your trust.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "709",
+                "id": "1198",
                 "answerText": "Additional real estate",
                 "value": 3,
                 "answerId": "q2a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Multiple properties can trigger probate proceedings in different states and create coordination challenges between various ownership structures and jurisdictions.",
-                "impact": "Higher complexity due to potential probate requirements for each property and need to optimize ownership structures - may benefit from trust-based planning or professional guidance to avoid probate proceedings."
+                "forFurtherReference": {
+                  "Title": "Real Estate and Estate Planning: Why Your Property Needs More Than Just a Will",
+                  "tags": [
+                    {
+                      "documentId": "juinhijns9s8rxsqcdcgg0yf",
+                      "Name": "real estate",
+                      "slug": "real-estate",
+                      "createdAt": "2025-07-14T19:18:29.422Z",
+                      "updatedAt": "2025-07-14T19:18:29.505Z",
+                      "publishedAt": "2025-07-14T19:18:29.408Z"
+                    },
+                    {
+                      "documentId": "owwz4pcpish63s4s49q5x3fc",
+                      "Name": "probate avoidance",
+                      "slug": "probate-avoidance",
+                      "createdAt": "2025-02-13T18:48:51.772Z",
+                      "updatedAt": "2025-03-26T17:37:10.725Z",
+                      "publishedAt": "2025-03-26T17:37:10.645Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "urmygr02ng30a4wwy0xg0if0",
+                    "name": "real estate and probate.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 1536,
+                    "height": 1024,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_real_estate_and_probate_e2b7bf7e90.webp",
+                        "hash": "large_real_estate_and_probate_e2b7bf7e90",
+                        "mime": "image/webp",
+                        "name": "large_real estate and probate.webp",
+                        "path": null,
+                        "size": 74.48,
+                        "width": 1000,
+                        "height": 667,
+                        "sizeInBytes": 74476
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_real_estate_and_probate_e2b7bf7e90.webp",
+                        "hash": "small_real_estate_and_probate_e2b7bf7e90",
+                        "mime": "image/webp",
+                        "name": "small_real estate and probate.webp",
+                        "path": null,
+                        "size": 26.7,
+                        "width": 500,
+                        "height": 333,
+                        "sizeInBytes": 26704
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_real_estate_and_probate_e2b7bf7e90.webp",
+                        "hash": "medium_real_estate_and_probate_e2b7bf7e90",
+                        "mime": "image/webp",
+                        "name": "medium_real estate and probate.webp",
+                        "path": null,
+                        "size": 47.61,
+                        "width": 750,
+                        "height": 500,
+                        "sizeInBytes": 47612
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_real_estate_and_probate_e2b7bf7e90.webp",
+                        "hash": "thumbnail_real_estate_and_probate_e2b7bf7e90",
+                        "mime": "image/webp",
+                        "name": "thumbnail_real estate and probate.webp",
+                        "path": null,
+                        "size": 9.14,
+                        "width": 234,
+                        "height": 156,
+                        "sizeInBytes": 9136
+                      }
+                    },
+                    "hash": "real_estate_and_probate_e2b7bf7e90",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 240.14,
+                    "url": "/uploads/real_estate_and_probate_e2b7bf7e90.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-07-14T19:17:39.910Z",
+                    "updatedAt": "2025-07-14T19:17:39.910Z",
+                    "publishedAt": "2025-07-14T19:17:39.912Z"
+                  },
+                  "slug": "real-estate-and-estate-planning-why-your-property-needs-more-than-just-a-will",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "From beneficiary deeds to Master LLCs, explore the tools that keep your properties out of probate court. Essential reading for anyone who owns real estate and wants to avoid leaving their family a legal mess.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "710",
+                "id": "1199",
                 "answerText": "Retirement accounts",
                 "value": 0,
                 "answerId": "q2a3",
                 "isCorrect": false,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "These accounts transfer directly to named beneficiaries through simple forms, bypassing your will entirely, making proper beneficiary designations crucial but straightforward.",
-                "impact": "Low complexity for transfer purposes - primarily requires keeping beneficiary designations current and understanding basic inheritance tax rules."
+                "forFurtherReference": null
               },
               {
-                "id": "711",
+                "id": "1200",
                 "answerText": "Life insurance policies",
                 "value": 0,
                 "answerId": "q2a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Life insurance provides immediate cash to beneficiaries through simple beneficiary designations, making it one of the most straightforward assets to transfer.",
-                "impact": "Very low complexity - mainly requires keeping beneficiary designations updated and considering whether policies should be owned personally or in trust."
+                "forFurtherReference": {
+                  "Title": "Protecting Your Family's Safety Net: How to Set Up Your Life Insurance Policy The Right Way",
+                  "tags": [
+                    {
+                      "documentId": "tsqga9i29d0uocwaup04gim2",
+                      "Name": "children's well-being",
+                      "slug": "children-well-being",
+                      "createdAt": "2024-01-05T23:41:10.305Z",
+                      "updatedAt": "2025-03-26T17:37:04.727Z",
+                      "publishedAt": "2025-03-26T17:37:04.634Z"
+                    },
+                    {
+                      "documentId": "m8e3ogzwpbn9y1rpsukx2swf",
+                      "Name": "minors",
+                      "slug": "minors",
+                      "createdAt": "2024-01-19T22:19:15.978Z",
+                      "updatedAt": "2025-03-26T17:37:05.164Z",
+                      "publishedAt": "2025-03-26T17:37:05.081Z"
+                    },
+                    {
+                      "documentId": "ei1skqui06oljmnwmljcwf7p",
+                      "Name": "life insurance",
+                      "slug": "life-insurance",
+                      "createdAt": "2024-01-19T22:17:27.067Z",
+                      "updatedAt": "2025-03-26T17:37:05.016Z",
+                      "publishedAt": "2025-03-26T17:37:04.925Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "p7li3yg5axdt5xzzj10qthsu",
+                    "name": "2024.01.19 PFL Protecting Your Family's Safety Net.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 5666,
+                    "height": 3782,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e.webp",
+                        "hash": "large_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e",
+                        "mime": "image/webp",
+                        "name": "large_2024.01.19 PFL Protecting Your Family's Safety Net.webp",
+                        "path": null,
+                        "size": 49.95,
+                        "width": 1000,
+                        "height": 667
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e.webp",
+                        "hash": "small_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e",
+                        "mime": "image/webp",
+                        "name": "small_2024.01.19 PFL Protecting Your Family's Safety Net.webp",
+                        "path": null,
+                        "size": 19.34,
+                        "width": 500,
+                        "height": 334
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e.webp",
+                        "hash": "medium_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e",
+                        "mime": "image/webp",
+                        "name": "medium_2024.01.19 PFL Protecting Your Family's Safety Net.webp",
+                        "path": null,
+                        "size": 33.54,
+                        "width": 750,
+                        "height": 501
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e.webp",
+                        "hash": "thumbnail_2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e",
+                        "mime": "image/webp",
+                        "name": "thumbnail_2024.01.19 PFL Protecting Your Family's Safety Net.webp",
+                        "path": null,
+                        "size": 7.11,
+                        "width": 234,
+                        "height": 156
+                      }
+                    },
+                    "hash": "2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 457.11,
+                    "url": "/uploads/2024_01_19_PFL_Protecting_Your_Family_s_Safety_Net_dcb34b996e.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2024-01-19T22:17:02.490Z",
+                    "updatedAt": "2024-09-06T22:11:21.023Z",
+                    "publishedAt": "2025-03-25T22:00:39.784Z"
+                  },
+                  "slug": "protecting-your-family-s-safety-net-how-to-set-up-your-life-insurance-policy-the-right-way",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "Life insurance is an important part of protecting your family, but if you don’t set it up the right way, there’s a good chance it won’t help your loved ones the way you want it to. Here’s what to do instead…",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "712",
+                "id": "1201",
                 "answerText": "Investment accounts",
                 "value": 2,
                 "answerId": "q2a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Investment accounts typically require probate unless properly titled with beneficiaries or held in trust, and may need ongoing management guidance for heirs.",
-                "impact": "Moderate complexity - may require trust planning or transfer-on-death designations to avoid probate, plus consideration of beneficiary financial sophistication."
+                "forFurtherReference": null
               },
               {
-                "id": "713",
+                "id": "1202",
                 "answerText": "Business ownership interests",
                 "value": 3,
                 "answerId": "q2a6",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Business interests create complex succession issues involving partner agreements, operating agreements, valuation challenges, and operational continuity that go beyond basic estate planning.",
-                "impact": "High complexity requiring specialized succession planning, buy-sell agreements, and coordination between estate documents and business agreements."
+                "forFurtherReference": {
+                  "Title": "Business Succession Planning: When DIY Isn't Enough",
+                  "tags": [
+                    {
+                      "documentId": "bfgmzhcsotjji0bgbi17l92m",
+                      "Name": "succession planning",
+                      "slug": "succession-planning",
+                      "createdAt": "2024-06-04T17:58:41.478Z",
+                      "updatedAt": "2025-03-26T17:37:07.981Z",
+                      "publishedAt": "2025-03-26T17:37:07.897Z"
+                    },
+                    {
+                      "documentId": "pj5w99cv4bcw2w5iptgsd0t4",
+                      "Name": "diy estate planning",
+                      "slug": "diy-estate-planning",
+                      "createdAt": "2025-07-08T23:52:59.091Z",
+                      "updatedAt": "2025-07-08T23:53:28.131Z",
+                      "publishedAt": "2025-07-08T23:53:27.942Z"
+                    },
+                    {
+                      "documentId": "re89z9czzmwtlwmmnrkhcedq",
+                      "Name": "business transition",
+                      "slug": "business-transition",
+                      "createdAt": "2024-06-04T17:59:12.213Z",
+                      "updatedAt": "2025-03-26T17:37:08.132Z",
+                      "publishedAt": "2025-03-26T17:37:08.045Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "i06bi48s8wo2l9l84r6ixd7t",
+                    "name": "business succession.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 1536,
+                    "height": 1024,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_business_succession_c3f810df73.webp",
+                        "hash": "large_business_succession_c3f810df73",
+                        "mime": "image/webp",
+                        "name": "large_business succession.webp",
+                        "path": null,
+                        "size": 74.55,
+                        "width": 1000,
+                        "height": 667,
+                        "sizeInBytes": 74548
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_business_succession_c3f810df73.webp",
+                        "hash": "small_business_succession_c3f810df73",
+                        "mime": "image/webp",
+                        "name": "small_business succession.webp",
+                        "path": null,
+                        "size": 27.26,
+                        "width": 500,
+                        "height": 333,
+                        "sizeInBytes": 27262
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_business_succession_c3f810df73.webp",
+                        "hash": "medium_business_succession_c3f810df73",
+                        "mime": "image/webp",
+                        "name": "medium_business succession.webp",
+                        "path": null,
+                        "size": 47.65,
+                        "width": 750,
+                        "height": 500,
+                        "sizeInBytes": 47650
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_business_succession_c3f810df73.webp",
+                        "hash": "thumbnail_business_succession_c3f810df73",
+                        "mime": "image/webp",
+                        "name": "thumbnail_business succession.webp",
+                        "path": null,
+                        "size": 9.7,
+                        "width": 234,
+                        "height": 156,
+                        "sizeInBytes": 9700
+                      }
+                    },
+                    "hash": "business_succession_c3f810df73",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 230,
+                    "url": "/uploads/business_succession_c3f810df73.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-07-15T15:39:45.433Z",
+                    "updatedAt": "2025-07-15T15:39:45.433Z",
+                    "publishedAt": "2025-07-15T15:39:45.435Z"
+                  },
+                  "slug": "business-succession-planning-when-diy-isn-t-enough",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "You built your business through DIY determination, but succession planning is where that same spirit can destroy what you've created. Learn why business succession requires a different approach and when to stop handling it yourself.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "714",
+                "id": "1203",
                 "answerText": "Digital assets",
                 "value": 1,
                 "answerId": "q2a7",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Digital assets require special documentation for access and may be governed by terms of service that complicate transfer, but can usually be addressed with proper planning.",
-                "impact": "Low to moderate complexity - primarily requires creating secure access documentation and understanding platform-specific transfer rules."
+                "forFurtherReference": {
+                  "Title": "The Single Person's Guide to Not Leaving a Digital (and Actual) Mess Behind",
+                  "tags": [
+                    {
+                      "documentId": "iaito46s0da4fvuyg4jnbzf0",
+                      "Name": "single adults",
+                      "slug": "single-adults",
+                      "createdAt": "2025-07-08T23:52:35.311Z",
+                      "updatedAt": "2025-07-08T23:53:17.694Z",
+                      "publishedAt": "2025-07-08T23:53:17.579Z"
+                    },
+                    {
+                      "documentId": "pj5w99cv4bcw2w5iptgsd0t4",
+                      "Name": "diy estate planning",
+                      "slug": "diy-estate-planning",
+                      "createdAt": "2025-07-08T23:52:59.091Z",
+                      "updatedAt": "2025-07-08T23:53:28.131Z",
+                      "publishedAt": "2025-07-08T23:53:27.942Z"
+                    },
+                    {
+                      "documentId": "a85w0z4umemxdpo7svwktxr6",
+                      "Name": "legacy planning",
+                      "slug": "legacy-planning",
+                      "createdAt": "2023-12-10T02:50:41.009Z",
+                      "updatedAt": "2025-03-26T17:37:01.442Z",
+                      "publishedAt": "2025-03-26T17:37:01.273Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "e1t6ktw0x4y2x3v7ziivfe2k",
+                    "name": "singles-and-estate-planning.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 1536,
+                    "height": 1024,
+                    "formats": {
+                      "large": {
+                        "ext": ".webp",
+                        "url": "/uploads/large_singles_and_estate_planning_e0c1a21929.webp",
+                        "hash": "large_singles_and_estate_planning_e0c1a21929",
+                        "mime": "image/webp",
+                        "name": "large_singles-and-estate-planning.webp",
+                        "path": null,
+                        "size": 35.18,
+                        "width": 1000,
+                        "height": 667,
+                        "sizeInBytes": 35182
+                      },
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_singles_and_estate_planning_e0c1a21929.webp",
+                        "hash": "small_singles_and_estate_planning_e0c1a21929",
+                        "mime": "image/webp",
+                        "name": "small_singles-and-estate-planning.webp",
+                        "path": null,
+                        "size": 14.32,
+                        "width": 500,
+                        "height": 333,
+                        "sizeInBytes": 14318
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_singles_and_estate_planning_e0c1a21929.webp",
+                        "hash": "medium_singles_and_estate_planning_e0c1a21929",
+                        "mime": "image/webp",
+                        "name": "medium_singles-and-estate-planning.webp",
+                        "path": null,
+                        "size": 24.49,
+                        "width": 750,
+                        "height": 500,
+                        "sizeInBytes": 24486
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_singles_and_estate_planning_e0c1a21929.webp",
+                        "hash": "thumbnail_singles_and_estate_planning_e0c1a21929",
+                        "mime": "image/webp",
+                        "name": "thumbnail_singles-and-estate-planning.webp",
+                        "path": null,
+                        "size": 5.05,
+                        "width": 234,
+                        "height": 156,
+                        "sizeInBytes": 5046
+                      }
+                    },
+                    "hash": "singles_and_estate_planning_e0c1a21929",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 84.97,
+                    "url": "/uploads/singles_and_estate_planning_e0c1a21929.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-07-09T00:22:22.968Z",
+                    "updatedAt": "2025-07-09T00:23:44.698Z",
+                    "publishedAt": "2025-07-09T00:22:22.968Z"
+                  },
+                  "slug": "the-single-persons-guide-to-not-leaving-a-digital-and-actual-mess-behind",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "Think estate planning is just for families with kids? That's like saying you don't need cloud backup because you only have one device. The logic doesn't compute. Discover why single people actually need estate planning more—and whether freewill.com can handle your unique situation.",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "715",
+                "id": "1204",
                 "answerText": "Valuable collections or heirlooms",
                 "value": 1,
                 "answerId": "q2a8",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Special items often have both financial and emotional value requiring specific distribution instructions to prevent family conflicts and preserve value.",
-                "impact": "Low to moderate complexity - can usually be addressed through specific bequests in wills or separate memoranda, though valuable items may need appraisals."
+                "forFurtherReference": null
               },
               {
-                "id": "716",
+                "id": "1205",
                 "answerText": "None of the above",
                 "value": 0,
                 "answerId": "q2a9",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Even without significant assets, you still need basic planning for healthcare decisions and ensuring what you do have goes to your chosen people.",
-                "impact": "Lowest complexity - basic documents like wills, powers of attorney and healthcare documents can address most needs simply and affordably."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "136",
+            "id": "218",
             "questionText": "What's your stuff worth?",
             "description": [
               {
@@ -302,87 +1112,79 @@
             "media": [],
             "answers": [
               {
-                "id": "717",
-                "answerText": "Under $100,000",
+                "id": "1206",
+                "answerText": "Under $500,000",
                 "value": 0,
                 "answerId": "q3a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Smaller estates focus on ensuring your wishes are followed efficiently with minimal administrative burden, rather than complex tax planning.",
-                "impact": "Lowest complexity - basic documents and beneficiary designations can typically handle most needs simply and affordably."
+                "forFurtherReference": null
               },
               {
-                "id": "718",
-                "answerText": "$100,000 - $500,000",
+                "id": "1207",
+                "answerText": "$500,000 - $1 million",
                 "value": 1,
                 "answerId": "q3a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "This estate size represents significant resources that warrant thoughtful planning but typically stay below major tax thresholds.",
-                "impact": "Low to moderate complexity - may benefit from probate avoidance strategies but can often be addressed with standard estate planning approaches."
+                "forFurtherReference": null
               },
               {
-                "id": "719",
-                "answerText": "$500,000 - $1 million",
+                "id": "1208",
+                "answerText": "$1 million - $3 million",
                 "value": 2,
                 "answerId": "q3a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Your estate value approaches levels where state estate taxes may apply, and strategic planning becomes increasingly beneficial.",
-                "impact": "Moderate complexity - may benefit from trust-based planning and careful attention to state tax implications and asset protection strategies."
+                "forFurtherReference": null
               },
               {
-                "id": "720",
-                "answerText": "$1 million - $5 million",
-                "value": 4,
+                "id": "1209",
+                "answerText": "$3 million - $10 million",
+                "value": 3,
                 "answerId": "q3a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Estates in this range approach federal and state tax thresholds where DIY mistakes can cost beneficiaries tens or hundreds of thousands in unnecessary taxes, plus penalties and interest on underpaid amounts.",
-                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY tax planning errors at this estate level can result in massive tax bills, IRS audits, and penalties that could have been easily avoided with proper professional planning."
+                "forFurtherReference": null
               },
               {
-                "id": "721",
-                "answerText": "Over $5 million",
-                "value": 5,
+                "id": "1210",
+                "answerText": "$10 million - $25 million",
+                "value": 4,
                 "answerId": "q3a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 25,
-                "maximumResultScore": null,
-                "whyItMatters": "Estates of this size face significant tax exposure where DIY mistakes can cost beneficiaries millions in unnecessary taxes. Poor planning also exposes assets to creditors and can trigger IRS scrutiny and audits.",
-                "impact": "Requires comprehensive professional planning regardless of other factors - DIY errors with large estates can result in catastrophic tax consequences, asset loss to creditors, and IRS enforcement actions that devastate family wealth."
+                "forFurtherReference": null
               },
               {
-                "id": "722",
-                "answerText": "I'm not sure",
-                "value": 1,
+                "id": "1211",
+                "answerText": "Over $25 million",
+                "value": 5,
                 "answerId": "q3a6",
+                "isCorrect": null,
+                "branchToQuestion": null,
+                "media": [],
+                "forFurtherReference": null
+              },
+              {
+                "id": "1212",
+                "answerText": "I'm not sure",
+                "value": 2,
+                "answerId": "q3a7",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Good estate planning requires knowing what you have so you can make informed decisions about how to protect and transfer it effectively.",
-                "impact": "Moderate complexity - while basic documents can be implemented immediately, developing an effective comprehensive plan requires first creating an asset inventory to understand your planning needs."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "137",
+            "id": "219",
             "questionText": "Potential for family conflict",
             "description": [
               {
@@ -402,74 +1204,59 @@
             "media": [],
             "answers": [
               {
-                "id": "723",
+                "id": "1213",
                 "answerText": "Very unlikely - everyone gets along well",
                 "value": 0,
                 "answerId": "q4a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Family harmony allows for simpler planning approaches focused on efficiency rather than conflict prevention.",
-                "impact": "Lowest complexity - can often use standard estate planning documents without extensive conflict-prevention provisions."
+                "forFurtherReference": null
               },
               {
-                "id": "724",
+                "id": "1214",
                 "answerText": "Somewhat unlikely - minor tensions but generally cooperative",
                 "value": 2,
                 "answerId": "q4a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Minor tensions can escalate during emotional times of illness or death, requiring clearer documentation to prevent misunderstandings.",
-                "impact": "Low to moderate complexity - benefits from detailed planning and clear explanations, but typically manageable with standard approaches."
+                "forFurtherReference": null
               },
               {
-                "id": "725",
+                "id": "1215",
                 "answerText": "Possible - some relationship challenges exist",
                 "value": 3,
                 "answerId": "q4a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Existing relationship challenges require estate planning that anticipates and addresses known points of tension to prevent escalation.",
-                "impact": "Moderate complexity - may benefit from professional fiduciaries, detailed distribution instructions, and conflict-prevention provisions."
+                "forFurtherReference": null
               },
               {
-                "id": "726",
+                "id": "1216",
                 "answerText": "Likely - there are significant relationship challenges",
                 "value": 4,
                 "answerId": "q4a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Significant relationship problems create substantial risk for estate disputes and litigation that can drain resources and damage relationships permanently.",
-                "impact": "Higher complexity requiring specialized planning with professional fiduciaries, robust conflict resolution mechanisms, and detailed incapacity planning."
+                "forFurtherReference": null
               },
               {
-                "id": "727",
+                "id": "1217",
                 "answerText": "Very likely - active conflicts already exist",
                 "value": 5,
                 "answerId": "q4a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Active family conflicts create high risk for costly estate litigation and interference with your wishes, requiring maximum protection strategies.",
-                "impact": "High complexity definitely requiring professional guidance for litigation-resistant planning, professional fiduciaries, and specialized conflict-prevention strategies."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "138",
+            "id": "220",
             "questionText": "Medical Decision-Making",
             "description": [
               {
@@ -489,74 +1276,59 @@
             "media": [],
             "answers": [
               {
-                "id": "728",
+                "id": "1218",
                 "answerText": "Very comfortable - I know exactly what I want",
                 "value": 0,
                 "answerId": "q5a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Clear understanding of your healthcare wishes helps ensure the right people can make decisions that align with your values when you can't speak for yourself.",
-                "impact": "Lowest complexity - can typically handle healthcare directives with standard forms and clear communication to your chosen healthcare agents."
+                "forFurtherReference": null
               },
               {
-                "id": "729",
+                "id": "1219",
                 "answerText": "Somewhat comfortable - I have a general idea",
                 "value": 1,
                 "answerId": "q5a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Having general preferences is a good start, but healthcare decisions often involve complex scenarios that benefit from more detailed advance consideration.",
-                "impact": "Low complexity - may benefit from exploring specific scenarios and ensuring your healthcare agents understand your values and preferences."
+                "forFurtherReference": null
               },
               {
-                "id": "730",
+                "id": "1220",
                 "answerText": "Neutral - I haven't given it much thought",
                 "value": 2,
                 "answerId": "q5a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Healthcare decisions often arise suddenly, and without clear guidance, family members may struggle to make choices that align with what you would want.",
-                "impact": "Moderate complexity - would benefit from time to consider your values and preferences before creating healthcare directives."
+                "forFurtherReference": null
               },
               {
-                "id": "731",
+                "id": "1221",
                 "answerText": "Somewhat uncomfortable - I have questions about my options",
                 "value": 3,
                 "answerId": "q5a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Healthcare directives involve complex scenarios with significant implications, and your questions indicate you'd benefit from guidance to make informed decisions.",
-                "impact": "Higher complexity - would benefit from professional guidance to understand options and create appropriate healthcare directives."
+                "forFurtherReference": null
               },
               {
-                "id": "732",
+                "id": "1222",
                 "answerText": "Very uncomfortable - I need help understanding my choices",
                 "value": 4,
                 "answerId": "q5a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Healthcare decision-making involves complex medical and personal considerations that most people aren't prepared to navigate alone.",
-                "impact": "High complexity requiring professional guidance to understand options, clarify values, and create meaningful healthcare directives with proper legal execution."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "139",
+            "id": "229",
             "questionText": "Property Transfer",
             "description": [
               {
@@ -576,87 +1348,263 @@
             "media": [],
             "answers": [
               {
-                "id": "733",
+                "id": "1223",
                 "answerText": "I want everything to transfer as simply as possible",
                 "value": 0,
                 "answerId": "q6a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Simple transfers can often be achieved through basic planning tools like beneficiary designations and straightforward wills.",
-                "impact": "Lowest complexity - can typically be accomplished with standard estate planning documents and basic transfer mechanisms."
+                "forFurtherReference": null
               },
               {
-                "id": "734",
+                "id": "1224",
                 "answerText": "I want to avoid probate for most/all of my assets",
                 "value": 2,
                 "answerId": "q6a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Probate avoidance requires coordinated planning using trusts, beneficiary designations, and proper asset titling rather than relying primarily on wills.",
-                "impact": "Moderate to higher complexity - requires comprehensive planning with multiple coordinated tools beyond basic will-based approaches."
+                "forFurtherReference": null
               },
               {
-                "id": "735",
+                "id": "1225",
                 "answerText": "I need to set up specific conditions for inheritances",
                 "value": 5,
                 "answerId": "q6a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Conditional inheritances require sophisticated legal language to be enforceable. DIY attempts often create unenforceable conditions, leading to expensive court battles or complete failure of your intended restrictions.",
-                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY conditional planning frequently results in unenforceable terms, costly litigation when conditions are disputed, and complete failure to achieve your intended controls."
+                "forFurtherReference": null
               },
               {
-                "id": "736",
+                "id": "1226",
                 "answerText": "I want to provide for minor children or dependents",
                 "value": 5,
                 "answerId": "q6a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 15,
-                "maximumResultScore": null,
-                "whyItMatters": "Planning for minor children involves guardianship laws and financial management requirements that vary by state. DIY mistakes can result in court-appointed guardians you wouldn't choose and mismanaged inheritances.",
-                "impact": "Probably requires professional guidance regardless of family simplicity - DIY errors with minor children can result in inappropriate guardians being appointed by courts and 18-year-olds receiving large inheritances they're unprepared to manage."
+                "forFurtherReference": {
+                  "Title": "Protect Your Children’s Inheritance With A Lifetime Asset Protection Trust",
+                  "tags": [
+                    {
+                      "documentId": "tsqga9i29d0uocwaup04gim2",
+                      "Name": "children's well-being",
+                      "slug": "children-well-being",
+                      "createdAt": "2024-01-05T23:41:10.305Z",
+                      "updatedAt": "2025-03-26T17:37:04.727Z",
+                      "publishedAt": "2025-03-26T17:37:04.634Z"
+                    },
+                    {
+                      "documentId": "l6b3c6njko4ff829g98w98tz",
+                      "Name": "family values",
+                      "slug": "family-values",
+                      "createdAt": "2024-05-10T22:58:11.558Z",
+                      "updatedAt": "2025-03-26T17:37:07.687Z",
+                      "publishedAt": "2025-03-26T17:37:07.597Z"
+                    },
+                    {
+                      "documentId": "vqmbei85woip5m94rjjvtqa5",
+                      "Name": "risk management",
+                      "slug": "risk-management",
+                      "createdAt": "2025-02-11T21:19:33.839Z",
+                      "updatedAt": "2025-03-26T17:37:09.755Z",
+                      "publishedAt": "2025-03-26T17:37:09.655Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "suvcjwulzvgoz05tt0rwdy5q",
+                    "name": "2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 972,
+                    "height": 559,
+                    "formats": {
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                        "hash": "small_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                        "mime": "image/webp",
+                        "name": "small_2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                        "path": null,
+                        "size": 12.32,
+                        "width": 500,
+                        "height": 288,
+                        "sizeInBytes": 12320
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                        "hash": "medium_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                        "mime": "image/webp",
+                        "name": "medium_2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                        "path": null,
+                        "size": 20.04,
+                        "width": 750,
+                        "height": 431,
+                        "sizeInBytes": 20038
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                        "hash": "thumbnail_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                        "mime": "image/webp",
+                        "name": "thumbnail_2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                        "path": null,
+                        "size": 4.56,
+                        "width": 245,
+                        "height": 141,
+                        "sizeInBytes": 4558
+                      }
+                    },
+                    "hash": "2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 33.43,
+                    "url": "/uploads/2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-04-02T21:46:10.088Z",
+                    "updatedAt": "2025-04-02T21:46:10.088Z",
+                    "publishedAt": "2025-04-02T21:46:10.088Z"
+                  },
+                  "slug": "protect-your-children-s-inheritance-with-a-lifetime-asset-protection-trust",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "Worried your children’s inheritance could be lost to divorce, debt, or a costly mistake? A Lifetime Asset Protection Trust offers a powerful solution. This unique trust not only shields your kids’ inheritance from life’s unexpected challenges—like lawsuits or bankruptcy—but also empowers them to manage and grow their legacy with confidence. Discover how this trust can provide airtight protection and a lifetime of financial guidance, even for modest estates. Read on to learn how to safeguard your family’s future today!",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "737",
+                "id": "1227",
                 "answerText": "I have concerns about beneficiaries' ability to manage their inheritance",
                 "value": 5,
                 "answerId": "q6a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Protecting irresponsible beneficiaries requires precisely drafted trust language and proper oversight structures. DIY attempts often fail to provide meaningful protection, leaving assets vulnerable to poor decisions or creditors.",
-                "impact": "Most likely requires professional guidance regardless of other circumstances - DIY beneficiary protection frequently fails when needed most, resulting in lost inheritances to addiction, creditors, or financial irresponsibility that proper trusts could have prevented."
+                "forFurtherReference": {
+                  "Title": "Protect Your Children’s Inheritance With A Lifetime Asset Protection Trust",
+                  "tags": [
+                    {
+                      "documentId": "tsqga9i29d0uocwaup04gim2",
+                      "Name": "children's well-being",
+                      "slug": "children-well-being",
+                      "createdAt": "2024-01-05T23:41:10.305Z",
+                      "updatedAt": "2025-03-26T17:37:04.727Z",
+                      "publishedAt": "2025-03-26T17:37:04.634Z"
+                    },
+                    {
+                      "documentId": "l6b3c6njko4ff829g98w98tz",
+                      "Name": "family values",
+                      "slug": "family-values",
+                      "createdAt": "2024-05-10T22:58:11.558Z",
+                      "updatedAt": "2025-03-26T17:37:07.687Z",
+                      "publishedAt": "2025-03-26T17:37:07.597Z"
+                    },
+                    {
+                      "documentId": "vqmbei85woip5m94rjjvtqa5",
+                      "Name": "risk management",
+                      "slug": "risk-management",
+                      "createdAt": "2025-02-11T21:19:33.839Z",
+                      "updatedAt": "2025-03-26T17:37:09.755Z",
+                      "publishedAt": "2025-03-26T17:37:09.655Z"
+                    }
+                  ],
+                  "Image": {
+                    "documentId": "suvcjwulzvgoz05tt0rwdy5q",
+                    "name": "2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                    "alternativeText": null,
+                    "caption": null,
+                    "width": 972,
+                    "height": 559,
+                    "formats": {
+                      "small": {
+                        "ext": ".webp",
+                        "url": "/uploads/small_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                        "hash": "small_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                        "mime": "image/webp",
+                        "name": "small_2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                        "path": null,
+                        "size": 12.32,
+                        "width": 500,
+                        "height": 288,
+                        "sizeInBytes": 12320
+                      },
+                      "medium": {
+                        "ext": ".webp",
+                        "url": "/uploads/medium_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                        "hash": "medium_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                        "mime": "image/webp",
+                        "name": "medium_2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                        "path": null,
+                        "size": 20.04,
+                        "width": 750,
+                        "height": 431,
+                        "sizeInBytes": 20038
+                      },
+                      "thumbnail": {
+                        "ext": ".webp",
+                        "url": "/uploads/thumbnail_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                        "hash": "thumbnail_2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                        "mime": "image/webp",
+                        "name": "thumbnail_2022.04.01 PFL [SMP] PROTECT YOUR CHILDREN’S INHERITANCE WITH A LIFETIME ASSET PROTECTION TRUST.webp",
+                        "path": null,
+                        "size": 4.56,
+                        "width": 245,
+                        "height": 141,
+                        "sizeInBytes": 4558
+                      }
+                    },
+                    "hash": "2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698",
+                    "ext": ".webp",
+                    "mime": "image/webp",
+                    "size": 33.43,
+                    "url": "/uploads/2022_04_01_PFL_SMP_PROTECT_YOUR_CHILDREN_S_INHERITANCE_WITH_A_LIFETIME_ASSET_PROTECTION_TRUST_fc2e9dd698.webp",
+                    "previewUrl": null,
+                    "provider": "local",
+                    "provider_metadata": null,
+                    "createdAt": "2025-04-02T21:46:10.088Z",
+                    "updatedAt": "2025-04-02T21:46:10.088Z",
+                    "publishedAt": "2025-04-02T21:46:10.088Z"
+                  },
+                  "slug": "protect-your-children-s-inheritance-with-a-lifetime-asset-protection-trust",
+                  "Snippet": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "Worried your children’s inheritance could be lost to divorce, debt, or a costly mistake? A Lifetime Asset Protection Trust offers a powerful solution. This unique trust not only shields your kids’ inheritance from life’s unexpected challenges—like lawsuits or bankruptcy—but also empowers them to manage and grow their legacy with confidence. Discover how this trust can provide airtight protection and a lifetime of financial guidance, even for modest estates. Read on to learn how to safeguard your family’s future today!",
+                          "type": "text"
+                        }
+                      ]
+                    }
+                  ]
+                }
               },
               {
-                "id": "738",
+                "id": "1228",
                 "answerText": "I want to include charitable giving in my plan",
                 "value": 2,
                 "answerId": "q6a6",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Charitable planning can range from simple bequests to sophisticated structures that provide tax benefits and ongoing philanthropic impact.",
-                "impact": "Low to moderate complexity - simple charitable bequests are straightforward, but advanced charitable planning requires specialized knowledge and structures."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "140",
+            "id": "221",
             "questionText": "Executor/Personal Representative/Trustee",
             "description": [
               {
@@ -676,87 +1624,69 @@
             "media": [],
             "answers": [
               {
-                "id": "739",
+                "id": "1229",
                 "answerText": "Spouse/partner",
                 "value": -2,
                 "answerId": "q7a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "A spouse or partner typically knows your values and wishes intimately, can make decisions quickly without formal processes, and often has legal rights that simplify estate administration.",
-                "impact": "Having a spouse or partner available as a fiduciary generally simplifies estate planning documentation and reduces administrative complexity."
+                "forFurtherReference": null
               },
               {
-                "id": "740",
+                "id": "1230",
                 "answerText": "Adult child",
                 "value": -1,
                 "answerId": "q7a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Adult children often understand your family dynamics and values, are typically motivated to honor your wishes, and can serve without the costs associated with professional fiduciaries.",
-                "impact": "Adult children as fiduciaries usually allow for straightforward estate planning with standard documentation and lower ongoing costs."
+                "forFurtherReference": null
               },
               {
-                "id": "741",
+                "id": "1231",
                 "answerText": "Other family member",
                 "value": 0,
                 "answerId": "q7a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Family members may understand your values and have personal investment in carrying out your wishes, though they may need more guidance on their responsibilities.",
-                "impact": "Other family members as fiduciaries typically require moderate documentation complexity to ensure clear guidance and authority."
+                "forFurtherReference": null
               },
               {
-                "id": "742",
+                "id": "1232",
                 "answerText": "Close friend",
                 "value": 1,
                 "answerId": "q7a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Close friends who know your values can be excellent fiduciaries, but may need more detailed instructions and formal authority since they lack automatic legal standing.",
-                "impact": "Appointing close friends often requires more detailed documentation and clear authority structures, moderately increasing planning complexity."
+                "forFurtherReference": null
               },
               {
-                "id": "743",
+                "id": "1233",
                 "answerText": "Professional (bank, trust company, attorney)",
                 "value": 3,
                 "answerId": "q7a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Professional fiduciaries bring expertise and objectivity but require formal oversight structures, detailed instructions, and ongoing fees that can significantly impact your estate.",
-                "impact": "Professional fiduciaries typically require more complex planning documents, formal oversight mechanisms, and result in higher ongoing administrative costs."
+                "forFurtherReference": null
               },
               {
-                "id": "744",
+                "id": "1234",
                 "answerText": "Not sure yet",
                 "value": 2,
                 "answerId": "q7a6",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Uncertainty about fiduciaries indicates a need to explore your options and understand the implications of different choices before finalizing your estate plan.",
-                "impact": "Being unsure about fiduciaries suggests additional planning work is needed, which may increase the complexity of your estate planning process."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "141",
+            "id": "222",
             "questionText": "Follow-Through",
             "description": [
               {
@@ -776,74 +1706,59 @@
             "media": [],
             "answers": [
               {
-                "id": "745",
+                "id": "1235",
                 "answerText": "Very high - I'm disciplined and complete what I start",
                 "value": 0,
                 "answerId": "q8a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Strong follow-through is essential for estate planning success, as implementation often involves multiple steps and ongoing maintenance over time.",
-                "impact": "Lowest complexity for implementation - your discipline makes DIY approaches more viable since you're likely to complete all necessary steps and updates."
+                "forFurtherReference": null
               },
               {
-                "id": "746",
+                "id": "1236",
                 "answerText": "High - I usually finish important projects",
                 "value": 1,
                 "answerId": "q8a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Your track record of completing important projects suggests you'll likely follow through with essential estate planning tasks and implementation steps.",
-                "impact": "Low complexity - can typically handle DIY approaches with clear instructions and checklists to maintain momentum through multi-step processes."
+                "forFurtherReference": null
               },
               {
-                "id": "747",
+                "id": "1237",
                 "answerText": "Moderate - I sometimes need accountability",
                 "value": 3,
                 "answerId": "q8a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Estate planning requires sustained attention to multiple implementation steps, and needing accountability may impact your ability to complete everything independently.",
-                "impact": "Moderate complexity - may benefit from professional oversight or structured check-ins to ensure complete implementation and ongoing maintenance."
+                "forFurtherReference": null
               },
               {
-                "id": "748",
+                "id": "1238",
                 "answerText": "Low - I often struggle with follow-through",
                 "value": 4,
                 "answerId": "q8a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Estate planning implementation requires sustained attention to detail across multiple steps, and follow-through challenges can result in incomplete or ineffective plans.",
-                "impact": "Higher complexity - DIY approaches present significant implementation risks; professional guidance with structured support may be essential for success."
+                "forFurtherReference": null
               },
               {
-                "id": "749",
+                "id": "1239",
                 "answerText": "Very low - I rarely complete complex paperwork",
                 "value": 5,
                 "answerId": "q8a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Estate planning involves numerous documents and implementation steps that must all be completed properly for the plan to function as intended.",
-                "impact": "High complexity requiring professional guidance with substantial implementation support, structured processes, and ongoing assistance to ensure plan completion."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "142",
+            "id": "223",
             "questionText": "Complexity Tolerance",
             "description": [
               {
@@ -863,74 +1778,59 @@
             "media": [],
             "answers": [
               {
-                "id": "750",
+                "id": "1240",
                 "answerText": "Very comfortable - I regularly handle complex matters",
                 "value": 0,
                 "answerId": "q9a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Comfort with complex matters indicates you can likely navigate the technical aspects of estate planning and understand sophisticated planning concepts.",
-                "impact": "Lowest complexity - can typically handle most estate planning independently with good reference materials and understanding of multi-step processes."
+                "forFurtherReference": null
               },
               {
-                "id": "751",
+                "id": "1241",
                 "answerText": "Somewhat comfortable - I can manage with good instructions",
                 "value": 1,
                 "answerId": "q9a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Being comfortable with good instructions suggests you can handle moderate estate planning complexity, especially with clear guidance materials.",
-                "impact": "Low to moderate complexity - can likely handle straightforward planning independently but may benefit from professional consultation on complex elements."
+                "forFurtherReference": null
               },
               {
-                "id": "752",
+                "id": "1242",
                 "answerText": "Neutral - I've had mixed experiences",
                 "value": 2,
                 "answerId": "q9a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Mixed experiences with legal matters suggests you might succeed with some aspects of estate planning while finding others challenging.",
-                "impact": "Moderate complexity - may benefit from a hybrid approach, handling comfortable aspects independently while seeking professional guidance for challenging elements."
+                "forFurtherReference": null
               },
               {
-                "id": "753",
+                "id": "1243",
                 "answerText": "Somewhat uncomfortable - I prefer guidance with legal matters",
                 "value": 3,
                 "answerId": "q9a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Preferring guidance with legal matters shows awareness that estate planning involves specialized concepts and language that can contain non-obvious pitfalls.",
-                "impact": "Higher complexity - DIY approaches may create anxiety or risk missing important considerations; professional guidance likely provides better outcomes."
+                "forFurtherReference": null
               },
               {
-                "id": "754",
+                "id": "1244",
                 "answerText": "Very uncomfortable - Legal jargon confuses me",
                 "value": 5,
                 "answerId": "q9a5",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Legal terminology can be confusing even for well-educated people, and estate planning documents use specialized language with specific legal meanings.",
-                "impact": "High complexity requiring professional guidance to ensure proper understanding and implementation of estate planning documents and concepts."
+                "forFurtherReference": null
               }
             ]
           },
           {
-            "id": "143",
+            "id": "224",
             "questionText": "Privacy Concerns",
             "description": [
               {
@@ -950,236 +1850,50 @@
             "media": [],
             "answers": [
               {
-                "id": "755",
+                "id": "1245",
                 "answerText": "Not important",
                 "value": 0,
                 "answerId": "q10a1",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "When privacy isn't a concern, you can use simpler planning approaches that may involve public probate proceedings without worrying about disclosure.",
-                "impact": "Lowest complexity - can use straightforward will-based planning without needing privacy-focused structures like trusts or complex asset titling."
+                "forFurtherReference": null
               },
               {
-                "id": "756",
+                "id": "1246",
                 "answerText": "Somewhat important",
                 "value": 2,
                 "answerId": "q10a2",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Moderate privacy concerns can often be addressed through selective use of privacy tools for sensitive assets while using simpler approaches for others.",
-                "impact": "Low to moderate complexity - may benefit from hybrid approach using beneficiary designations and limited trust planning for key assets."
+                "forFurtherReference": null
               },
               {
-                "id": "757",
+                "id": "1247",
                 "answerText": "Very important",
                 "value": 4,
                 "answerId": "q10a3",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "High privacy importance typically requires trust-based planning to keep asset transfers and distribution terms out of public probate records.",
-                "impact": "Higher complexity requiring comprehensive trust-based planning, proper funding, and ongoing maintenance to achieve meaningful privacy protection."
+                "forFurtherReference": null
               },
               {
-                "id": "758",
+                "id": "1248",
                 "answerText": "Critical - I have specific privacy concerns",
                 "value": 5,
                 "answerId": "q10a4",
                 "isCorrect": true,
                 "branchToQuestion": null,
                 "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Critical privacy needs often stem from specific circumstances requiring sophisticated planning to protect confidential information and family security.",
-                "impact": "High complexity requiring comprehensive privacy-focused planning with multiple coordinated structures and professional guidance to ensure effective protection."
-              }
-            ]
-          },
-          {
-            "id": "144",
-            "questionText": "Time Horizon",
-            "description": [
-              {
-                "type": "paragraph",
-                "children": [
-                  {
-                    "text": "When do you need your estate plan completed? Consider whether your timeline is driven by high-stakes circumstances (like health issues, upcoming medical procedures, family crises, or other urgent life events) or more routine planning needs.",
-                    "type": "text"
-                  }
-                ]
-              }
-            ],
-            "type": "single_choice",
-            "questionId": "q11",
-            "required": true,
-            "order": 11,
-            "media": [],
-            "answers": [
-              {
-                "id": "759",
-                "answerText": "Immediately - there's an urgent situation",
-                "value": 5,
-                "answerId": "q11a1",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Urgent planning situations often involve capacity concerns, high-stakes medical decisions, or legal deadlines where DIY mistakes can have immediate, irreversible consequences including invalidated documents or missed critical deadlines.",
-                "impact": "Most likely requires professional guidance regardless of other factors - DIY errors under time pressure frequently result in invalid documents, missed legal deadlines, or planning that fails when you need it most during medical or family crises."
-              },
-              {
-                "id": "760",
-                "answerText": "Within 1 month",
-                "value": 4,
-                "answerId": "q11a2",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "A one-month timeline may indicate moderately urgent circumstances that require prompt but thorough planning attention.",
-                "impact": "Moderate to high complexity - limited time for research while potentially dealing with time-sensitive decisions that benefit from professional efficiency."
-              },
-              {
-                "id": "761",
-                "answerText": "Within 3 months",
-                "value": 3,
-                "answerId": "q11a3",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "A three-month timeline allows for thoughtful planning while maintaining reasonable momentum toward completion.",
-                "impact": "Moderate complexity - provides time for research and decision-making while ensuring timely completion of planning goals."
-              },
-              {
-                "id": "762",
-                "answerText": "Within the next year",
-                "value": 2,
-                "answerId": "q11a4",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "A one-year timeline indicates routine planning without immediate pressure, allowing for thorough research and consideration.",
-                "impact": "Lower complexity - ample time for DIY research, family discussions, and careful implementation of planning strategies."
-              },
-              {
-                "id": "763",
-                "answerText": "No specific timeline",
-                "value": 2,
-                "answerId": "q11a5",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Lack of urgency may indicate either very simple needs or avoidance of complex planning decisions that feel overwhelming.",
-                "impact": "Variable complexity - while allowing maximum flexibility, indefinite timelines often result in incomplete planning and may indicate underlying complexity concerns."
-              }
-            ]
-          },
-          {
-            "id": "145",
-            "questionText": "Professional Help Preference",
-            "description": [
-              {
-                "type": "paragraph",
-                "children": [
-                  {
-                    "text": "What's your general preference regarding professional help with important legal or financial matters?",
-                    "type": "text"
-                  }
-                ]
-              }
-            ],
-            "type": "single_choice",
-            "questionId": "q12",
-            "required": true,
-            "order": 12,
-            "media": [],
-            "answers": [
-              {
-                "id": "764",
-                "answerText": "I prefer to do everything myself",
-                "value": 0,
-                "answerId": "q12a1",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Your preference for independence allows you to consider DIY approaches based on your capabilities and the complexity of your situation.",
-                "impact": "No complexity added - your DIY preference aligns with self-directed approaches when your situation supports it."
-              },
-              {
-                "id": "765",
-                "answerText": "I like to do most things myself with occasional guidance",
-                "value": 0,
-                "answerId": "q12a2",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": null,
-                "maximumResultScore": null,
-                "whyItMatters": "Your balanced approach to self-direction with selective professional input works well for many estate planning situations.",
-                "impact": "No complexity added - this preference supports guided self-help approaches when appropriate for your situation."
-              },
-              {
-                "id": "766",
-                "answerText": "I prefer a collaborative approach with professional oversight",
-                "value": 0,
-                "answerId": "q12a3",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": 15,
-                "maximumResultScore": null,
-                "whyItMatters": "Your preference for professional collaboration ensures appropriate guidance and reduces the risk of costly mistakes that come from working without professional oversight.",
-                "impact": "Professional guidance recommended based on your preferences - collaborative planning provides the professional oversight that prevents common DIY errors while respecting your desire for involvement."
-              },
-              {
-                "id": "767",
-                "answerText": "I prefer to have professionals handle important financial, tax, or legal matters",
-                "value": 0,
-                "answerId": "q12a4",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": 20,
-                "maximumResultScore": null,
-                "whyItMatters": "Your preference for professional handling of important matters reflects understanding that the consequences of mistakes in these areas can be severe and long-lasting.",
-                "impact": "Professional planning recommended based on your preferences - comprehensive professional guidance prevents the costly errors and oversights that often occur when important legal matters are handled without adequate expertise."
-              },
-              {
-                "id": "768",
-                "answerText": "I exclusively rely on professional expertise for complex financial, tax, or legal matters",
-                "value": 0,
-                "answerId": "q12a5",
-                "isCorrect": true,
-                "branchToQuestion": null,
-                "media": [],
-                "minimumResultScore": 25,
-                "maximumResultScore": null,
-                "whyItMatters": "Your exclusive reliance on professional expertise demonstrates recognition that the stakes are too high and the consequences of errors too severe to risk DIY approaches in complex matters.",
-                "impact": "Comprehensive professional planning recommended based on your preferences - full professional guidance eliminates the significant risks of costly mistakes that can occur when complex legal and financial matters are handled without specialized expertise."
+                "forFurtherReference": null
               }
             ]
           }
         ],
         "isActive": true,
-        "version": "2.1",
+        "version": "2.3",
         "description": [
           {
             "type": "paragraph",
@@ -1204,7 +1918,7 @@
         "title": "Is DIY Estate Planning Right for You?",
         "resultCategories": [
           {
-            "id": "46",
+            "id": "67",
             "title": "DIY Pathway",
             "description": [
               {
@@ -1234,7 +1948,7 @@
             "media": []
           },
           {
-            "id": "47",
+            "id": "68",
             "title": "Guided Self-Help Pathway",
             "description": [
               {
@@ -1264,7 +1978,7 @@
             "media": []
           },
           {
-            "id": "48",
+            "id": "69",
             "title": "Professional Planning Pathway",
             "description": [
               {
