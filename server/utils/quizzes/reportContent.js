@@ -1,6 +1,9 @@
 // server/utils/quizzes/reportContent.js
 
-import { extractSelectedAnswerImpact } from "./utils"
+import { extractSelectedAnswerImpact, addSectionHeader, checkPageBreak } from "./utils"
+import { generateQRForPDF } from "../qrcode/index.js"
+import { richTextToPdf } from "./richText2Pdf.js"
+import { renderRichTextToPdf } from "./renderRichText2Pdf.js"
 
 export const addCoverPage = (doc, user, quizResults) => {
   // Page dimensions
@@ -317,51 +320,236 @@ export const addNextSteps = (doc, quizResults) => {
   return doc
 }
 
-export const addResources = (doc) => {
+/**
+ * Renders a blog post with QR code in side-by-side layout
+ * @param {PDFDocument} doc - PDFKit document
+ * @param {Object} blogPost - Blog post data
+ * @param {number} yPosition - Y position to render at
+ * @param {Object} config - Layout configuration
+ * @returns {Object} { doc, yPosition: newYPosition }
+ */
+export const renderBlogPostWithQR = async (doc, blogPost, yPosition, config) => {
+  const { qrSize = 60, contentWidth = 350, spacing = 10 } = config
+  const blogUrl = `https://ohlawcolorado.com/blog/${blogPost.slug}`
+  
+  try {
+    // Generate QR code
+    const qrBuffer = await generateQRForPDF(blogUrl, {
+      preset: 'professional',
+      size: 'large'
+    })
+    
+    // Calculate positions
+    const qrX = 50
+    const contentX = qrX + qrSize + spacing
+    const startY = yPosition
+    
+    // Add QR code
+    doc.image(qrBuffer, qrX, startY, { width: qrSize, height: qrSize })
+    
+    // Add content
+    doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
+      .fontSize(12)
+      .text(blogPost.Title, contentX, startY, { width: contentWidth })
+    
+    const titleHeight = doc.heightOfString(blogPost.Title, { width: contentWidth })
+    
+    // Add description if available
+    if (blogPost.Snippet) {
+      doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
+        .fontSize(10)
+        .fillColor('#666666')
+        .text(blogPost.Snippet, contentX, startY + titleHeight + 5, { width: contentWidth })
+    }
+    
+    // Calculate total height used
+    const descriptionHeight = blogPost.Snippet ? 
+      doc.heightOfString(blogPost.Snippet, { width: contentWidth }) : 0
+    const totalHeight = Math.max(qrSize, titleHeight + descriptionHeight + 5)
+    
+    doc.fillColor('#000000') // Reset color
+    return { doc, yPosition: startY + totalHeight + spacing }
+    
+  } catch (error) {
+    console.error('Error rendering blog post with QR:', error)
+    // Fallback: render without QR code
+    doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
+      .fontSize(12)
+      .text(`• ${blogPost.Title}`, 50, yPosition)
+    
+    return { doc, yPosition: yPosition + 20 }
+  }
+}
+
+/**
+ * Renders static tools with QR codes
+ * @param {PDFDocument} doc - PDFKit document
+ * @param {Array} tools - Array of tool objects
+ * @param {number} yPosition - Y position to render at
+ * @param {Object} config - Layout configuration
+ * @returns {Object} { doc, yPosition: newYPosition }
+ */
+export const renderStaticToolsWithQR = async (doc, tools, yPosition, config) => {
+  const { qrSize = 60, contentWidth = 350, spacing = 10 } = config
+  let currentY = yPosition
+  
+  for (const tool of tools) {
+    try {
+      // Generate QR code
+      const qrBuffer = await generateQRForPDF(tool.url, {
+        preset: 'professional',
+        size: 'large'
+      })
+      
+      // Calculate positions
+      const qrX = 50
+      const contentX = qrX + qrSize + spacing
+      
+      // Add QR code
+      doc.image(qrBuffer, qrX, currentY, { width: qrSize, height: qrSize })
+      
+      // Add content
+      doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
+        .fontSize(12)
+        .text(tool.title, contentX, currentY, { width: contentWidth })
+      
+      const titleHeight = doc.heightOfString(tool.title, { width: contentWidth })
+      
+      // Add description
+      doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
+        .fontSize(10)
+        .fillColor('#666666')
+        .text(tool.description, contentX, currentY + titleHeight + 5, { width: contentWidth })
+      
+      const descriptionHeight = doc.heightOfString(tool.description, { width: contentWidth })
+      const totalHeight = Math.max(qrSize, titleHeight + descriptionHeight + 5)
+      
+      currentY += totalHeight + spacing
+      doc.fillColor('#000000') // Reset color
+      
+    } catch (error) {
+      console.error('Error rendering tool with QR:', error)
+      // Fallback: render without QR code
+      doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
+        .fontSize(12)
+        .text(`• ${tool.title}`, 50, currentY)
+      
+      currentY += 20
+    }
+  }
+  
+  return { doc, yPosition: currentY }
+}
+
+/**
+ * Calculates optimal layout for resources to fit on single page
+ * @param {Array} blogPosts - Recommended blog posts
+ * @param {Array} staticTools - Static tools
+ * @param {number} availableSpace - Available vertical space
+ * @returns {Object} Layout configuration
+ */
+export const calculateResourcesLayout = (blogPosts, staticTools, availableSpace) => {
+  const baseItemHeight = 80 // Approximate height per item with QR
+  const sectionSpacing = 30 // Space between sections
+  const headerHeight = 40 // Space for section headers
+  
+  // Calculate space needed
+  const blogPostsHeight = blogPosts.length * baseItemHeight
+  const staticToolsHeight = staticTools.length * baseItemHeight
+  const totalNeeded = blogPostsHeight + staticToolsHeight + (2 * headerHeight) + sectionSpacing
+  
+  // If we have too much content, prioritize and trim
+  if (totalNeeded > availableSpace) {
+    const maxItems = Math.floor((availableSpace - (2 * headerHeight) - sectionSpacing) / baseItemHeight)
+    const blogsToShow = Math.min(blogPosts.length, Math.ceil(maxItems * 0.6)) // 60% for blogs
+    const toolsToShow = Math.min(staticTools.length, maxItems - blogsToShow)
+    
+    return {
+      maxBlogPosts: blogsToShow,
+      maxStaticTools: toolsToShow,
+      qrSize: 60,
+      contentWidth: 350,
+      spacing: 10,
+      fitsOnPage: true
+    }
+  }
+  
+  return {
+    maxBlogPosts: blogPosts.length,
+    maxStaticTools: staticTools.length,
+    qrSize: 60,
+    contentWidth: 350,
+    spacing: 10,
+    fitsOnPage: true
+  }
+}
+
+/**
+ * Enhanced addResources function with dynamic content and QR codes
+ * @param {PDFDocument} doc - PDFKit document
+ * @param {Array} recommendedPosts - Blog posts from Phase 1 recommendations
+ * @param {Array} staticTools - Static tools from app config
+ * @returns {PDFDocument} Modified document
+ */
+export const addResources = async (doc, recommendedPosts = [], staticTools = []) => {
   // Add section header
   addSectionHeader(doc, 'Resources & Tools')
 
   doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
     .fontSize(12)
-    .text('These resources will help you learn more about estate planning and prepare for your next steps:')
+    .text('These resources will help you learn more about estate planning and prepare for your next steps. Scan the QR codes to access them directly:')
     .moveDown(1)
 
-  // Blog articles
-  doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-    .fontSize(14)
-    .text('Recommended Reading:')
-    .moveDown(0.5)
-
-  doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-    .fontSize(12)
-    .text('• The Difference Between Wills and Trusts')
-    .moveDown(0.25)
-    .text('• Understanding Powers of Attorney')
-    .moveDown(0.25)
-    .text('• How to Protect Your Digital Assets')
-    .moveDown(1)
-
-  // Tools
-  doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-    .fontSize(14)
-    .text('Helpful Tools:')
-    .moveDown(0.5)
-
-  doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-    .fontSize(12)
-    .text('• Estate Planning Checklist')
-    .moveDown(0.25)
-    .text('• Asset Inventory Worksheet')
-    .moveDown(0.25)
-    .text('• Guardian Nomination Form')
-    .moveDown(1)
-
-  // Add disclaimer
+  // Calculate available space (estimate based on current position)
+  const availableSpace = doc.page.height - doc.y - 100 // Leave space for disclaimer
+  
+  // Get layout configuration
+  const layout = calculateResourcesLayout(recommendedPosts, staticTools, availableSpace)
+  
+  let currentY = doc.y
+  
+  // Render blog posts section
+  if (recommendedPosts.length > 0) {
+    doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
+      .fontSize(14)
+      .text('Recommended Reading:', 50, currentY)
+    
+    currentY += 30
+    
+    const postsToShow = recommendedPosts.slice(0, layout.maxBlogPosts)
+    
+    for (const post of postsToShow) {
+      const result = await renderBlogPostWithQR(doc, post, currentY, layout)
+      doc = result.doc
+      currentY = result.yPosition
+    }
+    
+    currentY += 15 // Space between sections
+  }
+  
+  // Render static tools section
+  if (staticTools.length > 0) {
+    doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
+      .fontSize(14)
+      .text('Helpful Tools:', 50, currentY)
+    
+    currentY += 30
+    
+    const toolsToShow = staticTools.slice(0, layout.maxStaticTools)
+    
+    const result = await renderStaticToolsWithQR(doc, toolsToShow, currentY, layout)
+    doc = result.doc
+    currentY = result.yPosition
+  }
+  
+  // Add disclaimer at bottom
+  doc.y = currentY + 20
   doc.font('app/assets/fonts/PlusJakartaSans-LightItalic.ttf')
     .fontSize(10)
     .text('Disclaimer: This report provides general information about estate planning and is not ' +
       'legal advice. For advice specific to your situation, please consult with an attorney. ' +
       'The Law Offices of Owen Hathaway provides this information as an educational resource.')
     .moveDown(2)
+  
   return doc
 }

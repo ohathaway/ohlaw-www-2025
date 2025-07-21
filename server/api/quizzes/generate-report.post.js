@@ -6,6 +6,8 @@ import path from 'path'
 import markdownIt from 'markdown-it'
 import { getQuizForAIbySlug } from '~~/server/utils/quizzes/utils'
 import { toTitleCase } from `~~/app/utils/strings`
+import { recommendBlogPosts } from '~~/server/utils/quizzes/contentRecommendations'
+import { pipe } from '~~/server/utils/functional.ts'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -109,7 +111,7 @@ export default defineEventHandler(async (event) => {
 })
 
 
-const generatePDF = (user, quizResults, quizData, explanations) => {
+const generatePDF = async (user, quizResults, quizData, explanations) => {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({
       margin: 50,
@@ -147,20 +149,37 @@ const generatePDF = (user, quizResults, quizData, explanations) => {
       return doc
     }
 
-    const useAddResources = doc => {
-      addResources(doc)
-      return doc
+    const useAddResources = async doc => {
+      // Get Phase 1 blog recommendations
+      const recommendedPosts = await recommendBlogPosts(
+        quizResults.userAnswers,
+        quizResults,
+        5 // Max 5 recommendations
+      )
+      
+      // Get static tools from app config
+      const runtimeConfig = useRuntimeConfig()
+      const appConfig = runtimeConfig.appConfig || {}
+      const staticTools = appConfig.quizzes?.reports?.staticTools || []
+      
+      // Add resources with QR codes
+      const updatedDoc = await addResources(doc, recommendedPosts, staticTools)
+      return updatedDoc
     }
 
-    // process the document in a pipeline
-    pipe(
+    // Process the document in a pipeline (handling async resources step separately)
+    const processedDoc = pipe(
       useAddCoverPage,
       useAddExecutiveSummary,
       useAddQuestionAnalysis,
       // useAddNextSteps,
-      useAddResources,
-      () => doc.end()
     )(doc)
+    
+    // Handle async resources step
+    await useAddResources(processedDoc)
+    
+    // End the document
+    doc.end()
   })
 }
 
