@@ -210,7 +210,6 @@ export default defineNuxtConfig({
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
     'bootstrap-icons/font/bootstrap-icons.css',
-    // '@formkit/themes/genesis',
     '@formkit/addons/css/floatingLabels',
     '~/assets/css/site.css',
   ],
@@ -248,21 +247,39 @@ export default defineNuxtConfig({
       include: ['./primevue.ohlaw.ts']
     },
     plugins: [
-      tailwindcss()
+      tailwindcss({
+        content: [
+          "./app/**/*.{vue,js,ts}",
+          "./server/**/*.{js,ts}",
+          "./components/**/*.{vue,js,ts}",
+          "./layouts/**/*.{vue,js,ts}",
+          "./pages/**/*.{vue,js,ts}",
+          "./plugins/**/*.{js,ts}",
+          "./composables/**/*.{js,ts}",
+          "./utils/**/*.{js,ts}",
+          "./primevue.ohlaw.ts"
+        ]
+      })
     ],
     build: {
       target: 'es2020',
-      cssTarget: 'chrome80'
+      cssTarget: 'chrome80',
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-ui': ['primevue', 'primeicons'],
+            'vendor-css': ['@fortawesome/fontawesome-svg-core', 'bootstrap-icons']
+          }
+        }
+      }
     }
   },
 
   postcss: {
     plugins: {
       'postcss-import': {},
-      'postcss-simple-vars': {},
       'postcss-nesting': {},
-      'postcss-mixins': {},
-      'postcss-color-function': {},
       autoprefixer: {},
       cssnano: process.env.NODE_ENV === 'production' ? {} : false
     }
@@ -291,6 +308,11 @@ export default defineNuxtConfig({
       pages: true,
       commons: true
     }
+  },
+
+  // CSS optimization
+  features: {
+    inlineStyles: false
   },
 
   imports: {
