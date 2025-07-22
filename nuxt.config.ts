@@ -7,9 +7,6 @@ import { ohLawPreset } from './primevue.ohlaw'
 const preset = definePreset(Aura, ohLawPreset)
 // console.log('PrimeVue theme preset structure:', JSON.stringify(preset, null, 2))
 
-// console.log('NUXT_PUBLIC_GTAG_ID', process.env.NUXT_PUBLIC_GTAG_ID)
-console.log('env', process.env)
-
 // console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
 // Blog post prefetch helper
@@ -309,7 +306,7 @@ export default defineNuxtConfig({
   },
 
   gtag: {
-    id: process.env.NUXT_PUBLIC_GTAG_ID,
+    id: process.env.GTAG_ID,
     enabled: process.env.NODE_ENV === 'production'
   },
 
