@@ -6,8 +6,8 @@
     "build": "NUXT_GIT_COMMIT=$(git rev-parse --short HEAD) NUXT_BUILD_DATE=$(date -u +\"%Y-%m-%dT%H:%M:%SZ\") nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "npx nuxthub preview",
-    "deploy": "npx nuxthub deploy",
+    "preview": "pnpm dlx nuxthub preview",
+    "deploy": "pnpm dlx nuxthub deploy",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "generate-blog-pdfs": "node scripts/generate-blog-pdfs-simple.js"
@@ -79,7 +79,7 @@
     "sass-embedded": "^1.89.2",
     "typescript": "^5.8.3",
     "vue-tsc": "^2.2.10",
-    "wrangler": "^3.114.9"
+    "wrangler": "^4.25.1"
   },
   "packageManager": "pnpm@10.12.1"
 }

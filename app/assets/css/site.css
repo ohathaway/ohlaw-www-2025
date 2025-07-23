@@ -2,8 +2,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "tailwindcss-primeui";
-@import "primeicons/primeicons.css";
-/* @import "./formkit.css"; */
+@import "./critical-primevue.css";
 @import "./theme.css";
 
 /* Semantic color tokens for SECURE 2.0 calculator */
