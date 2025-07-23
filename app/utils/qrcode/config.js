@@ -66,14 +66,14 @@ export const QRStylePresets = {
   professional: {
     dotsOptions: {
       color: OHLawColors.primary.chambray[700],
-      type: 'rounded',
+      type: 'extra-rounded',
     },
     backgroundOptions: {
       color: '#ffffff',
     },
     cornersSquareOptions: {
       color: OHLawColors.primary.chambray[800],
-      type: 'extra-rounded',
+      type: 'dot',
     },
     cornersDotOptions: {
       color: OHLawColors.primary.chambray[900],

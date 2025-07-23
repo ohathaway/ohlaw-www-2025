@@ -1,0 +1,81 @@
+/* Critical PrimeVue styles to prevent FOUC for header components */
+
+/* Button base styles */
+.p-button {
+  display: inline-flex;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.p-button:disabled {
+  cursor: default;
+}
+
+.p-button-icon-only {
+  justify-content: center;
+}
+
+.p-button-text {
+  background: transparent;
+  border-color: transparent;
+}
+
+.p-button-rounded {
+  border-radius: 50%;
+}
+
+/* Menubar base styles */
+.p-menubar {
+  display: flex;
+  align-items: center;
+}
+
+.p-menubar-root-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.p-menubar-item {
+  position: relative;
+}
+
+.p-menubar-item-content {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.p-menubar-item-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.p-menubar-item-icon {
+  margin-right: 0.5rem;
+}
+
+/* Hide unstyled content initially */
+.p-menubar:not(.p-component) {
+  visibility: hidden;
+}
+
+.p-button:not(.p-component) {
+  visibility: hidden;
+}
