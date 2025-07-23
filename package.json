@@ -53,7 +53,7 @@
     "mailersend": "^2.6.0",
     "markdown-it": "^14.1.0",
     "meilisearch": "^0.51.0",
-    "nuxt": "^3.17.5",
+    "nuxt": "^4.0.1",
     "nuxt-gtag": "3.0.3",
     "pdfkit": "^0.17.1",
     "pinia": "^3.0.3",
