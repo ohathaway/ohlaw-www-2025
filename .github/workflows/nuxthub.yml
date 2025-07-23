@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install pnpm
+      - name: Install pnpm over and over ;)
         uses: pnpm/action-setup@v4
 
       - name: Install Node.js
