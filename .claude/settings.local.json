@@ -4,8 +4,7 @@
       "Bash(pnpm dev:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(node:*)",
-      "Bash(rm:*)"
+      "Bash(node:*)"
     ],
     "deny": []
   }
