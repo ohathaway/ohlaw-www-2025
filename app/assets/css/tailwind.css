@@ -1,8 +1,0 @@
-@import "tailwindcss";
-@import "tailwindcss-primeui";
-@import "primeicons/primeicons.css";
-@import "./theme.css";
-
-@theme {
-  --breakpoint-compact: 1420px;
-}

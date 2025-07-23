@@ -1,11 +1,10 @@
 import tailwindcss from '@tailwindcss/vite'
-import Aura from '@primeuix/themes/aura'
-import { definePreset } from '@primeuix/themes'
-import { ohLawPreset } from './primevue.ohlaw'
+// import Aura from '@primeuix/themes/aura'
+// import { definePreset } from '@primeuix/themes'
+// import { ohLawPreset } from './primevue.ohlaw'
 
 // Customization for PrimeVue
-const preset = definePreset(Aura, ohLawPreset)
-// console.log('PrimeVue theme preset structure:', JSON.stringify(preset, null, 2))
+// const preset = definePreset(Aura, ohLawPreset)
 
 // console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
 
@@ -82,8 +81,20 @@ const getPostRoutes = async () => {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // https://nuxt.com/modules
-  modules: [// '@formkit/nuxt', // disabled as FormKit doesn't seem to work with Tailwind 4
-  '@nuxt/eslint', '@nuxt/image', '@nuxthub/core', '@nuxtjs/apollo', '@nuxtjs/robots', '@nuxtjs/sitemap', '@pinia/nuxt', '@primevue/nuxt-module', '@vueuse/nuxt', 'nuxt-lodash', 'nuxt-gtag'],
+  modules: [
+    // '@formkit/nuxt', // disabled as FormKit doesn't seem to work with Tailwind 4
+    '@nuxt/eslint',
+    '@nuxt/image',
+    '@nuxthub/core',
+    '@nuxtjs/apollo',
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap',
+    '@pinia/nuxt',
+    // '@primevue/nuxt-module',
+    '@vueuse/nuxt',
+    'nuxt-lodash',
+    'nuxt-gtag'
+  ],
 
   /* disabled since FormKit doesn't seem to work with Tailwind 4
   formkit: {
@@ -91,6 +102,7 @@ export default defineNuxtConfig({
   },
   */
 
+  /*
   primevue: {
     options: {
       theme: {
@@ -99,8 +111,9 @@ export default defineNuxtConfig({
       tailwind: true,
       unstyled: false
     },
-    autoImport: true
+    autoImport: false
   },
+  */
 
   // https://devtools.nuxt.com
   devtools: {
@@ -134,7 +147,7 @@ export default defineNuxtConfig({
     },
     lawmatics: {
       url: process.env.LAWMATICS_URL,
-      key: process.env.LAWMATICS_KEY,
+      key: process.env.LAWMATICS_KEY
     },
     claude: {
       apiKey: process.env.CLAUDE_KEY
@@ -168,12 +181,13 @@ export default defineNuxtConfig({
       ],
       meta: [
         {
-          name: "google-site-verification",
-          content: "Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU"
+          name: 'google-site-verification',
+          content: 'Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU'
         },
         {
           name: 'description',
-          content: 'Expert estate planning, bankruptcy, and small business legal services in Colorado. The Law Offices of Owen Hathaway provides heart-centered legal guidance to help you protect your family and business legacy.'
+          content:
+            'Expert estate planning, bankruptcy, and small business legal services in Colorado. The Law Offices of Owen Hathaway provides heart-centered legal guidance to help you protect your family and business legacy.'
         },
         {
           property: 'og:site_name',
@@ -203,15 +217,17 @@ export default defineNuxtConfig({
   site: {
     url: 'https://ohlawcolorado.com',
     name: 'The Law Offices of Owen Hathaway',
-    description: 'Expert estate planning, bankruptcy, and small business legal services in Colorado. Heart-centered legal guidance to protect your family and business legacy.',
+    description:
+      'Expert estate planning, bankruptcy, and small business legal services in Colorado. Heart-centered legal guidance to protect your family and business legacy.',
     defaultLocale: 'en'
   },
 
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
     'bootstrap-icons/font/bootstrap-icons.css',
+    'primeicons/primeicons.css',
     '@formkit/addons/css/floatingLabels',
-    '~/assets/css/site.css',
+    '~/assets/css/site.css'
   ],
 
   image: {
@@ -244,35 +260,13 @@ export default defineNuxtConfig({
       }
     },
     optimizeDeps: {
-      include: ['./primevue.ohlaw.ts']
+      // include: ['./primevue.ohlaw.ts', 'primeicons']
     },
-    plugins: [
-      tailwindcss({
-        content: [
-          "./app/**/*.{vue,js,ts}",
-          "./server/**/*.{js,ts}",
-          "./components/**/*.{vue,js,ts}",
-          "./layouts/**/*.{vue,js,ts}",
-          "./pages/**/*.{vue,js,ts}",
-          "./plugins/**/*.{js,ts}",
-          "./composables/**/*.{js,ts}",
-          "./utils/**/*.{js,ts}",
-          "./primevue.ohlaw.ts"
-        ]
-      })
-    ],
+    plugins: [tailwindcss()],
     build: {
       target: 'es2020',
       cssTarget: 'chrome80',
-      cssCodeSplit: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'vendor-ui': ['primevue', 'primeicons'],
-            'vendor-css': ['@fortawesome/fontawesome-svg-core', 'bootstrap-icons']
-          }
-        }
-      }
+      cssCodeSplit: true
     }
   },
 
@@ -285,6 +279,7 @@ export default defineNuxtConfig({
     }
   },
 
+  /*
   build: {
     transpile: [
       '@formkit/icons',
@@ -295,6 +290,7 @@ export default defineNuxtConfig({
       '@formkit/vue'
     ]
   },
+  */
 
   // Production optimizations
   experimental: {
@@ -316,10 +312,7 @@ export default defineNuxtConfig({
   },
 
   imports: {
-    dirs: [
-      'app/utils',
-      'app/stores'
-    ]
+    dirs: ['app/utils', 'app/stores']
   },
 
   lodash: {
@@ -334,9 +327,7 @@ export default defineNuxtConfig({
 
   // https://nuxtseo.com
   sitemap: {
-    sources: [
-      'https://strapi.ohlawcolorado.com/api/sitemap/index.xml'
-    ]
+    sources: ['https://strapi.ohlawcolorado.com/api/sitemap/index.xml']
   },
 
   // https://nuxtseo.com
@@ -362,14 +353,12 @@ export default defineNuxtConfig({
   eslint: {
     config: {
       stylistic: {
-        quotes: 'single',
-      },
-    },
+        quotes: 'single'
+      }
+    }
   },
 
-  watch: [
-    './primevue.ohlaw.ts'
-  ],
+  watch: ['./primevue.ohlaw.ts'],
 
   apollo: {
     clients: {
@@ -381,7 +370,7 @@ export default defineNuxtConfig({
             fetchPolicy: 'cache-and-network'
           }
         },
-        httpEndpoint: `${process.env.STRAPI_URL}/graphql`,
+        httpEndpoint: `${process.env.STRAPI_URL}/graphql`
         /*
         httpLinkOptions: {
           headers: {
