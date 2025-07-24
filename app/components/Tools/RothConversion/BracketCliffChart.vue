@@ -3,7 +3,7 @@
     <!-- Educational Header -->
     <div class="mb-6 lg:mx-5 p-4 bg-primary-50 border border-primary-200 rounded-lg">
       <h3 class="text-lg font-semibold text-primary-800 mb-2 flex items-center gap-2">
-        <i class="pi pi-chart-line text-primary-600"></i>
+        <i class="pi pi-chart-line text-primary-600" />
         What This Really Means for Your Family
       </h3>
       <p class="text-primary-700 text-sm">
@@ -22,14 +22,16 @@
           type="bar"
           :data="chartData"
           :options="chartOptions"
-          @select="handleChartClick"
           class="w-full h-full"
+          @select="handleChartClick"
         />
         <div v-else class="flex items-center justify-center h-full text-slate-500">
           <div class="text-center">
-            <i class="pi pi-chart-line text-4xl mb-2"></i>
+            <i class="pi pi-chart-line text-4xl mb-2" />
             <p>{{ scenarioCalculations.length === 0 ? 'Chart will appear after calculating scenarios' : 'Loading chart...' }}</p>
-            <p class="text-xs mt-1">{{ scenarioCalculations.length }} scenario(s) available</p>
+            <p class="text-xs mt-1">
+              {{ scenarioCalculations.length }} scenario(s) available
+            </p>
           </div>
         </div>
       </div>
@@ -37,24 +39,24 @@
 
     <!-- Chart Legend with Explanations -->
     <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-      <div 
-        v-for="(scenario, index) in scenarioCalculations" 
+      <div
+        v-for="(scenario, index) in scenarioCalculations"
         :key="scenario.scenario.name"
         class="p-3 rounded-md border transition-all duration-200 cursor-pointer hover:shadow-md"
         :class="[
           getScenarioClasses(scenario.scenario, scenario.netFamilySavings, totalPreTaxAccounts),
-          selectedIndex === index ? 'ring-2 ring-primary-500 ring-offset-2' : ''
+          selectedIndex === index ? 'ring-2 ring-primary-500 ring-offset-2' : '',
         ]"
-        @click="selectScenario(index)"
         role="button"
         :aria-label="`Select ${scenario.scenario.name} scenario from chart`"
         tabindex="0"
+        @click="selectScenario(index)"
         @keydown.enter="selectScenario(index)"
         @keydown.space.prevent="selectScenario(index)"
       >
         <div class="flex items-center justify-between mb-1">
           <span class="font-medium text-sm">{{ scenario.scenario.name }}</span>
-          <i :class="getScenarioIcon(scenario.scenario)" class="text-lg"></i>
+          <i :class="getScenarioIcon(scenario.scenario)" class="text-lg" />
         </div>
         <div class="text-xs opacity-75">
           {{ formatCurrency(scenario.scenario.conversionAmount) }} conversion
@@ -68,15 +70,14 @@
     <!-- Selected Scenario Indicator -->
     <div v-if="selectedScenario" class="mt-4 p-4 bg-primary-50 border border-primary-200 rounded-md">
       <div class="flex items-center gap-2">
-        <i class="pi pi-check-circle text-primary-600"></i>
+        <i class="pi pi-check-circle text-primary-600" />
         <span class="font-medium text-primary-800">
-          Selected: {{ selectedScenario.scenario.name }} 
-          ({{ formatCurrency(selectedScenario.scenario.conversionAmount) }} conversion, 
+          Selected: {{ selectedScenario.scenario.name }}
+          ({{ formatCurrency(selectedScenario.scenario.conversionAmount) }} conversion,
           {{ selectedScenario.netFamilySavings > 0 ? '+' : '' }}{{ formatCurrency(selectedScenario.netFamilySavings) }} net savings)
         </span>
       </div>
-      
-      
+
       <!-- Danger Warning -->
       <div v-if="selectedScenario.scenario.isDangerous && selectedScenario.netFamilySavings < 0" class="mt-2">
         <Tag severity="danger" value="⚠️ Family Loses Money" class="text-xs" />
@@ -92,22 +93,22 @@ import { formatCurrency } from '~/utils/numbers'
 const props = defineProps({
   scenarioCalculations: {
     type: Array,
-    required: true
+    required: true,
   },
   totalPreTaxAccounts: {
     type: Number,
-    default: null
-  }
+    default: null,
+  },
 })
 
 const emit = defineEmits(['scenario-selected'])
 
 // Use the Roth calculations composable
-const { 
-  generateChartData, 
-  generateChartOptions, 
-  getScenarioClasses, 
-  getScenarioIcon 
+const {
+  generateChartData,
+  generateChartOptions,
+  getScenarioClasses,
+  getScenarioIcon,
 } = useRothCalculations()
 
 // Chart data and options
@@ -117,7 +118,7 @@ const chartData = computed(() => {
 
 const chartOptions = computed(() => {
   const options = generateChartOptions(props.scenarioCalculations)
-  
+
   // Override the onClick handler to work with Vue events
   options.onClick = (event, elements) => {
     if (elements.length > 0) {
@@ -125,7 +126,7 @@ const chartOptions = computed(() => {
       selectScenario(dataIndex)
     }
   }
-  
+
   return options
 })
 

@@ -1,31 +1,31 @@
 <template>
   <ClientOnly>
     <FormKit
+      v-slot="{ state: { valid } }"
       type="form"
       :actions="false"
       wrapper-class="subscribe-form"
-      #default="{ state: { valid } }"
       @submit="handleSubscribe"
     >
       <FormKit
-        type="text"
         id="first_name"
+        type="text"
         name="first_name"
         label="First Name"
         validation="required|alpha_spaces"
         validation-visibility="dirty"
       />
       <FormKit
-        type="text"
         id="last_name"
+        type="text"
         name="last_name"
         label="Last Name"
         validation="required|alpha_spaces"
         validation-visibility="dirty"
       />
       <FormKit
-        type="email"
         id="email"
+        type="email"
         name="email"
         label="Email"
         validation="required|email"

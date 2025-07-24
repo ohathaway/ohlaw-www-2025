@@ -1,18 +1,20 @@
 <template>
-  <section 
-    class="relative py-20 bg-primary-700 text-center text-white" 
+  <section
+    class="relative py-20 bg-primary-700 text-center text-white"
     :style="backgroundStyle"
   >
     <div class="container mx-auto px-4 relative z-10">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4" v-html="title"></h1>
-      <p class="text-xl mb-8 max-w-3xl mx-auto">{{ subtitle }}</p>
-      <Button 
-        v-if="buttonText" 
-        @click="handleButtonClick"
+      <h1 class="text-4xl md:text-5xl font-bold mb-4" v-html="title" />
+      <p class="text-xl mb-8 max-w-3xl mx-auto">
+        {{ subtitle }}
+      </p>
+      <Button
+        v-if="buttonText"
         :label="buttonText"
         severity="secondary"
         size="large"
         class="font-medium"
+        @click="handleButtonClick"
       />
     </div>
   </section>
@@ -22,35 +24,35 @@
 const props = defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   subtitle: {
     type: String,
-    required: true
+    required: true,
   },
   backgroundImage: {
     type: String,
-    default: ''
+    default: '',
   },
   buttonText: {
     type: String,
-    default: ''
+    default: '',
   },
   buttonLink: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 })
 
 const emit = defineEmits(['buttonClick'])
 
 const backgroundStyle = computed(() => {
   if (!props.backgroundImage) return {}
-  
+
   return {
     backgroundImage: `linear-gradient(rgba(38, 70, 124, 0.85), rgba(27, 53, 97, 0.9)), url('${props.backgroundImage}')`,
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
   }
 })
 

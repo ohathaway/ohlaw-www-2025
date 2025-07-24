@@ -14,7 +14,7 @@
 const { provider, source, title } = defineProps({
   provider: {
     type: String,
-    default: 'strapi'
+    default: 'strapi',
   },
   source: {
     type: String,
@@ -23,11 +23,11 @@ const { provider, source, title } = defineProps({
   title: {
     type: String,
     required: true,
-  }
+  },
 })
 
 const src = computed(() => {
-  const isUrl =  source.includes('https://')
+  const isUrl = source.includes('https://')
   const isAbsolute = source.startsWith('/')
 
   // console.debug(`${source} isUrl? ${isUrl}`)

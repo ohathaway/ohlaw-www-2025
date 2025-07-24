@@ -1,4 +1,5 @@
 // server/utils/quizzes/utils.js
+import qs from 'qs'
 
 const { quizzes: config } = useAppConfig()
 
@@ -47,15 +48,14 @@ export const addTocLine = (doc, text, pageNum, pageNumWidth, leftMargin, rightMa
   doc.text(dots, leftMargin + textWidth, y, {
     width: dotAreaWidth,
     align: 'right',
-    characterSpacing: 1.5
+    characterSpacing: 1.5,
   })
 
   // Add the page number
   doc.text(pageNum, rightMargin - pageNumWidth, y, {
     width: pageNumWidth,
-    align: 'right'
+    align: 'right',
   })
-
 }
 
 export const checkPageBreak = (doc) => {
@@ -76,8 +76,8 @@ export const getQuizByIdREST = {
           fields: [
             'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
             'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
-            'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
-          ]
+            'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt',
+          ],
         },
         answers: {
           populate: {
@@ -85,12 +85,12 @@ export const getQuizByIdREST = {
               fields: [
                 'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
                 'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
-                'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
-              ]
-            }
-          }
-        }
-      }
+                'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt',
+              ],
+            },
+          },
+        },
+      },
     },
     resultCategories: {
       populate: {
@@ -98,47 +98,66 @@ export const getQuizByIdREST = {
           fields: [
             'name', 'alternativeText', 'caption', 'width', 'height', 'formats',
             'hash', 'ext', 'mime', 'size', 'url', 'previewUrl', 'provider',
-            'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt'
-          ]
-        }
-      }
-    }
+            'provider_metadata', 'createdAt', 'updatedAt', 'publishedAt',
+          ],
+        },
+      },
+    },
   },
   fields: [
     'documentId',
     'createdAt', 'updatedAt', 'publishedAt', 'isActive', 'version',
-    'description', 'slug', 'title'
-  ]
+    'description', 'slug', 'title',
+  ],
 }
 
-export const getQuizForAIbySlug = `
-query GetQuizz($slug: String!) {
-  quizzes(filters: { slug: { eq: $slug } }) {
-    questions(pagination: { pageSize: 20 }) {
-      questionText
-      description
-      questionId
-      answers {
-        answerText
-        answerId
-        minimumResultScore
-        impact
-        whyItMatters
-        value
-      }
-    }
-    description
-    title
-    resultCategories {
-      title
-      description
-      minScore
-      maxScore
-    }
-    version
-  }
+export const getQuizForAIbySlugREST = (slug) => {
+  return qs.stringify({
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+    populate: {
+      questions: {
+        populate: {
+          answers: {
+            fields: [
+              'answerText',
+              'answerId',
+              'minimumResultScore',
+              'impact',
+              'whyItMatters',
+              'value',
+            ],
+          },
+        },
+        fields: [
+          'questionText',
+          'description',
+          'questionId',
+        ],
+        pagination: {
+          pageSize: 20,
+          page: 1,
+        },
+      },
+      resultCategories: {
+        fields: [
+          'title',
+          'description',
+          'minScore',
+          'maxScore',
+        ],
+      },
+    },
+    fields: [
+      'description',
+      'title',
+      'version',
+    ],
+  }, { encode: false })
 }
-`
 
 /**
  * Flattens Strapi Rich-Text blocks to plain text
@@ -195,7 +214,7 @@ function extractTextFromBlock(block) {
  * @param {Object} quizData - Full quiz object from Strapi
  * @returns {Object} - Simplified quiz object with flattened text
  */
-export const simplifyQuizForLLM = quiz => {
+export const simplifyQuizForLLM = (quiz) => {
   return {
     title: quiz.title,
     description: flattenStrapiRichText(quiz.description),
@@ -211,30 +230,30 @@ export const simplifyQuizForLLM = quiz => {
         minimumScore: answer.minimumResultScore,
         maximumScore: answer.maximumResultScore,
         whyItMatters: answer.whyItMatters,
-        impact: answer.impact
-      }))
+        impact: answer.impact,
+      })),
     })),
     resultBands: quiz.resultCategories.map(category => ({
       title: category.title,
       description: flattenStrapiRichText(category.description),
       minScore: category.minScore,
-      maxScore: category.maxScore
-    }))
+      maxScore: category.maxScore,
+    })),
   }
 }
 
 export const extractSelectedAnswerImpact = (userAnswers, quizData) => {
   const insights = []
   const questions = quizData.quizzes[0].questions
-  
+
   Object.entries(userAnswers).forEach(([questionId, selectedAnswers]) => {
     const question = questions.find(q => q.questionId === questionId)
     if (!question) return
-    
+
     // Handle both single and multiple choice answers
     const answersToProcess = Array.isArray(selectedAnswers) ? selectedAnswers : [selectedAnswers]
-    
-    answersToProcess.forEach(answerId => {
+
+    answersToProcess.forEach((answerId) => {
       const answer = question.answers.find(a => a.answerId === answerId)
       if (answer && (answer.whyItMatters || answer.impact)) {
         insights.push({
@@ -244,11 +263,11 @@ export const extractSelectedAnswerImpact = (userAnswers, quizData) => {
           impact: answer.impact,
           // Optional: include additional context
           questionText: question.questionText,
-          answerText: answer.answerText
+          answerText: answer.answerText,
         })
       }
     })
   })
-  
+
   return insights
 }

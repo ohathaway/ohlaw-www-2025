@@ -4,7 +4,7 @@
       class="w-full border rounded-lg"
       :src="props.source"
       :title="props.title"
-    />
+    >
   </div>
 </template>
 

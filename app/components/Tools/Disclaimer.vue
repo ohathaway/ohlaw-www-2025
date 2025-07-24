@@ -3,18 +3,18 @@
     <!-- Full Disclaimer -->
     <div v-if="showDisclaimer" class="mt-8 p-4 bg-yellow-50 rounded-lg relative">
       <p class="text-sm text-blue-800 pr-16">
-        <strong>Professional Note:</strong> This calculator provides educational estimates only. 
-        Actual tax and investment consequences depend on many factors including future tax law changes, income levels, 
+        <strong>Professional Note:</strong> This calculator provides educational estimates only.
+        Actual tax and investment consequences depend on many factors including future tax law changes, income levels,
         and specific implementation strategies. Consult with tax and financial professionals for personalized advice.
       </p>
       <p class="text-sm text-blue-800 pr-16">
         A quick heads up: These numbers assume your beneficiaries are working adults in their peak earning years. Special needs children, non-working adult kids, or specialized trust structures? The math gets more complicated. Consider this your conversation starter, not your final strategy.
       </p>
       <Button
-        @click="hideDisclaimer"
         size="small"
         variant="text"
         class="absolute top-3 right-3"
+        @click="hideDisclaimer"
       >
         Got it
       </Button>
@@ -23,12 +23,12 @@
     <!-- Stub Button -->
     <div v-else class="mt-8 flex justify-center">
       <Button
-        @click="showDisclaimer = true"
         severity="secondary"
         size="small"
         variant="text"
         outlined
         class="absolute top-3 right-3"
+        @click="showDisclaimer = true"
       >
         Show Disclaimer
       </Button>

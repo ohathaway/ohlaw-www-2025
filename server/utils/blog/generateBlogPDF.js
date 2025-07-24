@@ -208,7 +208,7 @@ const renderParagraphBlock = async (doc, block, config) => {
         width: config.contentWidth,
         align: 'left',
       })
-    
+
     doc.y += config.paragraphSpacing || 12
   }
 }
@@ -217,7 +217,7 @@ const renderHeadingBlock = async (doc, block, config) => {
   const text = extractTextFromChildren(block.children)
   const level = block.level || 1
   const fontSize = config.headingSizes[`h${level}`] || 16
-  
+
   doc.font(config.headingFont)
     .fontSize(fontSize)
     .fillColor(config.colors.text)
@@ -225,7 +225,7 @@ const renderHeadingBlock = async (doc, block, config) => {
       width: config.contentWidth,
       align: 'left',
     })
-  
+
   doc.y += config.headingSpacing || 20
 }
 
@@ -240,15 +240,15 @@ const renderListBlock = async (doc, block, config) => {
         width: config.contentWidth,
         align: 'left',
       })
-    
+
     doc.y += config.paragraphSpacing || 12
   }
 }
 
 const extractTextFromChildren = (children) => {
   if (!children || !Array.isArray(children)) return ''
-  
-  return children.map(child => {
+
+  return children.map((child) => {
     if (child.type === 'text') {
       return child.text || ''
     }
@@ -284,7 +284,7 @@ const addBlogFooter = async (doc, post, config) => {
 
   // Add QR code for article URL
   const articleUrl = `${appConfig.seo.siteUrl}/blog/${post.slug}`
-  
+
   try {
     await addQRToPDF(doc, articleUrl, {
       x: margins.left,
@@ -318,7 +318,7 @@ const addBlogFooter = async (doc, post, config) => {
     .text(
       `${appConfig.seo.address.street}, ${appConfig.seo.address.city}, ${appConfig.seo.address.state} ${appConfig.seo.address.zip}`,
       margins.left + 100,
-      footerY + 30
+      footerY + 30,
     )
 
   doc.text(`Phone: ${appConfig.seo.phone}`, margins.left + 100, footerY + 45)
@@ -366,7 +366,7 @@ export const generateAndStoreBlogPDF = async (documentId, slug) => {
   try {
     // Import here to avoid circular dependency
     const { uploadPdfToR2 } = await import('../reports/index.js')
-    
+
     // Generate PDF buffer
     const { buffer: pdfBuffer } = await generateBlogPDFBuffer(documentId)
 
@@ -375,12 +375,12 @@ export const generateAndStoreBlogPDF = async (documentId, slug) => {
     const filename = `${slug}.pdf`
     const bucketName = appConfig.blogPdfs.bucketName
     const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
-    
+
     await uploadPdfToR2(pdfBuffer, keyName, bucketName)
-    
+
     // Construct the public URL
     const url = `${appConfig.blogPdfs.publicDomain}/${keyName}`
-    
+
     if (process.env.NODE_ENV === 'development') {
       console.log(`Generated blog PDF: ${filename} (${url})`)
     }
@@ -418,17 +418,17 @@ export const getBlogPDFUrl = async (slug) => {
     const appConfig = useAppConfig()
     const filename = `${slug}.pdf`
     const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
-    
+
     // For public bucket, we can construct the URL directly
     const url = `${appConfig.blogPdfs.publicDomain}/${keyName}`
-    
+
     // Test if the file exists by making a HEAD request
     const response = await fetch(url, { method: 'HEAD' })
-    
+
     if (response.ok) {
       return url
     }
-    
+
     return null
   }
   catch (error) {

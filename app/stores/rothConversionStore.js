@@ -4,61 +4,61 @@ import { useRothCalculations } from '~/composables/useRothCalculations'
 
 export const useRothConversionStore = defineStore('rothConversion', () => {
   // Get calculation functions from composable
-  const { 
-    calculateAllScenarios, 
+  const {
+    calculateAllScenarios,
     calculateScenario,
-    formatTableData
+    formatTableData,
   } = useRothCalculations()
 
   // ==========================================
   // CORE APPLICATION STATE
   // ==========================================
-  
+
   // Form inputs from InputForm component
   const inputs = ref(null)
-  
+
   // Whether to show scenarios vs input form
   const showResults = ref(false)
-  
+
   // Currently selected scenario for details view
   const selectedScenario = ref(null)
-  
+
   // Full calculation results for selected scenario
   const selectedCalculation = ref(null)
 
   // ==========================================
   // UI NAVIGATION STATE
   // ==========================================
-  
+
   // Current view: 'input' | 'scenarios' | 'details'
   const currentView = ref('input')
-  
+
   // Whether detailed tables are visible
   const showingTables = ref(false)
 
   // ==========================================
   // PERSONALIZATION STATE
   // ==========================================
-  
+
   // Whether personalization mode is active
   const personalizationMode = ref(false)
-  
+
   // Baseline scenario for customization
   const selectedBaseline = ref(null)
-  
+
   // Array of user-created custom scenarios
   const customScenarios = ref([])
-  
+
   // Modal visibility
   const showPersonalizationModal = ref(false)
-  
+
   // Scenario being edited (null for new)
   const editingCustomScenario = ref(null)
 
   // ==========================================
   // COMPUTED PROPERTIES
   // ==========================================
-  
+
   // Calculate all scenarios from inputs
   const allScenarios = computed(() => {
     if (!inputs.value) {
@@ -66,17 +66,18 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
     }
     return calculateAllScenarios(inputs.value)
   })
-  
+
   // Filtered scenarios for current mode (standard vs personalization)
   const filteredScenarios = computed(() => {
     if (!allScenarios.value || allScenarios.value.length === 0) {
       return []
     }
-    
+
     if (!personalizationMode.value || !selectedBaseline.value) {
       // Standard mode - show all 4 presets
       return allScenarios.value
-    } else {
+    }
+    else {
       // Personalization mode - show baseline + custom scenarios
       const scenarios = [selectedBaseline.value]
       if (customScenarios.value.length > 0) {
@@ -85,7 +86,7 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
       return scenarios
     }
   })
-  
+
   // Table data for detailed analysis
   const tableData = computed(() => {
     if (!selectedScenario.value || !inputs.value) {
@@ -93,24 +94,24 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
     }
     return formatTableData(selectedScenario.value, inputs.value)
   })
-  
+
   const basicInfoData = computed(() => tableData.value.basicInfoData || [])
   const inheritanceData = computed(() => tableData.value.inheritanceData || [])
   const taxImpactData = computed(() => tableData.value.taxImpactData || [])
   const bottomLineData = computed(() => tableData.value.bottomLineData || [])
-  
+
   // Values for modal pre-population
   const modalPersonalizationValues = computed(() => {
     // If editing a custom scenario, use its values
     if (editingCustomScenario.value) {
       return editingCustomScenario.value.personalizedValues
     }
-    
+
     // Otherwise use baseline values for new custom scenario
     if (!selectedBaseline.value) {
       return null
     }
-    
+
     const scenario = selectedBaseline.value.scenario
     return {
       conversionAmount: scenario.conversionAmount,
@@ -118,25 +119,25 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
       parentTaxRate: scenario.parentTaxRate,
       childrenTaxRates: [...scenario.childTaxRates], // Clone array
       returnRate: 6.0, // Default
-      yearsUntilInheritance: 15 // Default
+      yearsUntilInheritance: 15, // Default
     }
   })
 
   // ==========================================
   // FORM SUBMISSION AND INITIALIZATION
   // ==========================================
-  
+
   const generateAnalysis = (formInputs) => {
     inputs.value = formInputs
     showResults.value = true
     currentView.value = 'scenarios'
-    
+
     // Reset any previous state
     selectedScenario.value = null
     selectedCalculation.value = null
     showingTables.value = false
   }
-  
+
   const resetTool = () => {
     inputs.value = null
     showResults.value = false
@@ -144,7 +145,7 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
     selectedScenario.value = null
     selectedCalculation.value = null
     showingTables.value = false
-    
+
     // Reset personalization state
     disablePersonalizationMode()
   }
@@ -152,14 +153,14 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
   // ==========================================
   // NAVIGATION ACTIONS
   // ==========================================
-  
+
   const selectScenario = (scenarioCalculation) => {
     selectedScenario.value = scenarioCalculation
     selectedCalculation.value = scenarioCalculation
     showingTables.value = true
     currentView.value = 'details'
   }
-  
+
   const backToScenarios = () => {
     selectedScenario.value = null
     selectedCalculation.value = null
@@ -170,11 +171,11 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
   // ==========================================
   // PERSONALIZATION ACTIONS
   // ==========================================
-  
+
   const enablePersonalizationMode = () => {
     personalizationMode.value = true
   }
-  
+
   const disablePersonalizationMode = () => {
     personalizationMode.value = false
     selectedBaseline.value = null
@@ -182,11 +183,11 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
     editingCustomScenario.value = null
     showPersonalizationModal.value = false
   }
-  
+
   const selectBaseline = (scenario) => {
     selectedBaseline.value = scenario
   }
-  
+
   const changeBaseline = () => {
     selectedBaseline.value = null
     customScenarios.value = []
@@ -195,15 +196,15 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
   // ==========================================
   // CUSTOM SCENARIO CRUD
   // ==========================================
-  
+
   const addCustomScenario = (personalizedValues) => {
     if (!selectedBaseline.value || !inputs.value) {
       return
     }
-    
+
     // Determine scenario name and index
     const isEditing = editingCustomScenario.value !== null
-    
+
     let scenarioNumber
     if (isEditing) {
       // For editing, try to extract number from existing scenario name
@@ -211,13 +212,15 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
       if (existingName) {
         const match = existingName.match(/\d+/)
         scenarioNumber = match ? parseInt(match[0]) : customScenarios.value.length + 1
-      } else {
+      }
+      else {
         scenarioNumber = customScenarios.value.length + 1
       }
-    } else {
+    }
+    else {
       scenarioNumber = customScenarios.value.length + 1
     }
-    
+
     // Create custom scenario template
     const customScenarioTemplate = {
       name: `Custom ${scenarioNumber}`,
@@ -230,36 +233,37 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
       yearsUntilInheritance: personalizedValues.yearsUntilInheritance || 15,
       colorTheme: 'success', // Green theme for custom scenarios
       isDangerous: false,
-      isCustom: true
+      isCustom: true,
     }
-    
+
     // Calculate the custom scenario
     const customScenarioCalculation = calculateScenario(inputs.value, customScenarioTemplate)
-    
+
     // Create the full custom scenario object
     const newCustomScenario = {
       id: isEditing ? editingCustomScenario.value.id : `custom-${Date.now()}`,
       ...customScenarioCalculation,
       personalizedValues: { ...personalizedValues },
-      isCustom: true
+      isCustom: true,
     }
-    
+
     if (isEditing) {
       // Update existing scenario
       const index = customScenarios.value.findIndex(s => s.id === editingCustomScenario.value.id)
       if (index !== -1) {
         customScenarios.value[index] = newCustomScenario
       }
-    } else {
+    }
+    else {
       // Add new scenario
       customScenarios.value.push(newCustomScenario)
     }
-    
+
     // Clean up editing state
     editingCustomScenario.value = null
     showPersonalizationModal.value = false
   }
-  
+
   const editCustomScenario = (scenarioId) => {
     const scenario = customScenarios.value.find(s => s.id === scenarioId)
     if (scenario) {
@@ -267,7 +271,7 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
       showPersonalizationModal.value = true
     }
   }
-  
+
   const deleteCustomScenario = (scenarioId) => {
     const index = customScenarios.value.findIndex(s => s.id === scenarioId)
     if (index !== -1) {
@@ -278,20 +282,21 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
   // ==========================================
   // MODAL MANAGEMENT
   // ==========================================
-  
+
   const openPersonalizationModal = (scenarioToEdit = null) => {
     if (!selectedBaseline.value && !scenarioToEdit) {
       return
     }
-    
+
     if (scenarioToEdit) {
       editingCustomScenario.value = scenarioToEdit
-    } else {
+    }
+    else {
       editingCustomScenario.value = null
     }
     showPersonalizationModal.value = true
   }
-  
+
   const closePersonalizationModal = () => {
     showPersonalizationModal.value = false
     editingCustomScenario.value = null
@@ -300,25 +305,25 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
   // ==========================================
   // RETURN STORE INTERFACE
   // ==========================================
-  
+
   return {
     // Core Application State
     inputs,
     showResults,
     selectedScenario,
     selectedCalculation,
-    
+
     // UI Navigation State
     currentView,
     showingTables,
-    
+
     // Personalization State
     personalizationMode,
     selectedBaseline,
     customScenarios,
     showPersonalizationModal,
     editingCustomScenario,
-    
+
     // Computed Properties
     allScenarios,
     filteredScenarios,
@@ -328,28 +333,28 @@ export const useRothConversionStore = defineStore('rothConversion', () => {
     taxImpactData,
     bottomLineData,
     modalPersonalizationValues,
-    
+
     // Form Submission and Initialization
     generateAnalysis,
     resetTool,
-    
+
     // Navigation Actions
     selectScenario,
     backToScenarios,
-    
+
     // Personalization Actions
     enablePersonalizationMode,
     disablePersonalizationMode,
     selectBaseline,
     changeBaseline,
-    
+
     // Custom Scenario CRUD
     addCustomScenario,
     editCustomScenario,
     deleteCustomScenario,
-    
+
     // Modal Management
     openPersonalizationModal,
-    closePersonalizationModal
+    closePersonalizationModal,
   }
 })

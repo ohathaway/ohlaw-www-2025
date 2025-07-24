@@ -8,6 +8,6 @@
 
 <script setup>
 const { posts } = defineProps({
-  posts: Object
+  posts: Object,
 })
 </script>

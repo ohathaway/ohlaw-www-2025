@@ -4,7 +4,7 @@
       <AccordionPanel v-for="(item, index) in faqItems" :key="index" :value="index">
         <AccordionHeader><strong>{{ item.question }}</strong></AccordionHeader>
         <AccordionContent>
-          <div class="prose prose-slate max-w-none" v-html="item.answer"></div>
+          <div class="prose prose-slate max-w-none" v-html="item.answer" />
         </AccordionContent>
       </AccordionPanel>
     </Accordion>
@@ -14,7 +14,7 @@
 <script setup>
 /**
  * FAQ Accordion component using PrimeVue Accordion
- * 
+ *
  * Uses PrimeVue's Accordion component with custom styling via TailwindCSS
  * First item is expanded by default with :activeIndex="0"
  */
@@ -23,8 +23,8 @@ defineProps({
     type: Array,
     required: true,
     // Expected format: [{ question: string, answer: string }, ...]
-  }
-});
+  },
+})
 </script>
 
 <style>

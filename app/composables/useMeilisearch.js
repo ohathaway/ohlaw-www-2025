@@ -6,7 +6,7 @@ export const useMeilisearch = () => {
 
   const search = new Meilisearch({
     host: meilisearch.host,
-    apiKey: config.searchApiKey
+    apiKey: config.searchApiKey,
   })
   return search
 }

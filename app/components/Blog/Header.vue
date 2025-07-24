@@ -5,11 +5,11 @@
         Resources for <span class="italic font-medium">Life and Legacy Planning</span>
       </h1>
     </div>
-    
+
     <!-- Desktop Categories Navigation -->
     <div class="hidden lg:block">
-      <Menubar 
-        :model="menuItems" 
+      <Menubar
+        :model="menuItems"
         class="border-t-6 border-b border-white mx-auto w-[90%] justify-center"
       >
         <template #item="{ item, props, hasSubmenu, root }">
@@ -18,7 +18,7 @@
           </NuxtLink>
         </template>
         <template #end>
-          <Button 
+          <Button
             icon="pi pi-search"
             rounded
             raised
@@ -37,19 +37,21 @@
         </template>
       </Menubar>
     </div>
-    
+
     <!-- Mobile Categories Navigation -->
     <div class="lg:hidden border-t border-b border-slate-300 py-3 mx-auto w-3/4">
       <div class="flex justify-between items-center px-4">
-        <h5 class="text-white font-xl">Categories</h5>
-        <Button 
-          icon="pi pi-bars" 
-          @click="toggleMobileMenu" 
+        <h5 class="text-white font-xl">
+          Categories
+        </h5>
+        <Button
+          icon="pi pi-bars"
           class="p-button-rounded"
           severity="secondary"
           aria-label="Toggle Categories Menu"
+          @click="toggleMobileMenu"
         />
-        <Button 
+        <Button
           icon="pi pi-search"
           rounded
           raised
@@ -58,13 +60,13 @@
           @click="mobileSearchVisible = !mobileSearchVisible"
         />
       </div>
-      
+
       <!-- Mobile Dropdown Menu -->
-      <Menu 
-        v-model:visible="mobileMenuVisible"
-        :model="menuItems" 
-        :popup="true" 
+      <Menu
         ref="mobileMenu"
+        v-model:visible="mobileMenuVisible"
+        :model="menuItems"
+        :popup="true"
         class="w-full"
       />
       <Drawer
@@ -99,20 +101,20 @@ const backgroundImage = '/img/blog_header.webp'
 const categories = [
   {
     slug: 'legacy-planning',
-    name: 'Legacy Planning'
+    name: 'Legacy Planning',
   },
   {
     slug: 'small-business',
-    name: 'Small Business'
+    name: 'Small Business',
   },
   {
     slug: 'elder-care',
-    name: 'Elder Care'
+    name: 'Elder Care',
   },
   {
     slug: 'being-human',
-    name: 'Being Human'
-  }
+    name: 'Being Human',
+  },
 ]
 
 // Check if a given category is active based on the current route
@@ -126,19 +128,19 @@ const menuItems = computed(() => {
     {
       label: 'Home',
       route: '/blog',
-      class: isActiveCategory('blog') ? 'active-category' : ''
-    }
+      class: isActiveCategory('blog') ? 'active-category' : '',
+    },
   ]
-  
+
   // Add category items
-  categories.forEach(category => {
+  categories.forEach((category) => {
     items.push({
       label: category.name,
       route: `/blog/categories/${category.slug}`,
-      class: isActiveCategory(category.slug) ? 'active-category' : ''
+      class: isActiveCategory(category.slug) ? 'active-category' : '',
     })
   })
-  
+
   return convertRoutesToCommands(items)
 })
 
@@ -154,27 +156,28 @@ const backgroundStyle = computed(() => {
   return {
     backgroundImage: `linear-gradient(rgba(81, 115, 166, 0.85), rgba(43, 63, 94, 0.9)), url('${backgroundImage}')`,
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
   }
 })
 
-const openSearch = event => {
+const openSearch = (event) => {
   searchPop.value.toggle(event)
 }
 
 const handleSearch = () => {
   blogStore.searchPosts()
   router.push({ path: '/blog/search', query: { search: searchTerm.value } })
-  
+
   // Close mobile drawer
   mobileSearchVisible.value = false
-  
+
   // Close desktop popover if it exists (use try/catch to handle any edge cases)
   try {
     if (searchPop.value) {
       searchPop.value.hide()
     }
-  } catch (error) {
+  }
+  catch (error) {
     // Silently handle popover errors (likely means we're on mobile)
     console.debug('Popover hide error (expected on mobile):', error)
   }

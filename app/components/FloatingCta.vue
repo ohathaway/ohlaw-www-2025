@@ -1,23 +1,23 @@
 <template>
   <Teleport to="body">
-    <div 
-      v-show="isVisible" 
+    <div
+      v-show="isVisible"
       ref="ctaElement"
-      :class="['floating-cta', {'is-dragging': isDragging, 'is-mobile': isMobile}]"
+      :class="['floating-cta', { 'is-dragging': isDragging, 'is-mobile': isMobile }]"
       :style="ctaStyle"
       @mousedown="startDrag"
       @touchstart="startDrag"
     >
-      <Button 
-        class="cta-button" 
-        @click="handleButtonClick"
+      <Button
+        class="cta-button"
         raised
+        @click="handleButtonClick"
       >
-        <i class="bi bi-calendar-check me-4"></i>
+        <i class="bi bi-calendar-check me-4" />
         <span v-if="!isMobile">Schedule a Consultation</span>
         <span v-else>Book Now</span>
       </Button>
-      <i @click="dismiss" class="pi pi-times-circle btn-close text-gray-300"></i>
+      <i class="pi pi-times-circle btn-close text-gray-300" @click="dismiss" />
     </div>
   </Teleport>
 </template>
@@ -29,20 +29,20 @@ const { bookingDialogVisible } = storeToRefs(useMainStore())
 const props = defineProps({
   scrollThreshold: {
     type: Number,
-    default: 300
+    default: 300,
   },
   dismissible: {
     type: Boolean,
-    default: true
+    default: true,
   },
   initialPosition: {
     type: Object,
-    default: () => ({ bottom: '30px', right: '30px' })
+    default: () => ({ bottom: '30px', right: '30px' }),
   },
   visible: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 
 })
 
@@ -61,7 +61,7 @@ const dragStartTime = ref(0)
 const ctaStyle = computed(() => {
   return {
     ...position.value,
-    cursor: isDragging.value ? 'grabbing' : 'grab'
+    cursor: isDragging.value ? 'grabbing' : 'grab',
   }
 })
 
@@ -95,11 +95,12 @@ const dismiss = () => {
   if (props.dismissible) {
     isVisible.value = false
     isDismissed.value = true
-    
+
     // Store in session storage so it stays dismissed during this visit
     try {
       sessionStorage.setItem('floatingCtaDismissed', 'true')
-    } catch (e) {
+    }
+    catch (e) {
       console.warn('Unable to store CTA state in session storage', e)
     }
   }
@@ -113,69 +114,70 @@ const startDrag = (event) => {
   // Use touch coordinates if available, otherwise use mouse coordinates
   const clientX = event.touches ? event.touches[0].clientX : event.clientX
   const clientY = event.touches ? event.touches[0].clientY : event.clientY
-  
+
   isDragging.value = true
   wasMoved.value = false
   dragStartTime.value = Date.now()
-  
+
   // Save the starting position
   startPos.value = {
     x: clientX,
     y: clientY,
     left: ctaElement.value.offsetLeft,
-    top: ctaElement.value.offsetTop
+    top: ctaElement.value.offsetTop,
   }
-  
+
   // Add event listeners for drag and end
   if (event.touches) {
     document.addEventListener('touchmove', handleDrag, { passive: false })
     document.addEventListener('touchend', endDrag)
-  } else {
+  }
+  else {
     document.addEventListener('mousemove', handleDrag)
     document.addEventListener('mouseup', endDrag)
   }
-  
+
   // Prevent default to avoid text selection during drag
   event.preventDefault()
 }
 
 const handleDrag = (event) => {
   if (!isDragging.value) return
-  
+
   // Use touch coordinates if available, otherwise use mouse coordinates
   const clientX = event.touches ? event.touches[0].clientX : event.clientX
   const clientY = event.touches ? event.touches[0].clientY : event.clientY
-  
+
   // Calculate the new position
   const offsetX = clientX - startPos.value.x
   const offsetY = clientY - startPos.value.y
-  
+
   // Check if we've moved at least 5px in any direction
   // This helps differentiate between a click and a drag
   if (Math.abs(offsetX) > 5 || Math.abs(offsetY) > 5) {
     wasMoved.value = true
   }
-  
+
   // Calculate new left/top positions
   let newLeft = startPos.value.left + offsetX
   let newTop = startPos.value.top + offsetY
-  
+
   // Constrain to window bounds
   const maxLeft = window.innerWidth - ctaElement.value.offsetWidth
   const maxTop = window.innerHeight - ctaElement.value.offsetHeight
-  
+
   newLeft = Math.max(0, Math.min(newLeft, maxLeft))
   newTop = Math.max(0, Math.min(newTop, maxTop))
-  
+
   // Update position to be based on corners instead of left/top
   // This maintains the same visual position when window resizes
   position.value = {
     left: `${newLeft}px`,
     top: `${newTop}px`,
     right: 'auto',
-    bottom: 'auto'
+    bottom: 'auto',
   }
-  
+
   // Prevent default to stop page scrolling during drag on touch devices
   event.preventDefault()
 }
@@ -183,24 +185,25 @@ const handleDrag = (event) => {
 const endDrag = (event) => {
   // Calculate drag duration
   const dragDuration = Date.now() - dragStartTime.value
-  
+
   // Clean up drag state
   isDragging.value = false
-  
+
   // Remove event listeners
   document.removeEventListener('mousemove', handleDrag)
   document.removeEventListener('mouseup', endDrag)
   document.removeEventListener('touchmove', handleDrag)
   document.removeEventListener('touchend', endDrag)
-  
+
   // Save position to localStorage if the component was actually moved
   if (wasMoved.value) {
     try {
       localStorage.setItem('floatingCtaPosition', JSON.stringify(position.value))
-    } catch (e) {
+    }
+    catch (e) {
       console.warn('Unable to store CTA position in local storage', e)
     }
-    
+
     // Prevent click events from firing after drag
     if (event && event.type === 'mouseup' && event.target) {
       // Create and dispatch a custom event to cancel the upcoming click
@@ -227,27 +230,28 @@ onMounted(() => {
     if (savedPosition) {
       position.value = JSON.parse(savedPosition)
     }
-    
+
     // Check if previously dismissed in this session only
     // Hard page reloads will clear sessionStorage, making component visible again
     const wasDismissed = sessionStorage.getItem('floatingCtaDismissed') === 'true'
     isDismissed.value = wasDismissed
-    
+
     // If not explicitly dismissed in this session, ensure it can be visible
     if (!wasDismissed) {
       isDismissed.value = false
     }
-  } catch (e) {
+  }
+  catch (e) {
     console.warn('Error accessing storage', e)
   }
-  
+
   // Add scroll listener
   window.addEventListener('scroll', handleScroll)
-  
+
   // Check initial mobile state and listen for resize
   checkMobile()
   window.addEventListener('resize', checkMobile)
-  
+
   // Initial check for scroll position
   handleScroll()
 })
@@ -271,12 +275,12 @@ onUnmounted(() => {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   user-select: none;
   touch-action: none;
-  
+
   &.is-dragging {
     opacity: 0.8;
     transition: none;
   }
-  
+
   .cta-button {
     padding: 12px 20px;
     font-weight: 600;
@@ -287,16 +291,16 @@ onUnmounted(() => {
     align-items: center;
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    
+
     &:hover {
       background-color: color-mix(in srgb, --var(primary-600), black 10%);
     }
-    
+
     i {
       font-size: 1.2rem;
     }
   }
-  
+
   .btn-close {
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -314,17 +318,17 @@ onUnmounted(() => {
     font-size: 0.8rem;
     cursor: pointer;
   }
-  
+
   &:hover .btn-close {
     opacity: 1;
   }
-  
+
   &.is-mobile {
     .cta-button {
       padding: 10px 16px;
       font-size: 0.9rem;
     }
-    
+
     // Adjust position to stay out of the way on mobile
     bottom: 70px !important;
     right: 15px !important;
@@ -344,7 +348,7 @@ onUnmounted(() => {
       right: -6px;
       font-size: 0.9rem;
     }
-    
+
     .cta-button {
       i {
         margin-right: 0 !important;
