@@ -3,19 +3,21 @@
     class="scenario-card cursor-pointer transition-all duration-200 hover:shadow-md"
     :class="[
       cardClasses,
-      isSelected ? 'ring-2 ring-primary-500 ring-offset-2' : ''
+      isSelected ? 'ring-2 ring-primary-500 ring-offset-2' : '',
     ]"
-    @click="handleCardClick"
     role="button"
     :aria-label="ariaLabel"
     tabindex="0"
+    @click="handleCardClick"
     @keydown.enter="handleCardClick"
     @keydown.space.prevent="handleCardClick"
   >
     <template #title>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <h3 class="text-lg font-semibold">{{ scenarioData.scenario.name }}</h3>
+          <h3 class="text-lg font-semibold">
+            {{ scenarioData.scenario.name }}
+          </h3>
           <Tag
             v-if="cardType === 'custom'"
             value="Custom"
@@ -29,64 +31,64 @@
             class="text-xs"
           />
         </div>
-        <i :class="getScenarioIcon(scenarioData.scenario)" class="text-xl"></i>
+        <i :class="getScenarioIcon(scenarioData.scenario)" class="text-xl" />
       </div>
     </template>
-    
+
     <template #content>
       <div class="space-y-3">
         <!-- Based on Baseline (custom scenarios only) -->
         <div v-if="cardType === 'custom' && scenarioData.baselineSource" class="text-xs text-success-600 bg-success-100 px-2 py-1 rounded">
           Based on {{ scenarioData.baselineSource }}
         </div>
-        
+
         <!-- Conversion Amount -->
         <div class="flex justify-between items-center">
           <span class="text-sm font-medium text-slate-600">Conversion Amount:</span>
           <span class="font-semibold">{{ formatCurrency(scenarioData.scenario.conversionAmount) }}</span>
         </div>
-        
+
         <!-- Parent Tax Rate -->
         <div class="flex justify-between items-center">
           <span class="text-sm font-medium text-slate-600">Parent Tax Rate:</span>
           <span class="font-semibold">{{ scenarioData.scenario.parentTaxRate }}%</span>
         </div>
-        
+
         <!-- Net Family Savings -->
         <div class="flex justify-between items-center pt-2 border-t border-slate-200">
           <span class="text-sm font-medium text-slate-600">More for Your Kids</span>
-          <span 
+          <span
             class="font-bold text-lg"
             :class="scenarioData.netFamilySavings > 0 ? 'text-success-700' : 'text-danger-700'"
           >
             {{ scenarioData.netFamilySavings > 0 ? '+' : '' }}{{ formatCurrency(scenarioData.netFamilySavings) }}
           </span>
         </div>
-        
+
         <!-- Warning for Danger Zone -->
-        <div 
+        <div
           v-if="scenarioData.scenario.isDangerous && scenarioData.netFamilySavings < 0"
           class="flex items-center gap-2 p-3 bg-danger-100 border border-danger-300 rounded-md mt-3"
         >
-          <i class="pi pi-exclamation-triangle text-danger-600"></i>
+          <i class="pi pi-exclamation-triangle text-danger-600" />
           <span class="text-sm font-semibold text-danger-700">
             ⚠️ Family loses money with this strategy
           </span>
         </div>
-        
+
         <!-- Success indicator for positive savings -->
-        <div 
+        <div
           v-else-if="scenarioData.netFamilySavings > 0"
           class="flex items-center gap-2 p-2 bg-success-50 border border-success-200 rounded-md mt-3"
         >
-          <i class="pi pi-check text-success-600"></i>
+          <i class="pi pi-check text-success-600" />
           <span class="text-sm font-medium text-success-700">
             {{ cardType === 'custom' ? 'Personalized analysis' : 'Tax savings for your family' }}
           </span>
         </div>
       </div>
     </template>
-    
+
     <template #footer>
       <div class="space-y-2">
         <!-- Standard Mode: Main Selection Button -->
@@ -95,24 +97,24 @@
             :severity="getButtonSeverity(scenarioData.scenario)"
             size="small"
             :label="`Show ${scenarioData.scenario.name} Details`"
-            @click.stop="$emit('card-clicked', scenarioData)"
             class="w-full"
+            @click.stop="$emit('card-clicked', scenarioData)"
           />
         </div>
-        
+
         <!-- Personalization Mode: Baseline Selection -->
         <div v-if="showBaselineActions" class="text-center">
           <!-- Show baseline button if not selected or different baseline -->
           <Button
             v-if="!isBaseline"
-            @click.stop="$emit('baseline-selected', scenarioData)"
             severity="secondary"
             size="small"
             icon="pi pi-bookmark"
             label="Select as Baseline"
             class="w-full"
+            @click.stop="$emit('baseline-selected', scenarioData)"
           />
-          
+
           <!-- Show baseline indicator if this is the selected baseline -->
           <Tag
             v-else
@@ -122,42 +124,42 @@
             class="w-full justify-center text-sm font-semibold px-3 py-2"
           />
         </div>
-        
+
         <!-- Custom Scenario Actions -->
         <div v-if="cardType === 'custom'" class="space-y-2">
           <!-- Show Details Button -->
           <div class="text-center">
             <Button
-              @click.stop="$emit('card-clicked', scenarioData)"
               :severity="getButtonSeverity(scenarioData.scenario)"
               size="small"
               icon="pi pi-chart-line"
               :label="`Show ${scenarioData.scenario.name} Details`"
               class="w-full"
+              @click.stop="$emit('card-clicked', scenarioData)"
             />
           </div>
-          
+
           <!-- Edit Button -->
           <div class="text-center">
             <Button
-              @click.stop="$emit('edit-clicked', scenarioData)"
               severity="success"
               size="small"
               icon="pi pi-pencil"
               label="Edit Custom Strategy"
               class="w-full"
+              @click.stop="$emit('edit-clicked', scenarioData)"
             />
           </div>
-          
+
           <!-- Delete Button -->
           <div class="text-center">
             <Button
-              @click.stop="$emit('delete-clicked', scenarioData)"
               severity="secondary"
               size="small"
               icon="pi pi-trash"
               label="Delete"
               class="w-full text-sm"
+              @click.stop="$emit('delete-clicked', scenarioData)"
             />
           </div>
         </div>
@@ -173,42 +175,42 @@ import { formatCurrency } from '~/utils/numbers'
 const props = defineProps({
   scenarioData: {
     type: Object,
-    required: true
+    required: true,
   },
   cardType: {
     type: String,
     default: 'preset', // 'preset', 'custom', 'baseline'
-    validator: value => ['preset', 'custom', 'baseline'].includes(value)
+    validator: value => ['preset', 'custom', 'baseline'].includes(value),
   },
   isBaseline: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isSelected: {
     type: Boolean,
-    default: false
+    default: false,
   },
   personalizationMode: {
     type: Boolean,
-    default: false
+    default: false,
   },
   totalPreTaxAccounts: {
     type: Number,
-    default: null
-  }
+    default: null,
+  },
 })
 
 const emit = defineEmits([
   'card-clicked',
-  'baseline-selected', 
+  'baseline-selected',
   'edit-clicked',
-  'delete-clicked'
+  'delete-clicked',
 ])
 
 // Use the Roth calculations composable
-const { 
-  getScenarioClasses, 
-  getScenarioIcon 
+const {
+  getScenarioClasses,
+  getScenarioIcon,
 } = useRothCalculations()
 
 // Computed properties
@@ -216,10 +218,10 @@ const cardClasses = computed(() => {
   if (props.cardType === 'baseline') {
     return [
       'border-2 border-info-300',
-      ...getScenarioClasses(props.scenarioData.scenario, props.scenarioData.netFamilySavings, props.totalPreTaxAccounts)
+      ...getScenarioClasses(props.scenarioData.scenario, props.scenarioData.netFamilySavings, props.totalPreTaxAccounts),
     ]
   }
-  
+
   return getScenarioClasses(props.scenarioData.scenario, props.scenarioData.netFamilySavings, props.totalPreTaxAccounts)
 })
 
@@ -245,14 +247,14 @@ const handleCardClick = () => {
   if (props.cardType === 'custom') {
     return
   }
-  
+
   // If in baseline selection mode (personalization mode active but no baseline selected),
   // card clicks should trigger baseline selection, not details view
   if (showBaselineActions.value && !props.isBaseline) {
     emit('baseline-selected', props.scenarioData)
     return
   }
-  
+
   // Otherwise, show details view (standard mode or already have a baseline)
   if (showStandardActions.value || props.isBaseline) {
     emit('card-clicked', props.scenarioData)
@@ -261,14 +263,14 @@ const handleCardClick = () => {
 
 const getButtonSeverity = (scenario) => {
   if (!scenario || !scenario.colorTheme) return 'secondary'
-  
+
   const severityMap = {
     success: 'success',
-    info: 'info', 
+    info: 'info',
     warning: 'warn',
-    danger: 'danger'
+    danger: 'danger',
   }
-  
+
   return severityMap[scenario.colorTheme] || 'secondary'
 }
 </script>

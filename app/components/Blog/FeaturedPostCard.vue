@@ -5,12 +5,14 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
           <!-- Blog Post Image -->
           <div class="md:col-span-1">
-            <div class="h-full min-h-[200px] bg-cover bg-center" 
-                :style="{ backgroundImage: `url('${getStrapiUrl(featuredPost.Image)}')` }">
-              <div class="h-full bg-stone-600/20"></div>
+            <div
+              class="h-full min-h-[200px] bg-cover bg-center"
+              :style="{ backgroundImage: `url('${getStrapiUrl(featuredPost.Image)}')` }"
+            >
+              <div class="h-full bg-stone-600/20" />
             </div>
           </div>
-          
+
           <!-- Blog Post Content -->
           <div class="col-span-1 md:col-span-2 p-6 md:p-8">
             <div class="flex items-center mb-3">
@@ -22,25 +24,25 @@
                 {{ featuredPost.category?.Name || 'Legal Insights' }}
               </span>
             </div>
-            
+
             <h3 class="text-xl md:text-2xl font-semibold mb-4 text-slate-800 leading-tight">
               {{ featuredPost.Title }}
             </h3>
-            
+
             <p class="text-slate-600 mb-6 leading-relaxed">
               <BlogRichText :block="featuredPost.Snippet || featuredPost.Content" />
             </p>
-            
+
             <div class="flex justify-between items-center">
-              <NuxtLink 
+              <NuxtLink
                 :to="`/blog/${featuredPost.slug}`"
                 class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors"
               >
                 Read Full Article
-                <i class="pi pi-arrow-right ml-2"></i>
+                <i class="pi pi-arrow-right ml-2" />
               </NuxtLink>
-              
-              <NuxtLink 
+
+              <NuxtLink
                 to="/blog"
                 class="text-stone-500 hover:text-stone-600 text-sm transition-colors float-right"
               >
@@ -58,12 +60,15 @@
 const featuredPost = ref(null)
 
 try {
-  // Use the same featured post query as your blog page
-  const { data } = await useAsyncQuery(featuredPostQuery)
-  if (data.value?.featuredPost?.post) {
-    featuredPost.value = data.value.featuredPost.post
+  // Use REST API to fetch featured post
+  const { strapiUrl } = useAppConfig()
+  const featuredPostUrl = featuredPostQueryREST()
+  const { data } = await useFetch(`${strapiUrl}/api/featured-post?${featuredPostUrl}`)
+  if (data.value?.data?.post) {
+    featuredPost.value = data.value.data.post
   }
-} catch (error) {
+}
+catch (error) {
   console.error('Failed to fetch featured post:', error)
   // Gracefully handle error - page still works without featured post
 }

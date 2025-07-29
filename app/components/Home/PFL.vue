@@ -2,20 +2,22 @@
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
       <div class="flex justify-center mb-6">
-        <img src="/img/PFL_StackedLogo_FullColor.png" alt="Personal Family Lawyer" class="h-20" />
+        <img src="/img/PFL_StackedLogo_FullColor.png" alt="Personal Family Lawyer" class="h-20">
       </div>
       <h2 class="text-3xl font-semibold text-center mb-6 text-[#a53f4f]">
         THE PFL PROMISE
       </h2>
       <p class="text-center text-lg mb-16 max-w-4xl mx-auto text-slate-900">
-        We apply the Personal Family Lawyer philosophy across all our practice areas—helping keep you out of court, 
+        We apply the Personal Family Lawyer philosophy across all our practice areas—helping keep you out of court,
         out of conflict, and protecting everything you care about, whether personal or business.
       </p>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
         <!-- {/* What We Plan For */} -->
         <div class="bg-slate-100 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-          <h3 class="text-2xl font-semibold mb-4 text-[#a53f4f]">What we plan for.</h3>
+          <h3 class="text-2xl font-semibold mb-4 text-[#a53f4f]">
+            What we plan for.
+          </h3>
           <p class="text-slate-900 mb-4">
             Whether it's your family's future, your small business, or nonprofit organization—we plan for all the people who matter to you, and the assets you've built. Our approach is about preventing problems before they arise.
           </p>
@@ -23,22 +25,26 @@
             From estate planning using our Life & Legacy Planning® process to small business formation and bankruptcy relief, we focus on creating solid legal foundations that support your life and business goals.
           </p>
         </div>
-        
+
         <!-- {/* How We Plan */} -->
         <div class="bg-slate-100 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-          <h3 class="text-2xl font-semibold mb-4 text-[#a53f4f]">How we plan.</h3>
+          <h3 class="text-2xl font-semibold mb-4 text-[#a53f4f]">
+            How we plan.
+          </h3>
           <p class="text-slate-900 mb-4">
-            Every legal plan is unique, driven by your personal relationships, family dynamics, business needs, assets, and goals. 
+            Every legal plan is unique, driven by your personal relationships, family dynamics, business needs, assets, and goals.
             We create personalized solutions across all our practice areas—whether estate planning, small business support, nonprofit setup, or bankruptcy relief.
           </p>
           <p class="text-slate-900">
             Our structured process ensures nothing falls through the cracks. With regular reviews and updates, your plans stay current as your life and business evolve.
           </p>
         </div>
-        
+
         <!-- {/* What You See */} -->
         <div class="bg-slate-100 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-          <h3 class="text-2xl font-semibold mb-4 text-[#a53f4f]">What you see.</h3>
+          <h3 class="text-2xl font-semibold mb-4 text-[#a53f4f]">
+            What you see.
+          </h3>
           <p class="text-slate-900 mb-4">
             Systems, Processes + Flat Fees across all our practice areas. From estate planning to small business setup, bankruptcy, and nonprofit formation—we provide a clear roadmap and transparent fees from the start.
           </p>

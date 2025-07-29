@@ -14,17 +14,17 @@ export const useMainStore = defineStore('main', () => {
    * Toast Notifications
    */
   // const toastError = notification => {
-    // toast.error(notification.message, { timeout: 5000 })
+  // toast.error(notification.message, { timeout: 5000 })
   // }
 
   // const toastSuccess = notification => {
-    // toast.success(notification.message, { timeout: 5000 })
+  // toast.success(notification.message, { timeout: 5000 })
   // }
 
   return {
     // booking dialog
     bookingDialogVisible,
-    
+
     // toasts
     // toastError,
     // toastSuccess

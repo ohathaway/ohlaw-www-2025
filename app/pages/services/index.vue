@@ -6,7 +6,7 @@
         <div class="text-center mb-12">
           <h2 class="text-3xl font-semibold mb-6 relative inline-block">
             Our Practice Areas
-            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500"></span>
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500" />
           </h2>
           <p class="text-xl text-slate-600 max-w-3xl mx-auto">
             We focus on four key areas where families and small businesses need the most support. Each service is designed to work together, creating a comprehensive foundation for your success.
@@ -16,16 +16,20 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
           <!-- Estate Planning -->
           <div class="relative h-96 group overflow-hidden">
-            <div 
+            <div
               class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
               style="background-image: url('/img/estatenotebook_1024.webp')"
             >
-              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300" />
             </div>
             <div class="relative h-full p-8 flex flex-col justify-between z-10 text-white">
               <div>
-                <h3 class="text-2xl font-semibold mb-4">Estate Planning</h3>
-                <p class="mb-6">Protect your legacy and provide peace of mind with comprehensive estate planning that works for real people.</p>
+                <h3 class="text-2xl font-semibold mb-4">
+                  Estate Planning
+                </h3>
+                <p class="mb-6">
+                  Protect your legacy and provide peace of mind with comprehensive estate planning that works for real people.
+                </p>
                 <ul class="text-sm space-y-1 opacity-90">
                   <li>Wills and Trusts</li>
                   <li>Healthcare Directives</li>
@@ -33,8 +37,8 @@
                   <li>Probate Avoidance</li>
                 </ul>
               </div>
-              <NuxtLink 
-                to="/services/estate-planning" 
+              <NuxtLink
+                to="/services/estate-planning"
                 class="text-white hover:text-amber-300 uppercase text-sm tracking-wider border-b border-white hover:border-amber-300 pb-1 w-fit transition-colors duration-300"
               >
                 Learn More →
@@ -44,16 +48,20 @@
 
           <!-- Small Business -->
           <div class="relative h-96 group overflow-hidden">
-            <div 
+            <div
               class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
               style="background-image: url('/img/business1_1024.webp')"
             >
-              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300" />
             </div>
             <div class="relative h-full p-8 flex flex-col justify-between z-10 text-white">
               <div>
-                <h3 class="text-2xl font-semibold mb-4">Small Business</h3>
-                <p class="mb-6">Legal support that helps entrepreneurs build, grow, and protect their businesses with confidence.</p>
+                <h3 class="text-2xl font-semibold mb-4">
+                  Small Business
+                </h3>
+                <p class="mb-6">
+                  Legal support that helps entrepreneurs build, grow, and protect their businesses with confidence.
+                </p>
                 <ul class="text-sm space-y-1 opacity-90">
                   <li>Business Formation</li>
                   <li>Contracts & Agreements</li>
@@ -61,8 +69,8 @@
                   <li>Ongoing Compliance</li>
                 </ul>
               </div>
-              <NuxtLink 
-                to="/services/small-business" 
+              <NuxtLink
+                to="/services/small-business"
                 class="text-white hover:text-amber-300 uppercase text-sm tracking-wider border-b border-white hover:border-amber-300 pb-1 w-fit transition-colors duration-300"
               >
                 Learn More →
@@ -72,16 +80,20 @@
 
           <!-- Bankruptcy -->
           <div class="relative h-96 group overflow-hidden">
-            <div 
+            <div
               class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
               style="background-image: url('/img/helpinghand_1024.webp')"
             >
-              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300" />
             </div>
             <div class="relative h-full p-8 flex flex-col justify-between z-10 text-white">
               <div>
-                <h3 class="text-2xl font-semibold mb-4">Bankruptcy</h3>
-                <p class="mb-6">Compassionate bankruptcy services that provide a fresh start and help you regain financial control.</p>
+                <h3 class="text-2xl font-semibold mb-4">
+                  Bankruptcy
+                </h3>
+                <p class="mb-6">
+                  Compassionate bankruptcy services that provide a fresh start and help you regain financial control.
+                </p>
                 <ul class="text-sm space-y-1 opacity-90">
                   <li>Chapter 7 & Chapter 13</li>
                   <li>Stop Creditor Harassment</li>
@@ -89,8 +101,8 @@
                   <li>Fresh Start Planning</li>
                 </ul>
               </div>
-              <NuxtLink 
-                to="/services/bankruptcy" 
+              <NuxtLink
+                to="/services/bankruptcy"
                 class="text-white hover:text-amber-300 uppercase text-sm tracking-wider border-b border-white hover:border-amber-300 pb-1 w-fit transition-colors duration-300"
               >
                 Learn More →
@@ -100,16 +112,20 @@
 
           <!-- Nonprofits -->
           <div class="relative h-96 group overflow-hidden">
-            <div 
+            <div
               class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
               style="background-image: url('/img/dotorgtablet_1024.webp')"
             >
-              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-primary-800 opacity-75 group-hover:opacity-65 transition-opacity duration-300" />
             </div>
             <div class="relative h-full p-8 flex flex-col justify-between z-10 text-white">
               <div>
-                <h3 class="text-2xl font-semibold mb-4">Nonprofits</h3>
-                <p class="mb-6">Support your mission with practical legal solutions that build sustainability and maximize impact.</p>
+                <h3 class="text-2xl font-semibold mb-4">
+                  Nonprofits
+                </h3>
+                <p class="mb-6">
+                  Support your mission with practical legal solutions that build sustainability and maximize impact.
+                </p>
                 <ul class="text-sm space-y-1 opacity-90">
                   <li>501(c)(3) Formation</li>
                   <li>Tax Exemption Applications</li>
@@ -117,8 +133,8 @@
                   <li>Alternative Structures (co-ops, B-corps, etc.)</li>
                 </ul>
               </div>
-              <NuxtLink 
-                to="/services/nonprofits" 
+              <NuxtLink
+                to="/services/nonprofits"
                 class="text-white hover:text-amber-300 uppercase text-sm tracking-wider border-b border-white hover:border-amber-300 pb-1 w-fit transition-colors duration-300"
               >
                 Learn More →
@@ -135,7 +151,7 @@
         <div class="text-center mb-12">
           <h2 class="text-3xl font-semibold mb-6 relative inline-block">
             How We're Different
-            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500"></span>
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500" />
           </h2>
           <p class="text-xl text-slate-600 max-w-3xl mx-auto">
             We offer people a different way to buy legal services that's transparent, affordable, and accessible.
@@ -145,9 +161,11 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="text-center">
             <div class="bg-primary-200 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 text-4xl">
-              <i class="pi pi-wallet text-orange-800"></i>
+              <i class="pi pi-wallet text-orange-800" />
             </div>
-            <h3 class="text-xl font-semibold mb-4">Fixed Fees</h3>
+            <h3 class="text-xl font-semibold mb-4">
+              Fixed Fees
+            </h3>
             <p class="text-slate-600">
               Almost everything we do for our clients, we offer at a fixed fee. If we can't offer you a fixed price, we will always commit to a budget set by you.
             </p>
@@ -155,9 +173,11 @@
 
           <div class="text-center">
             <div class="bg-primary-200 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 text-4xl">
-              <i class="pi pi-home text-orange-800"></i>
+              <i class="pi pi-home text-orange-800" />
             </div>
-            <h3 class="text-xl font-semibold mb-4">We Come To You</h3>
+            <h3 class="text-xl font-semibold mb-4">
+              We Come To You
+            </h3>
             <p class="text-slate-600">
               We keep our costs down by not maintaining a permanent office. We will even come to your home to meet with you.
             </p>
@@ -165,9 +185,11 @@
 
           <div class="text-center">
             <div class="bg-primary-200 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 text-4xl">
-              <i class="pi pi-users text-orange-800"></i>
+              <i class="pi pi-users text-orange-800" />
             </div>
-            <h3 class="text-xl font-semibold mb-4">For Everyone</h3>
+            <h3 class="text-xl font-semibold mb-4">
+              For Everyone
+            </h3>
             <p class="text-slate-600">
               We think this transparency, affordability, and accessibility make our services available to people who may not think they can actually hire a lawyer.
             </p>
@@ -183,7 +205,7 @@
           <div class="text-center mb-12">
             <h2 class="text-3xl font-semibold mb-6 relative inline-block">
               An Integrated Approach to Your Legal Needs
-              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500"></span>
+              <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500" />
             </h2>
             <p class="text-xl text-slate-600">
               Our services work together to provide comprehensive protection and support throughout your journey.
@@ -193,7 +215,9 @@
           <div class="bg-orange-50 rounded-lg shadow-md p-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h3 class="text-xl font-semibold mb-4 text-primary-700">From Crisis to Growth</h3>
+                <h3 class="text-xl font-semibold mb-4 text-primary-700">
+                  From Crisis to Growth
+                </h3>
                 <p class="text-slate-600 mb-4">
                   We can help folks in a debt crisis through bankruptcy, then support them as they rebuild with business formation or estate planning services.
                 </p>
@@ -203,7 +227,9 @@
               </div>
 
               <div>
-                <h3 class="text-xl font-semibold mb-4 text-primary-700">Business and Estate Integration</h3>
+                <h3 class="text-xl font-semibold mb-4 text-primary-700">
+                  Business and Estate Integration
+                </h3>
                 <p class="text-slate-600 mb-4">
                   Business owners need estate planning that accounts for their business interests. We ensure your business succession plan aligns with your family's needs.
                 </p>
@@ -226,7 +252,7 @@
         <div class="text-center mb-12">
           <h2 class="text-3xl font-semibold mb-6 relative inline-block">
             Ready to Get Started?
-            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500"></span>
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary-500" />
           </h2>
           <p class="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
             Every journey begins with a single step. Schedule a consultation to discuss your needs and learn how we can help.
@@ -235,7 +261,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div class="bg-slate-50 rounded-lg p-6 text-center">
-            <h3 class="text-xl font-semibold mb-4">New to Our Services?</h3>
+            <h3 class="text-xl font-semibold mb-4">
+              New to Our Services?
+            </h3>
             <p class="text-slate-600 mb-6">
               Schedule a free consultation to explore your options and learn about our approach.
             </p>
@@ -245,7 +273,9 @@
           </div>
 
           <div class="bg-slate-50 rounded-lg p-6 text-center">
-            <h3 class="text-xl font-semibold mb-4">Have Questions?</h3>
+            <h3 class="text-xl font-semibold mb-4">
+              Have Questions?
+            </h3>
             <p class="text-slate-600 mb-6">
               Get in touch to discuss your specific situation and how we can help.
             </p>
@@ -261,7 +291,9 @@
     <section class="py-16 bg-gradient-to-r from-primary-700 to-primary-900 text-white text-center">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-bold mb-6">Let's Build Something Great Together</h2>
+          <h2 class="text-3xl font-bold mb-6">
+            Let's Build Something Great Together
+          </h2>
           <p class="text-xl mb-8">
             Whether you're protecting your family's future, growing your business, or overcoming financial challenges, we're here to provide the legal foundation you need to succeed.
           </p>
@@ -303,8 +335,8 @@ useHead(useSeo({
               '@type': 'Service',
               'name': 'Estate Planning',
               'description': 'Comprehensive estate planning services including wills, trusts, and healthcare directives for Colorado families',
-              'url': 'https://ohlawcolorado.com/services/estate-planning'
-            }
+              'url': 'https://ohlawcolorado.com/services/estate-planning',
+            },
           },
           {
             '@type': 'Offer',
@@ -312,8 +344,8 @@ useHead(useSeo({
               '@type': 'Service',
               'name': 'Small Business Law',
               'description': 'Business formation, contracts, and legal support for Colorado entrepreneurs and small businesses',
-              'url': 'https://ohlawcolorado.com/services/small-business'
-            }
+              'url': 'https://ohlawcolorado.com/services/small-business',
+            },
           },
           {
             '@type': 'Offer',
@@ -321,8 +353,8 @@ useHead(useSeo({
               '@type': 'Service',
               'name': 'Bankruptcy Services',
               'description': 'Chapter 7 and Chapter 13 bankruptcy services for debt relief and fresh start solutions in Colorado',
-              'url': 'https://ohlawcolorado.com/services/bankruptcy'
-            }
+              'url': 'https://ohlawcolorado.com/services/bankruptcy',
+            },
           },
           {
             '@type': 'Offer',
@@ -330,11 +362,11 @@ useHead(useSeo({
               '@type': 'Service',
               'name': 'Nonprofit Formation',
               'description': '501(c)(3) formation and legal support for nonprofit organizations in Colorado',
-              'url': 'https://ohlawcolorado.com/services/nonprofits'
-            }
-          }
-        ]
-      }
+              'url': 'https://ohlawcolorado.com/services/nonprofits',
+            },
+          },
+        ],
+      },
     },
     {
       '@context': 'https://schema.org',
@@ -351,8 +383,8 @@ useHead(useSeo({
             'item': {
               '@type': 'Service',
               'name': 'Estate Planning',
-              'url': 'https://ohlawcolorado.com/services/estate-planning'
-            }
+              'url': 'https://ohlawcolorado.com/services/estate-planning',
+            },
           },
           {
             '@type': 'ListItem',
@@ -360,8 +392,8 @@ useHead(useSeo({
             'item': {
               '@type': 'Service',
               'name': 'Small Business Law',
-              'url': 'https://ohlawcolorado.com/services/small-business'
-            }
+              'url': 'https://ohlawcolorado.com/services/small-business',
+            },
           },
           {
             '@type': 'ListItem',
@@ -369,8 +401,8 @@ useHead(useSeo({
             'item': {
               '@type': 'Service',
               'name': 'Bankruptcy Services',
-              'url': 'https://ohlawcolorado.com/services/bankruptcy'
-            }
+              'url': 'https://ohlawcolorado.com/services/bankruptcy',
+            },
           },
           {
             '@type': 'ListItem',
@@ -378,13 +410,13 @@ useHead(useSeo({
             'item': {
               '@type': 'Service',
               'name': 'Nonprofit Formation',
-              'url': 'https://ohlawcolorado.com/services/nonprofits'
-            }
-          }
-        ]
-      }
-    }
-  ]
+              'url': 'https://ohlawcolorado.com/services/nonprofits',
+            },
+          },
+        ],
+      },
+    },
+  ],
 }))
 </script>
 

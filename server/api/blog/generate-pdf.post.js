@@ -69,11 +69,11 @@ export default defineEventHandler(async (event) => {
   }
   catch (error) {
     console.error('Manual PDF generation error:', error)
-    
+
     if (error.statusCode) {
       throw error
     }
-    
+
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to generate blog PDF',

@@ -4,9 +4,9 @@
     <ServicesHero
       title="Nonprofit Services<br />That Build Sustainability"
       subtitle="Supporting Your Mission with Practical Legal Solutions"
-      buttonText="Schedule Your Free Consultation"
+      button-text="Schedule Your Free Consultation"
       :button-link="link"
-      backgroundImage="/img/dotorgtablet_1024.webp"
+      background-image="/img/dotorgtablet_1024.webp"
     />
 
     <!-- Introduction Section -->
@@ -14,10 +14,10 @@
       title="What Sets Our<br />Nonprofit Services Apart"
       description="<p>Many attorneys treat nonprofits just like any other business. Others focus exclusively on mission without considering sustainability.</p><p>We understand that successful nonprofits need both: a clear mission and the practical foundation to sustain it. We believe in the proverb 'No margin, no mission' and can help your nonprofit set itself up for long-term, mission-driven sustainability.</p>"
       :features="introFeatures"
-      imageSource="/img/dotorgtablet_1024.webp"
-      imageProvider="cloudflare"
-      imageTitle="Nonprofit Services"
-      buttonText="Get Started Today"
+      image-source="/img/dotorgtablet_1024.webp"
+      image-provider="cloudflare"
+      image-title="Nonprofit Services"
+      button-text="Get Started Today"
       :button-link="link"
     />
 
@@ -48,8 +48,10 @@
     <!-- FAQ Section -->
     <section class="py-5">
       <div class="container w-3xl mx-auto">
-        <h2 class="text-center mb-5">Frequently Asked Questions</h2>
-        <FaqAccordion :faqItems="faqItems" />
+        <h2 class="text-center mb-5">
+          Frequently Asked Questions
+        </h2>
+        <FaqAccordion :faq-items="faqItems" />
       </div>
     </section>
 
@@ -57,7 +59,7 @@
     <ServicesCta
       title="Ready to Build a Sustainable Nonprofit?"
       description="Schedule your consultation today and take the first step toward creating a nonprofit that makes a lasting impact."
-      buttonText="Schedule Your Free Consultation"
+      button-text="Schedule Your Free Consultation"
       :button-link="link"
     />
   </main>
@@ -73,33 +75,33 @@ useHead(useSeo({
   meta: [
     {
       name: 'description',
-      content: 'Comprehensive legal services for nonprofits. We help you establish, maintain, and grow your nonprofit organization with a focus on long-term sustainability and mission fulfillment.'
-    }
-  ]
+      content: 'Comprehensive legal services for nonprofits. We help you establish, maintain, and grow your nonprofit organization with a focus on long-term sustainability and mission fulfillment.',
+    },
+  ],
 }))
 
 // Introduction section features
 const introFeatures = [
   {
     title: `Mission + Sustainability`,
-    description: `We balance your charitable mission with practical business principles.`
+    description: `We balance your charitable mission with practical business principles.`,
   },
   {
     title: `Experienced Guidance`,
-    description: `We've helped nonprofits navigate complex legal and tax challenges.`
+    description: `We've helped nonprofits navigate complex legal and tax challenges.`,
   },
   {
     title: `Practical Solutions`,
-    description: `Our advice is grounded in real-world nonprofit experience.`
+    description: `Our advice is grounded in real-world nonprofit experience.`,
   },
   {
     title: `Full-Service Support`,
-    description: `From formation to tax compliance, we provide comprehensive guidance.`
+    description: `From formation to tax compliance, we provide comprehensive guidance.`,
   },
   {
     title: `Affordable Options`,
-    description: `Our nonprofit services are priced to respect your budget constraints.`
-  }
+    description: `Our nonprofit services are priced to respect your budget constraints.`,
+  },
 ]
 
 // Why Nonprofit Legal Support Matters features
@@ -107,18 +109,18 @@ const whyItMattersFeatures = [
   {
     icon: `shield-check`,
     title: `Protect Your Mission`,
-    description: `Proper legal structure ensures your organization can fulfill its mission while protecting board members and stakeholders from personal liability.`
+    description: `Proper legal structure ensures your organization can fulfill its mission while protecting board members and stakeholders from personal liability.`,
   },
   {
     icon: `coin`,
     title: `Tax Advantages`,
-    description: `Correctly establishing and maintaining your nonprofit status provides significant tax benefits and fundraising opportunities that support your work.`
+    description: `Correctly establishing and maintaining your nonprofit status provides significant tax benefits and fundraising opportunities that support your work.`,
   },
   {
     icon: `graph-up`,
     title: `Sustainable Growth`,
-    description: `Strategic legal planning helps create a foundation for sustainable growth, allowing your nonprofit to expand its impact over time.`
-  }
+    description: `Strategic legal planning helps create a foundation for sustainable growth, allowing your nonprofit to expand its impact over time.`,
+  },
 ]
 
 // Nonprofit Services offerings
@@ -130,8 +132,8 @@ const servicesOfferings = [
       { text: `Entity selection guidance (501(c)(3), 501(c)(4), etc.)` },
       { text: `State incorporation documents` },
       { text: `Bylaws and governance policies` },
-      { text: `IRS Form 1023/1024 preparation and submission` }
-    ]
+      { text: `IRS Form 1023/1024 preparation and submission` },
+    ],
   },
   {
     title: `Alternative Structures`,
@@ -140,8 +142,8 @@ const servicesOfferings = [
       { text: `B Corporation formation and certification` },
       { text: `Fiscal sponsorship arrangements` },
       { text: `Donor-advised funds` },
-      { text: `Social enterprise models` }
-    ]
+      { text: `Social enterprise models` },
+    ],
   },
   {
     title: `Compliance & Governance`,
@@ -150,8 +152,8 @@ const servicesOfferings = [
       { text: `Board governance policies and training` },
       { text: `Annual filing requirements (990s, state reports)` },
       { text: `UBIT (Unrelated Business Income Tax) planning` },
-      { text: `Conflict of interest and ethics policies` }
-    ]
+      { text: `Conflict of interest and ethics policies` },
+    ],
   },
   {
     title: `Ongoing Support`,
@@ -160,9 +162,9 @@ const servicesOfferings = [
       { text: `Revenue stream diversification strategies` },
       { text: `Fundraising compliance` },
       { text: `Risk management and liability protection` },
-      { text: `Strategic partnerships and collaboration agreements` }
-    ]
-  }
+      { text: `Strategic partnerships and collaboration agreements` },
+    ],
+  },
 ]
 
 // Timeline content
@@ -180,7 +182,7 @@ const tlContent = [
         <li>Consider alternatives like fiscal sponsorship or B Corporation status</li>
       </ul>
       <p>This consultation helps ensure we're building the right foundation for your specific needs.</p>
-    `
+    `,
   },
   {
     type: 'content',
@@ -194,7 +196,7 @@ const tlContent = [
         <li>Create conflict of interest and other essential policies</li>
         <li>Plan for sustainable revenue streams that comply with nonprofit regulations</li>
       </ul>
-    `
+    `,
   },
   {
     type: 'content',
@@ -208,7 +210,7 @@ const tlContent = [
         <li>Complete initial state registrations and reports</li>
         <li>Establish proper board governance structures and procedures</li>
       </ul>
-    `
+    `,
   },
   {
     type: 'content',
@@ -223,7 +225,7 @@ const tlContent = [
         <li>Monitor application progress and maintain communication with the IRS</li>
       </ul>
       <p>This process typically takes 3-12 months, and we'll guide you through each step.</p>
-    `
+    `,
   },
   {
     type: 'content',
@@ -237,7 +239,7 @@ const tlContent = [
         <li>Address employment and volunteer management legal issues</li>
         <li>Set up fundraising compliance systems</li>
       </ul>
-    `
+    `,
   },
   {
     type: 'content',
@@ -251,7 +253,7 @@ const tlContent = [
         <li>Ensure proper record-keeping and transparency</li>
         <li>Set up calendars for required filings and renewals</li>
       </ul>
-    `
+    `,
   },
   {
     type: 'content',
@@ -266,35 +268,35 @@ const tlContent = [
         <li>Periodic governance reviews and updates</li>
       </ul>
       <p>We can provide ongoing support tailored to your organization's changing needs.</p>
-    `
-  }
+    `,
+  },
 ]
 
 // FAQ items
 const faqItems = [
   {
     question: `Should I form a nonprofit or consider other options?`,
-    answer: `Not every charitable mission requires a separate nonprofit entity. Alternatives include fiscal sponsorship, donor-advised funds, or even socially responsible for-profit models like B Corporations. During your consultation, we'll explore whether forming a nonprofit is truly the best approach for your goals, or if another structure might better serve your mission while reducing administrative burden.`
+    answer: `Not every charitable mission requires a separate nonprofit entity. Alternatives include fiscal sponsorship, donor-advised funds, or even socially responsible for-profit models like B Corporations. During your consultation, we'll explore whether forming a nonprofit is truly the best approach for your goals, or if another structure might better serve your mission while reducing administrative burden.`,
   },
   {
     question: `How long does it take to form a nonprofit and obtain tax-exempt status?`,
-    answer: `The timeline varies depending on complexity, but typically: 2-4 weeks for state incorporation, 3-6 months for IRS 501(c)(3) determination with Form 1023-EZ (if you qualify), or 6-12+ months with the full Form 1023. We'll help you understand the specific timeline for your situation and explore options for operating while your application is pending.`
+    answer: `The timeline varies depending on complexity, but typically: 2-4 weeks for state incorporation, 3-6 months for IRS 501(c)(3) determination with Form 1023-EZ (if you qualify), or 6-12+ months with the full Form 1023. We'll help you understand the specific timeline for your situation and explore options for operating while your application is pending.`,
   },
   {
     question: `What's the difference between a 501(c)(3) and other nonprofit designations?`,
-    answer: `501(c)(3) organizations (charitable, religious, educational) offer tax deductions for donors and can receive grants from private foundations. Other designations like 501(c)(4) (social welfare), 501(c)(6) (business leagues), or 501(c)(7) (social clubs) have different tax implications and allowable activities. We'll help you select the classification that best fits your mission and operational plans.`
+    answer: `501(c)(3) organizations (charitable, religious, educational) offer tax deductions for donors and can receive grants from private foundations. Other designations like 501(c)(4) (social welfare), 501(c)(6) (business leagues), or 501(c)(7) (social clubs) have different tax implications and allowable activities. We'll help you select the classification that best fits your mission and operational plans.`,
   },
   {
     question: `How do we handle revenue generation while maintaining our nonprofit status?`,
-    answer: `Nonprofits can and should generate revenue to sustain their mission. This can include program fees, merchandise sales, events, and other activities. The key is structuring these activities appropriately and understanding when they might generate Unrelated Business Income Tax (UBIT). We can help you develop revenue streams that support your mission while maintaining compliance with nonprofit regulations.`
+    answer: `Nonprofits can and should generate revenue to sustain their mission. This can include program fees, merchandise sales, events, and other activities. The key is structuring these activities appropriately and understanding when they might generate Unrelated Business Income Tax (UBIT). We can help you develop revenue streams that support your mission while maintaining compliance with nonprofit regulations.`,
   },
   {
     question: `What ongoing legal requirements do nonprofits face?`,
-    answer: `Nonprofits must maintain compliance with various federal, state, and local requirements including: annual IRS Form 990 filings, state annual reports and charitable solicitation registrations, board governance obligations, public disclosure requirements, and specific regulations related to your activities. We offer ongoing compliance support to ensure these requirements are met efficiently.`
+    answer: `Nonprofits must maintain compliance with various federal, state, and local requirements including: annual IRS Form 990 filings, state annual reports and charitable solicitation registrations, board governance obligations, public disclosure requirements, and specific regulations related to your activities. We offer ongoing compliance support to ensure these requirements are met efficiently.`,
   },
   {
     question: `How much does it cost to form and maintain a nonprofit?`,
-    answer: `Initial formation costs typically include legal fees, filing fees (state incorporation and IRS Form 1023), and operational setup expenses. Our nonprofit formation packages start at the same rates as our business formation packages, with additional services available as needed. Ongoing compliance costs vary based on your organization's size and activities. During your consultation, we'll provide transparent pricing based on your specific needs.`
-  }
+    answer: `Initial formation costs typically include legal fees, filing fees (state incorporation and IRS Form 1023), and operational setup expenses. Our nonprofit formation packages start at the same rates as our business formation packages, with additional services available as needed. Ongoing compliance costs vary based on your organization's size and activities. During your consultation, we'll provide transparent pricing based on your specific needs.`,
+  },
 ]
 </script>

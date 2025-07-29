@@ -5,15 +5,15 @@
     <div class="fixed top-0 left-0 right-0 z-50">
       <LayoutHeaderView />
     </div>
-    
+
     <!-- Conditional specialized headers -->
-    <slot name="specialized-header"></slot>
-    
+    <slot name="specialized-header" />
+
     <!-- Main content that starts after the header -->
     <main class="flex-1 bg-slate-50">
       <slot />
     </main>
-    
+
     <!-- Footer -->
     <LayoutFooterView />
   </div>

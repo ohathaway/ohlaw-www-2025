@@ -1,24 +1,24 @@
-<!-- app/components/Quiz/CheckBox.vue-->
+<!-- app/components/Quiz/CheckBox.vue -->
 <template>
   <div class="p-1">
-    <div 
-      class="answer-option flex items-start p-3 transition-all duration-200 cursor-pointer hover:bg-primary-50 rounded-xl" 
+    <div
+      class="answer-option flex items-start p-3 transition-all duration-200 cursor-pointer hover:bg-primary-50 rounded-xl"
       :class="props.modelValue"
       @click="toggle"
     >
-      <Checkbox 
-        :inputId="props.inputId"
-        class="mr-3 mt-1"
+      <Checkbox
         v-model="props.modelValue"
+        :input-id="props.inputId"
+        class="mr-3 mt-1"
         binary
-        @update:modelValue="$emit('update:modelValue', $event)"
         :aria-labelledby="props.ariaLabelledby"
+        @update:model-value="$emit('update:modelValue', $event)"
       />
       <div class="answer-content flex-1">
         <div :id="props.ariaLabelledby" class="answer-text">
-          <slot name="text"></slot>
+          <slot name="text" />
         </div>
-        <slot name="media"></slot>
+        <slot name="media" />
       </div>
     </div>
   </div>
@@ -28,16 +28,16 @@
 const props = defineProps({
   inputId: {
     type: String,
-    required: true
+    required: true,
   },
   ariaLabelledby: {
     type: String,
-    required: true
+    required: true,
   },
   modelValue: {
     type: Boolean,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])

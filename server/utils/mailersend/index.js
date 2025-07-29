@@ -2,20 +2,20 @@ import {
   MailerSend,
   EmailParams,
   Sender,
-  Recipient
+  Recipient,
 } from 'mailersend'
 import isEmail from 'validator/es/lib/isEmail'
 
 const mailerSend = new MailerSend({
-  apiKey: process.env.MAILERSEND_KEY
+  apiKey: process.env.MAILERSEND_KEY,
 })
 
 export const sendTestMsg = async (recipient, sender) => {
   try {
-    const sentFrom = new Sender(sender.address, sender.name) 
+    const sentFrom = new Sender(sender.address, sender.name)
 
     const recipients = [
-      new Recipient(recipient.address, recipient.name)
+      new Recipient(recipient.address, recipient.name),
     ]
 
     const emailParams = new EmailParams()
@@ -28,7 +28,8 @@ export const sendTestMsg = async (recipient, sender) => {
 
     const result = await mailerSend.email.send(emailParams)
     console.info('email send result:', result)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error sending test message:', error)
     throw error.body
   }
@@ -42,7 +43,7 @@ export const sendTestMsg = async (recipient, sender) => {
       name: String
     },
     recipients: Array [
-      { 
+      {
         address: EmailAddressString,
         name: String
       }
@@ -56,15 +57,15 @@ export const sendTestMsg = async (recipient, sender) => {
 export const sendMsg = async (config) => {
   try {
     const validSubject = validateEmailSubject(config.subject)
-    if(!validSubject.isValid) throw validSubject.error
+    if (!validSubject.isValid) throw validSubject.error
 
     const validSender = isEmail(config.sender.address + '')
-    if(!validSender) throw 'Invalid sender address'
+    if (!validSender) throw 'Invalid sender address'
     const sentFrom = new Sender(config.sender.address, config.sender.name)
 
-    const recipients = config.recipients.filter(r => {
+    const recipients = config.recipients.filter((r) => {
       return isEmail(r.address)
-    }).map(r => {
+    }).map((r) => {
       return new Recipient(r.address, r.name)
     })
 
@@ -78,7 +79,8 @@ export const sendMsg = async (config) => {
 
     const result = await mailerSend.email.send(emailParams)
     console.info('email send result:', result)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error sending test message:', error)
     throw error.body
   }
@@ -92,7 +94,7 @@ export const sendMsg = async (config) => {
       name: String
     },
     recipients: Array [
-      { 
+      {
         address: EmailAddressString,
         name: String
       }
@@ -105,10 +107,10 @@ export const sendMsg = async (config) => {
 export const sendTemplatedMsg = async (config) => {
   try {
     const validSubject = validateEmailSubject(config.subject)
-    if(!validSubject.isValid) throw validSubject.error
+    if (!validSubject.isValid) throw validSubject.error
 
     const validSender = isEmail(config.sender.address + '')
-    if(!validSender) throw 'Invalid sender address'
+    if (!validSender) throw 'Invalid sender address'
     const sentFrom = new Sender(config.sender.address, config.sender.name)
 
     /*
@@ -121,8 +123,8 @@ export const sendTemplatedMsg = async (config) => {
     const recipients = [
       new Recipient(
         config.recipients[0].address,
-        config.recipients[0].name
-      )
+        config.recipients[0].name,
+      ),
     ]
 
     const emailParams = new EmailParams()
@@ -136,7 +138,8 @@ export const sendTemplatedMsg = async (config) => {
     console.info('emailParams:', emailParams)
     const result = await mailerSend.email.send(emailParams)
     console.info('email send result:', result)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error sending test message:', error)
     throw error.body
   }

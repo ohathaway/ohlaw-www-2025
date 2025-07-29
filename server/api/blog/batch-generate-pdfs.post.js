@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     // Fetch all published blog posts
     const allPosts = await fetchAllBlogPosts()
     console.log(`Found ${allPosts.length} published blog posts`)
-    
+
     if (allPosts.length === 0) {
       console.log('No published blog posts found. Check Strapi connection and data.')
       return {
@@ -35,11 +35,11 @@ export default defineEventHandler(async (event) => {
     for (let i = 0; i < allPosts.length; i += BATCH_SIZE) {
       const batchNumber = Math.floor(i / BATCH_SIZE) + 1
       console.log(`Processing batch ${batchNumber}/${totalBatches}...`)
-      
+
       const batch = allPosts.slice(i, i + BATCH_SIZE)
       const batchResults = await processBatch(batch)
       results.push(...batchResults)
-      
+
       console.log(`Batch ${batchNumber} completed`)
     }
 
@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
   }
   catch (error) {
     console.error('💥 Batch generation failed:', error)
-    
+
     throw createError({
       statusCode: 500,
       statusMessage: 'Batch PDF generation failed',
@@ -88,14 +88,14 @@ async function fetchAllBlogPosts() {
   while (hasMore) {
     try {
       if (isDev) console.log(`Fetching page ${page}...`)
-      
+
       const url = `${strapiUrl}/api/posts?pagination[page]=${page}&pagination[pageSize]=25&filters[publishedAt][$notNull]=true&sort[0]=publishedAt:desc&populate=*`
       if (isDev) {
         console.log(`=== FETCHING URL ===`)
         console.log(url)
         console.log(`=== END URL ===`)
       }
-      
+
       const response = await $fetch(url)
 
       if (isDev) {
@@ -115,7 +115,7 @@ async function fetchAllBlogPosts() {
       if (response.data) {
         posts.push(...response.data)
       }
-      
+
       hasMore = response.meta?.pagination?.page < response.meta?.pagination?.pageCount
       page++
     }
@@ -148,26 +148,26 @@ async function processBatch(posts) {
           hasContent: !!post.Content,
         })
       }
-      
+
       // Generate PDF buffer
       if (isDev) console.log('Generating PDF buffer...')
       const { buffer: pdfBuffer } = await generateBlogPDFBuffer(post.documentId)
       if (isDev) console.log(`PDF buffer generated: ${pdfBuffer.length} bytes`)
-      
+
       // Store in NuxtHub blob storage
       const filename = `${post.slug}.pdf`
       if (isDev) console.log(`Storing PDF: ${filename}`)
-      
+
       let pdfUrl
       try {
         // Use the public bucket for blog PDFs
         const appConfig = useAppConfig()
         const bucketName = appConfig.blogPdfs.bucketName
         const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
-        
+
         if (isDev) console.log(`Uploading to R2: ${bucketName}/${keyName}`)
         await uploadPdfToR2(pdfBuffer, keyName, bucketName)
-        
+
         // Construct the public URL
         pdfUrl = `${appConfig.blogPdfs.publicDomain}/${keyName}`
         if (isDev) console.log(`PDF stored successfully: ${filename} -> ${pdfUrl}`)
@@ -176,19 +176,19 @@ async function processBatch(posts) {
         console.error('R2 storage error:', storageError)
         throw new Error(`Failed to store PDF: ${storageError.message}`)
       }
-      
+
       results.push({
         success: true,
         slug: post.slug,
         title: post.Title,
         pdfUrl,
       })
-      
+
       console.log(`✅ Generated PDF: ${post.slug}`)
     }
     catch (error) {
       console.error(`❌ Failed to generate PDF for ${post.slug}:`, error.message)
-      
+
       results.push({
         success: false,
         slug: post.slug,

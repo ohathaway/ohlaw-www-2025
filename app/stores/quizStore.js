@@ -42,7 +42,7 @@ export const useQuizStore = defineStore('quiz', () => {
         return [...allAnswers, ...question.answers]
       }
       return allAnswers
-    }, []).filter(answer => {
+    }, []).filter((answer) => {
       return answer.minimumResultScore > 0
     })
     return answers
@@ -55,7 +55,7 @@ export const useQuizStore = defineStore('quiz', () => {
         return [...allAnswers, ...question.answers]
       }
       return allAnswers
-    }, []).filter(answer => {
+    }, []).filter((answer) => {
       return answer.maximumResultScore > 0
     })
     return answers
@@ -76,16 +76,7 @@ export const useQuizStore = defineStore('quiz', () => {
     error.value = null
 
     try {
-      /*
-      const { $apollo } = useNuxtApp()
-
-      // Use Apollo client to fetch quiz
-      const { data } = await $apollo.defaultClient.query({
-        query: getQuizBySlug,
-        variables: { slug }
-      })
-      */
-      // Use REST api to submit the mutation
+      // Use REST api to fetch the quiz
       const getQuizQS = getQuizBySlugREST(slug)
       const getQuizQuery = qs.stringify(getQuizQS, { encodeValuesOnly: true })
       const { strapiUrl } = useAppConfig()
@@ -115,12 +106,13 @@ export const useQuizStore = defineStore('quiz', () => {
         leadMagnet: quizData.leadMagnet?.url || null,
         collectContactInfo: quizData.collectContactInfo,
         contactFormFields: quizData.contactFormFields || {},
-        successMessage: quizData.successMessage
+        successMessage: quizData.successMessage,
       }
 
       loading.value = false
       return quiz.value
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Error loading quiz:', err)
       error.value = err.message || 'Failed to load quiz'
       loading.value = false
@@ -142,7 +134,7 @@ export const useQuizStore = defineStore('quiz', () => {
         required: q.required,
         order: q.order,
         media: q.media?.url,
-        answers: processAnswers(q.answers)
+        answers: processAnswers(q.answers),
       }))
   }
 
@@ -157,7 +149,7 @@ export const useQuizStore = defineStore('quiz', () => {
       media: a.media?.url,
       branchToQuestion: a.branchToQuestion,
       maximumResultScore: a.maximumResultScore,
-      minimumResultScore: a.minimumResultScore
+      minimumResultScore: a.minimumResultScore,
     }))
   }
 
@@ -172,11 +164,11 @@ export const useQuizStore = defineStore('quiz', () => {
       maxScore: rc.maxScore,
       criteria: rc.criteria,
       ctaText: rc.ctaText,
-      ctaLink: rc.ctaLink
+      ctaLink: rc.ctaLink,
     }))
   }
 
-// Actions
+  // Actions
   // Quiz flow methods
   const startQuiz = () => {
     started.value = true
@@ -191,16 +183,16 @@ export const useQuizStore = defineStore('quiz', () => {
     userAnswers.value[questionId] = answer
 
     // Check for branching logic (for future implementation)
-    const currentAnswerObj = currentQuestion.value.answers.find(a => 
-      a.answerId === (Array.isArray(answer) ? answer[0] : answer)
+    const currentAnswerObj = currentQuestion.value.answers.find(a =>
+      a.answerId === (Array.isArray(answer) ? answer[0] : answer),
     )
 
     // If there's branching logic and it's enabled, use it
     if (currentAnswerObj?.branchToQuestion) {
       const branchToIndex = quiz.value.questions.findIndex(
-        q => q.order === currentAnswerObj.branchToQuestion
+        q => q.order === currentAnswerObj.branchToQuestion,
       )
-      
+
       if (branchToIndex !== -1) {
         currentQuestionIndex.value = branchToIndex
         return
@@ -210,7 +202,8 @@ export const useQuizStore = defineStore('quiz', () => {
     // Otherwise, go to next question
     if (currentQuestionIndex.value < quiz.value.questions.length - 1) {
       currentQuestionIndex.value++
-    } else {
+    }
+    else {
       calculateResult()
     }
   }
@@ -224,77 +217,77 @@ export const useQuizStore = defineStore('quiz', () => {
     const minScores = overrides
       .filter(override => override.minimumResultScore !== null)
       .map(override => override.minimumResultScore)
-    
+
     // Get all non-null maximumResultScore values
     const maxScores = overrides
       .filter(override => override.maximumResultScore !== null)
       .map(override => override.maximumResultScore)
-    
+
     // Find highest minimum (or null if none exist)
     const minScore = minScores.length ? Math.max(...minScores) : null
-    
+
     // Find lowest maximum (or null if none exist)
     const maxScore = maxScores.length ? Math.min(...maxScores) : null
-    
+
     return { minScore, maxScore }
   }
 
-  const checkResultOverride = userAnswers => {
+  const checkResultOverride = (userAnswers) => {
     // list all user answers that appear in the minimumResultScore property
-    const minOverrides = minimumResultAnswers.value.filter(mrAnswer => {
+    const minOverrides = minimumResultAnswers.value.filter((mrAnswer) => {
       return userAnswersFlat.value.includes(mrAnswer.answerId)
     })
 
     // list all user answers that appear in the maximumResultScore property
-    const maxOverrides = maximumResultAnswers.value.filter(mrAnswer => {
+    const maxOverrides = maximumResultAnswers.value.filter((mrAnswer) => {
       return userAnswersFlat.value.includes(mrAnswer.answerId)
     })
 
     // merge the two together
-    const allOverrides =  minOverrides.concat(maxOverrides)
+    const allOverrides = minOverrides.concat(maxOverrides)
 
     return allOverrides
   }
 
   const determineResultCategory = (rawScore,
-                                   resultCategories,
-                                   overrides,
-                                   userAnswers) => {
+    resultCategories,
+    overrides,
+    userAnswers) => {
     // First, calculate score boundaries from overrides
     const {
       minScore: overrideMin,
-      maxScore: overrideMax
+      maxScore: overrideMax,
     } = calculateScoreBoundaries(
-      overrides.filter(override => userAnswers.includes(override.answerId))
+      overrides.filter(override => userAnswers.includes(override.answerId)),
     )
-    
+
     // Find the default category based on raw score
-    const defaultCategory = resultCategories.find(category => {
-      const meetsMinRequirement = category.minScore === null ||
-        rawScore >= category.minScore
-      const meetsMaxRequirement = category.maxScore === null ||
-        rawScore <= category.maxScore
+    const defaultCategory = resultCategories.find((category) => {
+      const meetsMinRequirement = category.minScore === null
+        || rawScore >= category.minScore
+      const meetsMaxRequirement = category.maxScore === null
+        || rawScore <= category.maxScore
       return meetsMinRequirement && meetsMaxRequirement
     })
-    
+
     // If no overrides apply, return the default category
     if (overrideMin === null && overrideMax === null) {
       return defaultCategory
     }
-    
+
     // Apply overrides to find the correct category
     // If an override sets a minimum score, we need a category where minScore <= overrideMin
     // If an override sets a maximum score, we need a category where maxScore >= overrideMax
-    return resultCategories.find(category => {
+    return resultCategories.find((category) => {
       // Check if this category satisfies the override minimum (if one exists)
-      const satisfiesOverrideMin = overrideMin === null || 
-        (category.minScore !== null && category.minScore <= overrideMin)
-      
+      const satisfiesOverrideMin = overrideMin === null
+        || (category.minScore !== null && category.minScore <= overrideMin)
+
       // Check if this category satisfies the override maximum (if one exists)
-      const satisfiesOverrideMax = overrideMax === null || 
-        (category.maxScore !== null && category.maxScore >= overrideMax)
-      
-      return satisfiesOverrideMin && satisfiesOverrideMax;
+      const satisfiesOverrideMax = overrideMax === null
+        || (category.maxScore !== null && category.maxScore >= overrideMax)
+
+      return satisfiesOverrideMin && satisfiesOverrideMax
     }) || defaultCategory // Fallback to default if no category matches overrides
   }
 
@@ -312,11 +305,12 @@ export const useQuizStore = defineStore('quiz', () => {
       if (question) {
         if (Array.isArray(answer)) {
           // Multiple choice question
-          answer.forEach(a => {
+          answer.forEach((a) => {
             const answerObj = question.answers.find(ans => ans.answerId === a)
             if (answerObj) totalScore += answerObj.value
           })
-        } else {
+        }
+        else {
           // Single choice question
           const answerObj = question.answers.find(ans => ans.answerId === answer)
           if (answerObj) totalScore += answerObj.value
@@ -326,19 +320,18 @@ export const useQuizStore = defineStore('quiz', () => {
 
     // Find matching result category
     const resultCategory = determineResultCategory(totalScore,
-                                                   quiz.value.resultCategories,
-                                                   overrides,
-                                                   userAnswersFlat.value)
+      quiz.value.resultCategories,
+      overrides,
+      userAnswersFlat.value)
     // Set result
     quizResult.value = {
       score: totalScore,
-      category: resultCategory
+      category: resultCategory,
     }
 
     // Mark quiz as completed
     completed.value = true
   }
-
 
   /**
    * Submit quiz results to Strapi
@@ -355,8 +348,8 @@ export const useQuizStore = defineStore('quiz', () => {
       const response = await $fetch(`${strapiUrl}/api/quiz-submissions`, {
         method: 'post',
         body: {
-          data: submissionData
-        }
+          data: submissionData,
+        },
       })
 
       // Store the submission locally
@@ -366,7 +359,8 @@ export const useQuizStore = defineStore('quiz', () => {
       isSubmitting.value = false
       // return submission
       return
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error submitting quiz results:', error)
       submissionError.value = 'Failed to submit quiz results. Please try again.'
       isSubmitting.value = false
@@ -387,7 +381,7 @@ export const useQuizStore = defineStore('quiz', () => {
         contactInfo,
         startedAt: startTime.value,
         submittedToCRM: false,
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
       })
 
       // Submit to Mailer Lite
@@ -400,7 +394,7 @@ export const useQuizStore = defineStore('quiz', () => {
           score: quizResult.value.score,
           result: quizResult.value.category?.title,
           startedAt: startTime.value,
-          completedAt: new Date()
+          completedAt: new Date(),
         })
 
         contactSubmitted.value = true
@@ -417,12 +411,13 @@ export const useQuizStore = defineStore('quiz', () => {
               pathwaySummary: JSON.stringify(quizResult.value.category.description),
               userAnswers: JSON.stringify(userAnswers.value),
               totalScore: quizResult.value.score,
-              version: quiz.value.version
-            }
-          }
+              version: quiz.value.version,
+            },
+          },
         })
       }
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Error submitting quiz results:', err)
       // Show error message
     }
@@ -441,11 +436,12 @@ export const useQuizStore = defineStore('quiz', () => {
         startedAt: startTime.value,
         submittedAt: new Date(),
         submittedToCRM: false,
-        userAgent: navigator.userAgent
+        userAgent: navigator.userAgent,
       })
 
       contactSubmitted.value = true
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Error submitting quiz results:', err)
       // Show error message
     }
@@ -483,12 +479,13 @@ export const useQuizStore = defineStore('quiz', () => {
           phone: contactInfo.phone || '',
           general_field_cd24: quizData.quiz,
           general_field_4215: JSON.stringify(quizData.answers),
-          general_field_a3fa: JSON.stringify(quizData.result)
-        }
+          general_field_a3fa: JSON.stringify(quizData.result),
+        },
       })
 
       return crmResponse.data?.success || false
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error submitting to CRM:', error)
       return false
     }
@@ -504,7 +501,7 @@ export const useQuizStore = defineStore('quiz', () => {
     try {
       // Use your API client to update the submission
       // This would use a Strapi update mutation
-      
+
       // Update local state
       const submissionIndex = quizSubmissions.value.findIndex(s => s.id === submissionId)
       if (submissionIndex !== -1) {
@@ -513,7 +510,8 @@ export const useQuizStore = defineStore('quiz', () => {
       }
 
       return true
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error updating CRM submission status:', error)
       return false
     }
@@ -531,10 +529,9 @@ export const useQuizStore = defineStore('quiz', () => {
       completionRate: 0,
       averageScore: 0,
       resultDistribution: {},
-      leadConversionRate: 0
+      leadConversionRate: 0,
     }
   }
-
 
   // Reset state
   const resetQuizState = () => {
@@ -561,14 +558,14 @@ export const useQuizStore = defineStore('quiz', () => {
     startTime,
     submissionError,
     userAnswers,
-    
+
     // Getters
     currentQuestion,
     isQuizLoaded,
     progressPercent,
     maximumResultAnswers,
     minimumResultAnswers,
-    
+
     // Actions
     getQuizAnalytics,
     handleAnswer,

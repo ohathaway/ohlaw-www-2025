@@ -82,7 +82,7 @@ export const useBlogPDF = () => {
       link.href = url
       link.download = `${title.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`
       link.target = '_blank'
-      
+
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)

@@ -1,18 +1,16 @@
 <template>
   <NuxtLayout name="base">
-    <template #specialized-header>
-    </template>
+    <template #specialized-header />
     <slot />
   </NuxtLayout>
   <ClientOnly>
     <FloatingCta
-      :scroll-threshold="300"
       v-if="showFloatingCta"
+      :scroll-threshold="300"
     />
     <BookingDialog />
   </ClientOnly>
 </template>
-
 
 <script setup>
 const route = useRoute()

@@ -11,15 +11,15 @@
 const props = defineProps({
   currentQuestion: {
     type: Number,
-    required: true
+    required: true,
   },
   totalQuestions: {
     type: Number,
-    required: true
+    required: true,
   },
   percent: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>

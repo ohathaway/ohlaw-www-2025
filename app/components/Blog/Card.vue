@@ -12,7 +12,7 @@
         </div>
       </template>
       <template #title>
-      <h3 class="card-title text-primary text-2xl">{{ post.Title }}</h3>
+        <h3 class="card-title text-primary text-2xl">{{ post.Title }}</h3>
       </template>
       <template #subtitle>
         <span class="italic">

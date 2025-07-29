@@ -39,14 +39,14 @@ export const useRothCalculations = (options = {}) => {
 
       // Calculate required distribution (1/remaining years of the original balance)
       const requiredDistribution = remainingBalance / (years - year + 1)
-      
+
       // Calculate taxes on the full distribution
       const taxesThisYear = requiredDistribution * taxRate
-      
+
       // Track proportion of distribution that was growth vs principal
       const growthPortion = Math.min(growthThisYear, requiredDistribution)
       const principalPortion = requiredDistribution - growthPortion
-      
+
       const taxOnGrowthThisYear = growthPortion * taxRate
       const taxOnPrincipalThisYear = principalPortion * taxRate
 
@@ -54,7 +54,7 @@ export const useRothCalculations = (options = {}) => {
       totalTaxesPaid += taxesThisYear
       totalTaxOnGrowth += taxOnGrowthThisYear
       totalTaxOnPrincipal += taxOnPrincipalThisYear
-      
+
       // Reduce balance by distribution
       remainingBalance -= requiredDistribution
 
@@ -66,7 +66,7 @@ export const useRothCalculations = (options = {}) => {
         taxes: taxesThisYear,
         endingBalance: remainingBalance,
         taxOnGrowth: taxOnGrowthThisYear,
-        taxOnPrincipal: taxOnPrincipalThisYear
+        taxOnPrincipal: taxOnPrincipalThisYear,
       })
     }
 
@@ -77,7 +77,7 @@ export const useRothCalculations = (options = {}) => {
       totalTaxOnGrowth,
       totalTaxOnPrincipal,
       yearlyDetails,
-      effectiveTaxRate: totalTaxesPaid / totalDistributed
+      effectiveTaxRate: totalTaxesPaid / totalDistributed,
     }
   }
 
@@ -85,13 +85,13 @@ export const useRothCalculations = (options = {}) => {
    * Generates smart scenarios based on account values and family size
    * @param {Object} inputs - Form input data
    * @param {number} inputs.totalPreTaxAccounts - Total pre-tax retirement accounts
-   * @param {number} inputs.totalRothAccounts - Total Roth accounts  
+   * @param {number} inputs.totalRothAccounts - Total Roth accounts
    * @param {number} inputs.numberOfChildren - Number of children (1-4)
    * @returns {Array} Array of scenario objects
    */
   const generateScenarios = (inputs) => {
     if (!inputs || !inputs.totalPreTaxAccounts) return []
-    
+
     // Get configuration values from app.config.ts
     const config = appConfig.tools?.rothConversion?.defaults
     const percentages = config?.conversionPercentages || [0.15, 0.25, 0.35, 0.45]
@@ -99,36 +99,36 @@ export const useRothCalculations = (options = {}) => {
       conservative: 20,
       moderate: 21,
       aggressive: 21,
-      danger: 24
+      danger: 24,
     }
     const childRates = config?.defaultTaxRates?.children || {
       conservative: 18,
       moderate: 22,
       aggressive: 24,
-      danger: 26
+      danger: 26,
     }
-    
+
     return [
       {
         name: 'Play It Safe',
         conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[0]),
         parentTaxRate: parentRates.conservative,
         childTaxRates: Array(inputs.numberOfChildren).fill(childRates.conservative),
-        colorTheme: 'success' // emerald
+        colorTheme: 'success', // emerald
       },
       {
-        name: 'Sweet Spot Strategy', 
+        name: 'Sweet Spot Strategy',
         conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[1]),
         parentTaxRate: parentRates.moderate,
         childTaxRates: Array(inputs.numberOfChildren).fill(childRates.moderate),
-        colorTheme: 'info' // sky
+        colorTheme: 'info', // sky
       },
       {
         name: 'Go Big or Go Home',
         conversionAmount: Math.round(inputs.totalPreTaxAccounts * percentages[2]),
         parentTaxRate: parentRates.aggressive,
         childTaxRates: Array(inputs.numberOfChildren).fill(childRates.aggressive),
-        colorTheme: 'warning' // amber
+        colorTheme: 'warning', // amber
       },
       {
         name: 'The Universe Had Other Plans',
@@ -136,8 +136,8 @@ export const useRothCalculations = (options = {}) => {
         parentTaxRate: parentRates.danger,
         childTaxRates: Array(inputs.numberOfChildren).fill(childRates.danger),
         colorTheme: 'danger', // rose
-        isDangerous: true
-      }
+        isDangerous: true,
+      },
     ]
   }
 
@@ -178,20 +178,20 @@ export const useRothCalculations = (options = {}) => {
 
     for (let i = 0; i < numChildren; i++) {
       const childTaxRate = scenario.childTaxRates[i] / 100
-      
+
       // Do Nothing: Child inherits full traditional IRA balance
       const doNothingAnalysis = modelDistributionWithGrowth(preTaxPerChild, childTaxRate)
-      
+
       // Strategic: Child inherits smaller traditional IRA + larger Roth IRA (tax-free)
       const strategicAnalysis = modelDistributionWithGrowth(newPreTaxPerChild, childTaxRate)
-      
+
       totalDoNothingTax += doNothingAnalysis.totalTaxesPaid
       totalStrategicTax += strategicAnalysis.totalTaxesPaid
       totalDoNothingGrowthTax += doNothingAnalysis.totalTaxOnGrowth
       totalStrategicGrowthTax += strategicAnalysis.totalTaxOnGrowth
       totalGrowthGenerated += doNothingAnalysis.totalGrowthGenerated
       totalStrategicGrowthGenerated += strategicAnalysis.totalGrowthGenerated
-      
+
       childrenDoNothing.push({
         initialBalance: preTaxPerChild,
         totalDistributed: doNothingAnalysis.totalDistributed,
@@ -200,9 +200,9 @@ export const useRothCalculations = (options = {}) => {
         totalTaxOnGrowth: doNothingAnalysis.totalTaxOnGrowth,
         totalTaxOnPrincipal: doNothingAnalysis.totalTaxOnPrincipal,
         taxRate: childTaxRate,
-        yearlyDetails: doNothingAnalysis.yearlyDetails
+        yearlyDetails: doNothingAnalysis.yearlyDetails,
       })
-      
+
       childrenStrategic.push({
         initialTraditionalBalance: newPreTaxPerChild,
         initialRothBalance: newRothPerChild,
@@ -214,7 +214,7 @@ export const useRothCalculations = (options = {}) => {
         taxRate: childTaxRate,
         yearlyDetails: strategicAnalysis.yearlyDetails,
         // Roth grows tax-free for 10 years
-        rothGrowthTaxFree: newRothPerChild * ((1 + annualReturn) ** distributionYears - 1)
+        rothGrowthTaxFree: newRothPerChild * ((1 + annualReturn) ** distributionYears - 1),
       })
     }
 
@@ -232,7 +232,7 @@ export const useRothCalculations = (options = {}) => {
         children: childrenDoNothing,
         totalFamilyTax: totalFamilyTaxDoNothing,
         totalGrowthGenerated,
-        totalGrowthTax: totalDoNothingGrowthTax
+        totalGrowthTax: totalDoNothingGrowthTax,
       },
       strategic: {
         preTaxPerChild: newPreTaxPerChild,
@@ -242,12 +242,12 @@ export const useRothCalculations = (options = {}) => {
         totalChildrenTax: totalStrategicTax,
         totalFamilyTax: totalFamilyTaxStrategic,
         totalGrowthGenerated: totalStrategicGrowthGenerated,
-        totalGrowthTax: totalStrategicGrowthTax
+        totalGrowthTax: totalStrategicGrowthTax,
       },
       netFamilySavings,
       growthTaxSavings,
       totalGrowthAtStake: totalGrowthGenerated,
-      scenario
+      scenario,
     }
   }
 
@@ -275,47 +275,47 @@ export const useRothCalculations = (options = {}) => {
         {
           scenario: 'Current Pre-Tax Accounts',
           doNothing: formatCurrency(inputs.totalPreTaxAccounts),
-          strategic: formatCurrency(inputs.totalPreTaxAccounts)
+          strategic: formatCurrency(inputs.totalPreTaxAccounts),
         },
         {
           scenario: 'Strategy',
           doNothing: 'Current beneficiary designations\n"Spouse, then kids"',
-          strategic: `${calculation.scenario.name} Roth conversions\n+ Optimized beneficiaries`
+          strategic: `${calculation.scenario.name} Roth conversions\n+ Optimized beneficiaries`,
         },
         {
           scenario: 'Tax Timing',
           doNothing: 'Children forced to withdraw\nover 10 years at peak earnings',
-          strategic: 'Parents control timing\nat current tax rates'
-        }
+          strategic: 'Parents control timing\nat current tax rates',
+        },
       ],
-      
+
       inheritanceData: [
         {
           type: 'Traditional IRA (per child)',
           doNothing: formatCurrency(calculation.doNothing.preTaxPerChild),
-          strategic: formatCurrency(calculation.strategic.preTaxPerChild)
+          strategic: formatCurrency(calculation.strategic.preTaxPerChild),
         },
         {
           type: 'Roth IRA (per child)',
           doNothing: formatCurrency(calculation.doNothing.rothPerChild),
-          strategic: formatCurrency(calculation.strategic.rothPerChild)
+          strategic: formatCurrency(calculation.strategic.rothPerChild),
         },
         {
           type: 'Total Growth Generated (10 years)',
           doNothing: formatCurrency(calculation.doNothing.totalGrowthGenerated),
-          strategic: formatCurrency(calculation.strategic.totalGrowthGenerated + (calculation.strategic.children[0]?.rothGrowthTaxFree * inputs.numberOfChildren || 0))
+          strategic: formatCurrency(calculation.strategic.totalGrowthGenerated + (calculation.strategic.children[0]?.rothGrowthTaxFree * inputs.numberOfChildren || 0)),
         },
         {
           type: 'Investment Growth Tax-Free',
           doNothing: formatCurrency(0),
-          strategic: formatCurrency(calculation.strategic.children[0]?.rothGrowthTaxFree * inputs.numberOfChildren || 0)
-        }
+          strategic: formatCurrency(calculation.strategic.children[0]?.rothGrowthTaxFree * inputs.numberOfChildren || 0),
+        },
       ],
 
       taxImpactData: calculation.doNothing.children.map((child, index) => ({
         child: `Child ${index + 1}`,
         doNothing: `Total Tax: ${formatCurrency(child.totalTax)}\nOn Principal: ${formatCurrency(child.totalTaxOnPrincipal)}\nOn Growth: ${formatCurrency(child.totalTaxOnGrowth)}`,
-        strategic: `Total Tax: ${formatCurrency(calculation.strategic.children[index].totalTax)}\nOn Principal: ${formatCurrency(calculation.strategic.children[index].totalTaxOnPrincipal)}\nOn Growth: ${formatCurrency(calculation.strategic.children[index].totalTaxOnGrowth)}`
+        strategic: `Total Tax: ${formatCurrency(calculation.strategic.children[index].totalTax)}\nOn Principal: ${formatCurrency(calculation.strategic.children[index].totalTaxOnPrincipal)}\nOn Growth: ${formatCurrency(calculation.strategic.children[index].totalTaxOnGrowth)}`,
       })),
 
       bottomLineData: [
@@ -323,44 +323,44 @@ export const useRothCalculations = (options = {}) => {
           impact: 'Parents Pay During Life',
           doNothing: formatCurrency(0),
           strategic: formatCurrency(calculation.strategic.parentConversionTax),
-          rowType: 'standard'
+          rowType: 'standard',
         },
         {
           impact: 'Children Pay Over 10 Years',
           doNothing: formatCurrency(calculation.doNothing.totalFamilyTax),
           strategic: formatCurrency(calculation.strategic.totalChildrenTax),
-          rowType: 'standard'
+          rowType: 'standard',
         },
         {
           impact: 'Tax Saved on Investment Growth',
           doNothing: '—',
           strategic: `💰 ${formatCurrency(calculation.growthTaxSavings)}`,
-          rowType: 'success'
+          rowType: 'success',
         },
         {
           impact: 'Total Investment Growth at Stake',
           doNothing: formatCurrency(calculation.totalGrowthAtStake),
           strategic: formatCurrency(calculation.totalGrowthAtStake),
-          rowType: 'neutral'
+          rowType: 'neutral',
         },
         {
           impact: 'TOTAL FAMILY TAX BURDEN',
           doNothing: formatCurrency(calculation.doNothing.totalFamilyTax),
           strategic: formatCurrency(calculation.strategic.totalFamilyTax),
-          rowType: 'subtotal'
+          rowType: 'subtotal',
         },
         {
           impact: 'NET FAMILY SAVINGS',
           doNothing: '—',
-          strategic: calculation.netFamilySavings > 0 
+          strategic: calculation.netFamilySavings > 0
             ? `✅ +${formatCurrency(calculation.netFamilySavings)}`
-            : calculation.netFamilySavings < 0 
+            : calculation.netFamilySavings < 0
               ? `⚠️ -${formatCurrency(Math.abs(calculation.netFamilySavings))}`
               : '—',
           rowType: calculation.netFamilySavings > 0 ? 'success' : calculation.netFamilySavings < 0 ? 'danger' : 'neutral',
-          statusIndicator: calculation.netFamilySavings > 0 ? 'positive' : calculation.netFamilySavings < 0 ? 'negative' : 'neutral'
-        }
-      ]
+          statusIndicator: calculation.netFamilySavings > 0 ? 'positive' : calculation.netFamilySavings < 0 ? 'negative' : 'neutral',
+        },
+      ],
     }
   }
 
@@ -373,36 +373,37 @@ export const useRothCalculations = (options = {}) => {
    */
   const getScenarioClasses = (scenario, netFamilySavings = null, totalPreTaxAccounts = null) => {
     if (!scenario) return []
-    
+
     let severity
-    
+
     // Phase 5A: Use performance bands if data is available
     if (netFamilySavings !== null && totalPreTaxAccounts) {
       const performanceBand = calculatePerformanceBand(netFamilySavings, totalPreTaxAccounts)
       severity = performanceBand.severity
-    } else {
+    }
+    else {
       // Fallback to static colorTheme mapping
       const themeToSeverityMap = {
-        'success': 'success',
-        'info': 'info',
-        'warning': 'warn',
-        'danger': 'danger'
+        success: 'success',
+        info: 'info',
+        warning: 'warn',
+        danger: 'danger',
       }
       severity = themeToSeverityMap[scenario.colorTheme] || 'secondary'
     }
 
     // Map severity to CSS classes using PrimeVue color naming
     const severityToClassMap = {
-      'info': ['bg-info-50', 'border-info-200', 'text-info-800'],
-      'success': ['bg-success-50', 'border-success-200', 'text-success-800'],
-      'warn': ['bg-warning-50', 'border-warning-200', 'text-warning-800'],
-      'danger': ['bg-danger-50', 'border-danger-200', 'text-danger-800'],
-      'secondary': ['bg-slate-50', 'border-slate-200', 'text-slate-800']
+      info: ['bg-info-50', 'border-info-200', 'text-info-800'],
+      success: ['bg-success-50', 'border-success-200', 'text-success-800'],
+      warn: ['bg-warning-50', 'border-warning-200', 'text-warning-800'],
+      danger: ['bg-danger-50', 'border-danger-200', 'text-danger-800'],
+      secondary: ['bg-slate-50', 'border-slate-200', 'text-slate-800'],
     }
 
     return [
       ...(severityToClassMap[severity] || severityToClassMap['secondary']),
-      'border'
+      'border',
     ]
   }
 
@@ -413,11 +414,11 @@ export const useRothCalculations = (options = {}) => {
    */
   const getScenarioIcon = (scenario) => {
     if (!scenario) return 'pi pi-info-circle'
-    
+
     if (scenario.isDangerous) return 'pi pi-exclamation-triangle text-danger-600'
     if (scenario.isSweetSpot) return 'pi pi-check text-success-600'
     if (scenario.colorTheme === 'warning') return 'pi pi-info-circle text-warning-600'
-    
+
     return 'pi pi-check text-success-600'
   }
 
@@ -428,7 +429,7 @@ export const useRothCalculations = (options = {}) => {
    */
   const getTableRowClasses = (rowType) => {
     if (!rowType) return []
-    
+
     switch (rowType) {
       case 'success':
         return ['bg-success-50', 'border-success-200', 'text-success-800', 'font-semibold']
@@ -462,7 +463,7 @@ export const useRothCalculations = (options = {}) => {
     const conversionAmounts = scenarioCalculations.map(calc => calc.scenario.conversionAmount)
 
     // Phase 5A: Generate dynamic colors based on performance bands
-    const backgroundColors = scenarioCalculations.map(calc => {
+    const backgroundColors = scenarioCalculations.map((calc) => {
       if (totalPreTaxAccounts) {
         const performanceBand = calculatePerformanceBand(calc.netFamilySavings, totalPreTaxAccounts)
         switch (performanceBand.severity) {
@@ -472,11 +473,12 @@ export const useRothCalculations = (options = {}) => {
           case 'danger': return 'rgba(239, 68, 68, 0.2)' // red with opacity
           default: return 'rgba(156, 163, 175, 0.2)' // gray with opacity
         }
-      } else {
+      }
+      else {
         // Fallback to static colorTheme if totalPreTaxAccounts not provided
         switch (calc.scenario.colorTheme) {
           case 'success': return 'rgba(16, 185, 129, 0.2)' // emerald-500 with opacity
-          case 'info': return 'rgba(14, 165, 233, 0.2)' // sky-500 with opacity  
+          case 'info': return 'rgba(14, 165, 233, 0.2)' // sky-500 with opacity
           case 'warning': return 'rgba(245, 158, 11, 0.2)' // amber-500 with opacity
           case 'danger': return 'rgba(239, 68, 68, 0.2)' // rose-500 with opacity
           default: return 'rgba(156, 163, 175, 0.2)' // gray-400 with opacity
@@ -484,7 +486,7 @@ export const useRothCalculations = (options = {}) => {
       }
     })
 
-    const borderColors = scenarioCalculations.map(calc => {
+    const borderColors = scenarioCalculations.map((calc) => {
       if (totalPreTaxAccounts) {
         const performanceBand = calculatePerformanceBand(calc.netFamilySavings, totalPreTaxAccounts)
         switch (performanceBand.severity) {
@@ -494,7 +496,8 @@ export const useRothCalculations = (options = {}) => {
           case 'danger': return 'rgb(239, 68, 68)' // red
           default: return 'rgb(156, 163, 175)' // gray
         }
-      } else {
+      }
+      else {
         // Fallback to static colorTheme if totalPreTaxAccounts not provided
         switch (calc.scenario.colorTheme) {
           case 'success': return 'rgb(16, 185, 129)' // emerald-500
@@ -518,8 +521,8 @@ export const useRothCalculations = (options = {}) => {
           borderWidth: 2,
           borderRadius: 4,
           borderSkipped: false,
-        }
-      ]
+        },
+      ],
     }
   }
 
@@ -533,14 +536,15 @@ export const useRothCalculations = (options = {}) => {
     const maxSavings = Math.max(...savingsValues)
     const minSavings = Math.min(...savingsValues)
     const range = maxSavings - minSavings
-    
+
     // Handle single scenario case where range = 0
     let padding
     if (range === 0) {
       // For single scenario, create reasonable padding around the value
       const absValue = Math.abs(maxSavings)
       padding = Math.max(absValue * 0.2, 50000) // At least $50K padding
-    } else {
+    }
+    else {
       padding = range * 0.1
     }
 
@@ -558,12 +562,12 @@ export const useRothCalculations = (options = {}) => {
           font: {
             size: 18,
             weight: 'bold',
-            family: 'system-ui, -apple-system, sans-serif'
+            family: 'system-ui, -apple-system, sans-serif',
           },
           color: 'rgb(55, 65, 81)', // gray-700
         },
         legend: {
-          display: false
+          display: false,
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -574,57 +578,57 @@ export const useRothCalculations = (options = {}) => {
           titleFont: {
             size: 16,
             weight: 'bold',
-            family: 'system-ui, -apple-system, sans-serif'
+            family: 'system-ui, -apple-system, sans-serif',
           },
           bodyFont: {
             size: 14,
             weight: '500',
-            family: 'system-ui, -apple-system, sans-serif'
+            family: 'system-ui, -apple-system, sans-serif',
           },
           cornerRadius: 8,
           padding: 12,
           callbacks: {
-            label: function(context) {
+            label: function (context) {
               const calc = scenarioCalculations[context.dataIndex]
               const savings = formatCurrency(context.parsed.y)
               const conversion = formatCurrency(calc.scenario.conversionAmount)
-              
+
               return `Net Savings: ${savings} (${conversion} conversion)`
             },
-            afterBody: function(context) {
+            afterBody: function (context) {
               const calc = scenarioCalculations[context[0].dataIndex]
               const messages = []
-              
+
               if (calc.scenario.isDangerous && calc.netFamilySavings < 0) {
                 messages.push('⚠️ Family loses money with this scenario')
               }
               if (calc.scenario.isSweetSpot) {
                 messages.push('🎯 Optimal balance of risk and reward')
               }
-              
+
               // Add growth tax savings message
               if (calc.growthTaxSavings > 0) {
                 messages.push(`💰 Saves ${formatCurrency(calc.growthTaxSavings)} in taxes on growth`)
               }
-              
+
               return messages
-            }
-          }
-        }
+            },
+          },
+        },
       },
       scales: {
         x: {
           grid: {
-            display: false
+            display: false,
           },
           ticks: {
             color: 'rgb(107, 114, 128)', // gray-500
             font: {
               size: 14,
               weight: 'bold',
-              family: 'system-ui, -apple-system, sans-serif'
-            }
-          }
+              family: 'system-ui, -apple-system, sans-serif',
+            },
+          },
         },
         y: {
           beginAtZero: false,
@@ -638,11 +642,11 @@ export const useRothCalculations = (options = {}) => {
             font: {
               size: 14,
               weight: '500',
-              family: 'system-ui, -apple-system, sans-serif'
+              family: 'system-ui, -apple-system, sans-serif',
             },
-            callback: function(value) {
+            callback: function (value) {
               return formatCurrency(value)
-            }
+            },
           },
           title: {
             display: true,
@@ -651,10 +655,10 @@ export const useRothCalculations = (options = {}) => {
             font: {
               size: 16,
               weight: 'bold',
-              family: 'system-ui, -apple-system, sans-serif'
-            }
-          }
-        }
+              family: 'system-ui, -apple-system, sans-serif',
+            },
+          },
+        },
       },
       onClick: (event, elements) => {
         // Click handler will be attached in the component
@@ -663,7 +667,7 @@ export const useRothCalculations = (options = {}) => {
           return dataIndex
         }
         return null
-      }
+      },
     }
   }
 
@@ -682,15 +686,17 @@ export const useRothCalculations = (options = {}) => {
     const savingsPercentage = (netFamilySavings / totalPreTaxAccounts) * 100
     const bands = appConfig.tools?.rothConversion?.performanceBands
 
-
     // Check thresholds from highest to lowest
     if (savingsPercentage > (bands?.excellent?.threshold || 10)) {
       return bands?.excellent || { severity: 'info', color: 'blue', label: 'Excellent Performance' }
-    } else if (savingsPercentage > (bands?.good?.threshold || 5)) {
+    }
+    else if (savingsPercentage > (bands?.good?.threshold || 5)) {
       return bands?.good || { severity: 'success', color: 'green', label: 'Good Performance' }
-    } else if (savingsPercentage > (bands?.marginal?.threshold || 1)) {
+    }
+    else if (savingsPercentage > (bands?.marginal?.threshold || 1)) {
       return bands?.marginal || { severity: 'warn', color: 'orange', label: 'Marginal Performance' }
-    } else {
+    }
+    else {
       return bands?.negative || { severity: 'danger', color: 'red', label: 'Negative Performance' }
     }
   }
@@ -705,6 +711,6 @@ export const useRothCalculations = (options = {}) => {
     getTableRowClasses,
     generateChartData,
     generateChartOptions,
-    calculatePerformanceBand
+    calculatePerformanceBand,
   }
 }
