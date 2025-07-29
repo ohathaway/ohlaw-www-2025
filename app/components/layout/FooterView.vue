@@ -126,6 +126,17 @@
             <li class="flex items-start">
               <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
               <a
+                href="https://www.medicaidplanningassistance.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-slate-200 hover:text-white"
+              >
+                American Council on Aging - Medicaid Planning
+              </a>
+            </li>
+            <li class="flex items-start">
+              <i class="pi pi-external-link text-slate-300 mt-1 mr-3" />
+              <a
                 href="https://www.sciencecare.com/"
                 target="_blank"
                 rel="noopener noreferrer"

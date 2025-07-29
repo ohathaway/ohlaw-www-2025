@@ -29,7 +29,14 @@
           <Popover ref="searchPop">
             <Form @submit="handleSearch">
               <InputGroup>
-                <InputText v-model="searchTerm" autofocus />
+                <FloatLabel variant="on">
+                  <InputText
+                    id="searchFor"
+                    v-model="searchTerm"
+                    autofocus
+                  />
+                  <label for="searchFor">Search For</label>
+                </FloatLabel>
                 <Button type="submit" label="Search" icon="pi pi-search" />
               </InputGroup>
             </Form>

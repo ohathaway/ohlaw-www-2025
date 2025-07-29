@@ -48,6 +48,9 @@
               <NuxtLink
                 :to="service.link"
                 class="text-white uppercase text-sm tracking-wider border-b border-white pb-1 w-fit"
+                :name="service.title"
+                :aria-label="`Learn more about our ${service.title} service`"
+                v-tooltip="`Learn more about our ${service.title} service`"
               >
                 learn more
               </NuxtLink>

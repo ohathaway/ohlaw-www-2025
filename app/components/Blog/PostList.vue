@@ -6,7 +6,7 @@
       </h3>
     </div>
     <div class="list-entries">
-      <div v-for="(post, index) in posts" :key="index" class="entry">
+      <article v-for="(post, index) in posts" :key="index" class="entry">
         <div class="entry-wrapper ms-0 py-3 sm:py-4 border-b border-gray-300">
           <span class="italic text-sm sm:text-base">
             {{ formatDateFull(post.publishDate) }}
@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </template>

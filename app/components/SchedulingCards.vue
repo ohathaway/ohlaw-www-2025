@@ -4,7 +4,7 @@
     <div class="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
       <a :href="schedulingLinks.estatePlanEducation" class="block no-underline">
         <div class="p-4 bg-white text-center min-h-[100px] flex flex-col justify-center">
-          <h3 class="text-xl font-semibold text-slate-800">Estate Planning</h3>
+          <h3 class="text-xl font-semibold text-slate-800">Schedule for Estate Planning</h3>
         </div>
         <div class="relative overflow-hidden h-[200px]">
           <NuxtImg
@@ -21,7 +21,7 @@
     <div class="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
       <a :href="schedulingLinks.newBusinessClient" class="block no-underline">
         <div class="p-4 bg-white text-center min-h-[100px] flex flex-col justify-center">
-          <h3 class="text-xl font-semibold text-slate-800">Small Business</h3>
+          <h3 class="text-xl font-semibold text-slate-800">Schedule for Small Business</h3>
         </div>
         <div class="relative overflow-hidden h-[200px]">
           <NuxtImg
@@ -38,7 +38,7 @@
     <div class="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
       <a :href="schedulingLinks.newBankruptcyClient" class="block no-underline">
         <div class="p-4 bg-white text-center min-h-[100px] flex flex-col justify-center">
-          <h3 class="text-xl font-semibold text-slate-800">Bankruptcy</h3>
+          <h3 class="text-xl font-semibold text-slate-800">Schedule for Bankruptcy</h3>
         </div>
         <div class="relative overflow-hidden h-[200px]">
           <NuxtImg
@@ -55,7 +55,7 @@
     <div class="overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
       <a :href="schedulingLinks.newNonprofitClient" class="block no-underline">
         <div class="p-4 bg-white text-center min-h-[100px] flex flex-col justify-center">
-          <h3 class="text-xl font-semibold text-slate-800">Nonprofits</h3>
+          <h3 class="text-xl font-semibold text-slate-800">Schedule for Nonprofits</h3>
         </div>
         <div class="relative overflow-hidden h-[200px]">
           <NuxtImg

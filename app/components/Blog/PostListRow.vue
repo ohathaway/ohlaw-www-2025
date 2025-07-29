@@ -1,8 +1,8 @@
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-content-center">
-    <div v-for="post in posts" class="col">
+    <article v-for="post in posts" class="col">
       <BlogCard :post="post" />
-    </div>
+    </article>
   </div>
 </template>
 
