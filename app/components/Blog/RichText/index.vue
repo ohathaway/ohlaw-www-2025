@@ -14,7 +14,7 @@
       <h4 v-else-if="brick.type === 'heading' && brick.level === 3">
         {{ brick.children[0].text }}
       </h4>
-      
+
       <!-- lists -->
       <BlogRichTextOrderedList
         v-else-if="brick.type === 'list' && brick.format === 'ordered'"
@@ -25,7 +25,7 @@
         :brick="brick"
       />
 
-      <!-- paragraphs-->
+      <!-- paragraphs -->
       <p v-else-if="brick.type === 'paragraph'">
         <template v-for="child in brick.children">
           <BlogRichTextModifier v-if="isModifier(child)" :brick="child" />

@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <ClientOnly>
-      <QuizContainer :quizSlug />
+      <QuizContainer :quiz-slug />
     </ClientOnly>
   </main>
 </template>

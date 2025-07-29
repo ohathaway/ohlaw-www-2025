@@ -3,7 +3,8 @@
     "allow": [
       "Bash(pnpm dev:*)",
       "Bash(grep:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npx playwright test:*)"
     ],
     "deny": []
   }

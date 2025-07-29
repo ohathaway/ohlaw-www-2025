@@ -1,36 +1,52 @@
 <template>
   <div class="max-w-4xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-3xl font-bold mb-2">Your Retirement Accounts Have a Tax Problem</h1>
-      <p class="text-slate-600">The <NuxtLink noopener noreferrer to="https://www.retirementplanningsecureact.com/understanding-the-differences-secure-act-vs-secure-act-2-0-explained" target="blank" v-tooltip.bottom="'The SECURE Act passed in 2019. SECURE 2.0 Act passed in 2022. Learn about both here'">SECURE 2.0 Act in 2022</NuxtLink> turned traditional retirement planning on its head.</p>
-      <p class="text-slate-600">Your beneficiary designations that made perfect sense in 2021? They might be setting your family up for a massive tax bill. But you have options.</p>
-      <p class="text-slate-600">This analysis takes about 2 minutes and usually leads to some very important conversations with your financial team.</p>
+      <h1 class="text-3xl font-bold mb-2">
+        Your Retirement Accounts Have a Tax Problem
+      </h1>
+      <p class="text-slate-600">
+        The <NuxtLink
+          v-tooltip.bottom="'The SECURE Act passed in 2019. SECURE 2.0 Act passed in 2022. Learn about both here'"
+          noopener
+          noreferrer
+          to="https://www.retirementplanningsecureact.com/understanding-the-differences-secure-act-vs-secure-act-2-0-explained"
+          target="blank"
+        >SECURE 2.0 Act in 2022</NuxtLink> turned traditional retirement planning on its head.
+      </p>
+      <p class="text-slate-600">
+        Your beneficiary designations that made perfect sense in 2021? They might be setting your family up for a massive tax bill. But you have options.
+      </p>
+      <p class="text-slate-600">
+        This analysis takes about 2 minutes and usually leads to some very important conversations with your financial team.
+      </p>
     </div>
 
     <Card class="p-6 shadow-sm">
       <template #title>
-        <h2 class="text-xl font-semibold">Account Information</h2>
+        <h2 class="text-xl font-semibold">
+          Account Information
+        </h2>
       </template>
-      
+
       <template #content>
-        <form @submit.prevent="generateAnalysis" class="space-y-6">
+        <form class="space-y-6" @submit.prevent="generateAnalysis">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end">
             <!-- Total Pre-Tax Retirement Accounts -->
             <div class="flex flex-col">
               <label class="block text-sm font-medium text-slate-700 flex items-center mb-2">
                 Total Pre-Tax Retirement Accounts
-                <LayoutInfoIcon 
+                <LayoutInfoIcon
                   tooltip="Include account balances that will be inherited (401k, IRA, 457b, TSP). Exclude monthly pensions (PERA DB, FERS annuity) as these typically end at death or continue as survivor benefits."
                 />
               </label>
               <InputNumber
                 v-model="formData.totalPreTaxAccounts"
                 :min="0"
-                mode="currency" 
+                mode="currency"
                 currency="USD"
                 class="w-full"
-                inputClass="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-                :class="{'p-invalid': !formData.totalPreTaxAccounts && showValidation}"
+                input-class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                :class="{ 'p-invalid': !formData.totalPreTaxAccounts && showValidation }"
               />
             </div>
 
@@ -38,18 +54,18 @@
             <div class="flex flex-col">
               <label class="block text-sm font-medium text-slate-700 flex items-center mb-2">
                 Total Roth Accounts
-                <LayoutInfoIcon 
+                <LayoutInfoIcon
                   tooltip="Include all Roth IRAs and Roth 401(k)s. These accounts are tax-free to beneficiaries and provide much more flexibility under SECURE 2.0, though still subject to the 10-year rule."
                 />
               </label>
               <InputNumber
                 v-model="formData.totalRothAccounts"
                 :min="0"
-                mode="currency" 
+                mode="currency"
                 currency="USD"
                 class="w-full"
-                inputClass="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-                :class="{'p-invalid': !formData.totalRothAccounts && showValidation}"
+                input-class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                :class="{ 'p-invalid': !formData.totalRothAccounts && showValidation }"
               />
             </div>
 
@@ -57,7 +73,7 @@
             <div class="flex flex-col">
               <label class="block text-sm font-medium text-slate-700 flex items-center mb-2">
                 Number of Children (1-4)
-                <LayoutInfoIcon 
+                <LayoutInfoIcon
                   tooltip="Non-spouse beneficiaries who will inherit retirement accounts. Under SECURE 2.0, each child must distribute their inherited retirement accounts within 10 years, potentially creating significant tax consequences."
                 />
               </label>
@@ -65,10 +81,10 @@
                 v-model="formData.numberOfChildren"
                 :min="1"
                 :max="4"
-                :useGrouping="false"
+                :use-grouping="false"
                 class="w-full"
-                inputClass="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-                :class="{'p-invalid': (!formData.numberOfChildren || formData.numberOfChildren < 1 || formData.numberOfChildren > 4) && showValidation}"
+                input-class="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                :class="{ 'p-invalid': (!formData.numberOfChildren || formData.numberOfChildren < 1 || formData.numberOfChildren > 4) && showValidation }"
               />
             </div>
           </div>
@@ -83,7 +99,7 @@
                 'px-8 py-3 rounded-md font-medium',
                 isFormValid
                   ? 'bg-primary-600 text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500'
-                  : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                  : 'bg-slate-300 text-slate-500 cursor-not-allowed',
               ]"
             >
               Generate Analysis
@@ -108,7 +124,7 @@ const appConfig = useAppConfig()
 const formData = reactive({
   totalPreTaxAccounts: appConfig.tools?.rothConversion?.formDefaults?.totalPreTaxAccounts || 0,
   totalRothAccounts: appConfig.tools?.rothConversion?.formDefaults?.totalRothAccounts || 0,
-  numberOfChildren: appConfig.tools?.rothConversion?.formDefaults?.numberOfChildren || 1
+  numberOfChildren: appConfig.tools?.rothConversion?.formDefaults?.numberOfChildren || 1,
 })
 
 const isGenerating = ref(false)
@@ -116,32 +132,33 @@ const showValidation = ref(false)
 
 // Form validation
 const isFormValid = computed(() => {
-  return formData.totalPreTaxAccounts > 0 && 
-         formData.totalRothAccounts >= 0 && 
-         formData.numberOfChildren >= 1 && 
-         formData.numberOfChildren <= 4
+  return formData.totalPreTaxAccounts > 0
+    && formData.totalRothAccounts >= 0
+    && formData.numberOfChildren >= 1
+    && formData.numberOfChildren <= 4
 })
 
 // Form submission - dispatch to store
 const generateAnalysis = async () => {
   showValidation.value = true
-  
+
   if (!isFormValid.value) {
     return
   }
-  
+
   try {
     isGenerating.value = true
-    
+
     // Dispatch to store - triggers analysis generation
     store.generateAnalysis({ ...formData })
-    
+
     // Scroll to top to reveal ScenarioGridView
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    
-  } catch (error) {
+  }
+  catch (error) {
     // Error handling without console output
-  } finally {
+  }
+  finally {
     isGenerating.value = false
   }
 }

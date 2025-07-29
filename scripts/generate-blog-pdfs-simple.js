@@ -36,7 +36,7 @@ async function main() {
 
     if (result.failures && result.failures.length > 0) {
       console.log('❌ FAILED POSTS:')
-      result.failures.forEach(failure => {
+      result.failures.forEach((failure) => {
         console.log(`  - ${failure.slug}: ${failure.error}`)
       })
       console.log('')

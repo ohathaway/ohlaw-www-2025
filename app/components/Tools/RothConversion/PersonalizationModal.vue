@@ -1,26 +1,30 @@
 <template>
   <Dialog
     :visible="visible"
-    @update:visible="$emit('update:visible', $event)"
     modal
     maximizable
-    :ptOptions="{
+    :pt-options="{
       root: {
-        maximized: visible  // or whatever reactive boolean you want
-      }
+        maximized: visible, // or whatever reactive boolean you want
+      },
     }"
     :closable="true"
     :draggable="true"
     class="personalization-modal"
     :style="{ width: '100vw', height: '100vh' }"
     :content-style="{ padding: '0', height: '100%', display: 'flex', flexDirection: 'column' }"
+    @update:visible="$emit('update:visible', $event)"
   >
     <!-- Modal Header -->
     <template #header>
       <div class="flex items-center justify-between w-full">
         <div>
-          <h2 class="text-2xl font-semibold mb-1">Personalize Your Analysis</h2>
-          <p class="text-slate-600 text-sm">Adjust the assumptions to match your specific situation</p>
+          <h2 class="text-2xl font-semibold mb-1">
+            Personalize Your Analysis
+          </h2>
+          <p class="text-slate-600 text-sm">
+            Adjust the assumptions to match your specific situation
+          </p>
         </div>
       </div>
     </template>
@@ -32,17 +36,19 @@
         <div class="mb-8 p-6 bg-white rounded-lg border border-slate-200 shadow-sm">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0">
-              <i class="pi pi-info-circle text-primary-600 text-2xl"></i>
+              <i class="pi pi-info-circle text-primary-600 text-2xl" />
             </div>
             <div>
-              <h3 class="text-lg font-semibold mb-2">Why Personalize Your Analysis?</h3>
+              <h3 class="text-lg font-semibold mb-2">
+                Why Personalize Your Analysis?
+              </h3>
               <p class="text-slate-700 mb-3">
-                The default analysis uses standard assumptions that may not reflect your actual situation. 
-                Personalizing these key variables will give you a more accurate picture of how Roth conversions 
+                The default analysis uses standard assumptions that may not reflect your actual situation.
+                Personalizing these key variables will give you a more accurate picture of how Roth conversions
                 could impact your family's tax burden.
               </p>
               <p class="text-slate-600 text-sm">
-                Each variable affects your results differently. Take time to adjust them based on your 
+                Each variable affects your results differently. Take time to adjust them based on your
                 financial advisor's guidance and your family's specific circumstances.
               </p>
             </div>
@@ -55,15 +61,17 @@
           <Card class="variable-card">
             <template #title>
               <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold">Total Conversion Amount</h4>
+                <h4 class="text-lg font-semibold">
+                  Total Conversion Amount
+                </h4>
                 <Tag value="High Impact" severity="danger" class="text-xs" />
               </div>
             </template>
-            
+
             <template #content>
               <div v-if="!showConversionSlider" class="space-y-4">
                 <p class="text-slate-700 text-sm">
-                  How much of your pre-tax retirement accounts do you want to convert to Roth? 
+                  How much of your pre-tax retirement accounts do you want to convert to Roth?
                   This is typically done over several years to manage tax brackets.
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
@@ -73,16 +81,20 @@
                   </p>
                 </div>
               </div>
-              
+
               <div v-else class="space-y-4">
                 <div class="text-center">
-                  <div class="text-2xl font-bold text-primary-700 mb-1">${{ (conversionAmount / 1000).toFixed(0) }}K</div>
-                  <div class="text-sm text-slate-600">{{ Math.round((conversionAmount / 2180000) * 100) }}% of pre-tax accounts</div>
+                  <div class="text-2xl font-bold text-primary-700 mb-1">
+                    ${{ (conversionAmount / 1000).toFixed(0) }}K
+                  </div>
+                  <div class="text-sm text-slate-600">
+                    {{ Math.round((conversionAmount / 2180000) * 100) }}% of pre-tax accounts
+                  </div>
                 </div>
-                <Slider 
-                  v-model="conversionAmount" 
-                  :min="0" 
-                  :max="2180000" 
+                <Slider
+                  v-model="conversionAmount"
+                  :min="0"
+                  :max="2180000"
                   :step="25000"
                   class="w-full"
                 />
@@ -90,26 +102,26 @@
                   <span>$0</span>
                   <span>$2.18M</span>
                 </div>
-                <Button 
-                  @click="showConversionSlider = false"
+                <Button
                   severity="success"
                   size="small"
                   icon="pi pi-check"
                   label="Done"
                   class="w-full"
+                  @click="showConversionSlider = false"
                 />
               </div>
             </template>
-            
+
             <template #footer>
               <div v-if="!showConversionSlider" class="text-center">
-                <Button 
-                  @click="openSlider('conversion')"
+                <Button
                   severity="primary"
                   size="small"
                   icon="pi pi-sliders-h"
                   label="Adjust Amount"
                   class="w-full"
+                  @click="openSlider('conversion')"
                 />
               </div>
             </template>
@@ -119,15 +131,17 @@
           <Card class="variable-card">
             <template #title>
               <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold">Conversion Timeline</h4>
+                <h4 class="text-lg font-semibold">
+                  Conversion Timeline
+                </h4>
                 <Tag value="Medium Impact" severity="warn" class="text-xs" />
               </div>
             </template>
-            
+
             <template #content>
               <div v-if="!showTimelineSlider" class="space-y-4">
                 <p class="text-slate-700 text-sm">
-                  Over how many years will you spread the conversions? Longer timelines can help 
+                  Over how many years will you spread the conversions? Longer timelines can help
                   manage tax bracket impacts but delay the tax-free growth benefits.
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
@@ -137,16 +151,20 @@
                   </p>
                 </div>
               </div>
-              
+
               <div v-else class="space-y-4">
                 <div class="text-center">
-                  <div class="text-2xl font-bold text-primary-700 mb-1">{{ conversionYears }} {{ conversionYears === 1 ? 'Year' : 'Years' }}</div>
-                  <div class="text-sm text-slate-600">${{ Math.round(conversionAmount / conversionYears / 1000) }}K per year</div>
+                  <div class="text-2xl font-bold text-primary-700 mb-1">
+                    {{ conversionYears }} {{ conversionYears === 1 ? 'Year' : 'Years' }}
+                  </div>
+                  <div class="text-sm text-slate-600">
+                    ${{ Math.round(conversionAmount / conversionYears / 1000) }}K per year
+                  </div>
                 </div>
-                <Slider 
-                  v-model="conversionYears" 
-                  :min="1" 
-                  :max="10" 
+                <Slider
+                  v-model="conversionYears"
+                  :min="1"
+                  :max="10"
                   :step="1"
                   class="w-full"
                 />
@@ -154,26 +172,26 @@
                   <span>1 year</span>
                   <span>10 years</span>
                 </div>
-                <Button 
-                  @click="showTimelineSlider = false"
+                <Button
                   severity="success"
                   size="small"
                   icon="pi pi-check"
                   label="Done"
                   class="w-full"
+                  @click="showTimelineSlider = false"
                 />
               </div>
             </template>
-            
+
             <template #footer>
               <div v-if="!showTimelineSlider" class="text-center place-items-end">
-                <Button 
-                  @click="openSlider('timeline')"
+                <Button
                   severity="primary"
                   size="small"
                   icon="pi pi-sliders-h"
                   label="Adjust Timeline"
                   class="w-full"
+                  @click="openSlider('timeline')"
                 />
               </div>
             </template>
@@ -183,15 +201,17 @@
           <Card class="variable-card">
             <template #title>
               <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold">Your Current Tax Rate</h4>
+                <h4 class="text-lg font-semibold">
+                  Your Current Tax Rate
+                </h4>
                 <Tag value="High Impact" severity="danger" class="text-xs" />
               </div>
             </template>
-            
+
             <template #content>
               <div v-if="!showParentTaxSlider" class="space-y-4">
                 <p class="text-slate-700 text-sm">
-                  Your marginal tax rate during conversion years. This includes federal and state taxes 
+                  Your marginal tax rate during conversion years. This includes federal and state taxes
                   and determines how much you'll pay on the conversion.
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
@@ -202,16 +222,20 @@
                   </p>
                 </div>
               </div>
-              
+
               <div v-else class="space-y-4">
                 <div class="text-center">
-                  <div class="text-2xl font-bold text-primary-700 mb-1">{{ parentTaxRate }}%</div>
-                  <div class="text-sm text-slate-600">{{ getTaxBracketDescription(parentTaxRate) }}</div>
+                  <div class="text-2xl font-bold text-primary-700 mb-1">
+                    {{ parentTaxRate }}%
+                  </div>
+                  <div class="text-sm text-slate-600">
+                    {{ getTaxBracketDescription(parentTaxRate) }}
+                  </div>
                 </div>
-                <Slider 
-                  v-model="parentTaxRate" 
-                  :min="10" 
-                  :max="37" 
+                <Slider
+                  v-model="parentTaxRate"
+                  :min="10"
+                  :max="37"
                   :step="1"
                   class="w-full"
                 />
@@ -219,26 +243,26 @@
                   <span>10%</span>
                   <span>37%</span>
                 </div>
-                <Button 
-                  @click="showParentTaxSlider = false"
+                <Button
                   severity="success"
                   size="small"
                   icon="pi pi-check"
                   label="Done"
                   class="w-full"
+                  @click="showParentTaxSlider = false"
                 />
               </div>
             </template>
-            
+
             <template #footer>
               <div v-if="!showParentTaxSlider" class="text-center place-items-end">
-                <Button 
-                  @click="openSlider('parentTax')"
+                <Button
                   severity="primary"
                   size="small"
                   icon="pi pi-sliders-h"
                   label="Adjust Rate"
                   class="w-full"
+                  @click="openSlider('parentTax')"
                 />
               </div>
             </template>
@@ -248,15 +272,17 @@
           <Card class="variable-card">
             <template #title>
               <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold">Children's Tax Rates</h4>
+                <h4 class="text-lg font-semibold">
+                  Children's Tax Rates
+                </h4>
                 <Tag value="High Impact" severity="danger" class="text-xs" />
               </div>
             </template>
-            
+
             <template #content>
               <div v-if="!showChildrenTaxSlider" class="space-y-4">
                 <p class="text-slate-700 text-sm">
-                  Expected tax rates for your children when they inherit and must distribute the accounts 
+                  Expected tax rates for your children when they inherit and must distribute the accounts
                   (likely during their peak earning years).
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
@@ -266,7 +292,7 @@
                   </p>
                 </div>
               </div>
-              
+
               <div v-else class="space-y-4">
                 <div class="space-y-3">
                   <div v-for="(rate, index) in childrenTaxRates" :key="index" class="space-y-2">
@@ -274,38 +300,40 @@
                       <span class="text-sm font-medium">Child {{ index + 1 }}</span>
                       <div class="text-right">
                         <span class="text-lg font-bold text-primary-700">{{ rate }}%</span>
-                        <div class="text-xs text-slate-500">{{ getTaxBracketDescription(rate) }}</div>
+                        <div class="text-xs text-slate-500">
+                          {{ getTaxBracketDescription(rate) }}
+                        </div>
                       </div>
                     </div>
-                    <Slider 
-                      v-model="childrenTaxRates[index]" 
-                      :min="10" 
-                      :max="37" 
+                    <Slider
+                      v-model="childrenTaxRates[index]"
+                      :min="10"
+                      :max="37"
                       :step="1"
                       class="w-full"
                     />
                   </div>
                 </div>
-                <Button 
-                  @click="showChildrenTaxSlider = false"
+                <Button
                   severity="success"
                   size="small"
                   icon="pi pi-check"
                   label="Done"
                   class="w-full"
+                  @click="showChildrenTaxSlider = false"
                 />
               </div>
             </template>
-            
+
             <template #footer>
               <div v-if="!showChildrenTaxSlider" class="text-center">
-                <Button 
-                  @click="openSlider('childrenTax')"
+                <Button
                   severity="primary"
                   size="small"
                   icon="pi pi-sliders-h"
                   label="Adjust Rates"
                   class="w-full"
+                  @click="openSlider('childrenTax')"
                 />
               </div>
             </template>
@@ -315,15 +343,17 @@
           <Card class="variable-card">
             <template #title>
               <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold">Investment Return Rate</h4>
+                <h4 class="text-lg font-semibold">
+                  Investment Return Rate
+                </h4>
                 <Tag value="Medium Impact" severity="warn" class="text-xs" />
               </div>
             </template>
-            
+
             <template #content>
               <div v-if="!showReturnSlider" class="space-y-4">
                 <p class="text-slate-700 text-sm">
-                  Expected annual return on investments during the 10-year distribution period. 
+                  Expected annual return on investments during the 10-year distribution period.
                   Higher returns increase the tax advantages of Roth conversions since more growth occurs tax-free.
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
@@ -334,17 +364,21 @@
                   </p>
                 </div>
               </div>
-              
+
               <div v-else class="space-y-4">
                 <div class="text-center">
-                  <div class="text-2xl font-bold text-primary-700 mb-1">{{ returnRate }}%</div>
-                  <div class="text-sm text-slate-600">{{ getReturnDescription(returnRate) }}</div>
+                  <div class="text-2xl font-bold text-primary-700 mb-1">
+                    {{ returnRate }}%
+                  </div>
+                  <div class="text-sm text-slate-600">
+                    {{ getReturnDescription(returnRate) }}
+                  </div>
                 </div>
                 <div class="max-w-md mx-auto">
-                  <Slider 
-                    v-model="returnRate" 
-                    :min="2" 
-                    :max="18" 
+                  <Slider
+                    v-model="returnRate"
+                    :min="2"
+                    :max="18"
                     :step="1"
                     class="w-full"
                   />
@@ -357,27 +391,27 @@
                   <!-- Dynamic description shown in the main display above -->
                 </div>
                 <div class="text-center">
-                  <Button 
-                    @click="showReturnSlider = false"
+                  <Button
                     severity="success"
                     size="small"
                     icon="pi pi-check"
                     label="Done"
                     class="max-w-xs"
+                    @click="showReturnSlider = false"
                   />
                 </div>
               </div>
             </template>
-            
+
             <template #footer>
               <div v-if="!showReturnSlider" class="text-center">
-                <Button 
-                  @click="openSlider('return')"
+                <Button
                   severity="primary"
                   size="small"
                   icon="pi pi-sliders-h"
                   label="Adjust Return"
                   class="w-full"
+                  @click="openSlider('return')"
                 />
               </div>
             </template>
@@ -387,15 +421,17 @@
           <Card class="variable-card">
             <template #title>
               <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold">Years Until Inheritance</h4>
+                <h4 class="text-lg font-semibold">
+                  Years Until Inheritance
+                </h4>
                 <Tag value="High Impact" severity="danger" class="text-xs" />
               </div>
             </template>
-            
+
             <template #content>
               <div v-if="!showInheritanceTimelineSlider" class="space-y-4">
                 <p class="text-slate-700 text-sm">
-                  While no one can predict when inheritance will occur, we need a planning timeframe. 
+                  While no one can predict when inheritance will occur, we need a planning timeframe.
                   Longer growth periods create higher tax stakes for your children.
                 </p>
                 <div class="bg-info-50 border border-info-200 rounded-md p-3">
@@ -406,16 +442,20 @@
                   </p>
                 </div>
               </div>
-              
+
               <div v-else class="space-y-4">
                 <div class="text-center">
-                  <div class="text-2xl font-bold text-primary-700 mb-1">{{ yearsUntilInheritance }} {{ yearsUntilInheritance === 1 ? 'Year' : 'Years' }}</div>
-                  <div class="text-sm text-slate-600">{{ getInheritanceTimelineDescription(yearsUntilInheritance) }}</div>
+                  <div class="text-2xl font-bold text-primary-700 mb-1">
+                    {{ yearsUntilInheritance }} {{ yearsUntilInheritance === 1 ? 'Year' : 'Years' }}
+                  </div>
+                  <div class="text-sm text-slate-600">
+                    {{ getInheritanceTimelineDescription(yearsUntilInheritance) }}
+                  </div>
                 </div>
-                <Slider 
-                  v-model="yearsUntilInheritance" 
-                  :min="1" 
-                  :max="30" 
+                <Slider
+                  v-model="yearsUntilInheritance"
+                  :min="1"
+                  :max="30"
                   :step="1"
                   class="w-full"
                 />
@@ -429,26 +469,26 @@
                   <span>15yr</span>
                   <span>25yr</span>
                 </div>
-                <Button 
-                  @click="showInheritanceTimelineSlider = false"
+                <Button
                   severity="success"
                   size="small"
                   icon="pi pi-check"
                   label="Done"
                   class="w-full"
+                  @click="showInheritanceTimelineSlider = false"
                 />
               </div>
             </template>
-            
+
             <template #footer>
               <div v-if="!showInheritanceTimelineSlider" class="text-center place-items-end">
-                <Button 
-                  @click="openSlider('inheritanceTimeline')"
+                <Button
                   severity="primary"
                   size="small"
                   icon="pi pi-sliders-h"
                   label="Adjust Timeline"
                   class="w-full"
+                  @click="openSlider('inheritanceTimeline')"
                 />
               </div>
             </template>
@@ -465,16 +505,16 @@
         </div>
         <div class="flex gap-3">
           <Button
-            @click="cancelPersonalization"
             severity="secondary"
             label="Cancel"
             icon="pi pi-times"
+            @click="cancelPersonalization"
           />
           <Button
-            @click="applyPersonalization"
             severity="primary"
             label="Apply Changes"
             icon="pi pi-check"
+            @click="applyPersonalization"
           />
         </div>
       </div>
@@ -486,12 +526,12 @@
 const props = defineProps({
   visible: {
     type: Boolean,
-    default: false
+    default: false,
   },
   baselineValues: {
     type: Object,
-    default: null
-  }
+    default: null,
+  },
 })
 
 const emit = defineEmits(['update:visible', 'apply-changes', 'cancel'])
@@ -513,7 +553,7 @@ const openSlider = (sliderType) => {
   showChildrenTaxSlider.value = false
   showReturnSlider.value = false
   showInheritanceTimelineSlider.value = false
-  
+
   // Open the requested slider
   switch (sliderType) {
     case 'conversion':
@@ -599,9 +639,9 @@ const applyPersonalization = () => {
     parentTaxRate: parentTaxRate.value,
     childrenTaxRates: [...childrenTaxRates.value],
     returnRate: returnRate.value,
-    yearsUntilInheritance: yearsUntilInheritance.value
+    yearsUntilInheritance: yearsUntilInheritance.value,
   }
-  
+
   emit('apply-changes', personalizedValues)
   emit('update:visible', false)
 }

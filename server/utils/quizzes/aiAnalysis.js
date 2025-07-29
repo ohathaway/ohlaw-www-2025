@@ -1,6 +1,6 @@
 // server/utils/aiAnalysis.js
-import { isEmpty } from 'lodash-es'
 import Anthropic from '@anthropic-ai/sdk'
+import { isEmpty } from '~~/app/utils/lang'
 
 /*
 ### Your Estate Planning Analysis
@@ -17,7 +17,7 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
       gemma7b: '@cf/google/gemma-7b-it-lora',
       llama31InstructFast: '@cf/meta/llama-3.1-8b-instruct-fast',
       llama4Instruct: '@cf/meta/llama-4-scout-17b-16e-instruct',
-      claude4Opus: 'claude-opus-4-20250514'
+      claude4Opus: 'claude-opus-4-20250514',
     }
 
     // Stream response
@@ -84,86 +84,86 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
     `
 
     const schema = {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "finding",
-          "explanation",
-          "actionable",
-          "quizFactors",
-          "isOverride",
-          "priority",
-          "recommendationId"
+      $schema: 'http://json-schema.org/draft-07/schema#',
+      type: 'array',
+      items: {
+        type: 'object',
+        required: [
+          'finding',
+          'explanation',
+          'actionable',
+          'quizFactors',
+          'isOverride',
+          'priority',
+          'recommendationId',
         ],
-        "properties": {
-          "finding": {
-            "type": "string",
-            "description": "A concise summary of the user's estate planning situation or key issue identified.",
-            "minLength": 20,
-            "maxLength": 150,
-            "pattern": "^[A-Za-z0-9,.\\s-]+$"
+        properties: {
+          finding: {
+            type: 'string',
+            description: 'A concise summary of the user\'s estate planning situation or key issue identified.',
+            minLength: 20,
+            maxLength: 150,
+            pattern: '^[A-Za-z0-9,.\\s-]+$',
           },
-          "explanation": {
-            "type": "string",
-            "description": "A clear explanation of why the finding matters, including potential risks or consequences if not addressed.",
-            "minLength": 50,
-            "maxLength": 300,
-            "pattern": "^[A-Za-z0-9,.\\s-]+$"
+          explanation: {
+            type: 'string',
+            description: 'A clear explanation of why the finding matters, including potential risks or consequences if not addressed.',
+            minLength: 50,
+            maxLength: 300,
+            pattern: '^[A-Za-z0-9,.\\s-]+$',
           },
-          "actionable": {
-            "type": "string",
-            "description": "A specific, practical step or recommendation the user can take to address the finding.",
-            "minLength": 30,
-            "maxLength": 200,
-            "pattern": "^[A-Za-z0-9,.\\s-]+$"
+          actionable: {
+            type: 'string',
+            description: 'A specific, practical step or recommendation the user can take to address the finding.',
+            minLength: 30,
+            maxLength: 200,
+            pattern: '^[A-Za-z0-9,.\\s-]+$',
           },
-          "quizFactors": {
-            "type": "array",
-            "description": "A list of quiz question IDs or factors that contributed to this recommendation.",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "pattern": "^q[0-9]+[a-z0-9]*$"
-            }
+          quizFactors: {
+            type: 'array',
+            description: 'A list of quiz question IDs or factors that contributed to this recommendation.',
+            minItems: 1,
+            items: {
+              type: 'string',
+              pattern: '^q[0-9]+[a-z0-9]*$',
+            },
           },
-          "isOverride": {
-            "type": "boolean",
-            "description": "Indicates if this recommendation takes precedence over others due to critical factors (e.g., high estate value, complex family dynamics)."
+          isOverride: {
+            type: 'boolean',
+            description: 'Indicates if this recommendation takes precedence over others due to critical factors (e.g., high estate value, complex family dynamics).',
           },
-          "priority": {
-            "type": "string",
-            "description": "The urgency or importance of the recommendation.",
-            "enum": ["High", "Medium", "Low"]
+          priority: {
+            type: 'string',
+            description: 'The urgency or importance of the recommendation.',
+            enum: ['High', 'Medium', 'Low'],
           },
-          "recommendationId": {
-            "type": "string",
-            "description": "A unique identifier for the recommendation pathway.",
-            "minLength": 5,
-            "maxLength": 50,
-            "pattern": "^[A-Za-z0-9\\s-]+$"
-          }
+          recommendationId: {
+            type: 'string',
+            description: 'A unique identifier for the recommendation pathway.',
+            minLength: 5,
+            maxLength: 50,
+            pattern: '^[A-Za-z0-9\\s-]+$',
+          },
         },
-        "additionalProperties": false
+        additionalProperties: false,
       },
-      "minItems": 1,
-      "maxItems": 5
+      minItems: 1,
+      maxItems: 5,
     }
 
     const { claude: { apiKey } } = useRuntimeConfig()
 
     const anthropic = new Anthropic({
-      apiKey
+      apiKey,
     })
 
     const response = await anthropic.messages.create({
-        model: models.claude4Opus,
-        max_tokens: 2048,
-        system: systemPrompt,
-        messages: [
-          { role: 'user', content: prompt }
-        ]
+      model: models.claude4Opus,
+      max_tokens: 2048,
+      system: systemPrompt,
+      messages: [
+        { role: 'user', content: prompt },
+      ],
     })
 
     console.info('response from claude:', response)
@@ -176,7 +176,7 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
       // temperature: 0.2,
       stream: true  // Enable streaming!
     })
-    
+
     const decoder = new TextDecoder()
     // Use the correct event listeners for NuxtHub
     for await (const chunk of stream) {
@@ -187,7 +187,7 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
 
     decoder.decode()
     */
-    
+
     /*
     aiResponse.on('done', () => {
       try {
@@ -203,14 +203,14 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
         }
       } catch (error) {
         console.error('Failed to process response:', error)
-        resolve({ 
-          success: false, 
-          error: 'Failed to parse findings', 
-          rawResponse: fullResponse 
+        resolve({
+          success: false,
+          error: 'Failed to parse findings',
+          rawResponse: fullResponse
         })
       }
     })
-  
+
     aiResponse.on('error', (error) => {
       console.error('AI stream error:', error)
       reject(error)
@@ -218,7 +218,8 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
     */
     // const trimmedResponse = trimResponse(rawResponse)
     // console.info('full chunks:', trimmedResponse)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('AI analysis error:', error)
     return []
   }
@@ -227,16 +228,18 @@ export const analyzeQuizResults = async (quizData, userAnswers, scoreResult) => 
 // Helper function to process JSON response
 function processJsonResponse(responseText) {
   if (!responseText) return []
-  
+
   // Try standard JSON parsing first
   try {
     const parsed = JSON.parse(responseText)
     // It could be an array directly or nested in a property
     if (Array.isArray(parsed)) {
       return parsed
-    } else if (parsed.findings && Array.isArray(parsed.findings)) {
+    }
+    else if (parsed.findings && Array.isArray(parsed.findings)) {
       return parsed.findings
-    } else {
+    }
+    else {
       // Loop through to find any array property that might contain findings
       for (const key in parsed) {
         if (Array.isArray(parsed[key])) {
@@ -248,10 +251,11 @@ function processJsonResponse(responseText) {
         return [parsed]
       }
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.warn('JSON parsing failed, trying to extract JSON:', error)
   }
-  
+
   // If JSON parsing fails, try to extract JSON from the text
   // This is especially useful for streaming where we might get partial JSON
   try {
@@ -260,55 +264,55 @@ function processJsonResponse(responseText) {
     if (jsonMatch) {
       return JSON.parse(jsonMatch[0])
     }
-    
+
     // If we can't find a complete array, try to extract individual findings
     const findings = []
     const findingRegex = /\{\s*"finding"\s*:\s*"([^"]*)"\s*,\s*"explanation"\s*:\s*"([^"]*)"\s*,\s*"recommendationId"\s*:\s*([^,]*)\s*,\s*"impactRating"\s*:\s*(\d+)\s*\}/g
-    
+
     let match
     while ((match = findingRegex.exec(responseText)) !== null) {
       findings.push({
         finding: match[1],
         explanation: match[2],
         recommendationId: match[3] === 'null' ? null : match[3],
-        impactRating: parseInt(match[4])
+        impactRating: parseInt(match[4]),
       })
     }
-    
+
     if (findings.length > 0) {
       return findings
     }
-  } catch (extractError) {
+  }
+  catch (extractError) {
     console.error('Failed to extract findings from response:', extractError)
   }
-  
+
   // Fallback to empty array if all parsing attempts fail
   return []
 }
-
 
 // Helper function to extract findings
 function extractFindings(text) {
   const findings = []
   const findingRegex = /\{\s*"finding"\s*:\s*"([^"]*)"\s*,\s*"explanation"\s*:\s*"([^"]*)"\s*,\s*"recommendationId"\s*:\s*([^,]*)\s*,\s*"impactRating"\s*:\s*(\d+)\s*\}/g
-  
+
   let match
   while ((match = findingRegex.exec(text)) !== null) {
     findings.push({
       finding: match[1],
       explanation: match[2],
       recommendationId: match[3] === 'null' ? null : match[3],
-      impactRating: parseInt(match[4])
+      impactRating: parseInt(match[4]),
     })
   }
-  
+
   return findings
 }
 
-const trimResponse = raw => {
+const trimResponse = (raw) => {
   // return raw.replace(/data:\s/, '')
   const trimmed = raw.split('\n')
-    .filter(line => {
+    .filter((line) => {
       return !isEmpty(line) && !line.match(/DONE/)
     }).reduce((acc, curr) => {
       const rawJson = curr.replace(/undefined/, '').replace(/^data:\s/, '')

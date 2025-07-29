@@ -5,18 +5,18 @@ import qs from 'qs'
 // const { strapiUrl } = nuxtApp.runWithContext(() => useAppConfig())
 const strapiUrl = 'https://strapi.ohlawcolorado.com'
 
-const isModifier = brick => {
+const isModifier = (brick) => {
   const modifierTypes = [
     'bold',
     'italic',
     'underline',
     'strikethrough',
-    'code'
+    'code',
   ]
   return intersection(modifierTypes, Object.keys(brick)).length > 0
 }
 
-const getThumbnailUrl = url => {
+const getThumbnailUrl = (url) => {
   const urlParts = url.split('/')
   urlParts.push(urlParts.pop().replace(/^/, 'thumbnail_'))
   return urlParts.join('/')
@@ -30,7 +30,7 @@ const getStrapiThumbnailUrl = image => {
   return strapiUrl+urlParts.join('/')
 }
 */
-const getStrapiThumbnailUrl = image => {
+const getStrapiThumbnailUrl = (image) => {
   const url = image?.data?.attributes?.url ?? image?.url
   if (!url) return ''
   const urlParts = url.split('/')
@@ -44,23 +44,24 @@ const getStrapiUrl = image => {
   return strapiUrl+url
 }
 */
-const getStrapiUrl = image => {
+const getStrapiUrl = (image) => {
   const url = image?.data?.attributes?.url ?? image?.url
   return url ? strapiUrl + url : ''
 }
 
-const richTextToPlainText = rich => {
+const richTextToPlainText = (rich) => {
   try {
-    return rich.map(brick => {
+    return rich.map((brick) => {
       if (brick.type === 'paragraph') {
-        return brick.children.map( child => {
+        return brick.children.map((child) => {
           return child.type === 'text'
             ? child.text
             : child.children[0].text
         }).join(' ').trim()
       }
     })[0]
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
     return error
   }
@@ -71,9 +72,9 @@ const addScrollSpy = () => {
 }
 
 const getMultipleRandom = (arr, num) => {
-  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  const shuffled = [...arr].sort(() => 0.5 - Math.random())
 
-  return shuffled.slice(0, num);
+  return shuffled.slice(0, num)
 }
 
 /*
@@ -86,85 +87,38 @@ const imageFields = [
   'alternativeText',
   'url',
   'previewUrl',
-  'provider'
+  'provider',
 ]
 
-const singlePostQuery = slug => {
-  return gql`
-    query Posts {
-      posts(
-        filters: {
-          slug: {
-            eq: "${slug}"
-          }
-        }
-      ) {
-        documentId
-        Content
-        Title
-        Image {
-          name
-          caption
-          alternativeText
-          url
-          previewUrl
-          provider
-        }
-        tags {
-          Name
-          slug
-        }
-        category {
-          Name
-          slug
-        }
-        slug
-        publishDate
-        Snippet
-        CTA
-        createdAt
-        updatedAt
-        publishedAt
-        terms {
-            term
-            definition
-            slug
-            sources
-        }
-      }
-    }
-  `
-}
-
-const singlePostQueryREST = slug => {
+const singlePostQueryREST = (slug) => {
   try {
     const params = {
       filters: {
         slug: {
-          '$eq': slug
-        }
+          $eq: slug,
+        },
       },
       populate: {
         category: {
           fields: [
             'slug',
-            'Name'
-          ]
+            'Name',
+          ],
         },
         Image: {
-          fields: imageFields
+          fields: imageFields,
         },
         populate: {
           Image: {
-            fields: imageFields
+            fields: imageFields,
           },
           tags: {
             fields: [
               'Name',
-              'slug'
-            ]
-          }
-        }
+              'slug',
+            ],
+          },
+        },
       },
       fields: [
         'Content',
@@ -172,68 +126,38 @@ const singlePostQueryREST = slug => {
         'publishDate',
         'slug',
         'Snippet',
-        'Title'
+        'Title',
       ],
     }
     return qs.stringify(params, { encode: false })
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error parsing parameters for all posts query', error)
     return ''
   }
 }
 
-const allPostsQuery = gql`
-query Posts {
-  posts {
-      documentId
-      Content
-      Title
-      slug
-      Image {
-          name
-          caption
-          alternativeText
-          url
-          previewUrl
-          provider
-      }
-      tags {
-          Name
-          slug
-      }
-      category {
-          Name
-          slug
-      }
-      CTA
-      createdAt
-      updatedAt
-      publishedAt
-  }
-}
-`
-
-const allPostsQueryREST = limit => {
+const allPostsQueryREST = (limit) => {
   try {
     const params = {
       sort: [
-        'publishDate:desc'
+        'publishDate:desc',
       ],
       populate: {
         Image: {
-          fields: imageFields
+          fields: imageFields,
         },
         populate: {
           Image: {
-            fields: imageFields
+            fields: imageFields,
           },
           tags: {
             fields: [
               'Name',
-              'slug'
-            ]
-          }
-        }
+              'slug',
+            ],
+          },
+        },
       },
       fields: [
         'Content',
@@ -241,146 +165,24 @@ const allPostsQueryREST = limit => {
         'publishDate',
         'slug',
         'Snippet',
-        'Title'
+        'Title',
       ],
       pagination: {
         pageSize: limit,
-        page: 1
+        page: 1,
       },
       status: 'published',
       locale: [
-        'en'
-      ]
+        'en',
+      ],
     }
     return qs.stringify(params, { encode: false })
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error parsing parameters for all posts query', error)
     return ''
   }
 }
-
-const featuredPostQuery = gql`
-query FeaturedPost {
-  featuredPost {
-    documentId
-    createdAt
-    updatedAt
-    publishedAt
-    post {
-      documentId
-      Content
-      Title
-      slug
-      publishDate
-      Snippet
-      CTA
-      createdAt
-      updatedAt
-      publishedAt
-      category {
-        documentId
-        Name
-        slug
-        createdAt
-        updatedAt
-        publishedAt
-      }
-      Image {
-        name
-        caption
-        alternativeText
-        url
-        previewUrl
-        provider
-      }
-      tags {
-        Name
-        slug
-      }
-    }
-  }
-}`
-
-const spotlightPostsQuery = gql`
-query Spotlight {
-  spotlight {
-    posts {
-      documentId
-      Content
-      Title
-      slug
-      publishDate
-      Snippet
-      CTA
-      createdAt
-      updatedAt
-      publishedAt
-      Image {
-        name
-        caption
-        alternativeText
-        url
-        previewUrl
-        provider
-      }
-      tags {
-        documentId
-        Name
-        slug
-      }
-      category {
-        Name
-        slug
-      }
-    }
-  }
-}
-`
-/*
-const categoryPostsQuery = (category, limit = 3) => {
-  return gql`
-  query Categories {
-    categories(
-      pagination: { start: 0, limit: ${limit} },
-      filters: { Name: { eq: "${category}" } }
-    ) {
-      hero
-      faq {
-          question
-          answer
-      },
-      Image {
-        name
-        alternativeText
-        caption
-        url
-        previewUrl
-        provider
-      },
-      posts(sort: "publishDate:DESC") {
-        documentId
-        Snippet
-        Title
-        slug
-        publishDate
-        tags {
-          Name
-          slug
-        }
-        Image {
-          name
-          caption
-          alternativeText
-          url
-          previewUrl
-          provider
-        }
-      }
-    }
-  }
-  `
-}
-*/
 
 const postListQueryREST = (filterSlug, listType = 'category', limit = 6) => {
   try {
@@ -390,111 +192,212 @@ const postListQueryREST = (filterSlug, listType = 'category', limit = 6) => {
     const populate = {
       posts: {
         sort: [
-          'publishDate:desc'
+          'publishDate:desc',
         ],
         populate: {
           Image: {
-            fields: imageFields
+            fields: imageFields,
           },
           tags: {
             fields: [
               'Name',
-              'slug'
-            ]
-          }
-        }
-      }
+              'slug',
+            ],
+          },
+        },
+      },
     }
     if (listType === 'category') populate.Image = { fields: imageFields }
-
 
     const params = {
       filters: {
         slug: {
-          '$eq': filterSlug
-        }
+          $eq: filterSlug,
+        },
       },
       populate,
-      fields, 
+      fields,
       pagination: {
         pageSize: limit,
-        page: 1
+        page: 1,
       },
       status: 'published',
       locale: [
-        'en'
-      ]
+        'en',
+      ],
     }
     return qs.stringify(params, { encode: false })
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error parsing parameters for category query', error)
     return ''
   }
 }
 
-const tagPostsQuery = (tag, limit = 3) => {
-  return gql`
-  query Tags {
-    tags(
-      pagination: { start: 0, limit: ${limit} },
-      filters: { slug: { eq: "${tag}" } }
-    ) {
-      terms {
-        term
-        definition
-        sources
-        slug
-      }
-      posts (
-        sort: "publishDate:DESC"
-      ) {
-        documentId
-        Title
-        Image {
-          name
-          caption
-          alternativeText
-          url
-          previewUrl
-          provider
-        }
-        tags {
-          Name
-          slug
-        }
-        Snippet
-        terms {
-          term
-          definition
-          sources
-          slug
-        }
-      }
+const featuredPostQueryREST = () => {
+  try {
+    const params = {
+      populate: {
+        post: {
+          populate: {
+            Image: {
+              fields: imageFields,
+            },
+            tags: {
+              fields: [
+                'Name',
+                'slug',
+              ],
+            },
+            category: {
+              fields: [
+                'Name',
+                'slug',
+              ],
+            },
+          },
+          fields: [
+            'Content',
+            'Title',
+            'slug',
+            'publishDate',
+            'Snippet',
+            'CTA',
+          ],
+        },
+      },
+      fields: [
+        'createdAt',
+        'updatedAt',
+        'publishedAt',
+      ],
     }
+    return qs.stringify(params, { encode: false })
   }
-  `
+  catch (error) {
+    console.error('error parsing parameters for featured post query', error)
+    return ''
+  }
 }
 
-const dedupPosts = posts =>{
+const spotlightPostsQueryREST = () => {
+  try {
+    const params = {
+      populate: {
+        posts: {
+          populate: {
+            Image: {
+              fields: imageFields,
+            },
+            tags: {
+              fields: [
+                'Name',
+                'slug',
+              ],
+            },
+            category: {
+              fields: [
+                'Name',
+                'slug',
+              ],
+            },
+          },
+          fields: [
+            'Content',
+            'Title',
+            'slug',
+            'publishDate',
+            'Snippet',
+            'CTA',
+          ],
+        },
+      },
+    }
+    return qs.stringify(params, { encode: false })
+  }
+  catch (error) {
+    console.error('error parsing parameters for spotlight posts query', error)
+    return ''
+  }
+}
+
+const tagPostsQueryREST = (tag, limit = 3) => {
+  try {
+    const params = {
+      filters: {
+        slug: {
+          $eq: tag,
+        },
+      },
+      populate: {
+        terms: {
+          fields: [
+            'term',
+            'definition',
+            'sources',
+            'slug',
+          ],
+        },
+        posts: {
+          sort: [
+            'publishDate:desc',
+          ],
+          populate: {
+            Image: {
+              fields: imageFields,
+            },
+            tags: {
+              fields: [
+                'Name',
+                'slug',
+              ],
+            },
+            terms: {
+              fields: [
+                'term',
+                'definition',
+                'sources',
+                'slug',
+              ],
+            },
+          },
+          fields: [
+            'Title',
+            'Snippet',
+          ],
+          pagination: {
+            pageSize: limit,
+            page: 1,
+          },
+        },
+      },
+    }
+    return qs.stringify(params, { encode: false })
+  }
+  catch (error) {
+    console.error('error parsing parameters for tag posts query', error)
+    return ''
+  }
+}
+
+const dedupPosts = (posts) => {
   return posts.filter((value, index, self) => {
     return self.findIndex(v => v.documentId === value.documentId) === index
   })
 }
 
 export {
-  allPostsQuery,
   allPostsQueryREST,
   dedupPosts,
+  featuredPostQueryREST,
   getMultipleRandom,
   getStrapiThumbnailUrl,
   getStrapiUrl,
   getThumbnailUrl,
-  featuredPostQuery,
   isModifier,
-  postListQueryREST ,
+  postListQueryREST,
   richTextToPlainText,
-  singlePostQuery,
   singlePostQueryREST,
-  spotlightPostsQuery,
-  tagPostsQuery
+  spotlightPostsQueryREST,
+  tagPostsQueryREST,
 }

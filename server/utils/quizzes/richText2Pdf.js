@@ -6,14 +6,14 @@ export const richTextToPdf = (blocks = [], options = {}) => {
     indent: 20,
     listBullet: '• ',
     headingLevelBaseSize: 18,
-    ...options
+    ...options,
   }
-  
+
   // Early return for invalid input
   if (!Array.isArray(blocks)) {
     return [createParagraphBlock('No content available')]
   }
-  
+
   // Transform each block using type-specific transformers
   return blocks.flatMap(block => transformBlock(block, config))
 }
@@ -27,7 +27,7 @@ const transformBlock = (block, config) => {
     list: transformList,
     // Add more block types as needed
   }
-  
+
   const transformer = transformers[block.type]
   return transformer ? transformer(block, config) : []
 }
@@ -38,17 +38,17 @@ const transformHeading = (block, config) => [{
   text: extractText(block.children),
   fontSize: config.headingLevelBaseSize - ((block.level - 1) * 2),
   style: 'bold',
-  id: block.children[0]?.text?.replaceAll(' ', '-').toLowerCase() || null
+  id: block.children[0]?.text?.replaceAll(' ', '-').toLowerCase() || null,
 }]
 
 const transformParagraph = (block, config) => {
   if (!block.children?.length) {
     return [{ type: 'spacer', height: 12 }]
   }
-  
+
   return [{
     type: 'paragraph',
-    spans: block.children.map(transformInlineElement)
+    spans: block.children.map(transformInlineElement),
   }]
 }
 
@@ -56,8 +56,8 @@ const transformList = (block, config) => [{
   type: 'list',
   format: block.format || 'unordered',
   items: block.children.map(item => ({
-    spans: item.children.map(transformInlineElement)
-  }))
+    spans: item.children.map(transformInlineElement),
+  })),
 }]
 
 // Helper functions for transformations
@@ -70,10 +70,10 @@ const transformInlineElement = (element) => {
       url: element.url,
       bold: false,
       italic: false,
-      underline: true
+      underline: true,
     }
   }
-  
+
   return {
     text: element.text || '',
     style: determineStyle(element),
@@ -81,30 +81,30 @@ const transformInlineElement = (element) => {
     italic: !!element.italic,
     underline: !!element.underline,
     strikethrough: !!element.strikethrough,
-    code: !!element.code
+    code: !!element.code,
   }
 }
 
-const extractText = (children = []) => 
+const extractText = (children = []) =>
   children
     .map(child => child.type === 'text' ? child.text : extractText(child.children))
     .join('')
 
 const determineStyle = (node) => {
   if (node.code) return 'code'
-  
+
   const modifiers = [
     node.bold && 'bold',
     node.italic && 'italic',
     node.underline && 'underline',
-    node.strikethrough && 'strikethrough'
+    node.strikethrough && 'strikethrough',
   ].filter(Boolean)
-  
+
   return modifiers.length > 0 ? modifiers.join('-') : 'normal'
 }
 
 // Factory functions for creating blocks
-const createParagraphBlock = (text) => ({
+const createParagraphBlock = text => ({
   type: 'paragraph',
   spans: [{
     text,
@@ -113,6 +113,6 @@ const createParagraphBlock = (text) => ({
     italic: false,
     underline: false,
     strikethrough: false,
-    code: false
-  }]
+    code: false,
+  }],
 })

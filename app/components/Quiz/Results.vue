@@ -2,7 +2,9 @@
   <div class="quiz-results">
     <!-- Results header -->
     <div class="results-header text-center mb-4">
-      <h2 class="mb-0">Your Results</h2>
+      <h2 class="mb-0">
+        Your Results
+      </h2>
       <small class="mb-5">not legal advice, if you want legal advice you have to talk to us</small>
       <div v-if="result.category" class="result-category my-3">
         <span class="badge bg-primary p-2 fs-5">{{ result.category.title }}</span>
@@ -34,31 +36,31 @@
 
         <!-- CTA buttons -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-          <a 
-            v-if="result.category?.ctaLink" 
-            :href="result.category.ctaLink" 
+          <a
+            v-if="result.category?.ctaLink"
+            :href="result.category.ctaLink"
             class="btn btn-primary btn-lg"
             :target="linkLocal(result.category.ctaLink) ? '_self' : '_blank'"
             :rel="linkLocal(result.category.ctaLink) ? 'quiz' : 'noopener'"
           >
             Learn More
           </a>
-          <Button 
+          <Button
             v-else
-            class="btn btn-primary btn-lg" 
+            class="btn btn-primary btn-lg"
             @click="$emit('contact')"
           >
             Get Personalized Advice
           </Button>
 
           <!-- Lead magnet download if available -->
-          <a 
+          <a
             v-if="quiz.leadMagnet"
-            :href="quiz.leadMagnet" 
-            class="btn btn-outline-primary btn-lg" 
+            :href="quiz.leadMagnet"
+            class="btn btn-outline-primary btn-lg"
             download
           >
-            <i class="bi bi-download me-2"></i> Download Guide
+            <i class="bi bi-download me-2" /> Download Guide
           </a>
         </div>
       </div>
@@ -66,19 +68,21 @@
 
     <!-- Social sharing -->
     <div class="social-sharing mt-5 text-center">
-      <p class="mb-3">Found this quiz helpful? Share it with others who might benefit:</p>
+      <p class="mb-3">
+        Found this quiz helpful? Share it with others who might benefit:
+      </p>
       <div class="d-flex justify-content-center gap-3">
         <Button class="btn btn-outline-primary" @click="shareOnFacebook">
-          <i class="bi bi-facebook"></i>
+          <i class="bi bi-facebook" />
         </Button>
         <Button class="btn btn-outline-primary" @click="shareOnTwitter">
-          <i class="bi bi-twitter"></i>
+          <i class="bi bi-twitter" />
         </Button>
         <Button class="btn btn-outline-primary" @click="shareOnLinkedIn">
-          <i class="bi bi-linkedin"></i>
+          <i class="bi bi-linkedin" />
         </Button>
         <Button class="btn btn-outline-primary" @click="shareByEmail">
-          <i class="bi bi-envelope"></i>
+          <i class="bi bi-envelope" />
         </Button>
       </div>
     </div>
@@ -86,7 +90,7 @@
     <!-- Retake quiz option -->
     <div class="retake-quiz mt-4 text-center">
       <Button class="btn btn-link" @click="$emit('reset')">
-        <i class="bi bi-arrow-repeat me-1"></i> Take the quiz again
+        <i class="bi bi-arrow-repeat me-1" /> Take the quiz again
       </Button>
     </div>
   </div>
@@ -98,12 +102,12 @@ import { computed } from 'vue'
 const props = defineProps({
   result: {
     type: Object,
-    required: true
+    required: true,
   },
   quiz: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const emit = defineEmits(['contact', 'reset'])
@@ -203,7 +207,7 @@ const shareByEmail = () => {
   .quiz-results {
     padding: 1rem 0.5rem;
   }
-  
+
   .result-description {
     font-size: 1rem;
   }

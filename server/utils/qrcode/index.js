@@ -203,7 +203,7 @@ export const renderQRBlock = async (doc, block, config) => {
  */
 export const generateOHLawContactQRForServer = async (contactInfo = {}) => {
   try {
-    // Use the app config for default contact info  
+    // Use the app config for default contact info
     const appConfig = useAppConfig()
 
     const defaultContact = {

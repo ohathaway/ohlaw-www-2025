@@ -1,5 +1,5 @@
 <template>
-  <section 
+  <section
     class="relative hidden lg:flex w-full h-[462px] bg-cover bg-center items-center justify-center"
     style="background-image: url('/img/horsetooth_hiker_1275_485.webp')"
   >
@@ -10,13 +10,12 @@
             Reach for your dreams
           </h1>
           <p class="text-center text-white/90 text-lg font-light tracking-wide ">
-            and let <br />
-            <span class="font-medium font-trajan">The Law Offices of Owen Hathaway</span><br />
+            and let <br>
+            <span class="font-medium font-trajan">The Law Offices of Owen Hathaway</span><br>
             be your guide
           </p>
         </div>
       </div>
     </div>
-
   </section>
 </template>

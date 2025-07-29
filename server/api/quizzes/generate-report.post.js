@@ -1,11 +1,11 @@
 // server/api/generate-report.js
-import PDFDocument from 'pdfkit'
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
+import PDFDocument from 'pdfkit'
 import markdownIt from 'markdown-it'
-import { getQuizForAIbySlug } from '~~/server/utils/quizzes/utils'
-import { toTitleCase } from `~~/app/utils/strings`
+import { getQuizForAIbySlugREST } from '~~/server/utils/quizzes/utils'
+import { toTitleCase } from '~~/app/utils/strings'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -32,17 +32,18 @@ export default defineEventHandler(async (event) => {
       explanations = await analyzeQuizResults(
         quizData,
         quizResults.userAnswers,
-        quizResults.totalScore
+        quizResults.totalScore,
       )
       await hubKV().set(kvKey, explanations)
-    } else {
+    }
+    else {
       console.info('known quiz result received:', quizResultHash)
       explanations = await hubKV().get(kvKey)
     }
     // console.info('explanations:', explanations)
     const md = markdownIt()
     const block = JSON.parse(md.parse(explanations.content[0].text)
-      .filter(b=>b.type === 'fence')[0].content)
+      .filter(b => b.type === 'fence')[0].content)
 
     // Create a PDF document
     const pdfBuffer = await generatePDF(user, quizResults, quizData, block)
@@ -65,9 +66,9 @@ export default defineEventHandler(async (event) => {
     }
 
     const { cloudflare: { bucketName } } = useRuntimeConfig()
-    const downloadName = body.quizResults.slug + '-' +
-      body.user.lastName + '-' +
-      body.user.firstName + '.pdf'
+    const downloadName = body.quizResults.slug + '-'
+      + body.user.lastName + '-'
+      + body.user.firstName + '.pdf'
 
     await uploadPdfToR2(pdfBuffer, downloadName, bucketName)
 
@@ -77,13 +78,13 @@ export default defineEventHandler(async (event) => {
     await sendTemplatedMsg({
       sender: {
         name: 'OHLaw Quizzes',
-        address: 'quizzes@ohlawcolorado.com'
+        address: 'quizzes@ohlawcolorado.com',
       },
       recipients: [
         {
           name: `${body.user.firstName} ${body.user.lastName}`,
-          address: body.user.email
-        }
+          address: body.user.email,
+        },
       ],
       subject: `${toTitleCase(body.quizResults.slug, '-')} Assessment Results`,
       template: 'ynrw7gyq9mo42k8e',
@@ -92,22 +93,22 @@ export default defineEventHandler(async (event) => {
           // email: body.user.email,
           email: 'owen@ohlawcolorado.com',
           data: {
-            download_url: reportUrlSigned
-          }
-        }
-      ]
+            download_url: reportUrlSigned,
+          },
+        },
+      ],
     })
 
     // Store in CRM (pseudocode)
     //  await submitToCRM(user, quizResults, result)
 
     return { success: true, message: 'Report generated and sent' }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Report generation error:', error)
     return { success: false, error: error.message }
   }
 })
-
 
 const generatePDF = (user, quizResults, quizData, explanations) => {
   return new Promise((resolve, reject) => {
@@ -115,9 +116,9 @@ const generatePDF = (user, quizResults, quizData, explanations) => {
       margin: 50,
       size: 'letter',
       font: 'app/assets/fonts/PlusJakartaSans-Regular.ttf',
-      bufferPages: true
+      bufferPages: true,
     })
-    
+
     // setup buffer collection
     const chunks = []
     doc.on('data', chunk => chunks.push(chunk))
@@ -127,27 +128,27 @@ const generatePDF = (user, quizResults, quizData, explanations) => {
     // Add content to PDF
     // ------------------------------
 
-    const useAddCoverPage = doc => {
+    const useAddCoverPage = (doc) => {
       addCoverPage(doc, user, quizResults)
       return doc
     }
 
-    const useAddExecutiveSummary = doc => {
+    const useAddExecutiveSummary = (doc) => {
       addExecutiveSummary(doc, explanations, quizResults)
       return doc
     }
 
-    const useAddQuestionAnalysis = doc => {
+    const useAddQuestionAnalysis = (doc) => {
       addQuestionAnalysis(doc, quizResults.userAnswers, quizData)
       return doc
     }
 
-    const useAddNextSteps = doc => {
+    const useAddNextSteps = (doc) => {
       addNextSteps(doc, quizResults)
       return doc
     }
 
-    const useAddResources = doc => {
+    const useAddResources = (doc) => {
       addResources(doc)
       return doc
     }
@@ -159,15 +160,10 @@ const generatePDF = (user, quizResults, quizData, explanations) => {
       useAddQuestionAnalysis,
       // useAddNextSteps,
       useAddResources,
-      () => doc.end()
+      () => doc.end(),
     )(doc)
   })
 }
-
-
-
-
-
 
 // Email sending function
 // ------------------------------
@@ -214,9 +210,9 @@ async function sendReportEmail(email, pdfBuffer) {
       {
         filename: 'Estate_Planning_Assessment.pdf',
         content: pdfBuffer,
-        contentType: 'application/pdf'
-      }
-    ]
+        contentType: 'application/pdf',
+      },
+    ],
   })
 }
 
@@ -226,27 +222,13 @@ async function sendReportEmail(email, pdfBuffer) {
 const fetchQuizFromStrapi = async (slug) => {
   try {
     const { strapiUrl } = useAppConfig()
-    /* REST version
-    const query = qs.stringify(getQuizByIdREST, { encode: false })
-    const quizResult = await $fetch(`${strapiUrl}/api/quizzes/${id}?${query}`)
-    */
-    /* GraphQL version */
-    const quizResult = await $fetch(`${strapiUrl}/graphql`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: {
-        query: getQuizForAIbySlug,
-        variables: {
-          slug
-        }
-      }
-    })
+    // REST version
+    const query = getQuizForAIbySlugREST(slug)
+    const quizResult = await $fetch(`${strapiUrl}/api/quizzes?${query}`)
 
-
-    return quizResult.data
-  } catch (error) {
+    return quizResult.data?.[0] ? { quizzes: [quizResult.data[0]] } : { quizzes: [] }
+  }
+  catch (error) {
     console.error('failed to fetch quiz from strapi')
     throw error
   }

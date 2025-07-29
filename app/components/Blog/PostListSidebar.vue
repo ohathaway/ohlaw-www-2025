@@ -1,6 +1,6 @@
 <template>
   <aside>
-    <BlogPostList 
+    <BlogPostList
       :posts="posts"
       :title="title"
       :snippet="snippet"
@@ -11,14 +11,14 @@
 <script setup>
 const { posts, title, snippet } = defineProps({
   posts: {
-    type: Array
+    type: Array,
   },
   snippet: {
     type: Boolean,
-    default: false
+    default: false,
   },
   title: {
-    type: String
-  }
+    type: String,
+  },
 })
 </script>
