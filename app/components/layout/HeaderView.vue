@@ -1,32 +1,37 @@
 <template>
   <div class="relative">
     <!-- Header Bar -->
-    <header :class="['fixed top-0 left-0 right-0 grid grid-cols-9 md:grid-cols-3 items-center px-4 xl:px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md', 
-      scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg text-sm' : 'h-[80px]']">
-      
+    <header
+      :class="['fixed top-0 left-0 right-0 grid grid-cols-9 md:grid-cols-3 items-center px-4 xl:px-8 bg-[rgba(246,246,246,0.95)] transition-all duration-300 ease-in-out z-[1000] shadow-md',
+               scrolled ? 'h-[50px] bg-[rgba(246,246,246,0.98)] shadow-lg text-sm' : 'h-[80px]']"
+    >
       <!-- Mobile Menu Button -->
       <div class="lg:hidden justify-start">
-        <Button 
-          icon="pi pi-bars" 
-          @click="toggleMobileMenu" 
+        <Button
+          icon="pi pi-bars"
           class="p-button-text p-button-rounded"
-          aria-label="Menu" 
+          aria-label="Menu"
           :dt="mobileButtonTheme"
+          @click="toggleMobileMenu"
         />
       </div>
-      
+
       <!-- Mobile Brand -->
       <div
         class="lg:hidden ps-7 col-start-2 col-span-6"
       >
         <NuxtLink to="/" class="block">
-          <h1 :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
-            scrolled ? 'hidden' : '']">
+          <h1
+            :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
+                     scrolled ? 'hidden' : '']"
+          >
             <span v-if="isLandscape">The Law Offices of Owen Hathaway</span>
-            <span v-else>The Law Offices<br />of<br />Owen Hathaway</span>
+            <span v-else>The Law Offices<br>of<br>Owen Hathaway</span>
           </h1>
-          <h1 :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
-            scrolled ? '' : 'hidden']">
+          <h1
+            :class="['font-[TrajanBold] text-sm text-center font-trajan pt-2',
+                     scrolled ? '' : 'hidden']"
+          >
             <span class="md:hidden">OH Law</span>
             <span class="hidden md:block">The Law Offices of Owen Hathaway</span>
           </h1>
@@ -36,12 +41,11 @@
       <!-- Mobile Logo -->
       <div class="lg:hidden ps-4 col-start-8 col-span-2">
         <NuxtLink to="/" class="block">
-          <img 
-            src="/img/ohlaw_icon_circle_gray.svg" 
-            alt="OH Law Colorado" 
-            class="rounded-full shadow-md" 
-              
-          />
+          <img
+            src="/img/ohlaw_icon_circle_gray.svg"
+            alt="OH Law Colorado"
+            class="rounded-full shadow-md"
+          >
         </NuxtLink>
       </div>
 
@@ -64,8 +68,8 @@
                 v-tooltip.bottom="item.tooltip"
                 :href="href"
                 v-bind="{ ...props.action, role: undefined }"
-                @click="navigate"
                 :aria-label="item.ariaLabel || item.label"
+                @click="navigate"
               >
                 <span :class="item.icon" />
                 <span :class="(item.label === 'Contact' || item.label === 'About') ? 'max-[1540px]:hidden min-[1540px]:inline' : ''">{{ item.label }}</span>
@@ -88,12 +92,12 @@
           </template>
         </Menubar>
       </div>
-      
+
       <!-- Center Column (for logo) -->
       <div class="flex justify-center">
         <!-- Intentionally empty - logo is positioned outside the grid -->
       </div>
-      
+
       <!-- Right Column -->
       <div class="flex justify-between">
         <!-- Right Menu -->
@@ -114,8 +118,8 @@
                   v-tooltip.bottom="item.tooltip"
                   :href="href"
                   v-bind="{ ...props.action, role: undefined }"
-                  @click="navigate"
                   :aria-label="item.ariaLabel || item.label"
+                  @click="navigate"
                 >
                   <span
                     :class="item.icon"
@@ -148,28 +152,30 @@
         </div>
       </div>
     </header>
-    
+
     <!-- Logo (positioned absolutely relative to the viewport) -->
-    <div class="fixed left-1/2 z-[1001] transition-all duration-300 ease-in-out hidden lg:block"
-         :class="scrolled ? 'top-[-10px] -translate-x-1/2' : 'lg:top-[-40px] -translate-x-1/2'">
+    <div
+      class="fixed left-1/2 z-[1001] transition-all duration-300 ease-in-out hidden lg:block"
+      :class="scrolled ? 'top-[-10px] -translate-x-1/2' : 'lg:top-[-40px] -translate-x-1/2'"
+    >
       <NuxtLink to="/" class="block">
-        <img 
-          src="/img/ohlaw_icon_circle_gray.svg" 
-          alt="OH Law Colorado" 
-          :class="['rounded-full shadow-md transition-all duration-300 ease-in-out bg-white', 
-            scrolled ? 'w-[70px] h-[70px] bottom-[500px]' : 'lg:w-[140px] lg:h-[140px] md:w-[120px] md:h-[120px] w-[100px] h-[100px]']" 
-        />
+        <img
+          src="/img/ohlaw_icon_circle_gray.svg"
+          alt="OH Law Colorado"
+          :class="['rounded-full shadow-md transition-all duration-300 ease-in-out bg-white',
+                   scrolled ? 'w-[70px] h-[70px] bottom-[500px]' : 'lg:w-[140px] lg:h-[140px] md:w-[120px] md:h-[120px] w-[100px] h-[100px]']"
+        >
       </NuxtLink>
     </div>
-    
+
     <!-- Mobile Menu Sidebar -->
     <MobileMenuSidebar
       v-model:visible="mobileMenuVisible"
       position="left"
-      sidebarClass="lg:hidden"
-      logoSrc="/img/ohlaw_icon_circle_gray.svg"
-      logoAlt="OH Law Colorado"
-      :menuItems="allMenuItems"
+      sidebar-class="lg:hidden"
+      logo-src="/img/ohlaw_icon_circle_gray.svg"
+      logo-alt="OH Law Colorado"
+      :menu-items="allMenuItems"
     />
   </div>
 </template>
@@ -187,23 +193,23 @@ const leftMenuItems = ref([
       { label: 'Estate Planning', route: '/services/estate-planning' },
       { label: 'Bankruptcy', route: '/services/bankruptcy' },
       { label: 'Small Business', route: '/services/small-business' },
-      { label: 'Nonprofits', route: '/services/nonprofits' }
-    ]
+      { label: 'Nonprofits', route: '/services/nonprofits' },
+    ],
   },
   {
     label: 'Contact',
     tooltip: 'Here are the many ways to get in touch with us',
     route: '/contact',
     icon: 'pi pi-phone',
-    ariaLabel: 'Contact Us'
+    ariaLabel: 'Contact Us',
   },
   {
     label: 'About',
     tooltip: 'Learn about our firm and why we do what we do the way we do it',
     route: '/about',
     icon: 'pi pi-info-circle',
-    ariaLabel: 'About Us'
-  }
+    ariaLabel: 'About Us',
+  },
 ])
 
 // Menu items for right side of logo
@@ -212,7 +218,7 @@ const rightMenuItems = ref([
     label: 'Learning Resources',
     tooltip: 'We have tons of useful and entertaining articles on Life and Legacy and Being Human',
     icon: 'bi bi-book',
-    route: '/blog'
+    route: '/blog',
   },
   {
     label: 'Make a Payment',
@@ -220,7 +226,7 @@ const rightMenuItems = ref([
     route: '/make-a-payment',
     icon: 'bi bi-coin',
     iconOnly: true,
-    ariaLabel: 'Make a Payment'
+    ariaLabel: 'Make a Payment',
   },
   {
     label: 'Client Login',
@@ -228,15 +234,15 @@ const rightMenuItems = ref([
     url: 'https://ohlaw.portal.lawmatics.com/login',
     icon: 'pi pi-user',
     iconOnly: true,
-    ariaLabel: 'Client Login Portal'
-  }
+    ariaLabel: 'Client Login Portal',
+  },
 ])
 
 // Combine menu items for mobile view
 const allMenuItems = computed(() => {
   return [
     ...leftMenuItems.value,
-    ...rightMenuItems.value
+    ...rightMenuItems.value,
   ]
 })
 
@@ -244,7 +250,7 @@ const allMenuItems = computed(() => {
 const mobileMenuVisible = ref(false)
 const toggleMobileMenu = () => {
   mobileMenuVisible.value = !mobileMenuVisible.value
-};
+}
 
 // Scroll detection for header styling
 const scrolled = ref(false)
@@ -276,12 +282,12 @@ onUnmounted(() => {
 // theme token overrides
 const mobileButtonTheme = ref({
   textPrimaryColor: '{slate-500}',
-  textPrimaryHoverBackground: '{slate-600}'
+  textPrimaryHoverBackground: '{slate-600}',
 })
 
 const menuItemTheme = ref({
   itemFocusBackground: 'transparent',
-  itemFocusColor: '{stone-400}'
+  itemFocusColor: '{stone-400}',
 })
 </script>
 

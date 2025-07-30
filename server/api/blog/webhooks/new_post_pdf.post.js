@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   try {
     // Verify webhook source (optional - add webhook secret validation)
     const body = await readBody(event)
-    
+
     // Log webhook for debugging
     if (process.env.NODE_ENV === 'development') {
       console.log('Blog webhook received:', {
@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
   }
   catch (error) {
     console.error('Blog webhook error:', error)
-    
+
     // Return error response
     throw createError({
       statusCode: 500,

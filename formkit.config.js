@@ -1,8 +1,9 @@
 import { defineFormKitConfig } from '@formkit/vue'
 import { genesisIcons } from '@formkit/icons'
-import { library, o2svg } from '@/plugins/fontawesome'
 import { createFloatingLabelsPlugin } from '@formkit/addons'
 import { createProPlugin, inputs } from '@formkit/pro'
+import { library, o2svg } from '@/plugins/fontawesome'
+import { isEmpty } from '@/utils/lang'
 
 const pro = createProPlugin('fk-a2c0cf2353', inputs)
 
@@ -10,7 +11,7 @@ const at = o2svg(library.definitions.fas.at)
 const phone = o2svg(library.definitions.fas.phone)
 const user = o2svg(library.definitions.fas.user)
 
-const isCheckboxAndRadioMultiple = (node) =>
+const isCheckboxAndRadioMultiple = node =>
   (node.props.type === 'checkbox' || node.props.type === 'radio') && node.props.options
 
 const validZip = (node) => {
@@ -19,7 +20,7 @@ const validZip = (node) => {
 
 function addAsteriskPlugin(node) {
   node.on('created', () => {
-    const isRequired = node.props.parsedRules.some((rule) => rule.name === 'required')
+    const isRequired = node.props.parsedRules.some(rule => rule.name === 'required')
     if (!isRequired) return
 
     const isMultiOption = isCheckboxAndRadioMultiple(node)
@@ -36,11 +37,12 @@ function addAsteriskPlugin(node) {
       if (isRequired) {
         if (isMultiOption) {
           sectionsSchema.legend = {
-            children: ['$label', '*']
+            children: ['$label', '*'],
           }
-        } else {
+        }
+        else {
           sectionsSchema.label = {
-            children: ['$label', '*']
+            children: ['$label', '*'],
           }
         }
       }
@@ -54,38 +56,38 @@ export default {
     classes: {
       inner: {
         'formkit-inner': true,
-        'input-group': true
+        'input-group': true,
       },
       input: {
         'input-bg-white': true,
         'form-control': true,
-        'formkit-input': true
+        'formkit-input': true,
       },
       prefixIcon: {
         'formkit-prefix-icon': true,
-        'input-group-text': true
+        'input-group-text': true,
       },
       wrapper: {
-        'formkit-wrapper': true
-      }
-    }
+        'formkit-wrapper': true,
+      },
+    },
   },
   icons: {
-    ...genesisIcons, at, phone, user
+    ...genesisIcons, at, phone, user,
   },
   messages: {
     en: {
       validation: {
         validZip({ node }) {
           return `${node.value} is not a valid zipcode`
-        }
-      }
-    }
+        },
+      },
+    },
   },
   plugins: [
     // addAsteriskPlugin,
     createFloatingLabelsPlugin({ useAsDefault: true }),
-    pro
+    pro,
   ],
-  rules: { validZip }
+  rules: { validZip },
 }

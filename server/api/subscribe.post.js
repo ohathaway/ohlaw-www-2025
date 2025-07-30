@@ -2,10 +2,10 @@
 import MailerLite from '@mailerlite/mailerlite-nodejs'
 
 export default defineEventHandler(async (event) => {
-  try{
+  try {
     // const { public: { mailerLite: { apiKey } } } = useRuntimeConfig()
     const { mailerLite: { apiKey } } = useRuntimeConfig()
-    if (!apiKey) throw "Missing API key for Mailer Lite"
+    if (!apiKey) throw 'Missing API key for Mailer Lite'
 
     const mailerLite = new MailerLite({ api_key: apiKey })
 
@@ -17,14 +17,15 @@ export default defineEventHandler(async (event) => {
       fields: {
         name: body.firstName,
         last_name: body.lastName || '',
-        phone: body.phone || ''
+        phone: body.phone || '',
       },
-      status: "active"
+      status: 'active',
     }
 
     const mlResponse = await mailerLite.subscribers.createOrUpdate(params)
     return { status: mlResponse.status, id: mlResponse.data.data.id }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('failed to subscribe: ', error)
     throw error
   }

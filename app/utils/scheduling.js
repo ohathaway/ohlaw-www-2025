@@ -6,7 +6,7 @@
  */
 export const useScheduling = () => {
   const { schedulingLinks } = useAppConfig()
-  
+
   /**
    * Opens the specified scheduling link in a new tab
    * @param {string} type - Type of scheduling link (defaults to 'newClient')
@@ -18,21 +18,21 @@ export const useScheduling = () => {
       window.open(schedulingLinks.newClient, '_blank')
       return
     }
-    
+
     window.open(schedulingLinks[type], '_blank')
   }
-  
+
   /**
    * Gets the URL for the specified scheduling link type
-   * @param {string} type - Type of scheduling link (defaults to 'newClient') 
+   * @param {string} type - Type of scheduling link (defaults to 'newClient')
    * @returns {string} The URL for the specified link type
    */
   const getSchedulingUrl = (type = 'newClient') => {
     return schedulingLinks[type] || schedulingLinks.newClient
   }
-  
+
   return {
     getSchedulingUrl,
-    openSchedulingLink
+    openSchedulingLink,
   }
 }

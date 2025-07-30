@@ -3,7 +3,9 @@
     <!-- Mobile: Stack title above image -->
     <div class="block md:hidden mb-6">
       <div class="mb-4">
-        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">{{ postREST.Title }}</h1>
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+          {{ postREST.Title }}
+        </h1>
       </div>
       <div class="w-full">
         <LayoutMediaFocus
@@ -12,7 +14,7 @@
         />
       </div>
     </div>
-    
+
     <!-- Desktop: Side by side layout -->
     <div class="hidden md:grid md:grid-cols-2 md:gap-8">
       <div class="print-d-none">
@@ -23,7 +25,9 @@
       </div>
       <div class="flex items-center">
         <div class="flex-1">
-          <h1 class="text-3xl lg:text-4xl font-bold pb-5 leading-tight">{{ postREST.Title }}</h1>
+          <h1 class="text-3xl lg:text-4xl font-bold pb-5 leading-tight">
+            {{ postREST.Title }}
+          </h1>
         </div>
       </div>
     </div>
@@ -37,7 +41,8 @@
           class="tag me-3"
         >
           <Badge
-            class="text-bg-primary text-light">
+            class="text-bg-primary text-light"
+          >
             <NuxtLink
               :to="`/blog/tags/${tag.slug}`"
             >
@@ -57,7 +62,7 @@
     <div class="col-span-12 md:col-span-8 lg:col-span-6 px-0 md:px-4">
       <div class="flex items-center justify-between mb-4">
         <span class="italic text-xl">{{ formatDateFull(postREST.publishDate) }}</span>
-        <BlogPDFDownloadButton 
+        <BlogPDFDownloadButton
           :slug="postREST.slug"
           :title="postREST.Title"
         />
@@ -84,6 +89,8 @@
 </template>
 
 <script setup>
+import { isEmpty } from '@/utils/lang'
+
 /*
 definePageMeta({
   layout: 'blog'
@@ -99,30 +106,30 @@ const postQuery = singlePostQueryREST(slug)
 const {
   data: {
     value: {
-      data: [postREST]
-    }
-  }
+      data: [postREST],
+    },
+  },
 } = await useFetch(`${strapiUrl}/api/posts?${postQuery}`)
 
-const category = postREST?.category?.slug ?? 
-                postREST?.category?.slug ?? 
-                'Uncategorized'
+const category = postREST?.category?.slug
+  ?? postREST?.category?.slug
+  ?? 'Uncategorized'
 
 const categoryQuery = postListQueryREST(category)
 
 const {
   data: {
     value: {
-      data: [categoryREST]
-    }
-  }
+      data: [categoryREST],
+    },
+  },
 } = await useFetch(`${strapiUrl}/api/categories?${categoryQuery}`)
 
 /*
 const fetchUrl = ref(`${strapiUrl}/api/categories?${restQuery}`)
 console.info('fetchUrl:', fetchUrl.value)
 
-const { 
+const {
   data: {
     value: {
       data: relatedPosts
@@ -178,25 +185,25 @@ useHead({
     { name: 'twitter:image', content: imageUrl.value },
     { property: 'article:author', content: 'Owen Hathaway' },
     { property: 'article:published_time', content: postREST?.publishDate },
-    { property: 'article:modified_time', content: postREST?.updatedAt }
-  ]
+    { property: 'article:modified_time', content: postREST?.updatedAt },
+  ],
 })
 
 useSeoMeta({
-  articleModifiedTime: postREST?.updatedAt
+  articleModifiedTime: postREST?.updatedAt,
 })
 
 if (isEmpty(postREST)) {
-  showError({'404': 'Page not found'})
+  showError({ 404: 'Page not found' })
 }
 </script>
 
 <style lang="scss">
 ul.tags { list-style-type: none; }
-li.tag { 
+li.tag {
   display: inline;
   a { color: #f8f8f8;}
-} 
+}
 
 @media print {
   .post-list-wrapper {

@@ -36,7 +36,7 @@ export default defineAppConfig({
     },
     serviceAreas: [
       'Fort Collins',
-      'Loveland', 
+      'Loveland',
       'Greeley',
       'Windsor',
       'Wellington',
@@ -47,13 +47,13 @@ export default defineAppConfig({
       'Denver',
       'Colorado Springs',
       'Northern Colorado',
-      'Front Range Colorado'
+      'Front Range Colorado',
     ],
     localKeywords: {
       estate: 'estate planning Fort Collins, wills and trusts Colorado, probate attorney Northern Colorado, estate lawyer Front Range, guardianship Fort Collins',
       bankruptcy: 'bankruptcy attorney Fort Collins, Chapter 7 Colorado, Chapter 13 Northern Colorado, debt relief Fort Collins, bankruptcy lawyer Loveland',
       business: 'small business attorney Fort Collins, business formation Colorado, business lawyer Northern Colorado, LLC formation Fort Collins, corporate attorney Loveland',
-      nonprofit: 'nonprofit attorney Colorado, 501c3 formation Fort Collins, nonprofit lawyer Northern Colorado, charity legal services Colorado'
+      nonprofit: 'nonprofit attorney Colorado, 501c3 formation Fort Collins, nonprofit lawyer Northern Colorado, charity legal services Colorado',
     },
     socialProfiles: {
       google: 'https://www.google.com/search?q=the+law+offices+of+owen+hathaway',
@@ -66,7 +66,7 @@ export default defineAppConfig({
       name: 'Owen Hathaway',
       jobTitle: 'Attorney',
       credentials: 'Colorado Licensed Attorney',
-      barNumber: 'Colorado Bar #48969'
+      barNumber: 'Colorado Bar #48969',
     },
     slogan: 'Make money by doing good things and build cool stuff.',
     services: [
@@ -77,14 +77,14 @@ export default defineAppConfig({
     ],
     hours: {
       monday: '9:00 AM - 5:00 PM',
-      tuesday: '9:00 AM - 5:00 PM', 
+      tuesday: '9:00 AM - 5:00 PM',
       wednesday: '9:00 AM - 5:00 PM',
       thursday: '9:00 AM - 5:00 PM',
       friday: '9:00 AM - 5:00 PM',
       saturday: 'By Appointment',
-      sunday: 'Closed'
+      sunday: 'Closed',
     },
-    googleBusinessProfile: 'https://g.page/ohlawcolorado'
+    googleBusinessProfile: 'https://g.page/ohlawcolorado',
   },
   meilisearch: {
     host: 'https://search.ohlawcolorado.com',
@@ -151,19 +151,19 @@ export default defineAppConfig({
     prefix: 'blog-pdfs',
   },
   routeTitles: {
-    policies: 'Policies',
-    fees: 'Fees and Charges',
-    privacy: 'Privacy Policy',
-    unbundled: 'Unbundled Services',
-    services: 'Services',
+    'policies': 'Policies',
+    'fees': 'Fees and Charges',
+    'privacy': 'Privacy Policy',
+    'unbundled': 'Unbundled Services',
+    'services': 'Services',
     'estate-planning': 'Estate Planning',
     'gun-trusts': 'Gun Trusts',
     'small-business': 'Small Business',
-    bankruptcy: 'Bankruptcy',
-    nonprofits: 'Nonprofit Organizations',
-    blog: 'Blog',
-    contact: 'Contact Us',
-    about: 'About Us',
+    'bankruptcy': 'Bankruptcy',
+    'nonprofits': 'Nonprofit Organizations',
+    'blog': 'Blog',
+    'contact': 'Contact Us',
+    'about': 'About Us',
   },
   layoutMapping: [
     { pattern: '/policies/**', layout: 'policy' },
@@ -208,9 +208,9 @@ export default defineAppConfig({
 
       // Pre-filled form values for input form
       formDefaults: {
-        totalPreTaxAccounts: 2180000,  // $2.18M
-        totalRothAccounts: 105000,     // $105K
-        numberOfChildren: 4            // 4 children
+        totalPreTaxAccounts: 2180000, // $2.18M
+        totalRothAccounts: 105000, // $105K
+        numberOfChildren: 4, // 4 children
       },
 
       // Chart styling configuration
@@ -229,29 +229,29 @@ export default defineAppConfig({
 
       // Phase 5A: Performance-based color bands
       performanceBands: {
-        excellent: { 
+        excellent: {
           threshold: 10, // >10% of starting IRA value saved
-          severity: 'info', 
+          severity: 'info',
           color: 'blue',
-          label: 'Excellent Performance'
+          label: 'Excellent Performance',
         },
-        good: { 
+        good: {
           threshold: 5, // 5-9% of starting IRA value saved
-          severity: 'success', 
+          severity: 'success',
           color: 'green',
-          label: 'Good Performance'
+          label: 'Good Performance',
         },
-        marginal: { 
+        marginal: {
           threshold: 2, // 1-2% of starting IRA value saved
-          severity: 'warn', 
+          severity: 'warn',
           color: 'orange',
-          label: 'Marginal Performance'
+          label: 'Marginal Performance',
         },
-        negative: { 
+        negative: {
           threshold: 0, // ≤0% family loses money
-          severity: 'danger', 
+          severity: 'danger',
           color: 'red',
-          label: 'Negative Performance'
+          label: 'Negative Performance',
         },
       },
     },

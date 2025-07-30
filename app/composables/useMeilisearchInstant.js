@@ -5,6 +5,6 @@ export const useMeilisearchInstant = () => {
 
   return instantMeiliSearch(
     meilisearch.host,
-    meilisearch.searchApiKey
+    meilisearch.searchApiKey,
   ).searchClient
 }

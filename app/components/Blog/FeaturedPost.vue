@@ -13,9 +13,9 @@
       :title="post.attributes.Title"
     />
     -->
-  <div class="px-4 sm:px-6 md:px-12 lg:px-20">
-    <BlogRichText :block="post.Snippet" />
-  </div>
+    <div class="px-4 sm:px-6 md:px-12 lg:px-20">
+      <BlogRichText :block="post.Snippet" />
+    </div>
   </NuxtLink>
 </template>
 

@@ -15,7 +15,7 @@ const BATCH_SIZE = 5 // Process 5 posts at a time to avoid overwhelming the serv
  */
 async function fetchAllBlogPosts() {
   console.log('Fetching blog posts from Strapi...')
-  
+
   const posts = []
   let page = 1
   let hasMore = true
@@ -28,14 +28,14 @@ async function fetchAllBlogPosts() {
           'pagination[pageSize]': 25,
           'filters[publishedAt][$notNull]': true,
           'sort[0]': 'publishedAt:desc',
-          populate: 'deep',
+          'populate': 'deep',
         },
       })
 
       posts.push(...response.data)
       hasMore = response.meta.pagination.page < response.meta.pagination.pageCount
       page++
-      
+
       console.log(`Fetched page ${page - 1}: ${response.data.length} posts`)
     }
     catch (error) {
@@ -57,21 +57,21 @@ async function processBatch(posts, startIndex) {
   for (const post of batch) {
     try {
       console.log(`Processing: ${post.title} (${post.slug})`)
-      
+
       const pdfUrl = await generateAndStoreBlogPDF(post.documentId, post.slug)
-      
+
       results.push({
         success: true,
         slug: post.slug,
         title: post.title,
         pdfUrl,
       })
-      
+
       console.log(`✅ Generated PDF: ${post.slug}`)
     }
     catch (error) {
       console.error(`❌ Failed to generate PDF for ${post.slug}:`, error.message)
-      
+
       results.push({
         success: false,
         slug: post.slug,
@@ -89,7 +89,7 @@ async function processBatch(posts, startIndex) {
  */
 async function main() {
   const startTime = Date.now()
-  
+
   console.log('🚀 Starting blog PDF generation batch process...')
   console.log(`Strapi URL: ${STRAPI_URL}`)
   console.log(`Batch size: ${BATCH_SIZE}`)
@@ -108,16 +108,16 @@ async function main() {
     for (let i = 0; i < posts.length; i += BATCH_SIZE) {
       const batchNumber = Math.floor(i / BATCH_SIZE) + 1
       console.log(`Processing batch ${batchNumber}/${totalBatches}...`)
-      
+
       const batchResults = await processBatch(posts, i)
       allResults.push(...batchResults)
-      
+
       // Add delay between batches to avoid overwhelming the server
       if (i + BATCH_SIZE < posts.length) {
         console.log('Waiting 2 seconds before next batch...')
         await new Promise(resolve => setTimeout(resolve, 2000))
       }
-      
+
       console.log('')
     }
 
@@ -136,14 +136,14 @@ async function main() {
 
     if (failed.length > 0) {
       console.log('❌ FAILED POSTS:')
-      failed.forEach(result => {
+      failed.forEach((result) => {
         console.log(`  - ${result.slug}: ${result.error}`)
       })
       console.log('')
     }
 
     console.log('✅ Batch process completed!')
-    
+
     // Exit with appropriate code
     process.exit(failed.length > 0 ? 1 : 0)
   }

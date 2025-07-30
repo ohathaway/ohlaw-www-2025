@@ -25,3 +25,13 @@ test-output
 .env.*
 !.env.example
 .envrc
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Claude
+.claude
+.mcp.json

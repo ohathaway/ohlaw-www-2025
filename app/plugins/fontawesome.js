@@ -34,12 +34,12 @@ import {
   faStar,
   faTrashCan,
   faTriangleExclamation,
-  faUser
+  faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faCalendarDays,
   faIdBadge,
-  faRectangleXmark
+  faRectangleXmark,
 } from '@fortawesome/free-regular-svg-icons'
 
 // This is important, we are going to let Nuxt worry about the CSS
@@ -48,7 +48,6 @@ config.autoAddCss = false
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('font-awesome-icon', FontAwesomeIcon, {})
 })
-
 
 // You can add your icons directly in this plugin. See other examples for how you
 // can add other styles or just individual icons.
@@ -89,7 +88,7 @@ library.add(
   faTrashCan,
   faTriangleExclamation,
   faRectangleXmark,
-  faUser
+  faUser,
 )
 
 const o2svg = (faIcon) => {

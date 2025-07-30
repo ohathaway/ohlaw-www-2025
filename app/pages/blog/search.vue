@@ -56,9 +56,9 @@
                       option-label="label"
                       option-value="value"
                       class="text-xs w-full xs:w-auto"
-                      :pt="{ 
+                      :pt="{
                         root: 'w-full xs:w-auto',
-                        button: 'text-xs px-2 py-1 sm:px-3 sm:py-2'
+                        button: 'text-xs px-2 py-1 sm:px-3 sm:py-2',
                       }"
                       @change="onSortChange"
                     />

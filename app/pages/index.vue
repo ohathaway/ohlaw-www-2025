@@ -15,7 +15,7 @@ const services = [
     imageAlt: 'Estate planning notebook with pen and documents',
     link: '/services/estate-planning',
     shortPreview: `We help you express your wishes for your estate and legacy.`,
-    description: `We help you express your wishes for what happens to you and your estate when you no longer can express them. Our estate planning services ensure your life's accomplishments are properly passed on to the people and causes you care about.`
+    description: `We help you express your wishes for what happens to you and your estate when you no longer can express them. Our estate planning services ensure your life's accomplishments are properly passed on to the people and causes you care about.`,
   },
   {
     id: 'small-business',
@@ -24,7 +24,7 @@ const services = [
     imageAlt: 'Small business owner working on legal documents',
     link: '/services/small-business',
     shortPreview: `Legal foundations for your business growth and success.`,
-    description: `As small business owners ourselves, we understand the challenges you face. From entity selection to contracts and liability management, we help you build a solid legal foundation so you can focus on growing your business.`
+    description: `As small business owners ourselves, we understand the challenges you face. From entity selection to contracts and liability management, we help you build a solid legal foundation so you can focus on growing your business.`,
   },
   {
     id: 'nonprofits',
@@ -33,7 +33,7 @@ const services = [
     imageAlt: 'Nonprofit organization documents on tablet',
     link: '/services/nonprofits',
     shortPreview: `Sustainable structures for mission-driven organizations.`,
-    description: `We help nonprofits set up for long-term sustainability with the right structure and compliance. Our experience with both small businesses and nonprofits gives us unique insight into creating organizations that balance mission with operational stability.`
+    description: `We help nonprofits set up for long-term sustainability with the right structure and compliance. Our experience with both small businesses and nonprofits gives us unique insight into creating organizations that balance mission with operational stability.`,
   },
   {
     id: 'bankruptcy',
@@ -42,8 +42,8 @@ const services = [
     imageAlt: 'Helping hand extended for financial relief',
     link: '/services/bankruptcy',
     shortPreview: `Clear your financial path forward with our bankruptcy services.`,
-    description: `When financial obstacles are blocking your view of what's important, our bankruptcy program can help. We believe everyone deserves the opportunity to pursue their dreams regardless of past financial setbacks.`
-  }
+    description: `When financial obstacles are blocking your view of what's important, our bankruptcy program can help. We believe everyone deserves the opportunity to pursue their dreams regardless of past financial setbacks.`,
+  },
 ]
 
 // Use your SEO composable to set page meta with explicit image
@@ -64,12 +64,12 @@ const pageMeta = {
           '@type': 'Service',
           'name': service.title,
           'description': service.description,
-          'url': `https://ohlawcolorado.com${service.link}`
+          'url': `https://ohlawcolorado.com${service.link}`,
         },
-        'position': index + 1
-      }))
-    }
-  }
+        'position': index + 1,
+      })),
+    },
+  },
 }
 
 // Set up meta tags with explicit image priority
@@ -86,8 +86,7 @@ useHead({
     { hid: 'og:image:height', property: 'og:image:height', content: '512' },
     { hid: 'og:image:alt', property: 'og:image:alt', content: 'The Law Offices of Owen Hathaway Logo' },
     { hid: 'twitter:image', name: 'twitter:image', content: 'https://ohlawcolorado.com/img/ohlaw_icon_circle_gray_drop2.png?v=2' },
-    { hid: 'twitter:image:alt', name: 'twitter:image:alt', content: 'The Law Offices of Owen Hathaway Logo' }
-  ]
+    { hid: 'twitter:image:alt', name: 'twitter:image:alt', content: 'The Law Offices of Owen Hathaway Logo' },
+  ],
 })
-
 </script>

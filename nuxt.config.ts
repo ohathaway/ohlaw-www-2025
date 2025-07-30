@@ -11,70 +11,70 @@ import tailwindcss from '@tailwindcss/vite'
 // Blog post prefetch helper
 const getPostRoutes = async () => {
   if (!process.env.STRAPI_URL) {
-    console.warn('STRAPI_URL not set, skipping post routes generation');
-    return [];
+    console.warn('STRAPI_URL not set, skipping post routes generation')
+    return []
   }
-  
+
   try {
     const pageSize = 25
     const fetchOptions = {
       headers: {
-        'Strapi-Response-Format': 'v4'
-      }
-    };
-    
+        'Strapi-Response-Format': 'v4',
+      },
+    }
+
     // Initial request to get first page and pagination info
     const initialResponse = await fetch(
       `${process.env.STRAPI_URL}/api/posts?fields[0]=slug&pagination[pageSize]=${pageSize}`,
-      fetchOptions
-    );
-    
+      fetchOptions,
+    )
+
     if (!initialResponse.ok) {
-      throw new Error(`Failed to fetch posts: ${initialResponse.status} ${initialResponse.statusText}`);
+      throw new Error(`Failed to fetch posts: ${initialResponse.status} ${initialResponse.statusText}`)
     }
-    
-    const initialData = await initialResponse.json();
-    const { pagination } = initialData.meta;
-    const { pageCount } = pagination;
-    
+
+    const initialData = await initialResponse.json()
+    const { pagination } = initialData.meta
+    const { pageCount } = pagination
+
     // Create an array of all page numbers we need to fetch
     const pageNumbers = Array.from({ length: pageCount }, (_, i) => i + 1)
-      .filter(page => page > 1); // Filter out page 1 which we already have
-    
+      .filter(page => page > 1) // Filter out page 1 which we already have
+
     // Define a function to fetch a specific page
     const fetchPage = async (page) => {
       const response = await fetch(
         `${process.env.STRAPI_URL}/api/posts?fields[0]=slug&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
-        fetchOptions
-      );
-      
+        fetchOptions,
+      )
+
       if (!response.ok) {
-        throw new Error(`Failed to fetch page ${page}: ${response.status} ${response.statusText}`);
+        throw new Error(`Failed to fetch page ${page}: ${response.status} ${response.statusText}`)
       }
-      
-      const data = await response.json();
-      return data.data;
-    };
-    
+
+      const data = await response.json()
+      return data.data
+    }
+
     // Initial posts from first page
-    let allPosts = [...initialData.data];
-    
+    let allPosts = [...initialData.data]
+
     // Fetch additional pages if needed
     if (pageNumbers.length > 0) {
-      const additionalPosts = await Promise.all(pageNumbers.map(fetchPage));
-      allPosts = allPosts.concat(additionalPosts.flat());
+      const additionalPosts = await Promise.all(pageNumbers.map(fetchPage))
+      allPosts = allPosts.concat(additionalPosts.flat())
     }
-    
-    console.info(`Strapi pre-render post list: found ${allPosts.length} posts`);
-    
+
+    console.info(`Strapi pre-render post list: found ${allPosts.length} posts`)
+
     // Map post slugs to routes
-    return allPosts.map(post => 
-      `/blog/${post?.slug ?? post?.attributes?.slug}`
-    ).filter(Boolean);
-    
-  } catch (error) {
-    console.error('Error fetching post routes:', error);
-    return [];
+    return allPosts.map(post =>
+      `/blog/${post?.slug ?? post?.attributes?.slug}`,
+    ).filter(Boolean)
+  }
+  catch (error) {
+    console.error('Error fetching post routes:', error)
+    return []
   }
 }
 
@@ -86,15 +86,17 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxthub/core',
-    '@nuxtjs/apollo',
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
     '@pinia/nuxt',
     // '@primevue/nuxt-module',
     '@vueuse/nuxt',
-    'nuxt-lodash',
-    'nuxt-gtag'
+    'nuxt-gtag',
   ],
+
+  imports: {
+    dirs: ['app/utils', 'app/stores'],
+  },
 
   /* disabled since FormKit doesn't seem to work with Tailwind 4
   formkit: {
@@ -120,8 +122,71 @@ export default defineNuxtConfig({
     enabled: process.env.NODE_ENV === 'development',
 
     timeline: {
-      enabled: process.env.NODE_ENV === 'development'
-    }
+      enabled: process.env.NODE_ENV === 'development',
+    },
+  },
+
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/img/ohlaw_icon.svg',
+        },
+      ],
+      meta: [
+        {
+          name: 'google-site-verification',
+          content: 'Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU',
+        },
+        {
+          name: 'description',
+          content:
+            'Expert estate planning, bankruptcy, and small business legal services in Colorado. The Law Offices of Owen Hathaway provides heart-centered legal guidance to help you protect your family and business legacy.',
+        },
+        {
+          property: 'og:site_name',
+          content: 'The Law Offices of Owen Hathaway',
+        },
+        {
+          property: 'og:type',
+          content: 'website',
+        },
+        {
+          property: 'og:locale',
+          content: 'en_US',
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image',
+        },
+        {
+          name: 'twitter:site',
+          content: '@ohlawcolorado',
+        },
+      ],
+    },
+  },
+
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    'bootstrap-icons/font/bootstrap-icons.css',
+    'primeicons/primeicons.css',
+    '@formkit/addons/css/floatingLabels',
+    '~/assets/css/site.css',
+  ],
+
+  // SEO Configuration
+  site: {
+    url: 'https://ohlawcolorado.com',
+    name: 'The Law Offices of Owen Hathaway',
+    description:
+      'Expert estate planning, bankruptcy, and small business legal services in Colorado. Heart-centered legal guidance to protect your family and business legacy.',
+    defaultLocale: 'en',
   },
 
   // Env variables - https://nuxt.com/docs/getting-started/configuration#environment-variables-and-private-tokens
@@ -131,160 +196,47 @@ export default defineNuxtConfig({
       apiKey: process.env.CLOUDFLARE_API_KEY,
       accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
       secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
-      bucketName: process.env.CLOUDFLARE_BUCKET_NAME
+      bucketName: process.env.CLOUDFLARE_BUCKET_NAME,
     },
     public: {
       gitCommit: process.env.NUXT_GIT_COMMIT,
       buildDate: process.env.NUXT_BUILD_DATE,
       strapiUrl: process.env.STRAPI_URL,
       lawmatics: {
-        quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL
+        quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL,
       },
-      searchApiKey: process.env.ME_SEARCH_KEY
+      searchApiKey: process.env.ME_SEARCH_KEY,
     },
     mailerLite: {
-      apiKey: process.env.MAILER_LITE_KEY
+      apiKey: process.env.MAILER_LITE_KEY,
     },
     lawmatics: {
       url: process.env.LAWMATICS_URL,
-      key: process.env.LAWMATICS_KEY
+      key: process.env.LAWMATICS_KEY,
     },
     claude: {
-      apiKey: process.env.CLAUDE_KEY
+      apiKey: process.env.CLAUDE_KEY,
     },
     sendgrid: {
-      apiKey: process.env.SENDGRID_KEY
-    }
+      apiKey: process.env.SENDGRID_KEY,
+    },
   },
+
+  optimization: {
+    splitChunks: {
+      layouts: true,
+      pages: true,
+      commons: true,
+    },
+  },
+
+  watch: ['./primevue.ohlaw.ts'],
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
   future: { compatibilityVersion: 4 },
-  compatibilityDate: '2024-11-01',
 
-  // https://hub.nuxt.com/docs/getting-started/installation#options
-  hub: {
-    ai: true,
-    blob: true,
-    kv: true
-  },
-
-  app: {
-    head: {
-      htmlAttrs: {
-        lang: 'en'
-      },
-      link: [
-        {
-          rel: 'icon',
-          type: 'image/x-icon',
-          href: '/img/ohlaw_icon.svg'
-        }
-      ],
-      meta: [
-        {
-          name: 'google-site-verification',
-          content: 'Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU'
-          name: 'google-site-verification',
-          content: 'Q4l9tT_meQV5Wpva7hnU27YZyc6Eja7hVsf8NqHdhKU'
-        },
-        {
-          name: 'description',
-          content:
-            'Expert estate planning, bankruptcy, and small business legal services in Colorado. The Law Offices of Owen Hathaway provides heart-centered legal guidance to help you protect your family and business legacy.'
-          content:
-            'Expert estate planning, bankruptcy, and small business legal services in Colorado. The Law Offices of Owen Hathaway provides heart-centered legal guidance to help you protect your family and business legacy.'
-        },
-        {
-          property: 'og:site_name',
-          content: 'The Law Offices of Owen Hathaway'
-        },
-        {
-          property: 'og:type',
-          content: 'website'
-        },
-        {
-          property: 'og:locale',
-          content: 'en_US'
-        },
-        {
-          name: 'twitter:card',
-          content: 'summary_large_image'
-        },
-        {
-          name: 'twitter:site',
-          content: '@ohlawcolorado'
-        }
-      ]
-    }
-  },
-
-  // SEO Configuration
-  site: {
-    url: 'https://ohlawcolorado.com',
-    name: 'The Law Offices of Owen Hathaway',
-    description:
-      'Expert estate planning, bankruptcy, and small business legal services in Colorado. Heart-centered legal guidance to protect your family and business legacy.',
-    description:
-      'Expert estate planning, bankruptcy, and small business legal services in Colorado. Heart-centered legal guidance to protect your family and business legacy.',
-    defaultLocale: 'en'
-  },
-
-  css: [
-    '@fortawesome/fontawesome-svg-core/styles.css',
-    'bootstrap-icons/font/bootstrap-icons.css',
-    'primeicons/primeicons.css',
-    '@formkit/addons/css/floatingLabels',
-    '~/assets/css/site.css'
-    '~/assets/css/site.css'
-  ],
-
-  image: {
-    cloudflare: {
-      baseURL: 'https://www2025.ohlawcolorado.com'
-    },
-    strapi: {
-      baseURL: `${process.env.STRAPI_URL}/uploads`
-    },
-    dir: 'public/img'
-  },
-
-  hooks: {
-    async 'nitro:config'(nitroConfig) {
-      // fetch the routes from our function above
-      const slugs = await getPostRoutes()
-      console.info('slugs: ', slugs)
-      // add the routes to the nitro config
-      nitroConfig.prerender.routes.push(...slugs)
-    }
-  },
-
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-          silenceDeprecations: ['import']
-        }
-      }
-    },
-    optimizeDeps: {
-      // include: ['./primevue.ohlaw.ts', 'primeicons']
-    },
-    plugins: [tailwindcss()],
-    plugins: [tailwindcss()],
-    build: {
-      target: 'es2020',
-      cssTarget: 'chrome80',
-      cssCodeSplit: true
-    }
-  },
-
-  postcss: {
-    plugins: {
-      'postcss-import': {},
-      'postcss-nesting': {},
-      autoprefixer: {},
-      cssnano: process.env.NODE_ENV === 'production' ? {} : false
-    }
+  // CSS optimization
+  features: {
+    inlineStyles: false,
   },
 
   /*
@@ -303,41 +255,90 @@ export default defineNuxtConfig({
   // Production optimizations
   experimental: {
     payloadExtraction: false,
-    inlineSSRStyles: false
+    inlineSSRStyles: false,
+  },
+  compatibilityDate: '2024-11-01',
+
+  nitro: {
+    routeRules: {
+      '/**': {
+        headers: {
+          'X-Git-Commit': process.env.NUXT_GIT_COMMIT || 'unknown',
+          'X-Build-Date': new Date().toISOString(),
+          'X-Built-By': 'OHLaw Colorado',
+        },
+      },
+    },
   },
 
-  optimization: {
-    splitChunks: {
-      layouts: true,
-      pages: true,
-      commons: true
-    }
+  // https://hub.nuxt.com/docs/getting-started/installation#options
+  hub: {
+    ai: true,
+    blob: true,
+    kv: true,
   },
 
-  // CSS optimization
-  features: {
-    inlineStyles: false
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+          silenceDeprecations: ['import'],
+        },
+      },
+    },
+    optimizeDeps: {
+      // include: ['./primevue.ohlaw.ts', 'primeicons']
+    },
+    plugins: [tailwindcss()],
+    build: {
+      target: 'es2020',
+      cssTarget: 'chrome80',
+      cssCodeSplit: true,
+    },
   },
 
-  imports: {
-    dirs: ['app/utils', 'app/stores']
-    dirs: ['app/utils', 'app/stores']
+  postcss: {
+    plugins: {
+      'postcss-import': {},
+      'postcss-nesting': {},
+      'autoprefixer': {},
+      'cssnano': process.env.NODE_ENV === 'production' ? {} : false,
+    },
   },
 
-  lodash: {
-    prefix: '',
-    upperAfterPrefix: false
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      // fetch the routes from our function above
+      const slugs = await getPostRoutes()
+      console.info('slugs: ', slugs)
+      // add the routes to the nitro config
+      nitroConfig.prerender.routes.push(...slugs)
+    },
+  },
+
+  // https://eslint.nuxt.com
+  eslint: {
+    config: {
+      stylistic: {
+        quotes: 'single',
+      },
+    },
   },
 
   gtag: {
     id: process.env.GTAG_ID,
-    enabled: process.env.NODE_ENV === 'production'
+    enabled: process.env.NODE_ENV === 'production',
   },
 
-  // https://nuxtseo.com
-  sitemap: {
-    sources: ['https://strapi.ohlawcolorado.com/api/sitemap/index.xml']
-    sources: ['https://strapi.ohlawcolorado.com/api/sitemap/index.xml']
+  image: {
+    cloudflare: {
+      baseURL: 'https://www2025.ohlawcolorado.com',
+    },
+    strapi: {
+      baseURL: `${process.env.STRAPI_URL}/uploads`,
+    },
+    dir: 'public/img',
   },
 
   // https://nuxtseo.com
@@ -349,63 +350,18 @@ export default defineNuxtConfig({
       '/blog/tags',
       '/landings/booking',
       '/services/bankruptcy/about-ch7',
-      '/services/estate-planning/GunTrusts'
+      '/services/estate-planning/GunTrusts',
     ],
     allow: [
       '/services/bankruptcy',
       '/services/estate-planning',
       '/services/nonprofits',
-      '/services/small-business'
-    ]
+      '/services/small-business',
+    ],
   },
 
-  // https://eslint.nuxt.com
-  eslint: {
-    config: {
-      stylistic: {
-        quotes: 'single'
-      }
-    }
-        quotes: 'single'
-      }
-    }
+  // https://nuxtseo.com
+  sitemap: {
+    sources: ['https://strapi.ohlawcolorado.com/api/sitemap/index.xml'],
   },
-
-  watch: ['./primevue.ohlaw.ts'],
-  watch: ['./primevue.ohlaw.ts'],
-
-  apollo: {
-    clients: {
-      default: {
-        authType: 'none',
-        connectToDevTools: true,
-        defaultOptions: {
-          watchQuery: {
-            fetchPolicy: 'cache-and-network'
-          }
-        },
-        httpEndpoint: `${process.env.STRAPI_URL}/graphql`
-        httpEndpoint: `${process.env.STRAPI_URL}/graphql`
-        /*
-        httpLinkOptions: {
-          headers: {
-            'Strapi-Response-Format': 'v4'
-          }
-        }
-        */
-      }
-    },
-    devtools: true
-  },
-  nitro: {
-    routeRules: {
-      '/**': {
-        headers: {
-          'X-Git-Commit': process.env.NUXT_GIT_COMMIT || 'unknown',
-          'X-Build-Date': new Date().toISOString(),
-          'X-Built-By': 'OHLaw Colorado'
-        }
-      }
-    }
-  }
 })

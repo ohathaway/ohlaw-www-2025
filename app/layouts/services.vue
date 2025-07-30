@@ -3,7 +3,7 @@
     <template #specialized-header>
       <LayoutBreadcrumbNav />
     </template>
-    
+
     <slot />
   </NuxtLayout>
   <ClientOnly>

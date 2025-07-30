@@ -1,8 +1,10 @@
 // pages/policies/Fees.vue
 <template>
   <div>
-    <h1 class="text-3xl font-semibold text-primary-800 mb-6">Fees and Charges</h1>
-    
+    <h1 class="text-3xl font-semibold text-primary-800 mb-6">
+      Fees and Charges
+    </h1>
+
     <div class="prose prose-slate max-w-none">
       <ol class="list-decimal pl-5 mb-6 space-y-2">
         <li>
@@ -15,8 +17,10 @@
           for our work together will be clearly spelled out.
         </li>
       </ol>
-      
-      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">Full Representation</h2>
+
+      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">
+        Full Representation
+      </h2>
       <ol start="3" class="list-decimal pl-5 mb-6 space-y-2">
         <li>
           Under our full representation fee structures, you will be billed on an hourly basis for
@@ -51,8 +55,10 @@
           payment charge of 5% of the delinquent balance.
         </li>
       </ol>
-      
-      <p class="mb-4">We are often asked how a client may keep legal fees to a minimum. This is our advice:</p>
+
+      <p class="mb-4">
+        We are often asked how a client may keep legal fees to a minimum. This is our advice:
+      </p>
       <ul class="list-disc pl-5 mb-6 space-y-2">
         <li>Provide us with complete, accurate and organized information and documentation.</li>
         <li>Try not to change your mind in the middle of a transaction.</li>
@@ -65,8 +71,10 @@
           Delays necessitate follow up measures which take time.
         </li>
       </ul>
-      
-      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">Fixed Fee Representation</h2>
+
+      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">
+        Fixed Fee Representation
+      </h2>
       <ol start="7" class="list-decimal pl-5 mb-6 space-y-2">
         <li>
           We offer certain types of representation at fixed fees. We can do so because we know the
@@ -76,8 +84,10 @@
           not continue beyond delivery of the services depending on how we agree to proceed.
         </li>
       </ol>
-      
-      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">Unbundled Service Representation</h2>
+
+      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">
+        Unbundled Service Representation
+      </h2>
       <ol start="8" class="list-decimal pl-5 mb-6 space-y-2">
         <li>
           We offer certain types of services following an unbundled representation model. We can do
@@ -87,8 +97,10 @@
           we deliver the service.
         </li>
       </ol>
-      
-      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">Our commitments:</h2>
+
+      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">
+        Our commitments:
+      </h2>
       <ol type="a" class="list-[lower-alpha] pl-5 mb-6 space-y-2">
         <li>Consistent communication between the lawyers and clients.</li>
         <li>
@@ -99,8 +111,10 @@
         <li>Professional and community service.</li>
         <li>Investment in technology.</li>
       </ol>
-      
-      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">Terms of Engagement:</h2>
+
+      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">
+        Terms of Engagement:
+      </h2>
       <p class="mb-6">
         Our representation of you begins once you sign an engagement letter with us or we
         acknowledge acceptance of your representation in writing. Contacting us via our web site
@@ -116,8 +130,10 @@
         information gained by us in our representation of you will continue to be held in confidence
         pursuant to the applicable rules of professional conduct.
       </p>
-      
-      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">Retention of Closed Files:</h2>
+
+      <h2 class="text-2xl font-semibold text-primary-700 mt-8 mb-4">
+        Retention of Closed Files:
+      </h2>
       <p class="mb-4">
         Upon completion of our representation, the files will be closed and indexed for our storage
         facility. The firm cannot keep old files forever and generally destroys files ten (10) years
@@ -130,19 +146,19 @@
         things. If the law requires us to retain your records longer than ten (10) years, we will
         comply with that record retention requirement.
       </p>
-      
+
       <p class="mb-4">
         Our firm attempts to keep all files in digital format. Digital format files may be kept
         indefinitely, but not shorter than ten (10) years. Fees will apply for paper production of
         any files that exist only in digital format.
       </p>
-      
+
       <p class="mb-4 italic">
         At the conclusion of the representation, you should inform us if you wish to have your
         papers and/or property returned to you before the files are processed to the storage
         facility.
       </p>
-      
+
       <p class="mb-6">
         Please remember that we provide an intangible product, legal services, and you may see only
         a small part of our efforts. This combination may result in questions, in your part,
@@ -150,7 +166,7 @@
         soon as questions arise. We find that frank and candid discussions answer most of these
         questions.
       </p>
-      
+
       <p>
         We hope you find this information useful, and we look forward to working toward a successful
         resolution of the issues at hand.

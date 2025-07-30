@@ -1,10 +1,12 @@
 <template>
   <div class="post-list-wrapper">
     <div class="list-title pb-3 sm:pb-4 border-b">
-      <h3 class="text-lg sm:text-xl">{{ title }}</h3>
+      <h3 class="text-lg sm:text-xl">
+        {{ title }}
+      </h3>
     </div>
     <div class="list-entries">
-      <div class="entry" v-for="(post, index) in posts" :key="index">
+      <article v-for="(post, index) in posts" :key="index" class="entry">
         <div class="entry-wrapper ms-0 py-3 sm:py-4 border-b border-gray-300">
           <span class="italic text-sm sm:text-base">
             {{ formatDateFull(post.publishDate) }}
@@ -14,7 +16,7 @@
               <NuxtLink
                 :to="`/blog/${post.slug}`"
               >
-                <h4 class="text-lg sm:text-xl">{{  post.Title }}</h4>
+                <h4 class="text-lg sm:text-xl">{{ post.Title }}</h4>
               </NuxtLink>
               <div class="flex flex-wrap gap-2 mt-2">
                 <Tag v-for="tag in post.tags" class="text-xs sm:text-sm">
@@ -44,7 +46,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </template>
@@ -53,7 +55,7 @@
 const { posts, snippet, title } = defineProps({
   posts: Array,
   snippet: Boolean,
-  title: String
+  title: String,
 })
 </script>
 
@@ -74,4 +76,5 @@ a:hover {
   font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
   font-weight: bold;
   letter-spacing: 2px;
-}</style>
+}
+</style>

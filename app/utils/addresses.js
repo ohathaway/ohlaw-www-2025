@@ -1,3 +1,7 @@
+import { isEmpty } from './lang'
+import { uniq } from './array'
+import { forOwn } from './object'
+
 const addrProps = ['street1', 'street2', 'city', 'state', 'zip']
 
 export const useAddressEmpty = () => (addr) => {

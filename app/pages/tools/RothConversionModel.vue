@@ -15,7 +15,6 @@
       <ToolsRothConversionScenarioDetailsView />
     </div>
 
-
     <!-- Tool-wide disclaimer -->
     <ToolsDisclaimer class="mt-8" />
   </div>
@@ -30,7 +29,7 @@ const store = useRothConversionStore()
 // Page metadata
 definePageMeta({
   title: 'Roth Conversion Analysis Tool',
-  description: 'Analyze the impact of Roth IRA conversions on your family\'s tax strategy and inheritance planning.'
+  description: 'Analyze the impact of Roth IRA conversions on your family\'s tax strategy and inheritance planning.',
 })
 </script>
 

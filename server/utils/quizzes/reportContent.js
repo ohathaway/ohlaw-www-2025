@@ -9,69 +9,69 @@ export const addCoverPage = (doc, user, quizResults) => {
   // Page dimensions
   const pageWidth = doc.page.width
   const pageHeight = doc.page.height
-  
+
   // Add vertical lines at the top
   doc.strokeColor('#1a1a1a') // Gray color for lines
-     .lineWidth(2)
-     .moveTo(150, 0)
-     .lineTo(150, 130)
-     .stroke()
-     .moveTo(170, 0)
-     .lineTo(170, 60)
-     .stroke()
-  
+    .lineWidth(2)
+    .moveTo(150, 0)
+    .lineTo(150, 130)
+    .stroke()
+    .moveTo(170, 0)
+    .lineTo(170, 60)
+    .stroke()
+
   // Add logo on the right side
   // Note: You'll need to adjust the path to your circular logo
   doc.image('public/img/ohlaw_icon_circle_gray_drop2.png', pageWidth - 200, 100, { width: 100 })
-  
+
   // Add title in ITC Benguiat font (assuming you have this font in your project)
   // You may need to specify the path to your Benguiat font file
   doc.font('app/assets/fonts/BenguiatRegular.ttf')
-     .fontSize(50)
-     .fillColor('#000000')
-     .text('Estate', 150, 170, { lineGap: -10 })
-     .fontSize(50)
-     .text('Planning', 150, doc.y, { lineGap: -10 })
-     .fontSize(50)
-     .text('Assessment', 150, doc.y, { lineGap: -10 })
-  
+    .fontSize(50)
+    .fillColor('#000000')
+    .text('Estate', 150, 170, { lineGap: -10 })
+    .fontSize(50)
+    .text('Planning', 150, doc.y, { lineGap: -10 })
+    .fontSize(50)
+    .text('Assessment', 150, doc.y, { lineGap: -10 })
+
   // Prepared for section - center of page
   const middleY = pageHeight / 2 - 55
   doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-     .fontSize(16)
-     .fillColor('#244091') // Blue for heading
-     .text('Prepared For:', 100, middleY + 250, { continued: false })
-  
+    .fontSize(16)
+    .fillColor('#244091') // Blue for heading
+    .text('Prepared For:', 100, middleY + 250, { continued: false })
+
   // User name
   doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-     .fontSize(24)
-     .fillColor('#000000')
-     .text(`${user.firstName} ${user.lastName}`, 100, doc.y + 10)
-  
+    .fontSize(24)
+    .fillColor('#000000')
+    .text(`${user.firstName} ${user.lastName}`, 100, doc.y + 10)
+
   // Add date
   doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
-     .fontSize(12)
-     .fillColor('#333333')
-     .text(new Date().toLocaleDateString('en-US', { dateStyle: 'long' }), 100, doc.y + 10)
-  
+    .fontSize(12)
+    .fillColor('#333333')
+    .text(new Date().toLocaleDateString('en-US', { dateStyle: 'long' }), 100, doc.y + 10)
+
   // Result section
   const resultY = middleY
   doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-     .fontSize(16)
-     .fillColor('#244091') // Blue for heading
-     .text('Your Result:', 150, resultY + 20)
-  
+    .fontSize(16)
+    .fillColor('#244091') // Blue for heading
+    .text('Your Result:', 150, resultY + 20)
+
   // Pathway name
   doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
-     .fontSize(22)
-     .fillColor('#000000')
-     .text(quizResults.pathwayName, 150, doc.y + 10)
+    .fontSize(22)
+    .fillColor('#000000')
+    .text(quizResults.pathwayName, 150, doc.y + 10)
 
   // Add blue circle in bottom right
   doc.circle(pageWidth - 50, pageHeight - 50, pageWidth / 4)
-     .fillColor('#244091')
-     .fill()
-  
+    .fillColor('#244091')
+    .fill()
+
   // Add footer
   const currentY = doc.y
   const footerY = doc.page.height - 85
@@ -79,10 +79,10 @@ export const addCoverPage = (doc, user, quizResults) => {
     .y = footerY
 
   doc.font('app/assets/fonts/TrajanPro-Regular.ttf')
-     .fontSize(10)
-     .fillColor('#333333')
-     .text('The Law Offices of Owen Hathaway', 50, footerY)
-     .text('ohlawcolorado.com • office: 970-818-3052 • sms: 970-818-5559')
+    .fontSize(10)
+    .fillColor('#333333')
+    .text('The Law Offices of Owen Hathaway', 50, footerY)
+    .text('ohlawcolorado.com • office: 970-818-3052 • sms: 970-818-5559')
 
   doc.y = currentY
 
@@ -91,7 +91,6 @@ export const addCoverPage = (doc, user, quizResults) => {
 }
 
 export const addTableOfContents = (doc) => {
-
   doc.fontSize(18)
     .text('Table of Contents', { align: 'center' })
     .moveDown(1)
@@ -131,9 +130,9 @@ export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
   addSectionHeader(doc, 'Executive Summary')
 
   doc.fontSize(12)
-    .text('Based on your responses to our Estate Planning Pathway Finder assessment, we\'ve ' +
-      'identified key areas to focus on for your estate planning needs. This report provides ' +
-      'a detailed analysis of your situation and recommendations tailored to your specific circumstances.')
+    .text('Based on your responses to our Estate Planning Pathway Finder assessment, we\'ve '
+      + 'identified key areas to focus on for your estate planning needs. This report provides '
+      + 'a detailed analysis of your situation and recommendations tailored to your specific circumstances.')
     .moveDown(1)
 
   // Add key findings
@@ -146,7 +145,7 @@ export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
     .fontSize(12)
   quizFindings.forEach((result, index) => {
     doc.font('app/assets/fonts/PlusJakartaSans-BoldItalic.ttf')
-      .text(`Finding ${index+1}:`, 75)
+      .text(`Finding ${index + 1}:`, 75)
       .moveDown(0.5)
     doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
       .text(result.finding, 100, doc.y)
@@ -154,9 +153,9 @@ export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
     doc.text('Explanation:', 100, doc.y, { underline: true, continued: true })
     doc.text(` ${result.explanation}`, 100, doc.y, { underline: false })
       .moveDown(0.5)
-    doc.text('Action Item:', 100, doc.y, { underline: true, continued: true})
+    doc.text('Action Item:', 100, doc.y, { underline: true, continued: true })
     doc.text(` ${result.actionable}`, 100, doc.y, { underline: false })
-    .moveDown(0.5)
+      .moveDown(0.5)
   })
   doc.moveDown(1)
 
@@ -184,7 +183,7 @@ export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
     boldItalicFont: 'app/assets/fonts/PlusJakartaSans-BoldItalic.ttf',
     baseFontSize: 12,
     // Custom page break checker that always returns false (we don't want automatic page breaks on cover)
-    checkPageBreak: () => false
+    checkPageBreak: () => false,
   }
 
   // Render the Rich Text to the document
@@ -198,8 +197,8 @@ export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
   // Add section header
   addSectionHeader(doc, 'Your Assessment Details')
   doc.fontSize(12)
-    .text('This section provides a detailed analysis of your responses to each question in our ' +
-      'assessment, including why each factor is important and how it impacts your estate planning needs.')
+    .text('This section provides a detailed analysis of your responses to each question in our '
+      + 'assessment, including why each factor is important and how it impacts your estate planning needs.')
     .moveDown(1)
 
   const impact = extractSelectedAnswerImpact(JSON.parse(userAnswers), quizData)
@@ -261,7 +260,8 @@ export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
     // Add new page
     doc.addPage()
     return doc
-  } catch (error) {
+  }
+  catch (error) {
     console.error('error processing answers: ', error)
     throw error
   }
@@ -305,10 +305,10 @@ export const addNextSteps = (doc, quizResults) => {
 
   doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
     .fontSize(12)
-    .text('Schedule a consultation with the Law Offices of Owen Hathaway to discuss your ' +
-      'estate planning needs and how we can help you put a plan in place that' +
-      ' actually works when you need it to.',
-      75, doc.y, { width: doc.page.width - 150 })
+    .text('Schedule a consultation with the Law Offices of Owen Hathaway to discuss your '
+      + 'estate planning needs and how we can help you put a plan in place that'
+      + ' actually works when you need it to.',
+    75, doc.y, { width: doc.page.width - 150 })
     .moveDown(0.5)
 
   doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
@@ -546,9 +546,9 @@ export const addResources = async (doc, recommendedPosts = [], staticTools = [])
   doc.y = currentY + 20
   doc.font('app/assets/fonts/PlusJakartaSans-LightItalic.ttf')
     .fontSize(10)
-    .text('Disclaimer: This report provides general information about estate planning and is not ' +
-      'legal advice. For advice specific to your situation, please consult with an attorney. ' +
-      'The Law Offices of Owen Hathaway provides this information as an educational resource.')
+    .text('Disclaimer: This report provides general information about estate planning and is not '
+      + 'legal advice. For advice specific to your situation, please consult with an attorney. '
+      + 'The Law Offices of Owen Hathaway provides this information as an educational resource.')
     .moveDown(2)
   
   return doc
