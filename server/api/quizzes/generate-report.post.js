@@ -114,7 +114,7 @@ export default defineEventHandler(async (event) => {
 
 
 const generatePDF = async (user, quizResults, quizData, explanations) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     const doc = new PDFDocument({
       margin: 50,
       size: 'letter',
