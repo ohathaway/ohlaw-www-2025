@@ -180,16 +180,33 @@ test.describe('Quiz Report Generation', () => {
   })
 
   test.afterAll(() => {
-    // Log information about test PDFs
-    console.log(`Test PDFs generated in: ${testOutputDir}`)
-    
-    // List any PDFs that were created during testing
+    // Clean up test PDFs
     if (fs.existsSync(testOutputDir)) {
       const pdfFiles = fs.readdirSync(testOutputDir)
         .filter(file => file.endsWith('.pdf'))
       
       if (pdfFiles.length > 0) {
-        console.log('Generated PDFs:', pdfFiles)
+        console.log(`Cleaning up ${pdfFiles.length} test PDF(s) from: ${testOutputDir}`)
+        
+        // Delete each PDF file
+        pdfFiles.forEach(file => {
+          const filePath = path.join(testOutputDir, file)
+          try {
+            fs.unlinkSync(filePath)
+          } catch (error) {
+            console.warn(`Failed to delete ${file}:`, error.message)
+          }
+        })
+        
+        // Remove the directory if it's empty
+        try {
+          const remainingFiles = fs.readdirSync(testOutputDir)
+          if (remainingFiles.length === 0) {
+            fs.rmdirSync(testOutputDir)
+          }
+        } catch (error) {
+          // Directory might not be empty or might not exist, that's ok
+        }
       }
     }
   })

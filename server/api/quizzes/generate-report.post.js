@@ -1,10 +1,11 @@
-// server/api/generate-report.js
+// server/api/quiz-generate-report.js
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import PDFDocument from 'pdfkit'
 import markdownIt from 'markdown-it'
 import { getQuizForAIbySlugREST } from '~~/server/utils/quizzes/utils'
+import { analyzeQuizResults } from '~~/server/utils/quizzes/aiAnalysis'
 import { toTitleCase } from '~~/app/utils/strings'
 import { recommendBlogPosts } from '~~/server/utils/quizzes/contentRecommendations'
 import { pipe } from '~~/server/utils/functional.ts'
@@ -12,9 +13,20 @@ import { pipe } from '~~/server/utils/functional.ts'
 export default defineEventHandler(async (event) => {
   try {
     // Get quiz data from the request
-    const body = await readBody(event)
+    let body
+    try {
+      body = await readBody(event)
+    } catch (parseError) {
+      console.error('JSON parsing error:', parseError)
+      return { success: false, error: 'Invalid JSON body' }
+    }
+    
     const { user, quizResults, answers } = body
-    console.info('received an event:', body)
+
+    // Validate required fields
+    if (!user || !quizResults || !quizResults.slug) {
+      return { success: false, error: 'Missing required fields: user, quizResults, or quizResults.slug' }
+    }
 
     const quizResultString = JSON.stringify(quizResults)
     const quizResultHash = crypto.createHash('sha256')
@@ -23,13 +35,16 @@ export default defineEventHandler(async (event) => {
     const kvKey = `quizAnalysis:${quizResultHash}`
 
     const resultExists = await hubKV().has(kvKey)
-    console.info('resultExists:', resultExists)
 
     const quizData = await fetchQuizFromStrapi(quizResults.slug)
+    
+    // Check if quiz was found
+    if (!quizData.quizzes || quizData.quizzes.length === 0) {
+      return { success: false, error: `Quiz not found: ${quizResults.slug}` }
+    }
 
     let explanations
     if (!resultExists) {
-      console.info('new quiz result received', quizResultHash)
       // Fetch detailed explanations for each answer from Strapi
       explanations = await analyzeQuizResults(
         quizData,
@@ -39,7 +54,6 @@ export default defineEventHandler(async (event) => {
       await hubKV().set(kvKey, explanations)
     }
     else {
-      console.info('known quiz result received:', quizResultHash)
       explanations = await hubKV().get(kvKey)
     }
     // console.info('explanations:', explanations)
@@ -75,31 +89,35 @@ export default defineEventHandler(async (event) => {
     await uploadPdfToR2(pdfBuffer, downloadName, bucketName)
 
     const reportUrlSigned = await getPresignedUrl(downloadName)
-    console.info('reportUrlSigned:', reportUrlSigned)
+    
     // Send email template with download URL
-    await sendTemplatedMsg({
-      sender: {
-        name: 'OHLaw Quizzes',
-        address: 'quizzes@ohlawcolorado.com',
-      },
-      recipients: [
-        {
-          name: `${body.user.firstName} ${body.user.lastName}`,
-          address: body.user.email,
+    try {
+      await sendTemplatedMsg({
+        sender: {
+          name: 'OHLaw Quizzes',
+          address: 'quizzes@ohlawcolorado.com',
         },
-      ],
-      subject: `${toTitleCase(body.quizResults.slug, '-')} Assessment Results`,
-      template: 'ynrw7gyq9mo42k8e',
-      personalization: [
-        {
-          // email: body.user.email,
-          email: 'owen@ohlawcolorado.com',
-          data: {
-            download_url: reportUrlSigned,
+        recipients: [
+          {
+            name: `${body.user.firstName} ${body.user.lastName}`,
+            address: body.user.email,
           },
-        },
-      ],
-    })
+        ],
+        subject: `${toTitleCase(body.quizResults.slug, '-')} Assessment Results`,
+        template: 'ynrw7gyq9mo42k8e',
+        personalization: [
+          {
+            // email: body.user.email,
+            email: 'owen@ohlawcolorado.com',
+            data: {
+              download_url: reportUrlSigned,
+            },
+          },
+        ],
+      })
+    } catch (emailError) {
+      console.warn('Email sending failed, but report generation succeeded:', emailError.message || emailError)
+    }
 
     // Store in CRM (pseudocode)
     //  await submitToCRM(user, quizResults, result)
@@ -244,12 +262,14 @@ const fetchQuizFromStrapi = async (slug) => {
     const { strapiUrl } = useAppConfig()
     // REST version
     const query = getQuizForAIbySlugREST(slug)
-    const quizResult = await $fetch(`${strapiUrl}/api/quizzes?${query}`)
+    const fullUrl = `${strapiUrl}/api/quizzes?${query}`
+    
+    const quizResult = await $fetch(fullUrl)
 
     return quizResult.data?.[0] ? { quizzes: [quizResult.data[0]] } : { quizzes: [] }
   }
   catch (error) {
-    console.error('failed to fetch quiz from strapi')
+    console.error('failed to fetch quiz from strapi', error.message)
     throw error
   }
 }

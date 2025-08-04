@@ -171,7 +171,9 @@ export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
     .moveDown(0.5)
     // .text(quizResults.pathwaySummary)
 
-  const processedContent = richTextToPdf(JSON.parse(quizResults.pathwaySummary))
+  const processedContent = quizResults.pathwaySummary 
+    ? richTextToPdf(JSON.parse(quizResults.pathwaySummary))
+    : [{ type: 'paragraph', children: [{ type: 'text', text: 'Assessment results will be provided here.' }] }]
 
   // Custom configuration for cover page Rich Text
   const richTextConfig = {
@@ -201,7 +203,7 @@ export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
       + 'assessment, including why each factor is important and how it impacts your estate planning needs.')
     .moveDown(1)
 
-  const impact = extractSelectedAnswerImpact(JSON.parse(userAnswers), quizData)
+  const impact = extractSelectedAnswerImpact(userAnswers, quizData)
   try {
     // console.info('impact:', impact)
     // For each question and answer
