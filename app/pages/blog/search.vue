@@ -96,12 +96,13 @@ const blogStore = useBlogStore()
 const { searchTerm, activeCategories, activeTags, filteredPostList } = storeToRefs(blogStore)
 
 // DataView sorting state
-const sortKey = ref('newest')
+const sortKey = ref('mostRelevant')
 const sortOrder = ref(-1) // -1 for descending (newest first), 1 for ascending (oldest first)
-const sortField = ref('publishDate')
+const sortField = ref('_rankingScore')
 
 // Sort options for SelectButton
 const sortOptions = ref([
+  { label: 'Most Relevant', value: 'mostRelevant' },
   { label: 'Newest First', value: 'newest' },
   { label: 'Oldest First', value: 'oldest' },
 ])
@@ -118,12 +119,16 @@ const hasActiveFilters = computed(() => {
 // Methods
 const onSortChange = () => {
   if (sortKey.value === 'newest') {
+    sortField.value = 'publishDate'
     sortOrder.value = -1 // Descending order (newest first)
   }
-  else {
+  else if (sortKey.value === 'oldest') {
+    sortField.value = 'publishDate'
     sortOrder.value = 1 // Ascending order (oldest first)
+  } else if (sortKey.value === 'mostRelevant') {
+    sortField.value = '_rankingScore'
+    sortOrder.value = -1 // Descending order (most relevant first)
   }
-  // sortField stays 'publishDate' for both options
 }
 
 const handleFilterChange = (filters) => {
@@ -140,9 +145,9 @@ watch(searchTerm, async (newTerm) => {
 onMounted(() => {
   try {
     // Set default sort
-    sortKey.value = 'newest'
+    sortKey.value = 'mostRelevant'
     sortOrder.value = -1
-    sortField.value = 'publishDate'
+    sortField.value = '_rankingScore'
 
     if (route.query.search) {
       searchTerm.value = route.query.search

@@ -174,7 +174,8 @@ const generatePDF = async (user, quizResults, quizData, explanations) => {
       const recommendedPosts = await recommendBlogPosts(
         quizResults.userAnswers,
         quizResults,
-        5 // Max 5 recommendations
+        5, // Max 5 recommendations
+        quizData // Pass the full quiz data for answer details
       )
       
       // Get static tools from app config

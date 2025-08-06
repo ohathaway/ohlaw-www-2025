@@ -11,29 +11,75 @@ import qs from 'qs'
  */
 
 /**
+ * Convert answers object format to array format expected by other functions
+ * @param {Object} answersObj - Answers in object format {"q1": ["q1a1"], "q2": "q2a3", ...}
+ * @param {Object} quizData - Full quiz data from Strapi with answer details
+ * @returns {Array} Answers in array format expected by the system
+ */
+const convertAnswersToArray = (answersObj, quizData) => {
+  const answersArray = []
+  
+  // Get questions from quiz data if available
+  const questions = quizData?.quizzes?.[0]?.questions || []
+  
+  // Create one entry per selected answer (not per question)
+  Object.entries(answersObj).forEach(([questionId, answerValue]) => {
+    const answerValues = Array.isArray(answerValue) ? answerValue : [answerValue]
+    const question = questions.find(q => q.questionId === questionId)
+    
+    answerValues.forEach(answerId => {
+      const answerDetails = question?.answers?.find(a => a.answerId === answerId)
+      
+      answersArray.push({
+        id: answerId,
+        questionId: questionId,
+        answerId: answerId,
+        // Include the forFurtherReference data if available
+        forFurtherReference: answerDetails?.forFurtherReference || null,
+        tags: answerDetails?.tags || [],
+        answerText: answerDetails?.answerText || '',
+        whyItMatters: answerDetails?.whyItMatters || '',
+        impact: answerDetails?.impact || ''
+      })
+    })
+  })
+  
+  return answersArray
+}
+
+/**
  * Main function to recommend blog posts based on quiz answers
  * @param {Array} userAnswers - Array of user's selected answers
  * @param {Object} processedAnswers - Processed quiz results
  * @param {number} maxRecommendations - Maximum number of recommendations (default: 5)
+ * @param {Object} quizData - Full quiz data from Strapi with answer details
  * @returns {Promise<Array>} Array of recommended blog posts
  */
-export const recommendBlogPosts = async (userAnswers, processedAnswers, maxRecommendations = 5) => {
+export const recommendBlogPosts = async (userAnswers, processedAnswers, maxRecommendations = 5, quizData = null) => {
   try {
-    console.log('Starting blog post recommendations for', userAnswers.length, 'user answers')
+    // Handle userAnswers as either JSON string or parsed object
+    const userAnswersObj = typeof userAnswers === 'string' 
+      ? JSON.parse(userAnswers) 
+      : userAnswers
+    
+    // Convert object format to array format expected by the rest of the functions
+    const userAnswersArray = convertAnswersToArray(userAnswersObj, quizData)
+    console.info('userAnswersArray:', userAnswersArray)
+    console.log('Starting blog post recommendations for', userAnswersArray.length, 'user answers')
     
     // Phase 1: Extract direct mappings from forFurtherReference
-    const directMappings = extractDirectMappings(userAnswers)
+    const directMappings = extractDirectMappings(userAnswersArray)
     console.log('Direct mappings found:', directMappings.length)
     
     // Phase 2: Identify topics without direct mappings and search for them
-    const missingTopics = identifyMissingTopics(userAnswers, directMappings)
+    const missingTopics = identifyMissingTopics(userAnswersArray, directMappings)
     const excludeIds = directMappings.map(post => post.documentId).filter(Boolean)
     const searchResults = await searchForGaps(missingTopics, excludeIds)
     console.log('Search results for gaps:', searchResults.length)
     
     // Phase 3: Combine and prioritize recommendations
     const allRecommendations = [...directMappings, ...searchResults]
-    const prioritized = scoreAndPrioritize(allRecommendations, userAnswers)
+    const prioritized = scoreAndPrioritize(allRecommendations, userAnswersArray)
     
     // Phase 4: Limit to maximum recommendations
     const finalRecommendations = prioritized.slice(0, maxRecommendations)
