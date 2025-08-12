@@ -203,9 +203,15 @@ export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
       + 'assessment, including why each factor is important and how it impacts your estate planning needs.')
     .moveDown(1)
 
-  const impact = extractSelectedAnswerImpact(userAnswers, quizData)
+  console.info('=== addQuestionAnalysis START ===')
+  
+  // TEMPORARY FIX: Just add placeholder content and return to test if this function is the issue
+  doc.text('Question analysis functionality is currently being debugged.', 50, doc.y)
+  doc.addPage()
+  console.info('=== addQuestionAnalysis END ===')
+  return doc
+  
   try {
-    // console.info('impact:', impact)
     // For each question and answer
     impact.forEach((answer, index) => {
       checkPageBreak(doc)

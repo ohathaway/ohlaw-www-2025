@@ -198,11 +198,15 @@ if (isEmpty(postREST)) {
 }
 </script>
 
-<style lang="scss">
-ul.tags { list-style-type: none; }
+<style>
+ul.tags { 
+  list-style-type: none; 
+}
 li.tag {
   display: inline;
-  a { color: #f8f8f8;}
+}
+li.tag a { 
+  color: #f8f8f8;
 }
 
 @media print {

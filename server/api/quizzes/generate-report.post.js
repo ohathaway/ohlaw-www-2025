@@ -22,6 +22,9 @@ export default defineEventHandler(async (event) => {
     }
     
     const { user, quizResults, answers } = body
+    console.info('=== GENERATE REPORT START ===')
+    console.info('received event with slug:', quizResults?.slug)
+    console.info('user:', user?.firstName, user?.lastName)
 
     // Validate required fields
     if (!user || !quizResults || !quizResults.slug) {
@@ -36,7 +39,9 @@ export default defineEventHandler(async (event) => {
 
     const resultExists = await hubKV().has(kvKey)
 
+    console.info('About to fetch quiz from Strapi...')
     const quizData = await fetchQuizFromStrapi(quizResults.slug)
+    console.info('Quiz data fetched successfully')
     
     // Check if quiz was found
     if (!quizData.quizzes || quizData.quizzes.length === 0) {
@@ -44,18 +49,33 @@ export default defineEventHandler(async (event) => {
     }
 
     let explanations
+    console.info('Result exists in cache?', resultExists)
+    
+    // TEMPORARY: Skip AI analysis for debugging
+    console.info('TEMPORARILY SKIPPING AI ANALYSIS FOR DEBUGGING')
+    explanations = {
+      content: [{
+        text: '```json\n{"findings": [{"finding": "Test finding", "explanation": "Test explanation", "actionable": "Test action"}]}\n```'
+      }]
+    }
+    
+    /* ORIGINAL CODE - COMMENTED OUT FOR DEBUGGING
     if (!resultExists) {
+      console.info('Starting AI analysis...')
       // Fetch detailed explanations for each answer from Strapi
       explanations = await analyzeQuizResults(
         quizData,
         quizResults.userAnswers,
         quizResults.totalScore,
       )
+      console.info('AI analysis complete, caching result...')
       await hubKV().set(kvKey, explanations)
     }
     else {
+      console.info('Using cached result')
       explanations = await hubKV().get(kvKey)
     }
+    */
     // console.info('explanations:', explanations)
     const md = markdownIt()
     const block = JSON.parse(md.parse(explanations.content[0].text)

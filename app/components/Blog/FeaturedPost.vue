@@ -24,9 +24,11 @@ const { post } = defineProps(['post'])
 const { Image: { url: source } } = post
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 a {
   color: #010101;
-  h1 { color: --var('primary-500'); }
+}
+a h1 { 
+  color: var(--primary-500); 
 }
 </style>
