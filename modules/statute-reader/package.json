@@ -1,0 +1,76 @@
+{
+  "name": "@ohlaw/statute-reader",
+  "version": "1.0.0",
+  "description": "A comprehensive Nuxt module for browsing and searching legal statutes with advanced features",
+  "author": "Owen Hathaway <owen@ohlaw.com>",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "require": "./index.ts"
+    }
+  },
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "files": [
+    "index.ts",
+    "runtime/",
+    "migrations/",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "legal",
+    "statutes",
+    "colorado",
+    "search",
+    "browse",
+    "cloudflare",
+    "d1",
+    "vue",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohathaway/ohlaw-www-2025.git",
+    "directory": "modules/statute-reader"
+  },
+  "bugs": {
+    "url": "https://github.com/ohathaway/ohlaw-www-2025/issues"
+  },
+  "homepage": "https://github.com/ohathaway/ohlaw-www-2025/tree/main/modules/statute-reader#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "@nuxt/kit": "^3.0.0 || ^4.0.0",
+    "nuxt": "^3.0.0 || ^4.0.0",
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20240512.0",
+    "@nuxt/kit": "^3.11.0",
+    "defu": "^6.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "typescript": "^5.4.0"
+  },
+  "scripts": {
+    "build": "nuxt-module-build build",
+    "dev": "nuxt-module-build build --stub",
+    "prepack": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "nuxt": {
+    "compatibility": {
+      "nuxt": "^3.0.0 || ^4.0.0",
+      "bridge": false
+    }
+  }
+}

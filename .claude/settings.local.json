@@ -4,7 +4,8 @@
       "Bash(pnpm dev:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(npx playwright test:*)"
+      "Bash(npx playwright test:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   },
