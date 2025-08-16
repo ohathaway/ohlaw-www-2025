@@ -1,13 +1,13 @@
 <template>
   <div class="statute-search-page">
     <!-- Page Header -->
-    <div class="bg-white border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="py-6">
+    <div class="sr-bg-white border-b border-slate-200">
+      <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8">
+        <div class="sr-py-6">
           <div class="flex items-center justify-between">
             <div>
-              <h1 class="text-3xl font-bold text-gray-900">Search Statutes</h1>
-              <p class="mt-2 text-lg text-gray-600">
+              <h1 class="sr-text-3xl sr-font-bold sr-text-slate-900">Search Statutes</h1>
+              <p class="sr-mt-2 sr-text-lg sr-text-slate-600">
                 Search through the Colorado Revised Statutes
               </p>
             </div>
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Search Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8 py-8">
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <!-- Search Panel -->
         <div class="lg:col-span-3">
@@ -68,23 +68,23 @@
             <template #content>
               <div class="space-y-3 text-sm">
                 <div>
-                  <h4 class="font-medium text-gray-900 mb-1">Citation Search</h4>
-                  <p class="text-gray-600">Use exact citations like "15-10-101" for precise results</p>
+                  <h4 class="font-medium text-slate-900 mb-1">Citation Search</h4>
+                  <p class="text-slate-600">Use exact citations like "15-10-101" for precise results</p>
                 </div>
                 
                 <div>
-                  <h4 class="font-medium text-gray-900 mb-1">Keyword Search</h4>
-                  <p class="text-gray-600">Search by topic: "probate", "trust", "fiduciary duty"</p>
+                  <h4 class="font-medium text-slate-900 mb-1">Keyword Search</h4>
+                  <p class="text-slate-600">Search by topic: "probate", "trust", "fiduciary duty"</p>
                 </div>
                 
                 <div>
-                  <h4 class="font-medium text-gray-900 mb-1">Exact Phrases</h4>
-                  <p class="text-gray-600">Use quotes for exact matches: "power of attorney"</p>
+                  <h4 class="font-medium text-slate-900 mb-1">Exact Phrases</h4>
+                  <p class="text-slate-600">Use quotes for exact matches: "power of attorney"</p>
                 </div>
                 
                 <div>
-                  <h4 class="font-medium text-gray-900 mb-1">Boolean Search</h4>
-                  <p class="text-gray-600">Combine terms with AND, OR, NOT operators</p>
+                  <h4 class="font-medium text-slate-900 mb-1">Boolean Search</h4>
+                  <p class="text-slate-600">Combine terms with AND, OR, NOT operators</p>
                 </div>
               </div>
             </template>
@@ -111,7 +111,7 @@
                 >
                   <div class="text-left">
                     <div class="font-medium">{{ search.query }}</div>
-                    <div class="text-xs text-gray-500">{{ search.description }}</div>
+                    <div class="text-xs text-slate-500">{{ search.description }}</div>
                   </div>
                 </Button>
               </div>
@@ -123,7 +123,7 @@
             <template #title>
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                  <Icon name="pi-clock" class="mr-2 text-gray-500" />
+                  <Icon name="pi-clock" class="mr-2 text-slate-500" />
                   Recent Searches
                 </div>
                 <Button
@@ -165,20 +165,20 @@
             <template #content>
               <div class="space-y-2 text-sm">
                 <div class="flex items-center justify-between">
-                  <span class="text-gray-600">By Jurisdiction</span>
+                  <span class="text-slate-600">By Jurisdiction</span>
                   <Badge value="CO" severity="info" size="small" />
                 </div>
                 <div class="flex items-center justify-between">
-                  <span class="text-gray-600">By Unit Type</span>
-                  <span class="text-xs text-gray-500">Title, Article, Section</span>
+                  <span class="text-slate-600">By Unit Type</span>
+                  <span class="text-xs text-slate-500">Title, Article, Section</span>
                 </div>
                 <div class="flex items-center justify-between">
-                  <span class="text-gray-600">Include Repealed</span>
-                  <span class="text-xs text-gray-500">Historical statutes</span>
+                  <span class="text-slate-600">Include Repealed</span>
+                  <span class="text-xs text-slate-500">Historical statutes</span>
                 </div>
                 <div class="flex items-center justify-between">
-                  <span class="text-gray-600">Exact Match</span>
-                  <span class="text-xs text-gray-500">Precise citations</span>
+                  <span class="text-slate-600">Exact Match</span>
+                  <span class="text-xs text-slate-500">Precise citations</span>
                 </div>
               </div>
             </template>
@@ -188,9 +188,9 @@
     </div>
 
     <!-- Featured Statute Sections -->
-    <div class="bg-gray-50 border-t border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Statute Sections</h2>
+    <div class="bg-slate-100 border-t border-slate-200">
+      <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8 py-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6">Featured Statute Sections</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card
@@ -206,7 +206,7 @@
               </div>
             </template>
             <template #content>
-              <p class="text-gray-600 mb-3">{{ section.description }}</p>
+              <p class="text-slate-600 mb-3">{{ section.description }}</p>
               <div class="text-sm text-blue-600 font-medium">{{ section.citation }}</div>
             </template>
           </Card>
@@ -374,6 +374,6 @@ watch(() => route.query.q, (newQuery) => {
 
 <style scoped>
 .statute-search-page {
-  @apply min-h-screen bg-gray-50;
+  
 }
 </style>

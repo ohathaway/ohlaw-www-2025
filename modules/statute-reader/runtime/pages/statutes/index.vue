@@ -1,11 +1,11 @@
 <template>
-  <div class="statute-reader-main">
+  <div class="sr-statute-reader-main">
     <!-- Page Header -->
-    <div class="bg-white border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="py-6">
-          <h1 class="text-3xl font-bold text-gray-900">Colorado Statute Reader</h1>
-          <p class="mt-2 text-lg text-gray-600">
+    <div class="sr-bg-white border-b border-slate-200">
+      <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8">
+        <div class="sr-py-6">
+          <h1 class="sr-text-3xl sr-font-bold sr-text-slate-900">Colorado Statute Reader</h1>
+          <p class="sr-mt-2 sr-text-lg sr-text-slate-600">
             Search and browse the Colorado Revised Statutes with advanced navigation and bookmarking features.
           </p>
         </div>
@@ -13,36 +13,44 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8 py-8">
       <!-- Tab Navigation -->
-      <TabView v-model:activeIndex="activeTab" class="statute-reader-tabs">
-        <TabPanel header="Browse">
-          <template #header>
-            <Icon name="pi-list" class="mr-2" />
+      <Tabs v-model:value="activeTab" class="statute-reader-tabs">
+        <TabList>
+          <Tab value="0">
+            <i class="pi pi-list mr-2" />
             Browse Statutes
-          </template>
-        </TabPanel>
-        
-        <TabPanel header="Search">
-          <template #header>
-            <Icon name="pi-search" class="mr-2" />
+          </Tab>
+          
+          <Tab value="1">
+            <i class="pi pi-search mr-2" />
             Search
-          </template>
-        </TabPanel>
-        
-        <TabPanel header="Bookmarks">
-          <template #header>
-            <Icon name="pi-bookmark" class="mr-2" />
+          </Tab>
+          
+          <Tab value="2">
+            <i class="pi pi-bookmark mr-2" />
             Bookmarks
             <Badge v-if="bookmarkCount > 0" :value="bookmarkCount" severity="info" class="ml-2" />
-          </template>
-        </TabPanel>
-      </TabView>
+          </Tab>
+        </TabList>
+        
+        <TabPanels>
+          <TabPanel value="0">
+            <!-- Browse content will be shown below -->
+          </TabPanel>
+          <TabPanel value="1">
+            <!-- Search content will be shown below -->
+          </TabPanel>
+          <TabPanel value="2">
+            <!-- Bookmarks content will be shown below -->
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
 
       <!-- Tab Content -->
       <div class="mt-6">
         <!-- Browse Tab -->
-        <div v-if="activeTab === 0" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div v-if="activeTab === '0'" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <!-- Browser Panel -->
           <div class="lg:col-span-1">
             <Card class="h-full">
@@ -87,7 +95,7 @@
         </div>
 
         <!-- Search Tab -->
-        <div v-else-if="activeTab === 1">
+        <div v-else-if="activeTab === '1'">
           <Card>
             <template #content>
               <StatuteSearch
@@ -100,7 +108,7 @@
         </div>
 
         <!-- Bookmarks Tab -->
-        <div v-else-if="activeTab === 2">
+        <div v-else-if="activeTab === '2'">
           <StatuteBookmarksPanel
             @navigate="onStatuteNavigate"
           />
@@ -167,11 +175,11 @@
           <div
             v-for="result in quickSearchResults"
             :key="result.unit.id"
-            class="p-2 hover:bg-gray-50 cursor-pointer rounded"
+            class="p-2 hover:bg-slate-100 cursor-pointer rounded"
             @click="selectQuickSearchResult(result)"
           >
             <div class="font-medium text-blue-600">{{ result.unit.citation }}</div>
-            <div v-if="result.unit.name" class="text-sm text-gray-600">{{ result.unit.name }}</div>
+            <div v-if="result.unit.name" class="text-sm text-slate-600">{{ result.unit.name }}</div>
           </div>
         </div>
       </div>
@@ -187,7 +195,7 @@
       <div class="p-4 space-y-4">
         <div>
           <h3 class="font-semibold mb-2">Search Tips</h3>
-          <ul class="text-sm space-y-1 text-gray-600">
+          <ul class="text-sm space-y-1 text-slate-600">
             <li>• Use exact citations like "15-10-101" for precise results</li>
             <li>• Search by keywords like "probate" or "trust"</li>
             <li>• Use quotes for exact phrases: "fiduciary duty"</li>
@@ -197,7 +205,7 @@
         
         <div>
           <h3 class="font-semibold mb-2">Navigation</h3>
-          <ul class="text-sm space-y-1 text-gray-600">
+          <ul class="text-sm space-y-1 text-slate-600">
             <li>• Click on statutes in the browser to view content</li>
             <li>• Use breadcrumbs to navigate up the hierarchy</li>
             <li>• Arrow buttons navigate between siblings</li>
@@ -206,10 +214,10 @@
         
         <div>
           <h3 class="font-semibold mb-2">Keyboard Shortcuts</h3>
-          <ul class="text-sm space-y-1 text-gray-600">
-            <li>• <kbd class="bg-gray-200 px-1 rounded">Ctrl+K</kbd> - Quick search</li>
-            <li>• <kbd class="bg-gray-200 px-1 rounded">Ctrl+B</kbd> - Toggle bookmarks</li>
-            <li>• <kbd class="bg-gray-200 px-1 rounded">Escape</kbd> - Close dialogs</li>
+          <ul class="text-sm space-y-1 text-slate-600">
+            <li>• <kbd class="bg-slate-200 px-1 rounded">Ctrl+K</kbd> - Quick search</li>
+            <li>• <kbd class="bg-slate-200 px-1 rounded">Ctrl+B</kbd> - Toggle bookmarks</li>
+            <li>• <kbd class="bg-slate-200 px-1 rounded">Escape</kbd> - Close dialogs</li>
           </ul>
         </div>
       </div>
@@ -236,7 +244,7 @@ useSeoMeta({
 })
 
 // Reactive state
-const activeTab = ref(0)
+const activeTab = ref('0')
 const selectedCitation = ref<string>('')
 const searchQuery = ref('')
 const showQuickSearch = ref(false)
@@ -255,11 +263,11 @@ const { performSearch } = useStatuteSearch()
 // Watch for URL changes to set active tab and citation
 watch(() => route.query, (newQuery) => {
   if (newQuery.tab) {
-    activeTab.value = parseInt(newQuery.tab as string) || 0
+    activeTab.value = (newQuery.tab as string) || '0'
   }
   if (newQuery.search) {
     searchQuery.value = newQuery.search as string
-    activeTab.value = 1 // Switch to search tab
+    activeTab.value = '1' // Switch to search tab
   }
   if (newQuery.citation) {
     selectedCitation.value = newQuery.citation as string
@@ -286,7 +294,7 @@ onMounted(() => {
         case 'b':
         case 'B':
           event.preventDefault()
-          activeTab.value = 2 // Bookmarks tab
+          activeTab.value = '2' // Bookmarks tab
           break
       }
     }
@@ -367,19 +375,18 @@ watch(quickSearchQuery, useDebounceFn((query: string) => {
 </script>
 
 <style scoped>
-.statute-reader-main {
-  @apply min-h-screen bg-gray-50;
-}
-
 :deep(.statute-reader-tabs .p-tabview-nav) {
-  @apply bg-white border-b border-gray-200;
+  background-color: var(--sr-white);
+  border-bottom: 1px solid var(--sr-slate-200);
 }
 
 :deep(.statute-reader-tabs .p-tabview-header) {
-  @apply text-sm font-medium;
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 kbd {
-  @apply font-mono text-xs;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.75rem;
 }
 </style>

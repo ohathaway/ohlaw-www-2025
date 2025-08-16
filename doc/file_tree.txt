@@ -4,9 +4,8 @@
 │   ├── app.vue
 │   ├── assets
 │   │   ├── css
-│   │   │   ├── formkit.css
+│   │   │   ├── critical-primevue.css
 │   │   │   ├── site.css
-│   │   │   ├── tailwind.css
 │   │   │   └── theme.css
 │   │   └── fonts
 │   │       ├── BenguiatItalic.ttf
@@ -35,6 +34,7 @@
 │   │   │   ├── FeaturedPost.vue
 │   │   │   ├── FeaturedPostCard.vue
 │   │   │   ├── Header.vue
+│   │   │   ├── PDFDownloadButton.vue
 │   │   │   ├── PostList.vue
 │   │   │   ├── PostListRow.vue
 │   │   │   ├── PostListSidebar.vue
@@ -89,15 +89,19 @@
 │   │       ├── Disclaimer.vue
 │   │       └── RothConversion
 │   │           ├── BracketCliffChart.vue
-│   │           ├── ColorTest.vue
 │   │           ├── InputForm.vue
 │   │           ├── PersonalizationModal.vue
-│   │           └── ScenarioComparison.vue
+│   │           ├── PersonalizationModeControls.vue
+│   │           ├── ScenarioCard.vue
+│   │           ├── ScenarioDetailsView.vue
+│   │           └── ScenarioGridView.vue
 │   ├── composables
 │   │   ├── useAutoLayout.ts
 │   │   ├── useBackgroundStyle.js
+│   │   ├── useBlogPDF.js
 │   │   ├── useMeilisearch.js
 │   │   ├── useMeilisearchInstant.js
+│   │   ├── useQrCode.js
 │   │   ├── useRothCalculations.js
 │   │   └── useSeo.js
 │   ├── error.vue
@@ -143,7 +147,8 @@
 │   │   │   │   ├── gun-trusts
 │   │   │   │   │   └── index.vue
 │   │   │   │   ├── GunTrusts.vue
-│   │   │   │   └── index.vue
+│   │   │   │   ├── index.vue
+│   │   │   │   └── pricing.vue
 │   │   │   ├── index.vue
 │   │   │   ├── nonprofits
 │   │   │   │   └── index.vue
@@ -155,83 +160,171 @@
 │   ├── plugins
 │   │   ├── console-message.js
 │   │   ├── fontawesome.js
+│   │   ├── primevue.ts
 │   │   └── vue-instantsearch.js
 │   ├── stores
 │   │   ├── blogStore.js
 │   │   ├── mainStore.js
-│   │   └── quizStore.js
+│   │   ├── quizStore.js
+│   │   └── rothConversionStore.js
 │   └── utils
 │       ├── addresses.js
+│       ├── array.js
+│       ├── arrays.js
 │       ├── blog.js
 │       ├── dates.js
 │       ├── forms.js
 │       ├── glossary.js
+│       ├── lang.js
 │       ├── menuUtils.js
 │       ├── numbers.js
+│       ├── object.js
 │       ├── ohlaw.js
+│       ├── qrcode
+│       │   ├── config.js
+│       │   ├── generator.js
+│       │   ├── index.js
+│       │   ├── README.md
+│       │   └── validation.js
 │       ├── quizQueries.js
 │       ├── scheduling.js
 │       └── strings.js
-├── CLAUDE.md
 ├── doc
+│   ├── blogArticles.json
 │   ├── color-test.vue
+│   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries full text.html
+│   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries through article 10.html
+│   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries.html
 │   ├── file_tree.txt
 │   ├── infrastructure-audit-phase2a.md
 │   ├── ohlawPreset.json
 │   ├── ohlawPreset2.json
-│   └── quizDiyEstatePlanning.json
+│   ├── quizDiyEstatePlanning.json
+│   └── strapiWebhook.json
 ├── eslint.config.mjs
 ├── formkit.config.js
 ├── formkit.theme.ts
 ├── formkit2tw.js
+├── gql.d.ts
+├── modules
+│   └── statute-reader
+│       ├── CHANGELOG.md
+│       ├── index.ts
+│       ├── migrations
+│       │   ├── 001_initial_schema.sql
+│       │   ├── 002_search_indexes.sql
+│       │   └── 003_test_data.sql
+│       ├── package.json
+│       ├── README.md
+│       └── runtime
+│           ├── components
+│           │   ├── StatuteBrowser.vue
+│           │   ├── StatuteBrowserNode.vue
+│           │   ├── StatuteNavigation.vue
+│           │   ├── StatuteSearch.vue
+│           │   ├── StatuteSearchResult.vue
+│           │   └── StatuteViewer.vue
+│           ├── composables
+│           │   ├── useStatuteBookmarks.ts
+│           │   ├── useStatuteBrowser.ts
+│           │   ├── useStatuteData.ts
+│           │   └── useStatuteSearch.ts
+│           ├── pages
+│           │   └── statutes
+│           │       ├── [...citation].vue
+│           │       ├── index.vue
+│           │       └── search.vue
+│           ├── server
+│           │   ├── api
+│           │   │   ├── admin
+│           │   │   │   ├── scrape.post.ts
+│           │   │   │   └── status.get.ts
+│           │   │   └── statutes
+│           │   │       ├── [citation].get.ts
+│           │   │       ├── browse.get.ts
+│           │   │       └── search.post.ts
+│           │   └── utils
+│           │       ├── database.ts
+│           │       ├── parser.ts
+│           │       ├── scraper.ts
+│           │       └── search.ts
+│           └── types
+│               ├── api.ts
+│               ├── index.ts
+│               ├── search.ts
+│               └── statute.ts
 ├── nuxt.config.ts
 ├── package.json
+├── playwright.config.ts
 ├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
 ├── primevue.ohlaw.ts
 ├── public
+│   ├── android-chrome-192x192.png
+│   ├── android-chrome-512x512.png
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon-32x32.png
 │   ├── favicon.ico
 │   ├── icons
 │   │   ├── bankruptcy-icon.svg
 │   │   ├── business-icon.svg
 │   │   ├── estate-planning-icon.svg
 │   │   └── nonprofit-icon.svg
-│   └── img
-│       ├── 3genfamily1.webp
-│       ├── blog_header.webp
-│       ├── business1_1024.webp
-│       ├── chair_on_laptop.webp
-│       ├── dotorgtablet_1024.webp
-│       ├── estatenotebook_1024.webp
-│       ├── glossary-article-header.webp
-│       ├── gun_safe.webp
-│       ├── gun_trust.webp
-│       ├── helpinghand_1024.webp
-│       ├── horsetooth_hiker_1275_485_smallest.jpg
-│       ├── IMG_5943.webp
-│       ├── it2lawyer2.webp
-│       ├── ohlaw_full_logo.svg
-│       ├── ohlaw_icon_circle_gray_drop2.png
-│       ├── ohlaw_icon_circle_gray.svg
-│       ├── ohlaw_icon.svg
-│       ├── PFL_StackedLogo_FullColor.png
-│       ├── phone-fill.svg
-│       ├── placeholder_1024.webp
-│       └── Search_GSA.original.png
+│   ├── img
+│   │   ├── 3genfamily1.webp
+│   │   ├── affordable_and_effective_top_only.webp
+│   │   ├── blog_header.webp
+│   │   ├── business1_1024.webp
+│   │   ├── chair_on_laptop.webp
+│   │   ├── dotorgtablet_1024.webp
+│   │   ├── estatenotebook_1024.webp
+│   │   ├── glossary-article-header.webp
+│   │   ├── gun_safe.webp
+│   │   ├── gun_trust.webp
+│   │   ├── helpinghand_1024.webp
+│   │   ├── horsetooth_hiker_1275_485_smallest.jpg
+│   │   ├── horsetooth_hiker_1275_485.webp
+│   │   ├── IMG_5943.webp
+│   │   ├── it2lawyer2.webp
+│   │   ├── ohlaw_full_logo.svg
+│   │   ├── ohlaw_icon_circle_gray_drop2.png
+│   │   ├── ohlaw_icon_circle_gray.svg
+│   │   ├── ohlaw_icon.svg
+│   │   ├── PFL_StackedLogo_FullColor.png
+│   │   ├── PFL_StackedLogo_FullColor.webp
+│   │   ├── phone-fill.svg
+│   │   ├── placeholder_1024.webp
+│   │   ├── Search_GSA.original.png
+│   │   └── Search_GSA.original.webp
+│   └── site.webmanifest
 ├── README.md
+├── scripts
+│   ├── generate-blog-pdfs-simple.js
+│   └── generate-blog-pdfs.js
 ├── server
 │   ├── api
 │   │   ├── ai-ping.get.js
+│   │   ├── blog
+│   │   │   ├── batch-generate-pdfs.post.js
+│   │   │   ├── generate-pdf.post.js
+│   │   │   ├── get-pdf-url.post.js
+│   │   │   └── webhooks
+│   │   │       └── new_post_pdf.post.js
 │   │   ├── mail-ping.get.js
 │   │   ├── ping.ts
 │   │   ├── quizzes
 │   │   │   └── generate-report.post.js
 │   │   └── subscribe.post.js
-│   ├── tsconfig.json
 │   └── utils
 │       ├── ai.ts
+│       ├── blog
+│       │   └── generateBlogPDF.js
 │       ├── functional.ts
 │       ├── images.js
 │       ├── mailersend
+│       │   └── index.js
+│       ├── qrcode
 │       │   └── index.js
 │       ├── quizzes
 │       │   ├── aiAnalysis.js
@@ -243,6 +336,12 @@
 │       ├── reports
 │       │   └── index.js
 │       └── strings.js
+├── tests
+│   ├── blog.spec.ts
+│   ├── contact.spec.ts
+│   └── index.spec.ts
+├── tests-examples
+│   └── demo-todo-app.spec.ts
 └── tsconfig.json
 
-44 directories, 202 files
+66 directories, 279 files

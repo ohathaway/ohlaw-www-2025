@@ -34,8 +34,15 @@ import ProgressSpinner from 'primevue/progressspinner'
 import ProgressBar from 'primevue/progressbar'
 import RadioButton from 'primevue/radiobutton'
 import Ripple from 'primevue/ripple'
+import Select from 'primevue/select'
 import SelectButton from 'primevue/selectbutton'
 import Slider from 'primevue/slider'
+import TabPanel from 'primevue/tabpanel'
+import Tabs from 'primevue/tabs'
+import TabList from 'primevue/tablist'
+import Tab from 'primevue/tab'
+import TabPanels from 'primevue/tabpanels'
+import TabView from 'primevue/tabview'
 import Tag from 'primevue/tag'
 import Timeline from 'primevue/timeline'
 import Tooltip from 'primevue/tooltip'
@@ -88,8 +95,15 @@ export default defineNuxtPlugin({
     nuxtApp.vueApp.component('ProgressSpinner', ProgressSpinner)
     nuxtApp.vueApp.component('ProgressBar', ProgressBar)
     nuxtApp.vueApp.component('RadioButton', RadioButton)
+    nuxtApp.vueApp.component('Select', Select)
     nuxtApp.vueApp.component('SelectButton', SelectButton)
     nuxtApp.vueApp.component('Slider', Slider)
+    nuxtApp.vueApp.component('Tab', Tab)
+    nuxtApp.vueApp.component('TabList', TabList)
+    nuxtApp.vueApp.component('TabPanel', TabPanel)
+    nuxtApp.vueApp.component('TabPanels', TabPanels)
+    nuxtApp.vueApp.component('Tabs', Tabs)
+    nuxtApp.vueApp.component('TabView', TabView)
     nuxtApp.vueApp.component('Tag', Tag)
     nuxtApp.vueApp.component('Timeline', Timeline)
 

@@ -92,6 +92,7 @@ export default defineNuxtConfig({
     // '@primevue/nuxt-module',
     '@vueuse/nuxt',
     'nuxt-gtag',
+    './modules/statute-reader',
   ],
 
   imports: {
@@ -276,6 +277,22 @@ export default defineNuxtConfig({
     ai: true,
     blob: true,
     kv: true,
+    database: true,
+    databaseMigrationsDirs: [
+      'modules/statute-reader/migrations'
+    ],
+    vectorize: {
+      statutes: {
+        dimensions: 768,
+        metric: 'cosine',
+        metadataIndexes: {
+          jurisdiction: 'string',
+          publication: 'string',
+          unit_type: 'string',
+          citation: 'string'
+        }
+      }
+    }
   },
 
   vite: {
@@ -364,4 +381,18 @@ export default defineNuxtConfig({
   sitemap: {
     sources: ['https://strapi.ohlawcolorado.com/api/sitemap/index.xml'],
   },
+
+  // OHLaw custom statute reader module config
+  statuteReader: {
+    sources: {
+      colorado: {
+        baseUrl: 'https://leg.colorado.gov/agencies/office-legislative-legal-services/2024-crs-titles-download',
+        enabled: true
+      }
+    },
+    ui: {
+      basePath: '/statutes',
+      theme: 'primevue'
+    }
+  }
 })

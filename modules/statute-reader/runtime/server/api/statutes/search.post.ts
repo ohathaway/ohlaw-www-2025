@@ -1,18 +1,9 @@
-import { createStatuteDatabase, createSearchEngine } from '../../utils'
+import { createStatuteDatabase } from '../../utils/database'
+import { createSearchEngine } from '../../utils/search'
 import type { SearchQuery, SearchApiResponse } from '../../../types'
 
 export default defineEventHandler(async (event): Promise<SearchApiResponse> => {
   try {
-    // Get the database binding from runtime config
-    const { statuteReader } = useRuntimeConfig()
-    const db = (event.context.cloudflare?.env as any)?.[statuteReader.database.binding]
-    
-    if (!db) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Database not available'
-      })
-    }
 
     // Parse and validate the search query
     const body = await readBody(event)
@@ -44,7 +35,7 @@ export default defineEventHandler(async (event): Promise<SearchApiResponse> => {
     }
 
     // Perform the search
-    const statuteDb = createStatuteDatabase(db)
+    const statuteDb = createStatuteDatabase()
     const searchEngine = createSearchEngine(statuteDb)
     const searchResponse = await searchEngine.search(searchQuery)
 

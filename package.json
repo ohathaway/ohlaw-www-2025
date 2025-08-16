@@ -10,7 +10,11 @@
     "deploy": "pnpm dlx nuxthub deploy",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "generate-blog-pdfs": "node scripts/generate-blog-pdfs-simple.js"
+    "generate-blog-pdfs": "node scripts/generate-blog-pdfs-simple.js",
+    "migrate:statute-local": "npx wrangler d1 execute ohlaw-statutes-dev --local --env development --file=./modules/statute-reader/migrations/001_initial_schema.sql && npx wrangler d1 execute ohlaw-statutes-dev --local --env development --file=./modules/statute-reader/migrations/002_search_indexes.sql && npx wrangler d1 execute ohlaw-statutes-dev --local --env development --file=./modules/statute-reader/migrations/003_test-data.sql",
+    "migrate:statute-preview": "npx wrangler d1 execute ohlaw-statutes-preview --env preview --file=./modules/statute-reader/migrations/001_initial_schema.sql && npx wrangler d1 execute ohlaw-statutes-preview --env preview --file=./modules/statute-reader/migrations/002_search_indexes.sql",
+    "migrate:statute-prod": "npx wrangler d1 execute ohlaw-statutes-prod --env production --file=./modules/statute-reader/migrations/001_initial_schema.sql && npx wrangler d1 execute ohlaw-statutes-prod --env production --file=./modules/statute-reader/migrations/002_search_indexes.sql"
+
   },
   "dependencies": {
     "@ai-sdk/vue": "^1.2.12",

@@ -1,20 +1,11 @@
-import { createStatuteDatabase } from '../../utils'
-import type { SystemStatus, ApiResponse } from '../../../types'
+// import { createStatuteDatabase } from '../../../utils/database'
+import type { SystemStatus, ApiResponse } from '../../../../types'
 
 export default defineEventHandler(async (event): Promise<ApiResponse<SystemStatus>> => {
   try {
-    // Get the database binding from runtime config
-    const { statuteReader } = useRuntimeConfig()
-    const db = (event.context.cloudflare?.env as any)?.[statuteReader.database.binding]
-    
-    if (!db) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Database not available'
-      })
-    }
+    const db = hubDatabase()
 
-    const statuteDb = createStatuteDatabase(db)
+    // const statuteDb = createStatuteDatabase()
 
     // Check database connectivity and gather stats
     const status: SystemStatus = {

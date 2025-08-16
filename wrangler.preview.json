@@ -1,0 +1,39 @@
+{
+  "name": "ohlaw-www-2025-preview",
+  "compatibility_date": "2024-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "NODE_ENV": "preview",
+    "NUXT_ENV": "preview"
+  },
+  "d1_databases": [
+    {
+      "binding": "STATUTE_DB",
+      "database_name": "ohlaw-statutes-preview",
+      "database_id": "YOUR_PREVIEW_D1_DATABASE_ID"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "STATUTE_BUCKET",
+      "bucket_name": "ohlaw-statutes-assets-preview"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "STATUTES_CACHE",
+      "id": "YOUR_PREVIEW_KV_NAMESPACE_ID"
+    }
+  ],
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "STATUTE_VECTORIZE",
+      "index_name": "statute-embeddings-preview"
+    }
+  ]
+}

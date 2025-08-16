@@ -1,4 +1,3 @@
-import type { D1Database } from '@cloudflare/workers-types'
 import type { 
   LegalUnit, 
   Jurisdiction, 
@@ -9,7 +8,7 @@ import type {
 } from '../../types'
 
 export class StatuteDatabase {
-  constructor(private db: D1Database) {}
+  constructor(private db: any) {}
 
   // Jurisdictions
   async getJurisdictions(): Promise<Jurisdiction[]> {
@@ -319,4 +318,4 @@ export class StatuteDatabase {
   }
 }
 
-export const createStatuteDatabase = (db: D1Database) => new StatuteDatabase(db)
+export const createStatuteDatabase = () => new StatuteDatabase(hubDatabase())

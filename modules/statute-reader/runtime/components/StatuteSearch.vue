@@ -1,19 +1,19 @@
 <template>
   <div class="statute-search">
     <!-- Search Header -->
-    <div class="search-header bg-white border-b border-gray-200 p-4">
+    <div class="search-header sr-bg-white sr-border-b sr-border-slate-200 sr-p-4">
       <!-- Main Search Input -->
-      <div class="relative mb-4">
+      <div class="sr-relative sr-mb-4">
         <InputText
           v-model="searchQuery"
           placeholder="Search statutes (e.g., '15-10-101' or 'probate code')..."
-          class="w-full pl-10 pr-4 py-3 text-lg"
+          class="sr-w-full sr-pl-10 sr-pr-4 sr-py-3 sr-text-lg"
           @keyup.enter="performSearch(searchQuery)"
         />
         
         <Icon
           name="pi-search"
-          class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          class="sr-absolute sr-left-3 sr-top-1/2 sr-transform sr-transform-translate-y-minus-1/2 sr-text-gray-400"
         />
         
         <Button
@@ -21,9 +21,9 @@
           @click="clearSearch"
           size="small"
           text
-          class="absolute right-2 top-1/2 transform -translate-y-1/2"
+          class="sr-absolute sr-right-2 sr-top-1/2 sr-transform sr-transform-translate-y-minus-1/2"
         >
-          <Icon name="pi-times" class="text-gray-400" />
+          <Icon name="pi-times" class="sr-text-gray-400" />
         </Button>
       </div>
 
@@ -34,21 +34,21 @@
             @click="toggle"
             text
             size="small"
-            class="mb-2"
+            class="sr-mb-2"
           >
-            <Icon :name="expanded ? 'pi-chevron-down' : 'pi-chevron-right'" class="mr-1" />
+            <Icon :name="expanded ? 'pi-chevron-down' : 'pi-chevron-right'" class="sr-mr-1" />
             Advanced Filters
           </Button>
         </template>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-gray-50 rounded">
+        <div class="sr-grid sr-grid-cols-1 md:sr-grid-cols-2 lg:sr-grid-cols-4 sr-gap-4 sr-p-4 sr-bg-slate-100 sr-rounded">
           <Select
             v-model="filters.jurisdictionId"
             :options="jurisdictions"
             option-label="name"
             option-value="id"
             placeholder="Jurisdiction"
-            class="w-full"
+            class="sr-w-full"
           />
           
           <Select
@@ -57,7 +57,7 @@
             option-label="name"
             option-value="id"
             placeholder="Publication"
-            class="w-full"
+            class="sr-w-full"
             :disabled="!filters.jurisdictionId"
           />
           
@@ -67,54 +67,54 @@
             option-label="label"
             option-value="value"
             placeholder="Unit Types"
-            class="w-full"
+            class="sr-w-full"
           />
           
-          <div class="flex items-center gap-4">
+          <div class="sr-flex sr-items-center sr-gap-4">
             <Checkbox
               v-model="filters.exactMatch"
               binary
               input-id="exact-match"
             />
-            <label for="exact-match" class="text-sm">Exact match</label>
+            <label for="exact-match" class="sr-text-sm">Exact match</label>
             
             <Checkbox
               v-model="filters.includeRepealed"
               binary
               input-id="include-repealed"
             />
-            <label for="include-repealed" class="text-sm">Include repealed</label>
+            <label for="include-repealed" class="sr-text-sm">Include repealed</label>
           </div>
         </div>
       </Collapsible>
 
       <!-- Search Stats -->
-      <div v-if="totalResults > 0" class="flex items-center justify-between mt-4 text-sm text-gray-600">
+      <div v-if="totalResults > 0" class="sr-flex sr-items-center sr-justify-between sr-mt-4 sr-text-sm sr-text-slate-600">
         <span>
           {{ totalResults.toLocaleString() }} results found
           <span v-if="searchTime > 0">({{ searchTime }}ms)</span>
         </span>
         
-        <div class="flex items-center gap-2">
-          <label for="results-per-page" class="text-xs">Results per page:</label>
+        <div class="sr-flex sr-items-center sr-gap-2">
+          <label for="results-per-page" class="sr-text-xs">Results per page:</label>
           <Select
             v-model="resultsPerPage"
             :options="[10, 20, 50, 100]"
-            class="w-20"
+            class="sr-w-20"
             size="small"
           />
         </div>
       </div>
 
       <!-- Search History -->
-      <div v-if="searchHistory.length > 0" class="mt-4">
-        <p class="text-sm text-gray-600 mb-2">Recent searches:</p>
-        <div class="flex flex-wrap gap-2">
+      <div v-if="searchHistory.length > 0" class="sr-mt-4">
+        <p class="sr-text-sm sr-text-slate-600 sr-mb-2">Recent searches:</p>
+        <div class="sr-flex sr-flex-wrap sr-gap-2">
           <Chip
             v-for="query in searchHistory.slice(0, 5)"
             :key="query"
             :label="query"
-            class="cursor-pointer"
+            class="sr-cursor-pointer"
             @click="searchFromHistory(query)"
             removable
             @remove="removeFromHistory(query)"
@@ -124,11 +124,11 @@
     </div>
 
     <!-- Search Results -->
-    <div class="search-results flex-1 overflow-auto">
+    <div class="search-results sr-flex-1 sr-overflow-auto">
       <!-- Loading State -->
-      <div v-if="isSearching" class="flex items-center justify-center p-8">
+      <div v-if="isSearching" class="sr-flex sr-items-center sr-justify-center sr-p-8">
         <ProgressSpinner size="2rem" />
-        <span class="ml-2 text-gray-600">Searching...</span>
+        <span class="sr-ml-2 sr-text-slate-600">Searching...</span>
       </div>
 
       <!-- Error State -->
@@ -136,7 +136,7 @@
         v-else-if="searchError"
         severity="error"
         :closable="false"
-        class="m-4"
+        class="sr-mt-4 sr-mb-4 sr-ml-4 sr-mr-4"
       >
         {{ searchError }}
       </Message>
@@ -144,18 +144,18 @@
       <!-- No Results -->
       <div
         v-else-if="searchQuery && searchResults.length === 0 && !isSearching"
-        class="text-center p-8"
+        class="sr-text-center sr-p-8"
       >
-        <Icon name="pi-search" class="text-4xl text-gray-300 mb-4" />
-        <h3 class="text-lg font-medium text-gray-900 mb-2">No results found</h3>
-        <p class="text-gray-600 mb-4">
+        <Icon name="pi-search" class="sr-text-4xl sr-text-gray-300 sr-mb-4" />
+        <h3 class="sr-text-lg sr-font-medium sr-text-slate-900 sr-mb-2">No results found</h3>
+        <p class="sr-text-slate-600 sr-mb-4">
           No statutes match your search for "{{ searchQuery }}"
         </p>
         
         <!-- Suggestions -->
-        <div v-if="suggestions.length > 0" class="mt-4">
-          <p class="text-sm text-gray-600 mb-2">Did you mean:</p>
-          <div class="flex flex-wrap justify-center gap-2">
+        <div v-if="suggestions.length > 0" class="sr-mt-4">
+          <p class="sr-text-sm sr-text-slate-600 sr-mb-2">Did you mean:</p>
+          <div class="sr-flex sr-flex-wrap sr-justify-center sr-gap-2">
             <Button
               v-for="suggestion in suggestions"
               :key="suggestion"
@@ -169,7 +169,7 @@
       </div>
 
       <!-- Search Results List -->
-      <div v-else-if="searchResults.length > 0" class="p-4">
+      <div v-else-if="searchResults.length > 0" class="sr-p-4">
         <StatuteSearchResult
           v-for="result in searchResults"
           :key="result.unit.id"
@@ -177,11 +177,11 @@
           :search-query="searchQuery"
           @select="onResultSelect"
           @bookmark="onBookmark"
-          class="mb-4"
+          class="sr-mb-4"
         />
 
         <!-- Pagination -->
-        <div v-if="totalPages > 1" class="flex justify-center mt-6">
+        <div v-if="totalPages > 1" class="sr-flex sr-justify-center sr-mt-6">
           <Paginator
             :rows="resultsPerPage"
             :total-records="totalResults"
@@ -194,19 +194,19 @@
       <!-- Empty State -->
       <div
         v-else-if="!searchQuery"
-        class="flex flex-col items-center justify-center p-8 text-gray-500"
+        class="sr-flex sr-flex-col sr-items-center sr-justify-center sr-p-8 sr-text-slate-500"
       >
-        <Icon name="pi-search" class="text-4xl mb-4" />
-        <h3 class="text-lg font-medium mb-2">Search Colorado Statutes</h3>
-        <p class="text-center max-w-md">
+        <Icon name="pi-search" class="sr-text-4xl sr-mb-4" />
+        <h3 class="sr-text-lg sr-font-medium sr-mb-2">Search Colorado Statutes</h3>
+        <p class="sr-text-center sr-max-w-md">
           Enter a citation, keyword, or phrase to search through the Colorado Revised Statutes.
           Use quotes for exact phrases or specific citation formats.
         </p>
         
         <!-- Quick Search Examples -->
-        <div class="mt-6">
-          <p class="text-sm font-medium mb-2">Try these examples:</p>
-          <div class="flex flex-wrap gap-2">
+        <div class="sr-mt-6">
+          <p class="sr-text-sm sr-font-medium sr-mb-2">Try these examples:</p>
+          <div class="sr-flex sr-flex-wrap sr-gap-2">
             <Button
               v-for="example in searchExamples"
               :key="example"
@@ -265,16 +265,13 @@ const {
   goToPage
 } = useStatuteSearch()
 
-// Use data composables for filters
-const { jurisdictions, publications } = useStatuteData()
-
 // Load data for filters
 const { data: jurisdictionsData } = await useAsyncData('jurisdictions', () => 
-  $fetch('/api/jurisdictions')
+  $fetch('/api/statutes/jurisdictions')
 )
 
 const { data: publicationsData } = await useAsyncData('publications', () =>
-  $fetch('/api/publications')  
+  $fetch('/api/statutes/publications')  
 )
 
 const jurisdictions = computed(() => jurisdictionsData.value?.data || [])
@@ -332,14 +329,18 @@ onMounted(() => {
 
 <style scoped>
 .statute-search {
-  @apply flex flex-col h-full bg-white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
 }
 
 .search-header {
-  @apply flex-shrink-0;
+  flex-shrink: 0;
 }
 
 .search-results {
-  @apply flex-1 overflow-auto;
+  flex: 1 1 0%;
+  overflow: auto;
 }
 </style>

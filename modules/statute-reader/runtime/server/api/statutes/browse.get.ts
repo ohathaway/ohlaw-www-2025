@@ -1,18 +1,8 @@
-import { createStatuteDatabase } from '../../utils'
+import { createStatuteDatabase } from '../../utils/database'
 import type { BrowseQuery, BrowseApiResponse, BrowseNode } from '../../../types'
 
 export default defineEventHandler(async (event): Promise<BrowseApiResponse> => {
   try {
-    // Get the database binding from runtime config
-    const { statuteReader } = useRuntimeConfig()
-    const db = (event.context.cloudflare?.env as any)?.[statuteReader.database.binding]
-    
-    if (!db) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Database not available'
-      })
-    }
 
     // Parse query parameters
     const query = getQuery(event)
@@ -26,7 +16,7 @@ export default defineEventHandler(async (event): Promise<BrowseApiResponse> => {
       max_depth: Math.min(parseInt(query.max_depth as string) || 2, 5) // Cap at 5 levels
     }
 
-    const statuteDb = createStatuteDatabase(db)
+    const statuteDb = createStatuteDatabase()
 
     // Get the main units for browsing
     const units = await statuteDb.getBrowseHierarchy(

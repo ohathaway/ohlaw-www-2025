@@ -5,7 +5,21 @@
       "Bash(grep:*)",
       "Bash(ls:*)",
       "Bash(npx playwright test:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(find:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm run dev:*)",
+      "Bash(npx nuxthub dev:*)",
+      "Bash(pnpm dlx nuxthub dev:*)",
+      "Bash(pnpm dlx nuxthub preview:*)",
+      "Bash(npx wrangler d1 info:*)",
+      "Bash(npx wrangler d1 list:*)",
+      "Bash(npx wrangler d1 create:*)",
+      "Bash(curl:*)",
+      "Bash(npx wrangler pages dev:*)",
+      "WebFetch(domain:hub.nuxt.com)",
+      "mcp__cloudflare-docs__search_cloudflare_documentation"
     ],
     "deny": []
   },

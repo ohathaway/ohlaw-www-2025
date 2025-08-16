@@ -1,18 +1,8 @@
-import { createStatuteDatabase } from '../../utils'
+import { createStatuteDatabase } from '../../utils/database'
 import type { StatuteApiResponse, LegalUnit } from '../../../types'
 
 export default defineEventHandler(async (event): Promise<StatuteApiResponse> => {
   try {
-    // Get the database binding from runtime config
-    const { statuteReader } = useRuntimeConfig()
-    const db = (event.context.cloudflare?.env as any)?.[statuteReader.database.binding]
-    
-    if (!db) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Database not available'
-      })
-    }
 
     // Extract citation from route parameters
     const citation = getRouterParam(event, 'citation')
@@ -34,7 +24,7 @@ export default defineEventHandler(async (event): Promise<StatuteApiResponse> => 
     const includeHistory = query.include_history === 'true'
     const includeMetadata = query.include_metadata === 'true'
 
-    const statuteDb = createStatuteDatabase(db)
+    const statuteDb = createStatuteDatabase()
 
     // Get the main legal unit
     const unit = await statuteDb.getLegalUnitByCitation(cleanCitation)

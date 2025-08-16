@@ -1,14 +1,14 @@
 <template>
   <div class="statute-browser">
     <!-- Browser Header -->
-    <div class="border-b border-gray-200 bg-white p-4">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold text-gray-900">
+    <div class="sr-border-b sr-border-slate-200 sr-bg-white sr-p-4">
+      <div class="sr-flex sr-items-center sr-justify-between sr-mb-4">
+        <h2 class="sr-text-lg sr-font-semibold sr-text-slate-900">
           Statute Browser
         </h2>
         
         <!-- Browser Controls -->
-        <div class="flex items-center gap-2">
+        <div class="sr-flex sr-items-center sr-gap-2">
           <Button
             :disabled="!canGoBack"
             @click="goBack"
@@ -16,7 +16,7 @@
             text
             severity="secondary"
           >
-            <Icon name="pi-arrow-left" class="text-sm" />
+            <i class="pi pi-arrow-left sr-text-sm" />
           </Button>
           
           <Button
@@ -26,7 +26,7 @@
             text
             severity="secondary"
           >
-            <Icon name="pi-arrow-right" class="text-sm" />
+            <i class="pi pi-arrow-right sr-text-sm" />
           </Button>
           
           <Button
@@ -36,7 +36,7 @@
             severity="secondary"
             title="Go to root"
           >
-            <Icon name="pi-home" class="text-sm" />
+            <i class="pi pi-home sr-text-sm" />
           </Button>
           
           <Button
@@ -46,7 +46,7 @@
             severity="secondary"
             title="Collapse all"
           >
-            <Icon name="pi-minus" class="text-sm" />
+            <i class="pi pi-minus sr-text-sm" />
           </Button>
           
           <Button
@@ -56,20 +56,20 @@
             severity="secondary"
             title="Expand all"
           >
-            <Icon name="pi-plus" class="text-sm" />
+            <i class="pi pi-plus sr-text-sm" />
           </Button>
         </div>
       </div>
 
       <!-- Filter Controls -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <div class="sr-grid sr-grid-cols-1 md:sr-grid-cols-3 sr-gap-4 sr-mb-4">
         <Select
           v-model="selectedJurisdiction"
           :options="jurisdictions"
           option-label="name"
           option-value="id"
           placeholder="Select Jurisdiction"
-          class="w-full"
+          class="sr-w-full"
         />
         
         <Select
@@ -78,17 +78,17 @@
           option-label="name"
           option-value="id"
           placeholder="Select Publication"
-          class="w-full"
+          class="sr-w-full"
           :disabled="!selectedJurisdiction"
         />
         
         <InputText
           v-model="treeFilter"
           placeholder="Filter statutes..."
-          class="w-full"
+          class="sr-w-full"
         >
           <template #prefix>
-            <Icon name="pi-search" class="text-gray-400" />
+            <i class="pi pi-search sr-text-gray-400" />
           </template>
         </InputText>
       </div>
@@ -97,16 +97,16 @@
       <Breadcrumb
         v-if="breadcrumbs.length > 0"
         :model="breadcrumbItems"
-        class="p-0"
+        class="sr-p-0"
       />
     </div>
 
     <!-- Browser Content -->
-    <div class="flex-1 overflow-auto">
+    <div class="sr-flex-1 sr-overflow-auto">
       <!-- Loading State -->
-      <div v-if="isLoading" class="flex items-center justify-center p-8">
+      <div v-if="isLoading" class="sr-flex sr-items-center sr-justify-center sr-p-8">
         <ProgressSpinner size="2rem" />
-        <span class="ml-2 text-gray-600">Loading statutes...</span>
+        <span class="sr-ml-2 sr-text-slate-600">Loading statutes...</span>
       </div>
 
       <!-- Error State -->
@@ -114,7 +114,7 @@
         v-else-if="browserError"
         severity="error"
         :closable="false"
-        class="m-4"
+        class="sr-mt-4 sr-mb-4 sr-ml-4 sr-mr-4"
       >
         {{ browserError }}
       </Message>
@@ -122,15 +122,15 @@
       <!-- Empty State -->
       <div
         v-else-if="browseTree.length === 0"
-        class="flex flex-col items-center justify-center p-8 text-gray-500"
+        class="sr-flex sr-flex-col sr-items-center sr-justify-center sr-p-8 sr-text-slate-500"
       >
-        <Icon name="pi-book" class="text-4xl mb-2" />
-        <p class="text-lg font-medium">No statutes found</p>
-        <p class="text-sm">Try selecting a different jurisdiction or publication.</p>
+        <i class="pi pi-book sr-text-4xl sr-mb-2" />
+        <p class="sr-text-lg sr-font-medium">No statutes found</p>
+        <p class="sr-text-sm">Try selecting a different jurisdiction or publication.</p>
       </div>
 
       <!-- Tree View -->
-      <div v-else class="p-4">
+      <div v-else class="sr-p-4">
         <StatuteBrowserNode
           v-for="node in browseTree"
           :key="node.unit.id"
@@ -194,15 +194,13 @@ const {
   loadNodeChildren
 } = useStatuteBrowser()
 
-const { jurisdictions, publications } = useStatuteData()
-
 // Load initial data
 const { data: jurisdictionsData } = await useAsyncData('jurisdictions', () => 
-  $fetch('/api/jurisdictions')
+  $fetch('/api/statutes/jurisdictions')
 )
 
 const { data: publicationsData } = await useAsyncData('publications', () =>
-  $fetch('/api/publications')  
+  $fetch('/api/statutes/publications')  
 )
 
 const jurisdictions = computed(() => jurisdictionsData.value?.data || [])
@@ -252,7 +250,7 @@ watch([selectedJurisdiction, selectedPublication], () => {
 
 <style scoped>
 .statute-browser {
-  @apply flex flex-col bg-white border border-gray-200 rounded-lg;
+  
   height: v-bind(maxHeight);
 }
 </style>

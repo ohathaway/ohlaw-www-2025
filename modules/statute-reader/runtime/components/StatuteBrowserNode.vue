@@ -2,10 +2,10 @@
   <div class="statute-browser-node">
     <div
       :class="[
-        'flex items-center py-2 px-3 rounded cursor-pointer transition-colors',
-        'hover:bg-gray-50',
-        isSelected && 'bg-blue-50 border-l-2 border-l-blue-500',
-        `ml-${level * 4}`
+        'sr-flex sr-items-center sr-py-2 sr-px-3 sr-rounded sr-cursor-pointer sr-transition-colors',
+        'sr-hover-bg-slate-100',
+        isSelected && 'sr-bg-blue-50 sr-border-l-2 sr-border-l-blue-500',
+        `sr-ml-${level * 4}`
       ]"
       @click="onSelect"
     >
@@ -15,30 +15,30 @@
         @click.stop="onToggle"
         size="small"
         text
-        class="p-1 mr-2"
+        class="sr-p-1 sr-mr-2"
       >
         <Icon
           :name="expanded ? 'pi-chevron-down' : 'pi-chevron-right'"
-          class="text-xs text-gray-500"
+          class="sr-text-xs sr-text-slate-500"
         />
       </Button>
       
       <!-- Spacer for nodes without children -->
-      <div v-else class="w-6 mr-2" />
+      <div v-else class="sr-w-6 sr-mr-2" />
 
       <!-- Unit Type Icon -->
       <Icon
         :name="getUnitTypeIcon(node.unit.unit_type)"
         :class="[
-          'mr-2 text-sm',
+          'sr-mr-2 sr-text-sm',
           getUnitTypeColor(node.unit.unit_type)
         ]"
       />
 
       <!-- Unit Info -->
-      <div class="flex-1 min-w-0">
-        <div class="flex items-center gap-2">
-          <span class="font-medium text-gray-900 truncate">
+      <div class="sr-flex-1 sr-min-w-0">
+        <div class="sr-flex sr-items-center sr-gap-2">
+          <span class="sr-font-medium sr-text-slate-900 sr-truncate">
             {{ node.unit.citation }}
           </span>
           
@@ -52,7 +52,7 @@
         
         <div
           v-if="node.unit.name"
-          class="text-sm text-gray-600 truncate"
+          class="sr-text-sm sr-text-slate-600 sr-truncate"
         >
           {{ node.unit.name }}
         </div>
@@ -60,21 +60,21 @@
         <!-- Child count indicator -->
         <div
           v-if="node.child_count > 0"
-          class="text-xs text-gray-400 mt-1"
+          class="sr-text-xs sr-text-gray-400 sr-mt-1"
         >
           {{ node.child_count }} {{ node.child_count === 1 ? 'item' : 'items' }}
         </div>
       </div>
 
       <!-- Actions -->
-      <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div class="sr-flex sr-items-center sr-gap-1 sr-opacity-0 sr-group-hover-opacity-100 sr-transition-opacity">
         <Button
           @click.stop="$emit('bookmark', node.unit)"
           size="small"
           text
           title="Bookmark"
         >
-          <Icon name="pi-bookmark" class="text-xs" />
+          <Icon name="pi-bookmark" class="sr-text-xs" />
         </Button>
         
         <Button
@@ -83,14 +83,14 @@
           text
           title="Copy citation"
         >
-          <Icon name="pi-copy" class="text-xs" />
+          <Icon name="pi-copy" class="sr-text-xs" />
         </Button>
       </div>
     </div>
 
     <!-- Children -->
     <Transition name="expand">
-      <div v-if="expanded && node.children.length > 0" class="children">
+      <div v-if="expanded && node.children.length > 0" class="sr-children">
         <StatuteBrowserNode
           v-for="child in node.children"
           :key="child.unit.id"
@@ -109,7 +109,7 @@
         <!-- Load More Button -->
         <div
           v-if="node.has_more_children && !isLoadingChildren"
-          class="ml-8 mt-2"
+          class="sr-ml-8 sr-mt-2"
         >
           <Button
             @click="onLoadChildren"
@@ -117,7 +117,7 @@
             text
             severity="secondary"
           >
-            <Icon name="pi-plus" class="mr-1 text-xs" />
+            <Icon name="pi-plus" class="sr-mr-1 sr-text-xs" />
             Load more
           </Button>
         </div>
@@ -125,10 +125,10 @@
         <!-- Loading indicator for children -->
         <div
           v-if="isLoadingChildren"
-          class="flex items-center justify-center py-2 ml-8"
+          class="sr-flex sr-items-center sr-justify-center sr-py-2 sr-ml-8"
         >
           <ProgressSpinner size="1rem" />
-          <span class="ml-2 text-sm text-gray-600">Loading...</span>
+          <span class="sr-ml-2 sr-text-sm sr-text-slate-600">Loading...</span>
         </div>
       </div>
     </Transition>
@@ -193,11 +193,11 @@ const getUnitTypeColor = (unitType: string): string => {
     article: 'text-blue-600',
     section: 'text-green-600',
     subsection: 'text-yellow-600',
-    paragraph: 'text-gray-600',
+    paragraph: 'text-slate-600',
     chapter: 'text-indigo-600',
     part: 'text-pink-600'
   }
-  return colorMap[unitType] || 'text-gray-600'
+  return colorMap[unitType] || 'text-slate-600'
 }
 
 // Get severity for status badge
@@ -237,11 +237,11 @@ const onLoadChildren = async () => {
 
 <style scoped>
 .statute-browser-node {
-  @apply group;
+  position: relative;
 }
 
-.children {
-  @apply border-l border-gray-200 ml-3;
+.sr-children {
+  
 }
 
 /* Transition for expand/collapse */

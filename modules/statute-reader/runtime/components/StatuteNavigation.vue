@@ -1,8 +1,8 @@
 <template>
   <div class="statute-navigation">
     <!-- Breadcrumb Navigation -->
-    <div class="flex items-center justify-between mb-4">
-      <Breadcrumb :model="breadcrumbItems" class="flex-1">
+    <div class="sr-flex sr-items-center sr-justify-between sr-mb-4">
+      <Breadcrumb :model="breadcrumbItems" class="sr-flex-1">
         <template #item="{ item, props }">
           <router-link
             v-if="item.route"
@@ -14,13 +14,13 @@
               :href="href"
               v-bind="props.action"
               @click="navigate"
-              class="text-blue-600 hover:text-blue-800"
+              class="sr-text-blue-600 sr-hover-text-blue-800"
             >
-              <Icon v-if="item.icon" :name="item.icon" class="mr-1" />
+              <Icon v-if="item.icon" :name="item.icon" class="sr-mr-1" />
               {{ item.label }}
             </a>
           </router-link>
-          <span v-else v-bind="props.action" class="text-gray-600">
+          <span v-else v-bind="props.action" class="sr-text-slate-600">
             <Icon v-if="item.icon" :name="item.icon" class="mr-1" />
             {{ item.label }}
           </span>
@@ -28,7 +28,7 @@
       </Breadcrumb>
       
       <!-- Quick Actions -->
-      <div class="flex items-center gap-2">
+      <div class="sr-flex sr-items-center sr-gap-2">
         <Button
           @click="goToParent"
           :disabled="!hasParent"
@@ -53,26 +53,26 @@
     </div>
 
     <!-- Sibling Navigation -->
-    <div v-if="siblings.length > 1" class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+    <div v-if="siblings.length > 1" class="sr-flex sr-items-center sr-justify-between sr-bg-slate-100 sr-rounded-lg sr-p-3">
       <!-- Previous Sibling -->
       <Button
         v-if="previousSibling"
         @click="navigateToSibling(previousSibling)"
         size="small"
         severity="secondary"
-        class="flex-shrink-0"
+        class="sr-flex-shrink-0"
       >
-        <Icon name="pi-chevron-left" class="mr-1" />
+        <Icon name="pi-chevron-left" class="sr-mr-1" />
         Previous
       </Button>
-      <div v-else class="flex-shrink-0 w-20" />
+      <div v-else class="sr-flex-shrink-0 sr-w-20" />
 
       <!-- Current Position -->
-      <div class="flex-1 text-center">
-        <div class="text-sm text-gray-600">
+      <div class="sr-flex-1 sr-text-center">
+        <div class="sr-text-sm sr-text-slate-600">
           {{ currentSiblingIndex + 1 }} of {{ siblings.length }}
         </div>
-        <div class="text-xs text-gray-500">
+        <div class="sr-text-xs sr-text-slate-500">
           {{ formatUnitType(statute.unit_type) }}
         </div>
       </div>
@@ -83,21 +83,21 @@
         @click="navigateToSibling(nextSibling)"
         size="small"
         severity="secondary"
-        class="flex-shrink-0"
+        class="sr-flex-shrink-0"
       >
         Next
-        <Icon name="pi-chevron-right" class="ml-1" />
+        <Icon name="pi-chevron-right" class="sr-ml-1" />
       </Button>
-      <div v-else class="flex-shrink-0 w-20" />
+      <div v-else class="sr-flex-shrink-0 sr-w-20" />
     </div>
 
     <!-- Children Quick Links -->
-    <div v-if="statute.children?.length" class="mt-4">
-      <h4 class="text-sm font-medium text-gray-700 mb-2">
+    <div v-if="statute.children?.length" class="sr-mt-4">
+      <h4 class="sr-text-sm sr-font-medium sr-text-gray-700 sr-mb-2">
         {{ formatUnitType(getChildUnitType()) }}s in this {{ formatUnitType(statute.unit_type) }}:
       </h4>
       
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div class="sr-grid sr-grid-cols-2 md:sr-grid-cols-3 lg:sr-grid-cols-4 sr-gap-2">
         <Button
           v-for="child in statute.children.slice(0, maxChildrenShown)"
           :key="child.id"
@@ -105,12 +105,12 @@
           size="small"
           text
           severity="secondary"
-          class="justify-start text-left"
+          class="sr-justify-start sr-text-left"
           :title="child.name"
         >
-          <div class="truncate">
-            <div class="font-medium">{{ child.citation }}</div>
-            <div v-if="child.name" class="text-xs text-gray-500 truncate">
+          <div class="sr-truncate">
+            <div class="sr-font-medium">{{ child.citation }}</div>
+            <div v-if="child.name" class="sr-text-xs sr-text-slate-500 sr-truncate">
               {{ child.name }}
             </div>
           </div>
@@ -118,7 +118,7 @@
       </div>
       
       <!-- Show More/Less Toggle -->
-      <div v-if="statute.children.length > 8" class="mt-2 text-center">
+      <div v-if="statute.children.length > 8" class="sr-mt-2 sr-text-center">
         <Button
           @click="toggleShowAllChildren"
           size="small"
@@ -126,34 +126,34 @@
           severity="secondary"
         >
           {{ showAllChildren ? 'Show Less' : `Show All (${statute.children.length})` }}
-          <Icon :name="showAllChildren ? 'pi-chevron-up' : 'pi-chevron-down'" class="ml-1" />
+          <Icon :name="showAllChildren ? 'pi-chevron-up' : 'pi-chevron-down'" class="sr-ml-1" />
         </Button>
       </div>
     </div>
 
     <!-- Table of Contents (for complex statutes) -->
-    <div v-if="showTableOfContents && tableOfContents.length > 0" class="mt-4">
+    <div v-if="showTableOfContents && tableOfContents.length > 0" class="sr-mt-4">
       <Collapsible>
         <template #trigger="{ expanded, toggle }">
           <Button
             @click="toggle"
             text
             size="small"
-            class="mb-2"
+            class="sr-mb-2"
           >
-            <Icon :name="expanded ? 'pi-chevron-down' : 'pi-chevron-right'" class="mr-1" />
+            <Icon :name="expanded ? 'pi-chevron-down' : 'pi-chevron-right'" class="sr-mr-1" />
             Table of Contents
           </Button>
         </template>
         
-        <div class="bg-gray-50 rounded p-3">
+        <div class="sr-bg-slate-100 sr-rounded sr-p-3">
           <div
             v-for="item in tableOfContents"
             :key="item.id"
             :class="[
-              'py-1 cursor-pointer hover:text-blue-600 transition-colors',
-              `ml-${item.level * 3}`,
-              item.id === statute.id && 'font-medium text-blue-600'
+              'sr-py-1 sr-cursor-pointer sr-hover-text-blue-600 sr-transition-colors',
+              `sr-ml-${item.level * 3}`,
+              item.id === statute.id && 'sr-font-medium sr-text-blue-600'
             ]"
             @click="navigateToTocItem(item)"
           >
@@ -392,14 +392,19 @@ const navigateToRouter = (path: string) => {
 
 <style scoped>
 .statute-navigation {
-  @apply space-y-4;
+  
+}
+
+.statute-navigation > * + * {
+  margin-top: 1rem;
 }
 
 :deep(.p-breadcrumb) {
-  @apply bg-transparent p-0;
+  background-color: transparent;
+  padding: 0;
 }
 
 :deep(.p-breadcrumb-list) {
-  @apply flex-wrap;
+  flex-wrap: wrap;
 }
 </style>

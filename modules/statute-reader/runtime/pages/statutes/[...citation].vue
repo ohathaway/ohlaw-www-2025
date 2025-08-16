@@ -1,10 +1,10 @@
 <template>
-  <div class="statute-detail-page">
+  <div class="sr-statute-detail-page">
     <!-- Loading State -->
     <div v-if="pending" class="min-h-screen flex items-center justify-center">
       <div class="text-center">
         <ProgressSpinner size="3rem" />
-        <p class="mt-4 text-lg text-gray-600">Loading statute...</p>
+        <p class="mt-4 text-lg text-slate-600">Loading statute...</p>
       </div>
     </div>
 
@@ -12,8 +12,8 @@
     <div v-else-if="error" class="min-h-screen flex items-center justify-center">
       <div class="text-center max-w-md">
         <Icon name="pi-exclamation-triangle" class="text-6xl text-red-500 mb-4" />
-        <h1 class="text-2xl font-bold text-gray-900 mb-2">Statute Not Found</h1>
-        <p class="text-gray-600 mb-6">
+        <h1 class="text-2xl font-bold text-slate-900 mb-2">Statute Not Found</h1>
+        <p class="text-slate-600 mb-6">
           The statute "{{ citation }}" could not be found. It may have been repealed, superseded, or the citation may be incorrect.
         </p>
         
@@ -43,8 +43,8 @@
     <!-- Statute Content -->
     <div v-else-if="statute" class="min-h-screen">
       <!-- Page Header -->
-      <div class="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="sr-bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8">
           <div class="py-4">
             <!-- Navigation Bar -->
             <div class="flex items-center justify-between mb-4">
@@ -128,7 +128,7 @@
       </div>
 
       <!-- Main Content -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="sr-max-w-7xl sr-mx-auto sr-px-4 sm:sr-px-6 lg:sr-px-8 py-8">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <!-- Main Statute Content -->
           <div class="lg:col-span-3">
@@ -154,13 +154,13 @@
                   <div
                     v-for="child in statute.children"
                     :key="child.id"
-                    class="p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                    class="p-2 hover:bg-slate-100 rounded cursor-pointer transition-colors"
                     @click="onNavigate(child)"
                   >
                     <div class="font-medium text-sm text-blue-600">
                       {{ child.citation }}
                     </div>
-                    <div v-if="child.name" class="text-xs text-gray-600 mt-1 line-clamp-2">
+                    <div v-if="child.name" class="text-xs text-slate-600 mt-1 line-clamp-2">
                       {{ child.name }}
                     </div>
                   </div>
@@ -181,13 +181,13 @@
                   <div
                     v-for="related in relatedStatutes"
                     :key="related.citation"
-                    class="p-2 hover:bg-gray-50 rounded cursor-pointer transition-colors"
+                    class="p-2 hover:bg-slate-100 rounded cursor-pointer transition-colors"
                     @click="navigateToRelated(related)"
                   >
                     <div class="font-medium text-sm text-blue-600">
                       {{ related.citation }}
                     </div>
-                    <div v-if="related.name" class="text-xs text-gray-600 mt-1">
+                    <div v-if="related.name" class="text-xs text-slate-600 mt-1">
                       {{ related.name }}
                     </div>
                   </div>
@@ -206,7 +206,7 @@
               <template #content>
                 <div class="space-y-3 text-sm">
                   <div>
-                    <dt class="font-medium text-gray-900">Status</dt>
+                    <dt class="font-medium text-slate-900">Status</dt>
                     <dd class="mt-1">
                       <Badge
                         :value="statute.status"
@@ -216,23 +216,23 @@
                   </div>
                   
                   <div v-if="statute.effective_date">
-                    <dt class="font-medium text-gray-900">Effective Date</dt>
-                    <dd class="mt-1 text-gray-600">{{ formatDate(statute.effective_date) }}</dd>
+                    <dt class="font-medium text-slate-900">Effective Date</dt>
+                    <dd class="mt-1 text-slate-600">{{ formatDate(statute.effective_date) }}</dd>
                   </div>
                   
                   <div v-if="statute.last_modified">
-                    <dt class="font-medium text-gray-900">Last Modified</dt>
-                    <dd class="mt-1 text-gray-600">{{ formatDate(statute.last_modified) }}</dd>
+                    <dt class="font-medium text-slate-900">Last Modified</dt>
+                    <dd class="mt-1 text-slate-600">{{ formatDate(statute.last_modified) }}</dd>
                   </div>
                   
                   <div v-if="statute.publication">
-                    <dt class="font-medium text-gray-900">Publication</dt>
-                    <dd class="mt-1 text-gray-600">{{ statute.publication.name }}</dd>
+                    <dt class="font-medium text-slate-900">Publication</dt>
+                    <dd class="mt-1 text-slate-600">{{ statute.publication.name }}</dd>
                   </div>
                   
                   <div>
-                    <dt class="font-medium text-gray-900">Unit Type</dt>
-                    <dd class="mt-1 text-gray-600 capitalize">{{ statute.unit_type }}</dd>
+                    <dt class="font-medium text-slate-900">Unit Type</dt>
+                    <dd class="mt-1 text-slate-600 capitalize">{{ statute.unit_type }}</dd>
                   </div>
                 </div>
               </template>
@@ -315,7 +315,7 @@ const citation = computed(() => {
 })
 
 // Fetch statute data
-const { data: statuteData, pending, error, refresh } = await useLazyAsyncData(
+const { data: statuteData, pending, error, refresh } = useLazyAsyncData(
   `statute-detail:${citation.value}`,
   () => $fetch(`/api/statutes/${encodeURIComponent(citation.value)}`, {
     query: {
@@ -334,10 +334,10 @@ const { data: statuteData, pending, error, refresh } = await useLazyAsyncData(
 const statute = computed(() => statuteData.value?.data || null)
 
 // Use bookmarks
-const { isBookmarked, toggleBookmark: toggleBookmarkAction } = useStatuteBookmarks()
+const { isBookmarked: checkBookmarked, toggleBookmark: toggleBookmarkAction } = useStatuteBookmarks()
 
 const isBookmarked = computed(() => 
-  statute.value ? isBookmarked(statute.value.citation) : false
+  statute.value ? checkBookmarked(statute.value.citation) : false
 )
 
 // Related statutes (simplified - would come from cross-references or search)
@@ -348,6 +348,11 @@ const relatedStatutes = computed(() => {
     .filter(ref => ref.to_unit)
     .map(ref => ref.to_unit!)
     .slice(0, 5) // Limit to 5 related statutes
+})
+
+// Static page meta
+definePageMeta({
+  layout: 'default'
 })
 
 // SEO and meta
@@ -365,10 +370,6 @@ watchEffect(() => {
       ogUrl: `${useRuntimeConfig().public.siteUrl}/statutes/${encodeURIComponent(statute.value.citation)}`,
       ogType: 'article',
       twitterCard: 'summary'
-    })
-    
-    definePageMeta({
-      title: statute.value.name || statute.value.citation
     })
   }
 })
@@ -485,13 +486,9 @@ watch(error, (newError) => {
 </script>
 
 <style scoped>
-.statute-detail-page {
-  @apply bg-gray-50;
-}
-
 @media print {
-  .statute-detail-page {
-    @apply bg-white;
+  .sr-statute-detail-page {
+    background-color: var(--sr-white);
   }
   
   /* Hide navigation and actions when printing */

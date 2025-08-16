@@ -1,21 +1,38 @@
-import { createStatuteDatabase, createScraper } from '../../utils'
-import type { ScrapeRequest, ScrapeResponse } from '../../../types'
+import { createStatuteDatabase } from '../../../utils/database'
+import { createScraper } from '../../../utils/scraper'
+import type { ScrapeRequest, ScrapeResponse } from '../../../../types'
 
 export default defineEventHandler(async (event): Promise<ScrapeResponse> => {
   try {
-    // Get the database binding from runtime config
-    const { statuteReader } = useRuntimeConfig()
-    const db = (event.context.cloudflare?.env as any)?.[statuteReader.database.binding]
-    
-    if (!db) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: 'Database not available'
-      })
-    }
-
     // Parse and validate the scrape request
     const body = await readBody(event)
+    
+    // Check if body is empty or missing required fields
+    if (!body || Object.keys(body).length === 0) {
+      throw createError({
+        statusCode: 400,
+        statusMessage: 'Request body required',
+        data: {
+          message: 'This endpoint requires a POST request with a JSON body',
+          usage: `POST /api/statutes/admin/scrape
+          
+Required fields:
+- jurisdiction: string (e.g., "colorado", "co")
+- source_url: string (URL to scrape)
+
+Optional fields:
+- force_refresh: boolean (default: false)
+- dry_run: boolean (default: false)
+
+Example:
+{
+  "jurisdiction": "colorado",
+  "source_url": "https://leg.colorado.gov/statutes",
+  "dry_run": true
+}`
+        }
+      })
+    }
     const scrapeRequest: ScrapeRequest = {
       jurisdiction: body.jurisdiction || '',
       source_url: body.source_url || '',
@@ -48,7 +65,7 @@ export default defineEventHandler(async (event): Promise<ScrapeResponse> => {
       })
     }
 
-    const statuteDb = createStatuteDatabase(db)
+    const statuteDb = createStatuteDatabase()
     const scraper = createScraper(statuteDb)
 
     // Get or create jurisdiction and publication

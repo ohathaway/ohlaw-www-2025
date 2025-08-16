@@ -42,7 +42,7 @@ export const useStatuteData = () => {
   const fetchPublications = async (jurisdictionId?: number): Promise<Publication[]> => {
     try {
       const query = jurisdictionId ? `?jurisdiction_id=${jurisdictionId}` : ''
-      const response = await $fetch<PublicationsApiResponse>(`/api/publications${query}`)
+      const response = await $fetch<PublicationsApiResponse>(`/api/statutes/publications${query}`)
       
       if (response.success && response.data) {
         return response.data
@@ -57,7 +57,7 @@ export const useStatuteData = () => {
 
   const fetchJurisdictions = async (): Promise<Jurisdiction[]> => {
     try {
-      const response = await $fetch<JurisdictionsApiResponse>('/api/jurisdictions')
+      const response = await $fetch<JurisdictionsApiResponse>('/api/statutes/jurisdictions')
       
       if (response.success && response.data) {
         return response.data

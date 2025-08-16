@@ -1,4 +1,11 @@
-import { defineNuxtModule, addPlugin, createResolver, addServerHandler, addComponent, addImports } from '@nuxt/kit'
+import {
+  defineNuxtModule,
+  addPlugin,
+  createResolver,
+  addServerHandler,
+  addComponent,
+  addImports
+} from '@nuxt/kit'
 import { defu } from 'defu'
 
 export interface StatuteReaderOptions {
@@ -11,12 +18,6 @@ export interface StatuteReaderOptions {
   ui: {
     basePath: string
     theme: string
-  }
-  database: {
-    binding: string
-  }
-  search: {
-    binding: string
   }
 }
 
@@ -38,16 +39,14 @@ export default defineNuxtModule<StatuteReaderOptions>({
     ui: {
       basePath: '/statutes',
       theme: 'primevue'
-    },
-    database: {
-      binding: 'STATUTE_DB'
-    },
-    search: {
-      binding: 'STATUTE_SEARCH'
     }
   },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
+
+    // Add CSS
+    nuxt.options.css = nuxt.options.css || []
+    nuxt.options.css.push(resolver.resolve('./runtime/assets/statute-reader.css'))
 
     // Merge options with defaults
     nuxt.options.runtimeConfig.statuteReader = defu(
@@ -67,18 +66,33 @@ export default defineNuxtModule<StatuteReaderOptions>({
     })
 
     addServerHandler({
-      route: '/api/statutes/**',
+      route: '/api/statutes/jurisdictions',
+      handler: resolver.resolve('./runtime/server/api/statutes/jurisdictions.get')
+    })
+
+    addServerHandler({
+      route: '/api/statutes/publications',
+      handler: resolver.resolve('./runtime/server/api/statutes/publications.get')
+    })
+
+    addServerHandler({
+      route: '/api/statutes/autocomplete',
+      handler: resolver.resolve('./runtime/server/api/statutes/autocomplete.get')
+    })
+
+    addServerHandler({
+      route: '/api/statutes/*',
       handler: resolver.resolve('./runtime/server/api/statutes/[citation].get')
     })
 
     addServerHandler({
-      route: '/api/admin/scrape',
-      handler: resolver.resolve('./runtime/server/api/admin/scrape.post')
+      route: '/api/statutes/admin/scrape',
+      handler: resolver.resolve('./runtime/server/api/statutes/admin/scrape.post')
     })
 
     addServerHandler({
-      route: '/api/admin/status',
-      handler: resolver.resolve('./runtime/server/api/admin/status.get')
+      route: '/api/statutes/admin/status',
+      handler: resolver.resolve('./runtime/server/api/statutes/admin/status.get')
     })
 
     // Register components
@@ -100,6 +114,31 @@ export default defineNuxtModule<StatuteReaderOptions>({
     addComponent({
       name: 'StatuteNavigation',
       filePath: resolver.resolve('./runtime/components/StatuteNavigation.vue')
+    })
+
+    addComponent({
+      name: 'StatuteBrowserNode',
+      filePath: resolver.resolve('./runtime/components/StatuteBrowserNode.vue')
+    })
+
+    addComponent({
+      name: 'StatuteSearchResult',
+      filePath: resolver.resolve('./runtime/components/StatuteSearchResult.vue')
+    })
+
+    addComponent({
+      name: 'Collapsible',
+      filePath: resolver.resolve('./runtime/components/Collapsible.vue')
+    })
+
+    addComponent({
+      name: 'Icon',
+      filePath: resolver.resolve('./runtime/components/Icon.vue')
+    })
+
+    addComponent({
+      name: 'StatuteBookmarksPanel',
+      filePath: resolver.resolve('./runtime/components/StatuteBookmarksPanel.vue')
     })
 
     // Add composables

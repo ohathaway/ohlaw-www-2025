@@ -59,11 +59,6 @@ export class StatuteScraper {
   private async scrapePlaceholderContent(config: ScrapeConfig, stats: ScrapeStats): Promise<void> {
     // Placeholder implementation - in real implementation this would
     // fetch and parse actual HTML content
-    
-    if (config.dryRun) {
-      console.log('Dry run - no data will be inserted')
-      return
-    }
 
     // Example: Create a sample title structure
     const sampleTitles = [
@@ -93,56 +88,68 @@ export class StatuteScraper {
     ]
 
     for (const title of sampleTitles) {
-      // Create title
-      const titleId = await this.createLegalUnit({
-        publication_id: config.publicationId,
-        parent_id: undefined,
-        unit_type: 'title',
-        level: 1,
-        number: title.number,
-        name: title.name,
-        citation: `§ ${title.number}`,
-        content_html: `<h1>Title ${title.number} - ${title.name}</h1>`,
-        content_text: `Title ${title.number} - ${title.name}`,
-        status: 'active',
-        sort_order: parseInt(title.number)
-      })
+      if (config.dryRun) {
+        console.log(`[DRY RUN] Would create title: ${title.number} - ${title.name}`)
+      } else {
+        // Create title
+        const titleId = await this.createLegalUnit({
+          publication_id: config.publicationId,
+          parent_id: undefined,
+          unit_type: 'title',
+          level: 1,
+          number: title.number,
+          name: title.name,
+          citation: `§ ${title.number}`,
+          content_html: `<h1>Title ${title.number} - ${title.name}</h1>`,
+          content_text: `Title ${title.number} - ${title.name}`,
+          status: 'active',
+          sort_order: parseInt(title.number)
+        })
+      }
       
       stats.titlesProcessed++
 
       for (const article of title.articles) {
-        // Create article
-        const articleId = await this.createLegalUnit({
-          publication_id: config.publicationId,
-          parent_id: titleId,
-          unit_type: 'article',
-          level: 2,
-          number: article.number,
-          name: article.name,
-          citation: `§ ${title.number}-${article.number}`,
-          content_html: `<h2>Article ${article.number} - ${article.name}</h2>`,
-          content_text: `Article ${article.number} - ${article.name}`,
-          status: 'active',
-          sort_order: parseInt(article.number)
-        })
+        if (config.dryRun) {
+          console.log(`[DRY RUN] Would create article: ${title.number}-${article.number} - ${article.name}`)
+        } else {
+          // Create article
+          const articleId = await this.createLegalUnit({
+            publication_id: config.publicationId,
+            parent_id: titleId,
+            unit_type: 'article',
+            level: 2,
+            number: article.number,
+            name: article.name,
+            citation: `§ ${title.number}-${article.number}`,
+            content_html: `<h2>Article ${article.number} - ${article.name}</h2>`,
+            content_text: `Article ${article.number} - ${article.name}`,
+            status: 'active',
+            sort_order: parseInt(article.number)
+          })
+        }
         
         stats.articlesProcessed++
 
         for (const section of article.sections) {
-          // Create section
-          await this.createLegalUnit({
-            publication_id: config.publicationId,
-            parent_id: articleId,
-            unit_type: 'section',
-            level: 3,
-            number: section.number,
-            name: section.name,
-            citation: `§ ${title.number}-${article.number}-${section.number}`,
-            content_html: `<h3>§ ${title.number}-${article.number}-${section.number}. ${section.name}</h3><p>Content for ${section.name} would go here.</p>`,
-            content_text: `§ ${title.number}-${article.number}-${section.number}. ${section.name}. Content for ${section.name} would go here.`,
-            status: 'active',
-            sort_order: parseInt(section.number)
-          })
+          if (config.dryRun) {
+            console.log(`[DRY RUN] Would create section: ${title.number}-${article.number}-${section.number} - ${section.name}`)
+          } else {
+            // Create section
+            await this.createLegalUnit({
+              publication_id: config.publicationId,
+              parent_id: articleId,
+              unit_type: 'section',
+              level: 3,
+              number: section.number,
+              name: section.name,
+              citation: `§ ${title.number}-${article.number}-${section.number}`,
+              content_html: `<h3>§ ${title.number}-${article.number}-${section.number}. ${section.name}</h3><p>Content for ${section.name} would go here.</p>`,
+              content_text: `§ ${title.number}-${article.number}-${section.number}. ${section.name}. Content for ${section.name} would go here.`,
+              status: 'active',
+              sort_order: parseInt(section.number)
+            })
+          }
           
           stats.sectionsProcessed++
         }

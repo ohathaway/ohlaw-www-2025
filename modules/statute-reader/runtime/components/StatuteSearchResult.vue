@@ -1,18 +1,18 @@
 <template>
-  <Card class="statute-search-result hover:shadow-md transition-shadow cursor-pointer" @click="onSelect">
+  <Card class="statute-search-result sr-hover-shadow-md sr-transition-shadow sr-cursor-pointer" @click="onSelect">
     <template #content>
-      <div class="space-y-3">
+      <div class="sr-space-y-3">
         <!-- Result Header -->
-        <div class="flex items-start justify-between">
-          <div class="flex-1 min-w-0">
+        <div class="sr-flex sr-items-start sr-justify-between">
+          <div class="sr-flex-1 sr-min-w-0">
             <!-- Citation and Title -->
-            <div class="flex items-center gap-2 mb-1">
+            <div class="sr-flex sr-items-center sr-gap-2 sr-mb-1">
               <Icon
                 :name="getUnitTypeIcon(result.unit.unit_type)"
                 :class="getUnitTypeColor(result.unit.unit_type)"
               />
               
-              <h3 class="text-lg font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+              <h3 class="sr-text-lg sr-font-semibold sr-text-blue-600 sr-hover-text-blue-800 sr-transition-colors">
                 {{ result.unit.citation }}
               </h3>
               
@@ -27,21 +27,21 @@
             <!-- Unit Name -->
             <h4
               v-if="result.unit.name"
-              class="text-base font-medium text-gray-900 mb-2"
+              class="sr-text-base sr-font-medium sr-text-slate-900 sr-mb-2"
               v-html="highlightMatches(result.unit.name)"
             />
           </div>
 
           <!-- Score and Actions -->
-          <div class="flex items-center gap-2 ml-4">
+          <div class="sr-flex sr-items-center sr-gap-2 sr-ml-4">
             <!-- Relevance Score -->
-            <div class="text-xs text-gray-500 text-center">
-              <div class="text-sm font-medium">{{ Math.round(result.score) }}%</div>
+            <div class="sr-text-xs sr-text-slate-500 sr-text-center">
+              <div class="sr-text-sm sr-font-medium">{{ Math.round(result.score) }}%</div>
               <div>relevance</div>
             </div>
 
             <!-- Actions -->
-            <div class="flex gap-1">
+            <div class="sr-flex sr-gap-1">
               <Button
                 @click.stop="$emit('bookmark', result.unit)"
                 size="small"
@@ -76,17 +76,17 @@
         </div>
 
         <!-- Content Snippet -->
-        <div v-if="snippet" class="bg-gray-50 p-3 rounded border-l-4 border-l-blue-300">
+        <div v-if="snippet" class="sr-bg-slate-100 sr-p-3 sr-rounded sr-border-l-4 sr-border-l-blue-300">
           <p 
-            class="text-sm text-gray-700 leading-relaxed"
+            class="sr-text-sm sr-text-gray-700 sr-leading-relaxed"
             v-html="highlightMatches(snippet)"
           />
         </div>
 
         <!-- Metadata -->
-        <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+        <div class="sr-flex sr-items-center sr-justify-between sr-pt-2 sr-border-t sr-border-gray-100">
           <!-- Path/Breadcrumb -->
-          <div class="flex items-center text-xs text-gray-500 space-x-2">
+          <div class="sr-flex sr-items-center sr-text-xs sr-text-slate-500 sr-space-x-2">
             <span v-if="result.unit.publication?.jurisdiction?.name">
               {{ result.unit.publication.jurisdiction.name }}
             </span>
@@ -99,7 +99,7 @@
           </div>
 
           <!-- Match Type Indicator -->
-          <div class="flex items-center gap-2">
+          <div class="sr-flex sr-items-center sr-gap-2">
             <Badge
               :value="formatMatchType(result.match_type)"
               :severity="getMatchTypeSeverity(result.match_type)"
@@ -109,7 +109,7 @@
             <!-- Last Modified -->
             <span
               v-if="result.unit.last_modified"
-              class="text-xs text-gray-400"
+              class="sr-text-xs sr-text-gray-400"
               :title="`Last modified: ${formatDate(result.unit.last_modified)}`"
             >
               {{ formatRelativeDate(result.unit.last_modified) }}
@@ -120,9 +120,9 @@
         <!-- Cross References Preview -->
         <div
           v-if="result.unit.cross_references?.length"
-          class="text-xs text-gray-600"
+          class="sr-text-xs sr-text-slate-600"
         >
-          <Icon name="pi-link" class="mr-1" />
+          <Icon name="pi-link" class="sr-mr-1" />
           {{ result.unit.cross_references.length }} cross-reference{{ result.unit.cross_references.length !== 1 ? 's' : '' }}
         </div>
       </div>
@@ -172,11 +172,11 @@ const getUnitTypeColor = (unitType: string): string => {
     article: 'text-blue-600',
     section: 'text-green-600',
     subsection: 'text-yellow-600',
-    paragraph: 'text-gray-600',
+    paragraph: 'text-slate-600',
     chapter: 'text-indigo-600',
     part: 'text-pink-600'
   }
-  return colorMap[unitType] || 'text-gray-600'
+  return colorMap[unitType] || 'text-slate-600'
 }
 
 const getStatusSeverity = (status: string): string => {
@@ -307,14 +307,17 @@ const shareResult = async () => {
 
 <style scoped>
 .statute-search-result {
-  @apply transition-all duration-200;
+  transition: all 0.2s ease-in-out;
 }
 
 .statute-search-result:hover {
-  @apply transform translate-y-[-1px];
+  transform: translateY(-0.25rem);
 }
 
 :deep(mark) {
-  @apply bg-yellow-200 px-1 rounded;
+  background-color: #fef08a;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-radius: 0.25rem;
 }
 </style>
