@@ -19,7 +19,10 @@
       "Bash(curl:*)",
       "Bash(npx wrangler pages dev:*)",
       "WebFetch(domain:hub.nuxt.com)",
-      "mcp__cloudflare-docs__search_cloudflare_documentation"
+      "mcp__cloudflare-docs__search_cloudflare_documentation",
+      "Bash(pnpm typecheck:*)",
+      "WebFetch(domain:olls.info)",
+      "Bash(timeout 10s curl -s \"http://localhost:3000/api/statutes/citations/15-1-101\")"
     ],
     "deny": []
   },

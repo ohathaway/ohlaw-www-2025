@@ -316,7 +316,7 @@ const error = ref<string | null>(null)
 // Load statute data
 const { data: statuteData, pending, error: fetchError, refresh } = await useLazyAsyncData(
   `statute:${props.citation}`,
-  () => props.citation ? $fetch(`/api/statutes/${encodeURIComponent(props.citation)}`, {
+  () => props.citation ? $fetch(`/api/statutes/citations/${encodeURIComponent(props.citation)}`, {
     query: {
       include_children: true,
       include_related: true,

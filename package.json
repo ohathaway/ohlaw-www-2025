@@ -14,7 +14,6 @@
     "migrate:statute-local": "npx wrangler d1 execute ohlaw-statutes-dev --local --env development --file=./modules/statute-reader/migrations/001_initial_schema.sql && npx wrangler d1 execute ohlaw-statutes-dev --local --env development --file=./modules/statute-reader/migrations/002_search_indexes.sql && npx wrangler d1 execute ohlaw-statutes-dev --local --env development --file=./modules/statute-reader/migrations/003_test-data.sql",
     "migrate:statute-preview": "npx wrangler d1 execute ohlaw-statutes-preview --env preview --file=./modules/statute-reader/migrations/001_initial_schema.sql && npx wrangler d1 execute ohlaw-statutes-preview --env preview --file=./modules/statute-reader/migrations/002_search_indexes.sql",
     "migrate:statute-prod": "npx wrangler d1 execute ohlaw-statutes-prod --env production --file=./modules/statute-reader/migrations/001_initial_schema.sql && npx wrangler d1 execute ohlaw-statutes-prod --env production --file=./modules/statute-reader/migrations/002_search_indexes.sql"
-
   },
   "dependencies": {
     "@ai-sdk/vue": "^1.2.12",
@@ -52,7 +51,9 @@
     "ai": "^4.3.19",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
+    "cheerio": "^1.1.2",
     "cloudflare": "^4.5.0",
+    "crawlee": "^3.14.1",
     "dayjs": "^1.11.13",
     "mailersend": "^2.6.0",
     "markdown-it": "^14.1.0",

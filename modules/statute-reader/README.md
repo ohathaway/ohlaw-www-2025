@@ -149,7 +149,7 @@ POST /api/statutes/search
 GET /api/statutes/browse?parent_id=1&include_children=true
 
 // Get specific statute
-GET /api/statutes/15-10-101?include_related=true
+GET /api/statutes/citations/15-10-101?include_related=true
 
 // Admin operations
 POST /api/admin/scrape

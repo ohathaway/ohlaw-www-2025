@@ -23,12 +23,15 @@ Required fields:
 Optional fields:
 - force_refresh: boolean (default: false)
 - dry_run: boolean (default: false)
+- crawl_type: "full" | "title" (default: "full")
+- batchSize: number (default: 100 for full, 1 for title)
 
 Example:
 {
   "jurisdiction": "colorado",
-  "source_url": "https://leg.colorado.gov/statutes",
-  "dry_run": true
+  "source_url": "https://olls.info/crs/crs2024-title-43.htm",
+  "dry_run": true,
+  "crawl_type": "title"
 }`
         }
       })
@@ -37,7 +40,9 @@ Example:
       jurisdiction: body.jurisdiction || '',
       source_url: body.source_url || '',
       force_refresh: body.force_refresh || false,
-      dry_run: body.dry_run || false
+      dry_run: body.dry_run || false,
+      crawl_type: body.crawl_type || 'full',
+      batchSize: body.batchSize || (body.crawl_type === 'title' ? 1 : 10)
     }
 
     // Validate required fields
@@ -104,7 +109,8 @@ Example:
           sourceUrl: scrapeRequest.source_url,
           publicationId: currentPublication.id,
           dryRun: scrapeRequest.dry_run,
-          batchSize: 100
+          batchSize: scrapeRequest.batchSize || 100,
+          crawlType: scrapeRequest.crawl_type
         })
         break
       default:

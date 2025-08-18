@@ -52,7 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### API Endpoints
 - `POST /api/statutes/search` - Advanced statute search
 - `GET /api/statutes/browse` - Hierarchical browsing
-- `GET /api/statutes/{citation}` - Individual statute retrieval
+- `GET /api/statutes/citations/{citation}` - Individual statute retrieval
 - `POST /api/admin/scrape` - Content ingestion
 - `GET /api/admin/status` - System health monitoring
 

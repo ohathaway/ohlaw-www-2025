@@ -25,7 +25,7 @@ export const useStatuteData = () => {
       if (options.includeHistory) query.set('include_history', 'true')
       if (options.includeMetadata) query.set('include_metadata', 'true')
 
-      const url = `/api/statutes/${encodeURIComponent(citation)}${query.toString() ? `?${query}` : ''}`
+      const url = `/api/statutes/citations/${encodeURIComponent(citation)}${query.toString() ? `?${query}` : ''}`
       const response = await $fetch<StatuteApiResponse>(url)
       
       if (response.success && response.data) {

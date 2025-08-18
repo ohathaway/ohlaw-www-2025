@@ -3,7 +3,7 @@ import {
   addPlugin,
   createResolver,
   addServerHandler,
-  addComponent,
+  addComponentsDir,
   addImports
 } from '@nuxt/kit'
 import { defu } from 'defu'
@@ -81,7 +81,7 @@ export default defineNuxtModule<StatuteReaderOptions>({
     })
 
     addServerHandler({
-      route: '/api/statutes/*',
+      route: '/api/statutes/citations/*',
       handler: resolver.resolve('./runtime/server/api/statutes/[citation].get')
     })
 
@@ -96,49 +96,8 @@ export default defineNuxtModule<StatuteReaderOptions>({
     })
 
     // Register components
-    addComponent({
-      name: 'StatuteBrowser',
-      filePath: resolver.resolve('./runtime/components/StatuteBrowser.vue')
-    })
-
-    addComponent({
-      name: 'StatuteSearch',
-      filePath: resolver.resolve('./runtime/components/StatuteSearch.vue')
-    })
-
-    addComponent({
-      name: 'StatuteViewer',
-      filePath: resolver.resolve('./runtime/components/StatuteViewer.vue')
-    })
-
-    addComponent({
-      name: 'StatuteNavigation',
-      filePath: resolver.resolve('./runtime/components/StatuteNavigation.vue')
-    })
-
-    addComponent({
-      name: 'StatuteBrowserNode',
-      filePath: resolver.resolve('./runtime/components/StatuteBrowserNode.vue')
-    })
-
-    addComponent({
-      name: 'StatuteSearchResult',
-      filePath: resolver.resolve('./runtime/components/StatuteSearchResult.vue')
-    })
-
-    addComponent({
-      name: 'Collapsible',
-      filePath: resolver.resolve('./runtime/components/Collapsible.vue')
-    })
-
-    addComponent({
-      name: 'Icon',
-      filePath: resolver.resolve('./runtime/components/Icon.vue')
-    })
-
-    addComponent({
-      name: 'StatuteBookmarksPanel',
-      filePath: resolver.resolve('./runtime/components/StatuteBookmarksPanel.vue')
+    addComponentsDir({
+      path: resolver.resolve('./runtime/components')
     })
 
     // Add composables

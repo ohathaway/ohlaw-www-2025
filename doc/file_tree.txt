@@ -193,8 +193,7 @@
 │   ├── blogArticles.json
 │   ├── color-test.vue
 │   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries full text.html
-│   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries through article 10.html
-│   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries.html
+│   ├── Colorado Revised Statutes 2024 Title 15 Probate, Trusts, and Fiduciaries through article 5.html
 │   ├── file_tree.txt
 │   ├── infrastructure-audit-phase2a.md
 │   ├── ohlawPreset.json
@@ -217,7 +216,12 @@
 │       ├── package.json
 │       ├── README.md
 │       └── runtime
+│           ├── assets
+│           │   └── statute-reader.css
 │           ├── components
+│           │   ├── Collapsible.vue
+│           │   ├── Icon.vue
+│           │   ├── StatuteBookmarksPanel.vue
 │           │   ├── StatuteBrowser.vue
 │           │   ├── StatuteBrowserNode.vue
 │           │   ├── StatuteNavigation.vue
@@ -236,18 +240,33 @@
 │           │       └── search.vue
 │           ├── server
 │           │   ├── api
-│           │   │   ├── admin
-│           │   │   │   ├── scrape.post.ts
-│           │   │   │   └── status.get.ts
 │           │   │   └── statutes
 │           │   │       ├── [citation].get.ts
+│           │   │       ├── admin
+│           │   │       │   ├── scrape.post.ts
+│           │   │       │   └── status.get.ts
+│           │   │       ├── autocomplete.get.ts
 │           │   │       ├── browse.get.ts
+│           │   │       ├── debug-parser.get.ts
+│           │   │       ├── jurisdictions.get.ts
+│           │   │       ├── publications.get.ts
 │           │   │       └── search.post.ts
 │           │   └── utils
+│           │       ├── crawlers
+│           │       │   ├── base.ts
+│           │       │   ├── colorado.ts
+│           │       │   ├── README.md
+│           │       │   └── texas.ts
 │           │       ├── database.ts
+│           │       ├── index.ts
 │           │       ├── parser.ts
+│           │       ├── parsers
+│           │       │   ├── colorado.ts
+│           │       │   ├── common.ts
+│           │       │   └── texas.ts
 │           │       ├── scraper.ts
-│           │       └── search.ts
+│           │       ├── search.ts
+│           │       └── test-parser.ts
 │           └── types
 │               ├── api.ts
 │               ├── index.ts
@@ -336,12 +355,66 @@
 │       ├── reports
 │       │   └── index.js
 │       └── strings.js
+├── storage
+│   ├── key_value_stores
+│   │   └── default
+│   │       ├── SDK_CRAWLER_STATISTICS_0.json
+│   │       └── SDK_SESSION_POOL_STATE.json
+│   └── request_queues
+│       └── default
+│           ├── 4sJHUrK5ia1LowE.json
+│           ├── A9JkCryQ8i4r84S.json
+│           ├── AMXDE1tbMjFULJ1.json
+│           ├── bdPkXstSd7n2026.json
+│           ├── CQUGgiHla3dO8sA.json
+│           ├── D8Z8svGVjRgnESf.json
+│           ├── DY7JIY4ylN32sIb.json
+│           ├── E63vCSaDLdtpeaX.json
+│           ├── fACjFGJBgN8nGNy.json
+│           ├── GkE9Femtbd0W4i8.json
+│           ├── glVOvFVfxruSrfP.json
+│           ├── GuypmYqvgnU0Wp6.json
+│           ├── GywJl3Gkx51HFuK.json
+│           ├── hduJFvueWDK5CGU.json
+│           ├── IhqmigxwI7TmIif.json
+│           ├── J5TIqM2Krgf3waR.json
+│           ├── JIaz6Jrs20NDOrW.json
+│           ├── JOSJfebRdaAmkPR.json
+│           ├── KLrB1JrDg0Mhb5P.json
+│           ├── luGmgSYKaM5a22w.json
+│           ├── LYKx257k4Y3mcrV.json
+│           ├── M4qd6ePCV6FS8yJ.json
+│           ├── mAt10NHGvoiIvbd.json
+│           ├── n9G6bBnMG44nMIu.json
+│           ├── NJKdHwvM7H2e2ZM.json
+│           ├── nMR7cH8DLsmMJeO.json
+│           ├── nWAfbBZcCXKsLcb.json
+│           ├── OTGproOsW4y39CX.json
+│           ├── OVcCVIhjyDaO8wG.json
+│           ├── p42MGTUXEAuwibz.json
+│           ├── P7jwSW8KDxufqHq.json
+│           ├── PTJwUjBH5FZkpGI.json
+│           ├── QGqvIwlZc6W1WRk.json
+│           ├── QjnhEtg6oJyiTIj.json
+│           ├── tD5f01EONSFu7Hr.json
+│           ├── tgHoNvrgP8bKT6k.json
+│           ├── tV8fJIHTcC2XiDh.json
+│           ├── TxcSht1PvlJ07CR.json
+│           ├── uYLv3tW0x1BljFM.json
+│           ├── W8e4XhbaF4PJYA6.json
+│           ├── XioCP6HISWUmfnb.json
+│           ├── YbBrBFsqaoGuIJM.json
+│           ├── yJ1t6uVQ57sFaUT.json
+│           ├── ZrpaQzJdzzQyyXN.json
+│           └── ZyvbwL0SybOd7ov.json
 ├── tests
 │   ├── blog.spec.ts
 │   ├── contact.spec.ts
 │   └── index.spec.ts
 ├── tests-examples
 │   └── demo-todo-app.spec.ts
-└── tsconfig.json
+├── tsconfig.json
+├── wrangler.json
+└── wrangler.preview.json
 
-66 directories, 279 files
+74 directories, 344 files

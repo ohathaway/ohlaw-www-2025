@@ -5,7 +5,19 @@ export default defineEventHandler(async (event): Promise<StatuteApiResponse> => 
   try {
 
     // Extract citation from route parameters
-    const citation = getRouterParam(event, 'citation')
+    // With the new route pattern '/api/statutes/citations/*', the citation comes from the wildcard
+    let citation = getRouterParam(event, 'citation')
+    
+    // If no citation parameter, try to extract from the URL path
+    if (!citation) {
+      const url = getRequestURL(event)
+      const pathParts = url.pathname.split('/')
+      const citationsIndex = pathParts.indexOf('citations')
+      if (citationsIndex !== -1 && pathParts[citationsIndex + 1]) {
+        citation = pathParts.slice(citationsIndex + 1).join('/')
+      }
+    }
+    
     if (!citation) {
       throw createError({
         statusCode: 400,

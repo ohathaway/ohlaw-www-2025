@@ -1,5 +1,8 @@
 import type { LegalUnit } from '../../types'
 import type { StatuteDatabase } from './database'
+import { createColoradoCrawler } from './crawlers/colorado'
+import { createTexasCrawler } from './crawlers/texas'
+import type { CrawlerConfig, ScrapeStats as CrawlerStats } from './crawlers/base'
 
 export interface ScrapeConfig {
   jurisdiction: string
@@ -7,6 +10,7 @@ export interface ScrapeConfig {
   publicationId: number
   dryRun?: boolean
   batchSize?: number
+  crawlType?: 'full' | 'title'
 }
 
 export interface ScrapeStats {
@@ -16,181 +20,124 @@ export interface ScrapeStats {
   errors: number
   startTime: number
   endTime?: number
+  urlsDiscovered?: number
+  urlsProcessed?: number
 }
 
 export class StatuteScraper {
   constructor(private db: StatuteDatabase) {}
 
   async scrapeColoradoStatutes(config: ScrapeConfig): Promise<ScrapeStats> {
-    const stats: ScrapeStats = {
-      titlesProcessed: 0,
-      articlesProcessed: 0,
-      sectionsProcessed: 0,
-      errors: 0,
-      startTime: Date.now()
-    }
-
     try {
-      console.log(`Starting scrape for ${config.jurisdiction} from ${config.sourceUrl}`)
+      console.log(`Starting Crawlee-based scrape for ${config.jurisdiction} from ${config.sourceUrl}`)
       
-      // TODO: Implement actual scraping logic
-      // This is a placeholder that would be filled in with real scraping
+      // Create crawler configuration
+      const crawlerConfig: CrawlerConfig = {
+        jurisdiction: config.jurisdiction,
+        sourceUrl: config.sourceUrl,
+        publicationId: config.publicationId,
+        dryRun: config.dryRun,
+        batchSize: config.batchSize,
+        crawlType: config.crawlType
+      }
       
-      // For Colorado, we'd typically:
-      // 1. Fetch the HTML from the source URL
-      // 2. Parse the HTML structure
-      // 3. Extract titles, articles, and sections
-      // 4. Insert into database
+      // Create Colorado-specific crawler
+      const crawler = createColoradoCrawler(this.db, crawlerConfig)
       
-      await this.scrapePlaceholderContent(config, stats)
+      // Run the crawler
+      const crawlerStats = await crawler.run()
       
-      stats.endTime = Date.now()
-      console.log(`Scrape completed. Stats:`, stats)
+      // Convert crawler stats to expected format
+      const stats: ScrapeStats = {
+        titlesProcessed: crawlerStats.titlesProcessed,
+        articlesProcessed: crawlerStats.articlesProcessed,
+        sectionsProcessed: crawlerStats.sectionsProcessed,
+        errors: crawlerStats.errors,
+        startTime: crawlerStats.startTime,
+        endTime: crawlerStats.endTime,
+        urlsDiscovered: crawlerStats.urlsDiscovered,
+        urlsProcessed: crawlerStats.urlsProcessed
+      }
       
+      console.log(`Crawlee scrape completed. Stats:`, stats)
       return stats
+      
     } catch (error) {
-      stats.errors++
-      stats.endTime = Date.now()
-      console.error('Scrape error:', error)
+      console.error('Crawlee scrape error:', error)
       throw error
     }
   }
 
-  private async scrapePlaceholderContent(config: ScrapeConfig, stats: ScrapeStats): Promise<void> {
-    // Placeholder implementation - in real implementation this would
-    // fetch and parse actual HTML content
+  // Multi-jurisdiction scraper - demonstrates extensibility pattern
+  async scrapeJurisdiction(config: ScrapeConfig): Promise<ScrapeStats> {
+    const jurisdiction = config.jurisdiction.toLowerCase()
+    
+    // Create crawler configuration
+    const crawlerConfig: CrawlerConfig = {
+      jurisdiction: config.jurisdiction,
+      sourceUrl: config.sourceUrl,
+      publicationId: config.publicationId,
+      dryRun: config.dryRun,
+      batchSize: config.batchSize,
+      crawlType: config.crawlType
+    }
+    
+    switch (jurisdiction) {
+      case 'colorado':
+      case 'co':
+        return this.runCrawler(createColoradoCrawler(this.db, crawlerConfig))
+        
+      case 'texas':
+      case 'tx':
+        return this.runCrawler(createTexasCrawler(this.db, crawlerConfig))
+        
+      // Future jurisdictions can be added here:
+      // case 'california':
+      // case 'ca':
+      //   return this.runCrawler(createCaliforniaCrawler(this.db, crawlerConfig))
+      //   
+      // case 'federal':
+      // case 'usc':
+      //   return this.runCrawler(createFederalCrawler(this.db, crawlerConfig))
+        
+      default:
+        throw new Error(`Scraping not implemented for jurisdiction: ${config.jurisdiction}. Supported: Colorado (CO), Texas (TX)`)
+    }
+  }
 
-    // Example: Create a sample title structure
-    const sampleTitles = [
-      {
-        number: '15',
-        name: 'Probate, Trusts, and Fiduciaries',
-        articles: [
-          {
-            number: '10',
-            name: 'Colorado Probate Code',
-            sections: [
-              { number: '101', name: 'Short title' },
-              { number: '102', name: 'Purposes - rule of construction' },
-              { number: '103', name: 'Supplementary general principles of law applicable' }
-            ]
-          },
-          {
-            number: '11',
-            name: 'Uniform Trust Code',
-            sections: [
-              { number: '1101', name: 'Short title' },
-              { number: '1102', name: 'Scope' }
-            ]
-          }
-        ]
-      }
-    ]
-
-    for (const title of sampleTitles) {
-      if (config.dryRun) {
-        console.log(`[DRY RUN] Would create title: ${title.number} - ${title.name}`)
-      } else {
-        // Create title
-        const titleId = await this.createLegalUnit({
-          publication_id: config.publicationId,
-          parent_id: undefined,
-          unit_type: 'title',
-          level: 1,
-          number: title.number,
-          name: title.name,
-          citation: `§ ${title.number}`,
-          content_html: `<h1>Title ${title.number} - ${title.name}</h1>`,
-          content_text: `Title ${title.number} - ${title.name}`,
-          status: 'active',
-          sort_order: parseInt(title.number)
-        })
+  /**
+   * Generic crawler runner - works with any jurisdiction-specific crawler
+   */
+  private async runCrawler(crawler: any): Promise<ScrapeStats> {
+    try {
+      console.log(`Running ${crawler.constructor.name}...`)
+      
+      const crawlerStats = await crawler.run()
+      
+      // Convert crawler stats to expected format
+      const stats: ScrapeStats = {
+        titlesProcessed: crawlerStats.titlesProcessed,
+        articlesProcessed: crawlerStats.articlesProcessed,
+        sectionsProcessed: crawlerStats.sectionsProcessed,
+        errors: crawlerStats.errors,
+        startTime: crawlerStats.startTime,
+        endTime: crawlerStats.endTime,
+        urlsDiscovered: crawlerStats.urlsDiscovered,
+        urlsProcessed: crawlerStats.urlsProcessed
       }
       
-      stats.titlesProcessed++
-
-      for (const article of title.articles) {
-        if (config.dryRun) {
-          console.log(`[DRY RUN] Would create article: ${title.number}-${article.number} - ${article.name}`)
-        } else {
-          // Create article
-          const articleId = await this.createLegalUnit({
-            publication_id: config.publicationId,
-            parent_id: titleId,
-            unit_type: 'article',
-            level: 2,
-            number: article.number,
-            name: article.name,
-            citation: `§ ${title.number}-${article.number}`,
-            content_html: `<h2>Article ${article.number} - ${article.name}</h2>`,
-            content_text: `Article ${article.number} - ${article.name}`,
-            status: 'active',
-            sort_order: parseInt(article.number)
-          })
-        }
-        
-        stats.articlesProcessed++
-
-        for (const section of article.sections) {
-          if (config.dryRun) {
-            console.log(`[DRY RUN] Would create section: ${title.number}-${article.number}-${section.number} - ${section.name}`)
-          } else {
-            // Create section
-            await this.createLegalUnit({
-              publication_id: config.publicationId,
-              parent_id: articleId,
-              unit_type: 'section',
-              level: 3,
-              number: section.number,
-              name: section.name,
-              citation: `§ ${title.number}-${article.number}-${section.number}`,
-              content_html: `<h3>§ ${title.number}-${article.number}-${section.number}. ${section.name}</h3><p>Content for ${section.name} would go here.</p>`,
-              content_text: `§ ${title.number}-${article.number}-${section.number}. ${section.name}. Content for ${section.name} would go here.`,
-              status: 'active',
-              sort_order: parseInt(section.number)
-            })
-          }
-          
-          stats.sectionsProcessed++
-        }
-      }
-    }
-  }
-
-  private async createLegalUnit(unit: Omit<LegalUnit, 'id' | 'created_at' | 'last_modified'>): Promise<number> {
-    try {
-      return await this.db.createLegalUnit(unit)
+      console.log(`Crawler completed. Stats:`, stats)
+      return stats
+      
     } catch (error) {
-      console.error('Error creating legal unit:', error)
+      console.error('Crawler error:', error)
       throw error
     }
   }
 
-  async parseHTML(html: string): Promise<any> {
-    // TODO: Implement HTML parsing logic
-    // This would use a proper HTML parser to extract structured content
-    // For now, returning placeholder
-    return {
-      titles: [],
-      articles: [],
-      sections: []
-    }
-  }
-
-  async extractMetadata(element: any): Promise<Record<string, any>> {
-    // TODO: Extract metadata like effective dates, amendments, etc.
-    return {}
-  }
-
-  async cleanupContent(content: string): Promise<string> {
-    // TODO: Clean up HTML content - remove unwanted tags, fix formatting, etc.
-    return content
-      .replace(/<script[^>]*>.*?<\/script>/gi, '')
-      .replace(/<style[^>]*>.*?<\/style>/gi, '')
-      .replace(/\s+/g, ' ')
-      .trim()
-  }
-
+  // Utility methods - these are now handled by the parsers and crawlers
+  // but kept for backward compatibility if needed
+  
   async generateCitation(
     titleNum?: string,
     articleNum?: string, 
@@ -201,13 +148,13 @@ export class StatuteScraper {
     switch (format) {
       case 'colorado':
         if (sectionNum && articleNum && titleNum) {
-          return `§ ${titleNum}-${articleNum}-${sectionNum}`
+          return `${titleNum}-${articleNum}-${sectionNum}`
         }
         if (articleNum && titleNum) {
-          return `§ ${titleNum}-${articleNum}`
+          return `${titleNum}-${articleNum}`
         }
         if (titleNum) {
-          return `§ ${titleNum}`
+          return `${titleNum}`
         }
         break
       default:

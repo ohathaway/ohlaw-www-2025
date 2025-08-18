@@ -317,7 +317,7 @@ const citation = computed(() => {
 // Fetch statute data
 const { data: statuteData, pending, error, refresh } = useLazyAsyncData(
   `statute-detail:${citation.value}`,
-  () => $fetch(`/api/statutes/${encodeURIComponent(citation.value)}`, {
+  () => $fetch(`/api/statutes/citations/${encodeURIComponent(citation.value)}`, {
     query: {
       include_children: true,
       include_related: true,

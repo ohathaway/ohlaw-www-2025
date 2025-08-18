@@ -37,6 +37,8 @@ export interface ScrapeRequest {
   source_url: string
   force_refresh?: boolean
   dry_run?: boolean
+  crawl_type?: 'full' | 'title'
+  batchSize?: number
 }
 
 export interface ScrapeResponse {
