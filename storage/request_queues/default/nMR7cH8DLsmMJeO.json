@@ -1,0 +1,9 @@
+{
+	"id": "nMR7cH8DLsmMJeO",
+	"json": "{\"id\":\"nMR7cH8DLsmMJeO\",\"url\":\"https://olls.info/crs/crs2024-title-21.htm\",\"loadedUrl\":\"https://olls.info/crs/crs2024-title-21.htm\",\"uniqueKey\":\"https://olls.info/crs/crs2024-title-21.htm\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{\"User-Agent\":\"Mozilla/5.0 (compatible; Legal Research Bot; +https://ohlaw.com)\",\"Accept\":\"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\",\"Accept-Language\":\"en-US,en;q=0.5\",\"Accept-Encoding\":\"gzip, deflate\",\"DNT\":\"1\",\"Connection\":\"keep-alive\",\"Upgrade-Insecure-Requests\":\"1\"},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2025-08-17T23:56:30.859Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://olls.info/crs/crs2024-title-21.htm",
+	"url": "https://olls.info/crs/crs2024-title-21.htm"
+}
