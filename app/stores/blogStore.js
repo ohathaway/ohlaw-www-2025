@@ -15,7 +15,24 @@ export const useBlogStore = defineStore('blog', () => {
       const searchClient = useMeilisearch()
       const index = searchClient.index('post')
 
-      const searchResult = await index.search(searchTerm.value)
+      const searchResult = await index.search(
+        searchTerm.value,
+        {
+          showRankingScore: true,
+          limit: 60,
+          showRankingScore: true,
+          attributesToRetrieve: [
+            'id',
+            'Title',
+            'slug',
+            'Snippet',
+            'Image',
+            'tags',
+            'category',
+            'publishDate'
+          ]
+        }
+      )
       searchMeta.value.limit = searchResult.limit
       searchMeta.value.offset = searchResult.offset,
       searchMeta.value.estimatedTotalHits = searchResult.estimatedTotalHits

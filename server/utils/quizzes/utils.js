@@ -118,44 +118,8 @@ export const getQuizForAIbySlugREST = (slug) => {
         $eq: slug,
       },
     },
-    populate: {
-      questions: {
-        populate: {
-          answers: {
-            fields: [
-              'answerText',
-              'answerId',
-              'minimumResultScore',
-              'impact',
-              'whyItMatters',
-              'value',
-            ],
-          },
-        },
-        fields: [
-          'questionText',
-          'description',
-          'questionId',
-        ],
-        pagination: {
-          pageSize: 20,
-          page: 1,
-        },
-      },
-      resultCategories: {
-        fields: [
-          'title',
-          'description',
-          'minScore',
-          'maxScore',
-        ],
-      },
-    },
-    fields: [
-      'description',
-      'title',
-      'version',
-    ],
+    populate: ['questions.answers', 'resultCategories'],
+    fields: ['description', 'title', 'version'],
   }, { encode: false })
 }
 

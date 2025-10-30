@@ -372,16 +372,22 @@ export const useQuizStore = defineStore('quiz', () => {
     try {
       // Stash answers in KV
       const kvKey = `quizAnswers:${startTime.value}`
-      await hubKV.set(kvKey, {
-        quiz: quiz.value.id,
-        quizVersion: quiz.value.version,
-        answers: userAnswers.value,
-        score: quizResult.value.score,
-        resultCategory: quizResult.value.category?.title,
-        contactInfo,
-        startedAt: startTime.value,
-        submittedToCRM: false,
-        userAgent: navigator.userAgent,
+      await $fetch('/api/quizzes/store-answers', {
+        method: 'post',
+        body: {
+          kvKey,
+          data: {
+            quiz: quiz.value.id,
+            quizVersion: quiz.value.version,
+            answers: userAnswers.value,
+            score: quizResult.value.score,
+            resultCategory: quizResult.value.category?.title,
+            contactInfo,
+            startedAt: startTime.value,
+            submittedToCRM: false,
+            userAgent: navigator.userAgent,
+          }
+        }
       })
 
       // Submit to Mailer Lite
