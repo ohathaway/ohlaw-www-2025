@@ -5,7 +5,6 @@
 
 import PDFDocument from 'pdfkit'
 import { renderRichTextToPdf } from '../quizzes/renderRichText2Pdf.js'
-import { addQRToPDF } from '../qrcode/index.js'
 
 /**
  * Generates a PDF from blog post content
@@ -286,6 +285,9 @@ const addBlogFooter = async (doc, post, config) => {
   const articleUrl = `${appConfig.seo.siteUrl}/blog/${post.slug}`
 
   try {
+    // Dynamically import QR code utilities to avoid initialization issues
+    const { addQRToPDF } = await import('../qrcode/index.js')
+
     await addQRToPDF(doc, articleUrl, {
       x: margins.left,
       y: footerY + 10,
