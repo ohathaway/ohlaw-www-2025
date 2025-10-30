@@ -1,7 +1,5 @@
 // server/utils/quizzes/renderRichTextToPdf.js
 
-import { renderQRBlock } from '../qrcode/index.js'
-
 /**
  * Renders rich text content to a PDFKit document
  * @param {PDFDocument} doc - The PDFKit document
@@ -37,12 +35,18 @@ export const renderRichTextToPdf = async (doc, blocks = [], options = {}) => {
 
 // Main block renderer - dispatches to type-specific renderers
 const renderBlock = async (doc, block, config) => {
+  // Lazy-load QR code renderer to avoid loading qr-code-styling in edge runtime
+  const renderQRBlockLazy = async (doc, block, config) => {
+    const { renderQRBlock } = await import('../qrcode/index.js')
+    return renderQRBlock(doc, block, config)
+  }
+
   const renderers = {
     'heading': renderHeading,
     'paragraph': renderParagraph,
     'list': renderList,
     'spacer': renderSpacer,
-    'qr-code': renderQRBlock,
+    'qr-code': renderQRBlockLazy,
     // Add more as needed
   }
 
