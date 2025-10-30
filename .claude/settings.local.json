@@ -4,7 +4,17 @@
       "Bash(pnpm dev:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(npx playwright test:*)"
+      "Bash(node:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(npx playwright test:*)",
+      "Bash(pnpm test:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:nuxt.com)",
+      "mcp__cloudflare-docs__search_cloudflare_documentation",
+      "Bash(pnpm lint:*)",
+      "Bash(npx nuxi typecheck)"
     ],
     "deny": []
   },

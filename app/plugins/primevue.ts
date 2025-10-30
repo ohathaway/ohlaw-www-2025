@@ -21,6 +21,7 @@ import Dialog from 'primevue/dialog'
 import Divider from 'primevue/divider'
 import Drawer from 'primevue/drawer'
 import FloatLabel from 'primevue/floatlabel'
+import FocusTrap from 'primevue/focustrap'
 import { Form } from '@primevue/forms'
 import InputGroup from 'primevue/inputgroup'
 import InputMask from 'primevue/inputmask'
@@ -93,6 +94,7 @@ export default defineNuxtPlugin({
     nuxtApp.vueApp.component('Tag', Tag)
     nuxtApp.vueApp.component('Timeline', Timeline)
 
+    nuxtApp.vueApp.directive('focustrap', FocusTrap)
     nuxtApp.vueApp.directive('ripple', Ripple)
     nuxtApp.vueApp.directive('tooltip', Tooltip)
   },

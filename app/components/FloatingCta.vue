@@ -266,94 +266,90 @@ onUnmounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .floating-cta {
   position: fixed;
-  z-index: 1050; // Higher than Bootstrap's default modal backdrop
+  z-index: 1050; /* Higher than Bootstrap's default modal backdrop */
   transition: opacity 0.3s ease;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   user-select: none;
   touch-action: none;
-
-  &.is-dragging {
-    opacity: 0.8;
-    transition: none;
-  }
-
-  .cta-button {
-    padding: 12px 20px;
-    font-weight: 600;
-    border-radius: 8px;
-    background-color: --var(primary-900); // Matching your site's primary color
-    border: none;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      background-color: color-mix(in srgb, --var(primary-600), black 10%);
-    }
-
-    i {
-      font-size: 1.2rem;
-    }
-  }
-
-  .btn-close {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    cursor: pointer;
-  }
-
-  &:hover .btn-close {
-    opacity: 1;
-  }
-
-  &.is-mobile {
-    .cta-button {
-      padding: 10px 16px;
-      font-size: 0.9rem;
-    }
-
-    // Adjust position to stay out of the way on mobile
-    bottom: 70px !important;
-    right: 15px !important;
-    left: auto !important;
-    top: auto !important;
-  }
 }
 
-// Increase size of the touch area for mobile
-@media (max-width: 767px) {
-  .floating-cta {
-    .btn-close {
-      width: 24px;
-      height: 24px;
-      opacity: 1;
-      top: -6px;
-      right: -6px;
-      font-size: 0.9rem;
-    }
+.floating-cta.is-dragging {
+  opacity: 0.8;
+  transition: none;
+}
 
-    .cta-button {
-      i {
-        margin-right: 0 !important;
-      }
-    }
+.floating-cta .cta-button {
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: var(--primary-900); /* Matching your site's primary color */
+  border: none;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.floating-cta .cta-button:hover {
+  background-color: color-mix(in srgb, var(--primary-600), black 10%);
+}
+
+.floating-cta .cta-button i {
+  font-size: 1.2rem;
+}
+
+.floating-cta .btn-close {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.floating-cta:hover .btn-close {
+  opacity: 1;
+}
+
+.floating-cta.is-mobile .cta-button {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+
+.floating-cta.is-mobile {
+  /* Adjust position to stay out of the way on mobile */
+  bottom: 70px !important;
+  right: 15px !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+/* Increase size of the touch area for mobile */
+@media (max-width: 767px) {
+  .floating-cta .btn-close {
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+    top: -6px;
+    right: -6px;
+    font-size: 0.9rem;
+  }
+
+  .floating-cta .cta-button i {
+    margin-right: 0 !important;
   }
 }
 </style>

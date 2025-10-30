@@ -35,3 +35,7 @@ test-output
 # Claude
 .claude
 CLAUDE.md
+
+# Claude
+.claude
+.mcp.json

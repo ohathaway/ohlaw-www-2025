@@ -94,9 +94,9 @@ export default defineNuxtConfig({
     'nuxt-gtag',
   ],
 
-  imports: {
-    dirs: ['app/utils', 'app/stores'],
-  },
+  // imports: {
+    // dirs: ['app/utils', 'app/stores'],
+  // },
 
   /* disabled since FormKit doesn't seem to work with Tailwind 4
   formkit: {

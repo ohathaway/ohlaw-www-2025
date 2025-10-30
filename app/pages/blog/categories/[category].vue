@@ -8,9 +8,14 @@
           <span class="block absolute bg-primary" style="height: 3px; width: 70px; bottom: -10px; left: 0;" />
         </h1>
 
-        <div class="relative clearfix">
-          <!-- Direct image with controlled width -->
-          <div class="float-right ml-8 mb-6 w-full lg:w-[600px] max-w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <!-- Text content -->
+          <div class="order-2 lg:order-1">
+            <BlogRichText :block="categoryData.hero" />
+          </div>
+
+          <!-- Image with controlled width -->
+          <div class="order-1 lg:order-2 w-full max-w-[600px] mx-auto lg:mx-0">
             <NuxtImg
               v-if="categoryData.Image"
               :provider="'strapi'"
@@ -25,11 +30,6 @@
               :alt="toTitleCase(category, '-') + ' Category'"
               class="w-full rounded-xl shadow-md border border-gray-200"
             >
-          </div>
-
-          <!-- Text content -->
-          <div>
-            <BlogRichText :block="categoryData.hero" />
           </div>
         </div>
       </div>
