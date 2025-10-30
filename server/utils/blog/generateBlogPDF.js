@@ -4,7 +4,6 @@
  */
 
 import PDFDocument from 'pdfkit'
-import { renderRichTextToPdf } from '../quizzes/renderRichText2Pdf.js'
 
 /**
  * Generates a PDF from blog post content
