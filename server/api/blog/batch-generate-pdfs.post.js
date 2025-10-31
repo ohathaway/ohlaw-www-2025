@@ -188,12 +188,17 @@ async function processBatch(posts) {
     }
     catch (error) {
       console.error(`❌ Failed to generate PDF for ${post.slug}:`, error.message)
+      console.error('Full error details:', error)
+      console.error('Stack trace:', error.stack)
 
       results.push({
         success: false,
         slug: post.slug,
         title: post.Title,
         error: error.message,
+        stack: error.stack,
+        errorName: error.name,
+        cause: error.cause?.message,
       })
     }
   }
