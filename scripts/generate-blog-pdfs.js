@@ -11,6 +11,15 @@ const STRAPI_URL = process.env.STRAPI_URL || 'https://strapi.ohlawcolorado.com'
 const BATCH_SIZE = 5 // Process 5 posts at a time to avoid overwhelming the server
 
 /**
+ * Build query string from params object
+ */
+const buildQueryString = (params) => {
+  return Object.entries(params)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&')
+}
+
+/**
  * Fetches all published blog posts from Strapi
  */
 async function fetchAllBlogPosts() {
@@ -22,21 +31,28 @@ async function fetchAllBlogPosts() {
 
   while (hasMore) {
     try {
-      const response = await $fetch(`${STRAPI_URL}/api/blog-posts`, {
-        params: {
-          'pagination[page]': page,
-          'pagination[pageSize]': 25,
-          'filters[publishedAt][$notNull]': true,
-          'sort[0]': 'publishedAt:desc',
-          'populate': 'deep',
-        },
+      const params = buildQueryString({
+        'pagination[page]': page,
+        'pagination[pageSize]': 25,
+        'filters[publishedAt][$notNull]': true,
+        'sort[0]': 'publishedAt:desc',
+        'populate': '*',
       })
 
-      posts.push(...response.data)
-      hasMore = response.meta.pagination.page < response.meta.pagination.pageCount
+      const url = `${STRAPI_URL}/api/posts?${params}`
+      const response = await fetch(url)
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+
+      const data = await response.json()
+
+      posts.push(...data.data)
+      hasMore = data.meta.pagination.page < data.meta.pagination.pageCount
       page++
 
-      console.log(`Fetched page ${page - 1}: ${response.data.length} posts`)
+      console.log(`Fetched page ${page - 1}: ${data.data.length} posts`)
     }
     catch (error) {
       console.error(`Error fetching page ${page}:`, error.message)

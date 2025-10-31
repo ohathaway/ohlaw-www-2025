@@ -1,0 +1,56 @@
+name: Generate Blog PDFs
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+
+  # Run daily at 2 AM UTC
+  schedule:
+    - cron: '0 2 * * *'
+
+  # Trigger after successful deployment (optional)
+  workflow_run:
+    workflows: ["Deploy to NuxtHub"]
+    types:
+      - completed
+
+jobs:
+  generate-pdfs:
+    name: "Generate Blog PDFs"
+    runs-on: ubuntu-latest
+    # Only run if deployment was successful (when triggered by workflow_run)
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate Blog PDFs
+        env:
+          STRAPI_URL: ${{ secrets.STRAPI_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
+        run: node scripts/generate-blog-pdfs.js
+
+      - name: Report status
+        if: always()
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ Blog PDFs generated successfully"
+          else
+            echo "❌ Blog PDF generation failed"
+          fi

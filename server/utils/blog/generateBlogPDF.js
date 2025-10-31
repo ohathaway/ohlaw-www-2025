@@ -6,6 +6,52 @@
 import PDFDocument from 'pdfkit'
 
 /**
+ * Get runtime config - works in both Nuxt and standalone Node.js
+ */
+const getRuntimeConfig = () => {
+  // Check if we're in Nuxt runtime
+  if (typeof useRuntimeConfig !== 'undefined') {
+    return useRuntimeConfig()
+  }
+  // Fallback to environment variables for standalone Node.js
+  return {
+    public: {
+      strapiUrl: process.env.STRAPI_URL || 'https://strapi.ohlawcolorado.com',
+    },
+  }
+}
+
+/**
+ * Get app config - works in both Nuxt and standalone Node.js
+ */
+const getAppConfig = () => {
+  // Check if we're in Nuxt runtime
+  if (typeof useAppConfig !== 'undefined') {
+    return useAppConfig()
+  }
+  // Fallback to hardcoded config for standalone Node.js
+  return {
+    seo: {
+      siteUrl: 'https://ohlawcolorado.com',
+      siteName: 'The Law Offices of Owen Hathaway',
+      phone: '970-818-3052',
+      address: {
+        street: '300 E. Spaulding Ave',
+        city: 'Pueblo West',
+        state: 'CO',
+        zip: '81007',
+      },
+    },
+    contactEmail: 'info@ohlawcolorado.com',
+    blogPdfs: {
+      bucketName: process.env.CLOUDFLARE_BUCKET_NAME || 'ohlaw-downloads',
+      prefix: 'blog-pdfs',
+      publicDomain: 'https://downloads.ohlawcolorado.com',
+    },
+  }
+}
+
+/**
  * Generates a PDF from blog post content
  * @param {Object} post - Blog post data from Strapi
  * @param {Object} options - Configuration options
@@ -262,7 +308,7 @@ const extractTextFromChildren = (children) => {
  */
 const addBlogFooter = async (doc, post, config) => {
   const { margins, contentWidth, baseFont, colors } = config
-  const appConfig = useAppConfig()
+  const appConfig = getAppConfig()
 
   // Check if we need a new page for footer
   const footerHeight = 120
@@ -335,8 +381,15 @@ const addBlogFooter = async (doc, post, config) => {
 export const generateBlogPDFBuffer = async (documentId) => {
   try {
     // Fetch blog post from Strapi
-    const apiUrl = `${useRuntimeConfig().public.strapiUrl}/api/posts/${documentId}?populate=*`
-    const post = await $fetch(apiUrl)
+    const runtimeConfig = getRuntimeConfig()
+    const apiUrl = `${runtimeConfig.public.strapiUrl}/api/posts/${documentId}?populate=*`
+
+    // Use native fetch for compatibility with standalone Node.js
+    const response = await fetch(apiUrl)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch post: ${response.status} ${response.statusText}`)
+    }
+    const post = await response.json()
 
     if (!post?.data) {
       throw new Error(`Blog post not found: ${documentId}`)
@@ -372,7 +425,7 @@ export const generateAndStoreBlogPDF = async (documentId, slug) => {
     const { buffer: pdfBuffer } = await generateBlogPDFBuffer(documentId)
 
     // Store in public R2 bucket
-    const appConfig = useAppConfig()
+    const appConfig = getAppConfig()
     const filename = `${slug}.pdf`
     const bucketName = appConfig.blogPdfs.bucketName
     const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
@@ -416,7 +469,7 @@ export const blogPDFExists = async (slug) => {
  */
 export const getBlogPDFUrl = async (slug) => {
   try {
-    const appConfig = useAppConfig()
+    const appConfig = getAppConfig()
     const filename = `${slug}.pdf`
     const keyName = `${appConfig.blogPdfs.prefix}/${filename}`
 
