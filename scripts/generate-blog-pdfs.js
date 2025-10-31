@@ -72,14 +72,14 @@ async function processBatch(posts, startIndex) {
 
   for (const post of batch) {
     try {
-      console.log(`Processing: ${post.title} (${post.slug})`)
+      console.log(`Processing: ${post.Title} (${post.slug})`)
 
       const pdfUrl = await generateAndStoreBlogPDF(post.documentId, post.slug)
 
       results.push({
         success: true,
         slug: post.slug,
-        title: post.title,
+        title: post.Title,
         pdfUrl,
       })
 
@@ -91,7 +91,7 @@ async function processBatch(posts, startIndex) {
       results.push({
         success: false,
         slug: post.slug,
-        title: post.title,
+        title: post.Title,
         error: error.message,
       })
     }

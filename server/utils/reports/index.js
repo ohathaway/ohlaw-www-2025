@@ -3,7 +3,7 @@ import {
   PutObjectCommand,
   ListObjectsV2Command,
 } from '@aws-sdk/client-s3'
-import { r2Client } from '../r2'
+import { r2Client } from '../r2.js'
 
 /**
  * Upload a PDF buffer to Cloudflare R2 bucket
