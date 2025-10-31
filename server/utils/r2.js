@@ -1,4 +1,4 @@
-// server/utils/r2.ts
+// server/utils/r2.js
 import {
   GetObjectCommand,
   NoSuchKey,
@@ -11,13 +11,13 @@ const r2Client = new S3Client({
   region: 'auto',
   endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
   credentials: {
-    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
+    secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
   },
 })
 
 const cf = new Cloudflare({
-  apiToken: process.env.CLOUDFLARE_API_KEY!,
+  apiToken: process.env.CLOUDFLARE_API_KEY,
 })
 
 /**
@@ -25,7 +25,7 @@ const cf = new Cloudflare({
  * @param {string} key - The specific R2 object key to grant access to
  * @returns {Promise<object>} Temporary credentials object
  */
-export const createTemporaryR2Credentials = async (key: string) => {
+export const createTemporaryR2Credentials = async (key) => {
   const config = useRuntimeConfig()
   const accountId = config.cloudflare.accountId
   const bucketName = config.cloudflare.bucketName
@@ -59,14 +59,14 @@ export const createTemporaryR2Credentials = async (key: string) => {
   }
 }
 
-export const getPresignedUrl = async (key: string) => {
+export const getPresignedUrl = async (key) => {
   try {
     const s3Client = new S3Client({
       region: 'auto',
       endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
       credentials: {
-        accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY!,
+        accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
+        secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
       },
     })
 
