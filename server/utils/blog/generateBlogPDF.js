@@ -36,13 +36,13 @@ const getAppConfig = () => {
       siteName: 'The Law Offices of Owen Hathaway',
       phone: '970-818-3052',
       address: {
-        street: '300 E. Spaulding Ave',
-        city: 'Pueblo West',
+        street: '2580 E Harmony Rd, Suite 201',
+        city: 'Fort Collins',
         state: 'CO',
-        zip: '81007',
+        zip: '80525',
       },
     },
-    contactEmail: 'info@ohlawcolorado.com',
+    contactEmail: 'contact@ohlawcolorado.com',
     blogPdfs: {
       bucketName: process.env.CLOUDFLARE_BUCKET_NAME || 'ohlaw-downloads',
       prefix: 'blog-pdfs',
