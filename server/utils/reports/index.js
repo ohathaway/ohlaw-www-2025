@@ -24,8 +24,8 @@ export const uploadPdfToR2 = async (pdfBuffer, fileName, bucketName, prefix) => 
   })
 
   try {
-    await r2Client.send(putCommand)
     console.info('process.env:', process.env)
+    await r2Client.send(putCommand)
 
     // Return the public URL (adjust domain as needed for your R2 setup)
     const publicUrl = `https://${bucketName}.${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com/${key}`
