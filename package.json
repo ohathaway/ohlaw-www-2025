@@ -63,7 +63,7 @@
     "qs": "^6.14.0",
     "tailwindcss": "^4.1.11",
     "tailwindcss-primeui": "^0.6.1",
-    "validator": "^13.15.15",
+    "validator": "^13.15.22",
     "vue": "^3.5.18",
     "vue-instantsearch": "^4.21.2",
     "vue-router": "^4.5.1",
