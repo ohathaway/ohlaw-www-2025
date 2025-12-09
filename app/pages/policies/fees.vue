@@ -30,7 +30,7 @@
           results, complexity, urgency or uniqueness of the matter.
         </li>
         <li>
-          Our hourly fees presently are $225.00 an hour for attorneys and $100.00 an hour for
+          Our hourly fees presently are $290.00 an hour for attorneys and $125.00 an hour for
           paralegals. We attempt to assign your work in the most cost-effective manner; however, an
           attorney will supervise your case. We are not permitted to underwrite your expenses
           incurred in the representation. Hence, you are responsible for reimbursing us our
@@ -41,7 +41,7 @@
           reflected on your monthly billing statement.
         </li>
         <li>
-          For full representation clients, we will request a fee deposit from you. We place this
+          We may request a fee deposit from you. We place this
           payment in a trust account to be held as deposit for your benefit. We will return any
           unused portion of this deposit at the conclusion of our representation.
         </li>
