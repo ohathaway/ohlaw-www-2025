@@ -231,7 +231,6 @@ export default defineNuxtConfig({
   },
 
   watch: ['./primevue.ohlaw.ts'],
-  // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
   future: { compatibilityVersion: 4 },
 
   // CSS optimization
