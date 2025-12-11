@@ -81,6 +81,17 @@
                 </AccordionPanel>
 
                 <AccordionPanel value="1">
+                  <AccordionHeader>Windsor</AccordionHeader>
+                  <AccordionContent>
+                    <ul class="list-none pl-0">
+                      <li>1230 W. Ash St.</li>
+                      <li>Unit D</li>
+                      <li>Windsor, CO 80550</li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionPanel>
+
+                <AccordionPanel value="2">
                   <AccordionHeader>Denver Metro North</AccordionHeader>
                   <AccordionContent>
                     <ul class="list-none pl-0">
@@ -91,7 +102,7 @@
                   </AccordionContent>
                 </AccordionPanel>
 
-                <AccordionPanel value="2">
+                <AccordionPanel value="3">
                   <AccordionHeader>Broomfield/Interlocken</AccordionHeader>
                   <AccordionContent>
                     <ul class="list-none pl-0">
@@ -105,12 +116,12 @@
             </div>
           </div>
 
-          <div class="md:col-span-3 order-last md:order-first">
-            <div class="rounded-lg overflow-hidden shadow-lg">
+          <div class="md:col-span-3 order-last md:order-first h-full">
+            <div class="rounded-lg overflow-hidden shadow-lg h-full">
               <iframe
                 :src="currentMapUrl"
                 width="100%"
-                height="450"
+                height="100%"
                 style="border:0;"
                 allowfullscreen=""
                 loading="lazy"
@@ -266,6 +277,7 @@ const openBookingModal = () => {
 // Map controls
 const addressIframes = {
   foco: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.8064395418924!2d-105.0348897144356!3d40.52376917544674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876eb34d7d55dd11%3A0xcd425b9134c1d587!2sOffice%20Evolution!5e0!3m2!1sen!2sus!4v1741916038680!5m2!1sen!2sus',
+  windsor: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3034.7317819250075!2d-104.92440078887724!3d40.481198451594544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876eb1eed116e6a5%3A0x2c960d19f367a2c9!2s1230%20W%20Ash%20St%20d%2C%20Windsor%2C%20CO%2080550!5e0!3m2!1sen!2sus!4v1765480232764!5m2!1sen!2sus',
   metroNorth: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.2495762449034!2d-104.98664062417319!3d39.91343068611849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876c7591e4a9c9c5%3A0xf801bf8aa6ba55f2!2sOffice%20Evolution%20-%20Metro%20North%2C%20CO!5e0!3m2!1sen!2sus!4v1741916272047!5m2!1sen!2sus',
   interlocken: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.1878797991712!2d-105.12557541463585!3d39.91481151262766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876b8b869076500b%3A0x6134c1f5e6a0c76e!2sOffice%20Evolution%20-%20Broomfield%2C%20CO!5e0!3m2!1sen!2sus!4v1741916375745!5m2!1sen!2sus',
 }
@@ -281,7 +293,7 @@ const currentMapUrl = computed(() => {
 // Function to handle accordion tab changes
 const handleAccordionChange = (event) => {
   // Map PrimeVue accordion index to location keys
-  const locationMap = ['foco', 'metroNorth', 'interlocken']
+  const locationMap = ['foco', 'windsor', 'metroNorth', 'interlocken']
   if (event !== undefined && locationMap[event]) {
     currentLocation.value = locationMap[event]
   }
