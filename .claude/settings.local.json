@@ -17,7 +17,13 @@
       "Bash(npx nuxi typecheck)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(wrangler whoami:*)",
+      "Bash(wrangler kv namespace list:*)",
+      "Bash(wrangler r2 bucket:*)",
+      "Bash(wrangler deployments:*)",
+      "Bash(pnpm build:*)",
+      "Bash(cat:*)"
     ],
     "deny": []
   },

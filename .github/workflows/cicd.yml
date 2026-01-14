@@ -1,0 +1,114 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches:
+      - master
+      - stage
+  push:
+    branches:
+      - master
+      - stage
+
+jobs:
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run linting
+        run: pnpm lint
+
+      - name: Run type checking
+        run: pnpm typecheck
+
+  deploy:
+    name: Deploy
+    needs: lint
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+        env:
+          NUXT_GIT_COMMIT: ${{ github.sha }}
+          NUXT_BUILD_DATE: ${{ github.event.head_commit.timestamp }}
+          STRAPI_URL: ${{ secrets.STRAPI_URL }}
+          CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
+          SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
+          MAILER_LITE_KEY: ${{ secrets.MAILER_LITE_KEY }}
+          LAWMATICS_URL: ${{ secrets.LAWMATICS_URL }}
+          LAWMATICS_KEY: ${{ secrets.LAWMATICS_KEY }}
+          LAWMATICS_QUIZ_FORM_URL: ${{ secrets.LAWMATICS_QUIZ_FORM_URL }}
+          ME_SEARCH_KEY: ${{ secrets.ME_SEARCH_KEY }}
+          GTAG_ID: ${{ secrets.GTAG_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
+
+      - name: Verify build output
+        run: |
+          if [ -f dist/_worker.js/index.js ]; then
+            echo "✓ Worker script generated successfully"
+            echo "Build format: Cloudflare Pages (dist/_worker.js)"
+          else
+            echo "✗ Worker script not found!"
+            exit 1
+          fi
+          if [ -d dist/_nuxt ]; then
+            echo "✓ Static assets generated successfully"
+          else
+            echo "✗ Static assets not found!"
+            exit 1
+          fi
+
+      - name: Deploy to Preview
+        if: github.ref == 'refs/heads/stage'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy --env preview
+
+      - name: Deploy to Production
+        if: github.ref == 'refs/heads/master'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

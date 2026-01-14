@@ -6,10 +6,12 @@
     "build": "NUXT_GIT_COMMIT=$(git rev-parse --short HEAD) NUXT_BUILD_DATE=$(date -u +\"%Y-%m-%dT%H:%M:%SZ\") nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "pnpm dlx nuxthub preview",
-    "deploy": "pnpm dlx nuxthub deploy",
+    "preview": "nuxt dev",
+    "deploy": "wrangler deploy",
+    "deploy:preview": "wrangler deploy --env preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
+    "typecheck": "npx nuxi typecheck",
     "generate-blog-pdfs": "node scripts/generate-blog-pdfs-simple.js"
   },
   "dependencies": {

@@ -274,10 +274,11 @@ export default defineNuxtConfig({
   },
 
   // https://hub.nuxt.com/docs/getting-started/installation#options
+  // NuxtHub v0.9: boolean flags only. Resource IDs configured in wrangler.toml
   hub: {
-    ai: true,
-    blob: true,
-    kv: true,
+    kv: true, // Cloudflare KV binding
+    blob: true, // Cloudflare R2 blob storage
+    ai: true, // Cloudflare Workers AI (optional)
   },
 
   vite: {
