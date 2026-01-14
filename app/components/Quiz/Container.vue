@@ -33,8 +33,12 @@
       <!-- Loading message -->
       <div class="text-center mt-8">
         <ProgressSpinner class="text-primary mb-3" />
-        <p class="text-gray-600">Preparing your assessment...</p>
-        <p class="text-sm text-gray-500 mt-2">This may take a moment</p>
+        <p class="text-gray-600">
+          Preparing your assessment...
+        </p>
+        <p class="text-sm text-gray-500 mt-2">
+          This may take a moment
+        </p>
       </div>
     </div>
 

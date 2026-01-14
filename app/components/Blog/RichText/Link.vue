@@ -4,7 +4,7 @@
     target="_blank"
     :title="brick.text"
   >
-    <template v-for="child in brick.children">
+    <template v-for="(child, index) in brick.children" :key="index">
       <BlogRichTextModifier v-if="isModifier(child)" :brick="child" />
       <template v-else>{{ child.text }}</template>
     </template>

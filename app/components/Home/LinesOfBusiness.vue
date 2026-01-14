@@ -7,7 +7,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Loop through services -->
         <div
-          v-for="(service, index) in services"
+          v-for="service in services"
           :key="service.id"
           class="group relative overflow-hidden rounded-lg transition-all duration-300"
           :class="{ 'h-80': !expandedService || expandedService !== service.id, 'md:h-auto': expandedService === service.id }"
@@ -46,11 +46,11 @@
             <!-- Controls -->
             <div class="flex justify-between items-center">
               <NuxtLink
+                v-tooltip="`Learn more about our ${service.title} service`"
                 :to="service.link"
                 class="text-white uppercase text-sm tracking-wider border-b border-white pb-1 w-fit"
                 :name="service.title"
                 :aria-label="`Learn more about our ${service.title} service`"
-                v-tooltip="`Learn more about our ${service.title} service`"
               >
                 learn more
               </NuxtLink>

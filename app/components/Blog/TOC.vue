@@ -4,7 +4,7 @@
     :class="['sticky py-8 ps-8 pe-4 z-[999] transition-all duration-300', scrolled ? 'top-[50px]' : 'top-[80px]']"
   >
     <h4>In This Article</h4>
-    <div v-for="brick in content">
+    <div v-for="(brick, index) in content" :key="index">
       <div
         v-if="brick.type === 'heading' && brick.level === 1 "
         class="py-2"

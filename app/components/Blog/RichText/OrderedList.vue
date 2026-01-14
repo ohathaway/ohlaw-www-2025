@@ -1,6 +1,6 @@
 <template>
   <ol>
-    <BlogRichTextListItem v-for="child in brick.children" :item="child" />
+    <BlogRichTextListItem v-for="(child, index) in brick.children" :key="index" :item="child" />
   </ol>
 </template>
 

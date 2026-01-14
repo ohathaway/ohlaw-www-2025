@@ -10,7 +10,6 @@
       <!-- {{ props }} -->
       <NuxtLink
         v-if="item.route"
-        v-slot="{ href, navigate }"
         :to="item.route"
       >
         <i :class="item.icon" />

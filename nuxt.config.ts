@@ -79,6 +79,7 @@ const getPostRoutes = async () => {
 }
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
+/* global defineNuxtConfig */
 export default defineNuxtConfig({
   // https://nuxt.com/modules
   modules: [
@@ -95,7 +96,7 @@ export default defineNuxtConfig({
   ],
 
   // imports: {
-    // dirs: ['app/utils', 'app/stores'],
+  // dirs: ['app/utils', 'app/stores'],
   // },
 
   /* disabled since FormKit doesn't seem to work with Tailwind 4
@@ -260,7 +261,7 @@ export default defineNuxtConfig({
 
   nitro: {
     experimental: {
-      openAPI: true
+      openAPI: true,
     },
     routeRules: {
       '/**': {

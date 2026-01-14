@@ -268,7 +268,7 @@
       <p>
         <strong>If you don't tell us about something material, our advice won't be as good—and we can't be responsible for the consequences.</strong>
       </p>
-    
+
       <p>
         This is different from confidentiality. Confidentiality means we keep your secrets. Information disclosure means you tell us what we need to give you good advice in the first place.
       </p>

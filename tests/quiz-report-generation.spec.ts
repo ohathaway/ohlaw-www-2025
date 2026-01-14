@@ -4,7 +4,7 @@ import path from 'path'
 
 test.describe('Quiz Report Generation', () => {
   const testOutputDir = path.resolve('./test-output')
-  
+
   test.beforeAll(() => {
     // Ensure test output directory exists
     if (!fs.existsSync(testOutputDir)) {
@@ -25,10 +25,10 @@ test.describe('Quiz Report Generation', () => {
           children: [
             {
               text: 'Based on your responses, you would benefit from a guided self-help approach.',
-              type: 'text'
-            }
-          ]
-        }
+              type: 'text',
+            },
+          ],
+        },
       ]),
       userAnswers: {
         q1: 'q1a5', // Blended family - has forFurtherReference
@@ -40,69 +40,70 @@ test.describe('Quiz Report Generation', () => {
         q7: ['q7a1', 'q7a2'], // Spouse and adult child as fiduciaries
         q8: 'q8a2', // High follow-through
         q9: 'q9a2', // Somewhat comfortable with complexity
-        q10: 'q10a2' // Somewhat important privacy
-      }
+        q10: 'q10a2', // Somewhat important privacy
+      },
     }
 
     const testUser = {
       firstName: 'TestUser',
       lastName: 'Playwright',
-      email: 'test@example.com'
+      email: 'test@example.com',
     }
 
     const requestBody = {
       user: testUser,
       quizResults: testQuizResults,
-      answers: testQuizResults.userAnswers
+      answers: testQuizResults.userAnswers,
     }
 
     // Make the API request to generate the report
     const response = await request.post('/api/quizzes/generate-report', {
       data: requestBody,
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
 
     // Assert the response is valid
     expect(response.ok()).toBeTruthy()
-    
+
     const responseData = await response.json()
     console.log('Response data:', JSON.stringify(responseData, null, 2))
-    
+
     // Check if there's an error message to help debug
     if (!responseData.success && responseData.error) {
       console.log('API Error:', responseData.error)
     }
-    
+
     // Validate response structure regardless of success/failure
     expect(responseData).toHaveProperty('success')
     expect(typeof responseData.success).toBe('boolean')
-    
+
     if (responseData.success) {
       expect(responseData.message).toBe('Report generated and sent')
-      
+
       // If successful, check that a PDF was generated in test output (development mode only)
       const pdfFiles = fs.readdirSync(testOutputDir)
         .filter(file => file.endsWith('.pdf') && file.includes('Playwright-TestUser'))
-      
+
       expect(pdfFiles.length).toBeGreaterThan(0)
-      
+
       // Get the most recent PDF file
       const mostRecentPdf = pdfFiles
         .map(file => ({
           name: file,
-          time: fs.statSync(path.join(testOutputDir, file)).mtime.getTime()
+          time: fs.statSync(path.join(testOutputDir, file)).mtime.getTime(),
         }))
         .sort((a, b) => b.time - a.time)[0]
 
       expect(mostRecentPdf).toBeDefined()
-      
+
       // Verify the PDF file exists and has content
       const pdfPath = path.join(testOutputDir, mostRecentPdf.name)
       const pdfStats = fs.statSync(pdfPath)
       expect(pdfStats.size).toBeGreaterThan(10000) // PDF should be at least 10KB
-    } else {
+    }
+    else {
       // If failed, ensure error message is provided
       expect(responseData).toHaveProperty('error')
       expect(typeof responseData.error).toBe('string')
@@ -116,22 +117,22 @@ test.describe('Quiz Report Generation', () => {
       data: {
         user: { firstName: 'Test', lastName: 'User', email: 'test@example.com' },
         quizResults: { slug: 'invalid-quiz', totalScore: 0, userAnswers: {} },
-        answers: {}
+        answers: {},
       },
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
 
     // Should get a response (success or failure)
     expect(response.ok()).toBeTruthy()
-    
+
     const responseData = await response.json()
-    
+
     // Should have proper response structure
     expect(responseData).toHaveProperty('success')
     expect(typeof responseData.success).toBe('boolean')
-    
+
     if (!responseData.success) {
       expect(responseData).toHaveProperty('error')
       expect(typeof responseData.error).toBe('string')
@@ -142,17 +143,17 @@ test.describe('Quiz Report Generation', () => {
     // Test with completely invalid data structure
     const response = await request.post('/api/quizzes/generate-report', {
       data: {
-        invalid: 'data'
+        invalid: 'data',
       },
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
 
     expect(response.ok()).toBeTruthy()
-    
+
     const responseData = await response.json()
-    
+
     // Should handle gracefully
     expect(responseData).toHaveProperty('success')
     expect(responseData.success).toBe(false)
@@ -167,12 +168,12 @@ test.describe('Quiz Report Generation', () => {
         // Missing quizResults and answers
       },
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
 
     expect(response.ok()).toBeTruthy()
-    
+
     const responseData = await response.json()
     expect(responseData).toHaveProperty('success')
     expect(responseData.success).toBe(false)
@@ -184,27 +185,29 @@ test.describe('Quiz Report Generation', () => {
     if (fs.existsSync(testOutputDir)) {
       const pdfFiles = fs.readdirSync(testOutputDir)
         .filter(file => file.endsWith('.pdf'))
-      
+
       if (pdfFiles.length > 0) {
         console.log(`Cleaning up ${pdfFiles.length} test PDF(s) from: ${testOutputDir}`)
-        
+
         // Delete each PDF file
-        pdfFiles.forEach(file => {
+        pdfFiles.forEach((file) => {
           const filePath = path.join(testOutputDir, file)
           try {
             fs.unlinkSync(filePath)
-          } catch (error) {
+          }
+          catch (error) {
             console.warn(`Failed to delete ${file}:`, error.message)
           }
         })
-        
+
         // Remove the directory if it's empty
         try {
           const remainingFiles = fs.readdirSync(testOutputDir)
           if (remainingFiles.length === 0) {
             fs.rmdirSync(testOutputDir)
           }
-        } catch (error) {
+        }
+        catch (error) {
           // Directory might not be empty or might not exist, that's ok
         }
       }

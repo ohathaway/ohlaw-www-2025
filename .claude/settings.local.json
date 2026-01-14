@@ -23,7 +23,8 @@
       "Bash(wrangler r2 bucket:*)",
       "Bash(wrangler deployments:*)",
       "Bash(pnpm build:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(pnpm eslint:*)"
     ],
     "deny": []
   },

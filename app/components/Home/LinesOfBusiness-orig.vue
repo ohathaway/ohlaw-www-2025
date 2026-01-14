@@ -8,7 +8,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
         <!-- Loop through services -->
         <div
-          v-for="(service, index) in services"
+          v-for="service in services"
           :key="service.id"
           class="relative h-80 group overflow-hidden"
         >

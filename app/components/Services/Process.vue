@@ -85,7 +85,7 @@
               </span>
             </div>
           </template>
-          <template #marker="slotProps">
+          <template #marker>
             <span class="flex w-5 h-5 border-4 border-primary-500 bg-white rounded-full shadow-md" />
           </template>
           <template #connector>

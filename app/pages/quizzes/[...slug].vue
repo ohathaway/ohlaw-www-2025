@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <ClientOnly>
-      <QuizContainer :quizSlug />
+      <QuizContainer :quiz-slug />
       <template #fallback>
         <div class="max-w-[800px] my-5 mx-auto p-[1rem] md:p-[2rem] bg-white rounded-3xl drop-shadow-lg">
           <!-- Pre-hydration loading state -->
@@ -37,8 +37,12 @@
             <!-- Loading message -->
             <div class="text-center mt-8">
               <div class="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-              <p class="text-gray-600">Loading quiz...</p>
-              <p class="text-sm text-gray-500 mt-2">Please wait while we prepare your assessment</p>
+              <p class="text-gray-600">
+                Loading quiz...
+              </p>
+              <p class="text-sm text-gray-500 mt-2">
+                Please wait while we prepare your assessment
+              </p>
             </div>
           </div>
         </div>

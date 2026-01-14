@@ -7,7 +7,7 @@
       @click="toggle"
     >
       <Checkbox
-        v-model="props.modelValue"
+        :model-value="props.modelValue"
         :input-id="props.inputId"
         class="mr-3 mt-1"
         binary

@@ -58,6 +58,7 @@
 </template>
 
 <script setup>
+/* global quizStore */
 // Get the scheduling link from app config
 const { schedulingLinks: { newBusinessClient: link } } = useAppConfig()
 
@@ -179,7 +180,7 @@ const businessFaqs = [
   },
   {
     question: `Can't I just use online templates for my business contracts?`,
-    answer: `While template contracts may seem cost-effective initially, they often fail to address your business's specific needs and Colorado's legal requirements. We've seen template contracts create mistakes that ultimately ended up costing thousands more than it would have cost to do custom agreements in the first place. Generic templates may contain unenforceable provisions, omit crucial protections, or include terms that don\'t serve your interests. Our customized contracts provide proper protection, clarity, and enforceability, potentially saving you from costly disputes and litigation in the future.`,
+    answer: `While template contracts may seem cost-effective initially, they often fail to address your business's specific needs and Colorado's legal requirements. We've seen template contracts create mistakes that ultimately ended up costing thousands more than it would have cost to do custom agreements in the first place. Generic templates may contain unenforceable provisions, omit crucial protections, or include terms that don't serve your interests. Our customized contracts provide proper protection, clarity, and enforceability, potentially saving you from costly disputes and litigation in the future.`,
   },
   {
     question: `How much does it cost to form an LLC in Colorado?`,

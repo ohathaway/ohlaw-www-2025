@@ -304,10 +304,10 @@ const contentData = {
     title: 'Life & Legacy Plan Education Session Confirmed',
     subtitle: 'The first step toward protecting your legacy',
     expectationsList: [
-      `We\'ll discuss your family situation, assets, and goals to design a customized estate plan`,
-      `You\'ll learn about the different estate planning tools available (wills, trusts, powers of attorney, etc.)`,
-      `We\'ll outline the process, timeline, and costs for creating your estate plan`,
-      `You\'ll have plenty of time to ask questions and get clear answers`,
+      `We'll discuss your family situation, assets, and goals to design a customized estate plan`,
+      `You'll learn about the different estate planning tools available (wills, trusts, powers of attorney, etc.)`,
+      `We'll outline the process, timeline, and costs for creating your estate plan`,
+      `You'll have plenty of time to ask questions and get clear answers`,
       `This session typically lasts 60-90 minutes`,
     ],
     preparations: [
@@ -448,7 +448,7 @@ const contentData = {
       {
         icon: 'bi-file-earmark-text',
         title: `Existing Documents`,
-        description: `Gather any existing business documents (entity filings, contracts, etc.) you\'d like us to review.`,
+        description: `Gather any existing business documents (entity filings, contracts, etc.) you'd like us to review.`,
       },
       {
         icon: 'bi-question-circle',
@@ -464,7 +464,7 @@ const contentData = {
       },
       {
         question: `What will we cover in the initial consultation?`,
-        answer: `We'll discuss your business structure, goals, current legal setup, and identify the most important legal needs for your specific situation. We\'ll explain your options for entity formation, key contracts, compliance requirements, and develop a prioritized plan for addressing your business legal needs. You'll leave with a clear understanding of next steps and associated costs.`,
+        answer: `We'll discuss your business structure, goals, current legal setup, and identify the most important legal needs for your specific situation. We'll explain your options for entity formation, key contracts, compliance requirements, and develop a prioritized plan for addressing your business legal needs. You'll leave with a clear understanding of next steps and associated costs.`,
       },
       {
         question: `How much will my business legal services cost?`,

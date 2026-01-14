@@ -114,7 +114,7 @@ export const detectContentType = (content) => {
 
   // Phone detection
   if (lowerContent.startsWith('tel:')
-    || /^[\+]?[\d\s\-\(\)]+$/.test(content)) {
+    || /^[+]?[\d\s\-()]+$/.test(content)) {
     return QRContentTypes.PHONE
   }
 
@@ -205,7 +205,7 @@ const validatePhone = (content, result) => {
   }
 
   // Remove common formatting characters
-  const cleanPhone = phone.replace(/[\s\-\(\)]/g, '')
+  const cleanPhone = phone.replace(/[\s\-()]/g, '')
 
   // Check if it's all numbers (with optional + prefix)
   if (!/^\+?\d+$/.test(cleanPhone)) {

@@ -16,11 +16,12 @@ export default defineEventHandler(async (event) => {
     let body
     try {
       body = await readBody(event)
-    } catch (parseError) {
+    }
+    catch (parseError) {
       console.error('JSON parsing error:', parseError)
       return { success: false, error: 'Invalid JSON body' }
     }
-    
+
     const { user, quizResults, answers } = body
     console.info('=== GENERATE REPORT START ===')
     console.info('received event with slug:', quizResults?.slug)
@@ -42,7 +43,7 @@ export default defineEventHandler(async (event) => {
     console.info('About to fetch quiz from Strapi...')
     const quizData = await fetchQuizFromStrapi(quizResults.slug)
     console.info('Quiz data fetched successfully')
-    
+
     // Check if quiz was found
     if (!quizData.quizzes || quizData.quizzes.length === 0) {
       return { success: false, error: `Quiz not found: ${quizResults.slug}` }
@@ -50,15 +51,15 @@ export default defineEventHandler(async (event) => {
 
     let explanations
     console.info('Result exists in cache?', resultExists)
-    
+
     // TEMPORARY: Skip AI analysis for debugging
     console.info('TEMPORARILY SKIPPING AI ANALYSIS FOR DEBUGGING')
     explanations = {
       content: [{
-        text: '```json\n{"findings": [{"finding": "Test finding", "explanation": "Test explanation", "actionable": "Test action"}]}\n```'
-      }]
+        text: '```json\n{"findings": [{"finding": "Test finding", "explanation": "Test explanation", "actionable": "Test action"}]}\n```',
+      }],
     }
-    
+
     /* ORIGINAL CODE - COMMENTED OUT FOR DEBUGGING
     if (!resultExists) {
       console.info('Starting AI analysis...')
@@ -109,7 +110,7 @@ export default defineEventHandler(async (event) => {
     await uploadPdfToR2(pdfBuffer, downloadName, bucketName)
 
     const reportUrlSigned = await getPresignedUrl(downloadName)
-    
+
     // Send email template with download URL
     try {
       await sendTemplatedMsg({
@@ -135,7 +136,8 @@ export default defineEventHandler(async (event) => {
           },
         ],
       })
-    } catch (emailError) {
+    }
+    catch (emailError) {
       console.warn('Email sending failed, but report generation succeeded:', emailError.message || emailError)
     }
 
@@ -150,9 +152,8 @@ export default defineEventHandler(async (event) => {
   }
 })
 
-
 const generatePDF = async (user, quizResults, quizData, explanations) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const doc = new PDFDocument({
       margin: 50,
       size: 'letter',
@@ -189,20 +190,20 @@ const generatePDF = async (user, quizResults, quizData, explanations) => {
       return doc
     }
 
-    const useAddResources = async doc => {
+    const useAddResources = async (doc) => {
       // Get Phase 1 blog recommendations
       const recommendedPosts = await recommendBlogPosts(
         quizResults.userAnswers,
         quizResults,
         5, // Max 5 recommendations
-        quizData // Pass the full quiz data for answer details
+        quizData, // Pass the full quiz data for answer details
       )
-      
+
       // Get static tools from app config
       const runtimeConfig = useRuntimeConfig()
       const appConfig = runtimeConfig.appConfig || {}
       const staticTools = appConfig.quizzes?.reports?.staticTools || []
-      
+
       // Add resources with QR codes
       const updatedDoc = await addResources(doc, recommendedPosts, staticTools)
       return updatedDoc
@@ -215,18 +216,19 @@ const generatePDF = async (user, quizResults, quizData, explanations) => {
       useAddQuestionAnalysis,
       // useAddNextSteps,
     )(doc)
-    
+
     // Handle async resources step
-    await useAddResources(processedDoc)
-    
-    // End the document
-    doc.end()
+    useAddResources(processedDoc).then(() => {
+      // End the document
+      doc.end()
+    }).catch(reject)
   })
 }
 
 // Email sending function
 // ------------------------------
 
+/* global nodemailer */
 async function sendReportEmail(email, pdfBuffer) {
   // Configure transport - replace with your actual email settings
   const transporter = nodemailer.createTransport({
@@ -284,7 +286,7 @@ const fetchQuizFromStrapi = async (slug) => {
     // REST version
     const query = getQuizForAIbySlugREST(slug)
     const fullUrl = `${strapiUrl}/api/quizzes?${query}`
-    
+
     const quizResult = await $fetch(fullUrl)
 
     return quizResult.data?.[0] ? { quizzes: [quizResult.data[0]] } : { quizzes: [] }

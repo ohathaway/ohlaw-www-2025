@@ -254,7 +254,7 @@ const bankruptcyFaqs = [
   },
   {
     question: `Will I lose my property if I file bankruptcy?`,
-    answer: `Most bankruptcy filers keep all or most of their property. Colorado bankruptcy exemptions protect many types of assets, including equity in your home (up to certain limits), vehicles, retirement accounts, household goods, and personal belongings. We created a reference to the exemptions at <a href="https://coloradobankruptcyexemptions.com">https://coloradobankruptcyexemptions.com</a>. During your consultation, we'll review your assets and explain which exemptions apply to your situation. If you have non-exempt assets, we\'ll discuss strategies to protect them or explore Chapter 13 as an alternative.`,
+    answer: `Most bankruptcy filers keep all or most of their property. Colorado bankruptcy exemptions protect many types of assets, including equity in your home (up to certain limits), vehicles, retirement accounts, household goods, and personal belongings. We created a reference to the exemptions at <a href="https://coloradobankruptcyexemptions.com">https://coloradobankruptcyexemptions.com</a>. During your consultation, we'll review your assets and explain which exemptions apply to your situation. If you have non-exempt assets, we'll discuss strategies to protect them or explore Chapter 13 as an alternative.`,
   },
   {
     question: 'How long does bankruptcy stay on my credit report?',
@@ -266,7 +266,7 @@ const bankruptcyFaqs = [
   },
   {
     question: `What debts cannot be discharged in bankruptcy?`,
-    answer: `Certain debts are typically not dischargeable in bankruptcy, including: recent income taxes (generally those less than 3 years old), student loans (except in rare hardship cases), child support and alimony, court-ordered fines or restitution, and debts incurred through fraud or recent luxury purchases. During your consultation, we\'ll review your specific debts and discuss which ones can likely be discharged through bankruptcy.`,
+    answer: `Certain debts are typically not dischargeable in bankruptcy, including: recent income taxes (generally those less than 3 years old), student loans (except in rare hardship cases), child support and alimony, court-ordered fines or restitution, and debts incurred through fraud or recent luxury purchases. During your consultation, we'll review your specific debts and discuss which ones can likely be discharged through bankruptcy.`,
   },
   {
     question: `How soon can I rebuild my credit after bankruptcy?`,

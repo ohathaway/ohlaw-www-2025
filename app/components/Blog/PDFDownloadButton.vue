@@ -32,6 +32,7 @@
 </template>
 
 <script setup>
+/* global $toast */
 /**
  * Blog PDF Download Button Component
  * Handles PDF generation and download for blog posts

@@ -20,7 +20,6 @@ export const useBlogStore = defineStore('blog', () => {
         {
           showRankingScore: true,
           limit: 60,
-          showRankingScore: true,
           attributesToRetrieve: [
             'id',
             'Title',
@@ -29,9 +28,9 @@ export const useBlogStore = defineStore('blog', () => {
             'Image',
             'tags',
             'category',
-            'publishDate'
-          ]
-        }
+            'publishDate',
+          ],
+        },
       )
       searchMeta.value.limit = searchResult.limit
       searchMeta.value.offset = searchResult.offset,

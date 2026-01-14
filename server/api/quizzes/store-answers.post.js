@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     if (!kvKey || !data) {
       throw createError({
         statusCode: 400,
-        statusMessage: 'Missing kvKey or data in request body'
+        statusMessage: 'Missing kvKey or data in request body',
       })
     }
 
@@ -14,11 +14,12 @@ export default defineEventHandler(async (event) => {
     await hubKV().set(kvKey, data)
 
     return { success: true }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error storing quiz answers:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to store quiz answers'
+      statusMessage: 'Failed to store quiz answers',
     })
   }
 })

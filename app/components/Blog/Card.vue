@@ -33,15 +33,15 @@ const { post } = defineProps(['post'])
 </script>
 
 <style scoped>
-.card-img-top { 
-  height: 300px; 
+.card-img-top {
+  height: 300px;
 }
 .card-body {
   height: 400px;
   overflow: auto;
 }
-.card-body .card-text { 
-  color: #3a3a3a; 
+.card-body .card-text {
+  color: #3a3a3a;
 }
 @media (max-width: 1025px) {
   .card-body {

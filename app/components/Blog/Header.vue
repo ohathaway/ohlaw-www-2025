@@ -12,7 +12,7 @@
         :model="menuItems"
         class="border-t-6 border-b border-white mx-auto w-[90%] justify-center"
       >
-        <template #item="{ item, props, hasSubmenu, root }">
+        <template #item="{ item }">
           <NuxtLink v-ripple class="flex items-center mx-4" :to="item.route">
             <span class="text-xl text-white hover:text-slate-500 font-benguiat">{{ item.label }}</span>
           </NuxtLink>

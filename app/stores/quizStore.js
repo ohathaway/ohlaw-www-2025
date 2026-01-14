@@ -386,8 +386,8 @@ export const useQuizStore = defineStore('quiz', () => {
             startedAt: startTime.value,
             submittedToCRM: false,
             userAgent: navigator.userAgent,
-          }
-        }
+          },
+        },
       })
 
       // Submit to Mailer Lite
@@ -432,7 +432,7 @@ export const useQuizStore = defineStore('quiz', () => {
   const handleContactSkip = async () => {
     try {
       // Submit to Strapi without contact info
-      await quizStore.submitQuizResults({
+      await submitQuizResults({
         quiz: quiz.value.id,
         quizVersion: quiz.value.version,
         answers: userAnswers.value,

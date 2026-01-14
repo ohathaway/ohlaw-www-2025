@@ -3,12 +3,13 @@ export const openNewWindow = (link) => {
 }
 
 export const stripCountry = (address) => {
-  return address.replace(/\,\sUnited\sStates.*/, '')
+  return address.replace(/,\sUnited\sStates.*/, '')
 }
 
 export const relType = input =>
-  (input === 'Client' && '')
-  || `rel_${input.toLowerCase().replace(/ /g, '_')}|`
+  input === 'Client'
+    ? ''
+    : `rel_${input.toLowerCase().replace(/ /g, '_')}|`
 
 /**
    * Parses the Font Awesome icon string into the format expected by the font-awesome-icon component

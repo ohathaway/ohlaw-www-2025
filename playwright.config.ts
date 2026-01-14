@@ -1,13 +1,14 @@
 import { fileURLToPath } from 'node:url'
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 import type { ConfigOptions } from '@nuxt/test-utils/playwright'
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-import dotenv from 'dotenv';
-import path from 'path';
+import dotenv from 'dotenv'
+import path from 'path'
+
 dotenv.config({ path: path.resolve('.', '.envrc') })
 
 /**
@@ -83,4 +84,4 @@ export default defineConfig({
   //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-});
+})

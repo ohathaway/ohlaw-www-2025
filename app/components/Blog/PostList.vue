@@ -19,7 +19,7 @@
                 <h4 class="text-lg sm:text-xl">{{ post.Title }}</h4>
               </NuxtLink>
               <div class="flex flex-wrap gap-2 mt-2">
-                <Tag v-for="tag in post.tags" class="text-xs sm:text-sm">
+                <Tag v-for="tag in post.tags" :key="tag.slug" class="text-xs sm:text-sm">
                   <NuxtLink
                     :to="`/blog/tags/${tag.slug}`"
                   >

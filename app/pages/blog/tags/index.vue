@@ -6,6 +6,7 @@
     <div class="md:col-span-7 p-4">
       <Badge
         v-for="tag in data"
+        :key="tag.slug"
         class="m-3 text-bg-primary text-light"
       >
         <NuxtLink

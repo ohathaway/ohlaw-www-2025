@@ -125,7 +125,8 @@ const onSortChange = () => {
   else if (sortKey.value === 'oldest') {
     sortField.value = 'publishDate'
     sortOrder.value = 1 // Ascending order (oldest first)
-  } else if (sortKey.value === 'mostRelevant') {
+  }
+  else if (sortKey.value === 'mostRelevant') {
     sortField.value = '_rankingScore'
     sortOrder.value = -1 // Descending order (most relevant first)
   }

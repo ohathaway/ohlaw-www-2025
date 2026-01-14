@@ -199,13 +199,13 @@ if (isEmpty(postREST)) {
 </script>
 
 <style>
-ul.tags { 
-  list-style-type: none; 
+ul.tags {
+  list-style-type: none;
 }
 li.tag {
   display: inline;
 }
-li.tag a { 
+li.tag a {
   color: #f8f8f8;
 }
 

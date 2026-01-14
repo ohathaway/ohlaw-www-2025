@@ -28,7 +28,7 @@ const { Image: { url: source } } = post
 a {
   color: #010101;
 }
-a h1 { 
-  color: var(--primary-500); 
+a h1 {
+  color: var(--primary-500);
 }
 </style>

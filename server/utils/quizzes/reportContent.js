@@ -1,9 +1,9 @@
 // server/utils/quizzes/reportContent.js
 
-import { extractSelectedAnswerImpact, addSectionHeader, checkPageBreak } from "./utils"
-import { generateQRForPDF } from "../qrcode/index.js"
-import { richTextToPdf } from "./richText2Pdf.js"
-import { renderRichTextToPdf } from "./renderRichText2Pdf.js"
+import { extractSelectedAnswerImpact, addSectionHeader, checkPageBreak } from './utils'
+import { generateQRForPDF } from '../qrcode/index.js'
+import { richTextToPdf } from './richText2Pdf.js'
+import { renderRichTextToPdf } from './renderRichText2Pdf.js'
 
 export const addCoverPage = (doc, user, quizResults) => {
   // Page dimensions
@@ -171,7 +171,7 @@ export const addExecutiveSummary = (doc, quizFindings, quizResults) => {
     .moveDown(0.5)
     // .text(quizResults.pathwaySummary)
 
-  const processedContent = quizResults.pathwaySummary 
+  const processedContent = quizResults.pathwaySummary
     ? richTextToPdf(JSON.parse(quizResults.pathwaySummary))
     : [{ type: 'paragraph', children: [{ type: 'text', text: 'Assessment results will be provided here.' }] }]
 
@@ -204,15 +204,17 @@ export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
     .moveDown(1)
 
   console.info('=== addQuestionAnalysis START ===')
-  
+
   // TEMPORARY FIX: Just add placeholder content and return to test if this function is the issue
   doc.text('Question analysis functionality is currently being debugged.', 50, doc.y)
   doc.addPage()
   console.info('=== addQuestionAnalysis END ===')
   return doc
-  
+
+  /* Unreachable code commented out - 'impact' variable needs to be properly defined/extracted
   try {
     // For each question and answer
+    // TODO: Define 'impact' variable from userAnswers/quizData
     impact.forEach((answer, index) => {
       checkPageBreak(doc)
       // Question number and text
@@ -273,6 +275,7 @@ export const addQuestionAnalysis = (doc, userAnswers, quizData) => {
     console.error('error processing answers: ', error)
     throw error
   }
+  */
 }
 
 export const addNextSteps = (doc, quizResults) => {
@@ -339,29 +342,29 @@ export const addNextSteps = (doc, quizResults) => {
 export const renderBlogPostWithQR = async (doc, blogPost, yPosition, config) => {
   const { qrSize = 60, contentWidth = 350, spacing = 10 } = config
   const blogUrl = `https://ohlawcolorado.com/blog/${blogPost.slug}`
-  
+
   try {
     // Generate QR code
     const qrBuffer = await generateQRForPDF(blogUrl, {
       preset: 'professional',
-      size: 'large'
+      size: 'large',
     })
-    
+
     // Calculate positions
     const qrX = 50
     const contentX = qrX + qrSize + spacing
     const startY = yPosition
-    
+
     // Add QR code
     doc.image(qrBuffer, qrX, startY, { width: qrSize, height: qrSize })
-    
+
     // Add content
     doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
       .fontSize(12)
       .text(blogPost.Title, contentX, startY, { width: contentWidth })
-    
+
     const titleHeight = doc.heightOfString(blogPost.Title, { width: contentWidth })
-    
+
     // Add description if available
     if (blogPost.Snippet) {
       doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
@@ -369,22 +372,23 @@ export const renderBlogPostWithQR = async (doc, blogPost, yPosition, config) => 
         .fillColor('#666666')
         .text(blogPost.Snippet, contentX, startY + titleHeight + 5, { width: contentWidth })
     }
-    
+
     // Calculate total height used
-    const descriptionHeight = blogPost.Snippet ? 
-      doc.heightOfString(blogPost.Snippet, { width: contentWidth }) : 0
+    const descriptionHeight = blogPost.Snippet
+      ? doc.heightOfString(blogPost.Snippet, { width: contentWidth })
+      : 0
     const totalHeight = Math.max(qrSize, titleHeight + descriptionHeight + 5)
-    
+
     doc.fillColor('#000000') // Reset color
     return { doc, yPosition: startY + totalHeight + spacing }
-    
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error rendering blog post with QR:', error)
     // Fallback: render without QR code
     doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
       .fontSize(12)
       .text(`• ${blogPost.Title}`, 50, yPosition)
-    
+
     return { doc, yPosition: yPosition + 20 }
   }
 }
@@ -400,52 +404,52 @@ export const renderBlogPostWithQR = async (doc, blogPost, yPosition, config) => 
 export const renderStaticToolsWithQR = async (doc, tools, yPosition, config) => {
   const { qrSize = 60, contentWidth = 350, spacing = 10 } = config
   let currentY = yPosition
-  
+
   for (const tool of tools) {
     try {
       // Generate QR code
       const qrBuffer = await generateQRForPDF(tool.url, {
         preset: 'professional',
-        size: 'large'
+        size: 'large',
       })
-      
+
       // Calculate positions
       const qrX = 50
       const contentX = qrX + qrSize + spacing
-      
+
       // Add QR code
       doc.image(qrBuffer, qrX, currentY, { width: qrSize, height: qrSize })
-      
+
       // Add content
       doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
         .fontSize(12)
         .text(tool.title, contentX, currentY, { width: contentWidth })
-      
+
       const titleHeight = doc.heightOfString(tool.title, { width: contentWidth })
-      
+
       // Add description
       doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
         .fontSize(10)
         .fillColor('#666666')
         .text(tool.description, contentX, currentY + titleHeight + 5, { width: contentWidth })
-      
+
       const descriptionHeight = doc.heightOfString(tool.description, { width: contentWidth })
       const totalHeight = Math.max(qrSize, titleHeight + descriptionHeight + 5)
-      
+
       currentY += totalHeight + spacing
       doc.fillColor('#000000') // Reset color
-      
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error rendering tool with QR:', error)
       // Fallback: render without QR code
       doc.font('app/assets/fonts/PlusJakartaSans-Regular.ttf')
         .fontSize(12)
         .text(`• ${tool.title}`, 50, currentY)
-      
+
       currentY += 20
     }
   }
-  
+
   return { doc, yPosition: currentY }
 }
 
@@ -460,35 +464,35 @@ export const calculateResourcesLayout = (blogPosts, staticTools, availableSpace)
   const baseItemHeight = 80 // Approximate height per item with QR
   const sectionSpacing = 30 // Space between sections
   const headerHeight = 40 // Space for section headers
-  
+
   // Calculate space needed
   const blogPostsHeight = blogPosts.length * baseItemHeight
   const staticToolsHeight = staticTools.length * baseItemHeight
   const totalNeeded = blogPostsHeight + staticToolsHeight + (2 * headerHeight) + sectionSpacing
-  
+
   // If we have too much content, prioritize and trim
   if (totalNeeded > availableSpace) {
     const maxItems = Math.floor((availableSpace - (2 * headerHeight) - sectionSpacing) / baseItemHeight)
     const blogsToShow = Math.min(blogPosts.length, Math.ceil(maxItems * 0.6)) // 60% for blogs
     const toolsToShow = Math.min(staticTools.length, maxItems - blogsToShow)
-    
+
     return {
       maxBlogPosts: blogsToShow,
       maxStaticTools: toolsToShow,
       qrSize: 60,
       contentWidth: 350,
       spacing: 10,
-      fitsOnPage: true
+      fitsOnPage: true,
     }
   }
-  
+
   return {
     maxBlogPosts: blogPosts.length,
     maxStaticTools: staticTools.length,
     qrSize: 60,
     contentWidth: 350,
     spacing: 10,
-    fitsOnPage: true
+    fitsOnPage: true,
   }
 }
 
@@ -510,46 +514,46 @@ export const addResources = async (doc, recommendedPosts = [], staticTools = [])
 
   // Calculate available space (estimate based on current position)
   const availableSpace = doc.page.height - doc.y - 100 // Leave space for disclaimer
-  
+
   // Get layout configuration
   const layout = calculateResourcesLayout(recommendedPosts, staticTools, availableSpace)
-  
+
   let currentY = doc.y
-  
+
   // Render blog posts section
   if (recommendedPosts.length > 0) {
     doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
       .fontSize(14)
       .text('Recommended Reading:', 50, currentY)
-    
+
     currentY += 30
-    
+
     const postsToShow = recommendedPosts.slice(0, layout.maxBlogPosts)
-    
+
     for (const post of postsToShow) {
       const result = await renderBlogPostWithQR(doc, post, currentY, layout)
       doc = result.doc
       currentY = result.yPosition
     }
-    
+
     currentY += 15 // Space between sections
   }
-  
+
   // Render static tools section
   if (staticTools.length > 0) {
     doc.font('app/assets/fonts/PlusJakartaSans-Bold.ttf')
       .fontSize(14)
       .text('Helpful Tools:', 50, currentY)
-    
+
     currentY += 30
-    
+
     const toolsToShow = staticTools.slice(0, layout.maxStaticTools)
-    
+
     const result = await renderStaticToolsWithQR(doc, toolsToShow, currentY, layout)
     doc = result.doc
     currentY = result.yPosition
   }
-  
+
   // Add disclaimer at bottom
   doc.y = currentY + 20
   doc.font('app/assets/fonts/PlusJakartaSans-LightItalic.ttf')
@@ -558,6 +562,6 @@ export const addResources = async (doc, recommendedPosts = [], staticTools = [])
       + 'legal advice. For advice specific to your situation, please consult with an attorney. '
       + 'The Law Offices of Owen Hathaway provides this information as an educational resource.')
     .moveDown(2)
-  
+
   return doc
 }
