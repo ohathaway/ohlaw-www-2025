@@ -83,14 +83,14 @@ jobs:
 
       - name: Verify build output
         run: |
-          if [ -f dist/_worker.js/index.js ]; then
+          if [ -f .output/server/index.mjs ]; then
             echo "✓ Worker script generated successfully"
-            echo "Build format: Cloudflare Pages (dist/_worker.js)"
+            echo "Build format: Cloudflare Workers (.output/server/index.mjs)"
           else
             echo "✗ Worker script not found!"
             exit 1
           fi
-          if [ -d dist/_nuxt ]; then
+          if [ -d .output/public/_nuxt ]; then
             echo "✓ Static assets generated successfully"
           else
             echo "✗ Static assets not found!"
