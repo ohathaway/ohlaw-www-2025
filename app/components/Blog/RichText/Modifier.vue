@@ -1,6 +1,10 @@
 <template>
-  <pre v-if="brick.code">{{ brick.text }}</pre>&nbsp;
-  <span v-else :class="classes">{{ brick.text }}</span>&nbsp;
+  <template v-if="brick.code">
+    <pre>{{ brick.text }}</pre>&nbsp;
+  </template>
+  <template v-else>
+    <span :class="classes">{{ brick.text }}</span>&nbsp;
+  </template>
 </template>
 
 <script setup>

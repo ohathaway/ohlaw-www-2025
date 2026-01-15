@@ -12,6 +12,8 @@ export default withNuxt({
     'vue/html-self-closing': 'off',
     'vue/no-mutating-props': 'error',
     'vue/no-multiple-template-root': 'off', // Vue 3 supports multiple roots
+    'vue/no-parsing-error': 'error', // Catch template parsing errors
+    'vue/valid-v-else': 'error', // Ensure v-else is adjacent to v-if
 
     // JavaScript/TypeScript rules
     '@typescript-eslint/no-unused-vars': 'warn',
