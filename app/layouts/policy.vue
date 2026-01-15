@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const showFloatingCta = ref(true)
+</script>
+
 <template>
   <NuxtLayout name="base">
     <template #specialized-header>

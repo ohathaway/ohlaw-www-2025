@@ -191,9 +191,5 @@ export const ohLawPreset = {
         borderColor: 'rgba(0, 0, 0, 0)',
       },
     },
-    progressspinner: {
-      strokeColor: '{primary.600}',
-      animationDuration: '1.5s',
-    },
   },
 }

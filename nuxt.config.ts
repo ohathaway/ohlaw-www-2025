@@ -40,7 +40,7 @@ const getPostRoutes = async () => {
       .filter(page => page > 1) // Filter out page 1 which we already have
 
     // Define a function to fetch a specific page
-    const fetchPage = async (page) => {
+    const fetchPage = async (page: number) => {
       const response = await fetch(
         `${process.env.STRAPI_URL}/api/posts?fields[0]=slug&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
         fetchOptions,
@@ -221,13 +221,6 @@ export default defineNuxtConfig({
     },
   },
 
-  optimization: {
-    splitChunks: {
-      layouts: true,
-      pages: true,
-      commons: true,
-    },
-  },
 
   watch: ['./primevue.ohlaw.ts'],
   future: { compatibilityVersion: 4 },
@@ -253,7 +246,6 @@ export default defineNuxtConfig({
   // Production optimizations
   experimental: {
     payloadExtraction: false,
-    inlineSSRStyles: false,
   },
   compatibilityDate: '2024-11-01',
 
@@ -284,7 +276,6 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler',
           silenceDeprecations: ['import'],
         },
       },
@@ -300,14 +291,22 @@ export default defineNuxtConfig({
     },
   },
 
-  postcss: {
-    plugins: {
-      'postcss-import': {},
-      'postcss-nesting': {},
-      'autoprefixer': {},
-      'cssnano': process.env.NODE_ENV === 'production' ? {} : false,
-    },
-  },
+  postcss: process.env.NODE_ENV === 'production'
+    ? {
+        plugins: {
+          'postcss-import': {},
+          'postcss-nesting': {},
+          'autoprefixer': {},
+          'cssnano': {},
+        },
+      }
+    : {
+        plugins: {
+          'postcss-import': {},
+          'postcss-nesting': {},
+          'autoprefixer': {},
+        },
+      },
 
   hooks: {
     async 'nitro:config'(nitroConfig) {
@@ -315,7 +314,9 @@ export default defineNuxtConfig({
       const slugs = await getPostRoutes()
       console.info('slugs: ', slugs)
       // add the routes to the nitro config
-      nitroConfig.prerender.routes.push(...slugs)
+      if (nitroConfig.prerender?.routes) {
+        nitroConfig.prerender.routes.push(...slugs)
+      }
     },
   },
 
