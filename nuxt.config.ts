@@ -6,8 +6,6 @@ import tailwindcss from '@tailwindcss/vite'
 // Customization for PrimeVue
 // const preset = definePreset(Aura, ohLawPreset)
 
-// console.info('ohlawPreset:', JSON.stringify(ohLawPreset, null, 2))
-
 // Blog post prefetch helper
 const getPostRoutes = async () => {
   if (!process.env.STRAPI_URL) {
