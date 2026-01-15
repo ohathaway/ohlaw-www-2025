@@ -76,12 +76,12 @@
     "@playwright/test": "^1.57.0",
     "@primevue/nuxt-module": "^4.5.4",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "^24.10.8",
+    "@types/node": "^24.10.9",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.2",
     "typescript": "^5.9.3",
     "vue-tsc": "^2.2.12",
-    "wrangler": "^4.59.1"
+    "wrangler": "^4.59.2"
   },
   "packageManager": "pnpm@10.12.1"
 }
