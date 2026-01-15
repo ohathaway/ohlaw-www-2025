@@ -24,7 +24,9 @@
       "Bash(wrangler deployments:*)",
       "Bash(pnpm build:*)",
       "Bash(cat:*)",
-      "Bash(pnpm eslint:*)"
+      "Bash(pnpm eslint:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)"
     ],
     "deny": []
   },
