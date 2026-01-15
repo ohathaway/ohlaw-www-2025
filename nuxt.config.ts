@@ -221,7 +221,6 @@ export default defineNuxtConfig({
     },
   },
 
-
   watch: ['./primevue.ohlaw.ts'],
   future: { compatibilityVersion: 4 },
 
