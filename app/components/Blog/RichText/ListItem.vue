@@ -10,6 +10,10 @@
   </li>
 </template>
 
-<script setup>
-const { item } = defineProps(['item'])
+<script setup lang="ts">
+import type { RichTextChild } from '~/types/blog'
+
+const { item } = defineProps<{
+  item: RichTextChild
+}>()
 </script>

@@ -19,9 +19,14 @@
   </NuxtLink>
 </template>
 
-<script setup>
-const { post } = defineProps(['post'])
-const { Image: { url: source } } = post
+<script setup lang="ts">
+import type { BlogPost } from '~/types/blog'
+
+const { post } = defineProps<{
+  post: BlogPost
+}>()
+
+const source = post.Image?.url ?? ''
 </script>
 
 <style scoped>

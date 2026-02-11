@@ -4,6 +4,10 @@
   </ol>
 </template>
 
-<script setup>
-const { brick } = defineProps(['brick'])
+<script setup lang="ts">
+import type { RichTextBlock } from '~/types/blog'
+
+const { brick } = defineProps<{
+  brick: RichTextBlock
+}>()
 </script>

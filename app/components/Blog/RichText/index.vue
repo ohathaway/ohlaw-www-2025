@@ -42,6 +42,10 @@
   </div>
 </template>
 
-<script setup>
-const { block } = defineProps(['block'])
+<script setup lang="ts">
+import type { RichTextBlock } from '~/types/blog'
+
+const { block } = defineProps<{
+  block: RichTextBlock[]
+}>()
 </script>

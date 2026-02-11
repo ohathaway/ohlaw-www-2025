@@ -7,11 +7,15 @@
   </template>
 </template>
 
-<script setup>
-const { brick } = defineProps(['brick'])
+<script setup lang="ts">
+import type { RichTextChild } from '~/types/blog'
+
+const { brick } = defineProps<{
+  brick: RichTextChild
+}>()
 
 const classes = computed(() => {
-  const list = []
+  const list: string[] = []
   if (brick.bold) list.push('font-bold')
   if (brick.italic) list.push('italic')
   if (brick.underline) list.push('underline')

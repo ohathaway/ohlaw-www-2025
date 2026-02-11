@@ -4,23 +4,27 @@
       Articles Related to {{ toTitleCase(tag, '-') }}
     </h2>
     <ClientOnly>
-      <BlogPostListRow :posts="posts" />
+      <BlogPostListRow
+        v-if="posts.length"
+        :posts="posts"
+      />
     </ClientOnly>
   </div>
 </template>
 
 <script setup>
 const { params: { tag } } = useRoute()
-const tagData = ref(null)
 
 const restQuery = postListQueryREST(tag, 'tag', 6)
 const { strapiUrl } = useAppConfig()
 const fetchUrl = `${strapiUrl}/api/tags?${restQuery}`
 
+// server: false avoids Cloudflare Worker
+// same-zone redirect loop
 const {
   data: tagResponseREST,
   error: tagError,
-} = await useFetch(fetchUrl)
+} = await useFetch(fetchUrl, { server: false })
 
 if (tagError.value) {
   console.error(
@@ -29,13 +33,11 @@ if (tagError.value) {
   )
 }
 
-const tagItems = tagResponseREST.value?.data ?? []
+const tagData = computed(
+  () => tagResponseREST.value?.data?.[0] ?? null,
+)
 
-if (tagItems.length > 0) {
-  tagData.value = tagItems[0]
-}
-
-const posts = ref(
-  dedupPosts(tagItems[0]?.posts ?? []),
+const posts = computed(
+  () => dedupPosts(tagData.value?.posts ?? []),
 )
 </script>

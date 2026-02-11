@@ -61,16 +61,17 @@
 
 <script setup>
 const { params: { category } } = useRoute()
-const categoryData = ref(null)
 
 const restQuery = postListQueryREST(category)
 const { strapiUrl } = useAppConfig()
 const fetchUrl = `${strapiUrl}/api/categories?${restQuery}`
 
+// server: false avoids Cloudflare Worker
+// same-zone redirect loop
 const {
   data: categoryResponseREST,
   error: categoryError,
-} = await useFetch(fetchUrl)
+} = await useFetch(fetchUrl, { server: false })
 
 if (categoryError.value) {
   console.error(
@@ -79,15 +80,14 @@ if (categoryError.value) {
   )
 }
 
-const categoryItems
-  = categoryResponseREST.value?.data ?? []
+const categoryData = computed(
+  () => categoryResponseREST.value?.data?.[0] ?? null,
+)
 
-if (categoryItems.length > 0) {
-  categoryData.value = categoryItems[0]
-}
-
-const posts = ref(
-  dedupPosts(categoryItems[0]?.posts ?? []),
+const posts = computed(
+  () => dedupPosts(
+    categoryData.value?.posts ?? [],
+  ),
 )
 
 // Meta tags for SEO

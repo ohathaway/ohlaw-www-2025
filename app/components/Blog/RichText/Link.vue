@@ -11,6 +11,10 @@
   </a>
 </template>
 
-<script setup>
-const { brick } = defineProps(['brick'])
+<script setup lang="ts">
+import type { RichTextChild } from '~/types/blog'
+
+const { brick } = defineProps<{
+  brick: RichTextChild
+}>()
 </script>

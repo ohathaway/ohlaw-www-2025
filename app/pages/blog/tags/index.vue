@@ -5,7 +5,7 @@
   <div class="grid grid-cols-12 p-12">
     <div class="md:col-span-7 p-4">
       <Badge
-        v-for="tag in data"
+        v-for="tag in tags"
         :key="tag.slug"
         class="m-3 text-bg-primary text-light"
       >
@@ -16,8 +16,14 @@
         </NuxtLink>
       </Badge>
     </div>
-    <div class="md:col-span-5 flex items-start">
-      <BlogPostListSidebar title="Spotlight" :posts="spotlightPosts" />
+    <div
+      v-if="spotlightPosts.length"
+      class="md:col-span-5 flex items-start"
+    >
+      <BlogPostListSidebar
+        title="Spotlight"
+        :posts="spotlightPosts"
+      />
     </div>
   </div>
 </template>
@@ -27,6 +33,9 @@ import qs from 'qs'
 
 const { strapiUrl } = useAppConfig()
 
+// All fetches use server: false to avoid
+// Cloudflare Worker same-zone redirect loop
+
 // Fetch spotlight posts using REST
 const spotlightUrl = spotlightPostsQueryREST()
 const {
@@ -34,6 +43,7 @@ const {
   error: spotlightError,
 } = await useFetch(
   `${strapiUrl}/api/spotlight?${spotlightUrl}`,
+  { server: false },
 )
 
 if (spotlightError.value) {
@@ -43,9 +53,11 @@ if (spotlightError.value) {
   )
 }
 
-let spotlightPosts
-  = spotlightResponse.value?.data?.posts ?? []
-spotlightPosts = dedupPosts(spotlightPosts)
+const spotlightPosts = computed(
+  () => dedupPosts(
+    spotlightResponse.value?.data?.posts ?? [],
+  ),
+)
 
 const query = qs.stringify({
   fields: [
@@ -66,6 +78,7 @@ const {
   error: tagsError,
 } = await useFetch(
   `${strapiUrl}/api/tags?${query}`,
+  { server: false },
 )
 
 if (tagsError.value) {
@@ -75,5 +88,7 @@ if (tagsError.value) {
   )
 }
 
-const data = tagsResponse.value?.data ?? []
+const tags = computed(
+  () => tagsResponse.value?.data ?? [],
+)
 </script>

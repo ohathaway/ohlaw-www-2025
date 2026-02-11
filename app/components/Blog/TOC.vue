@@ -20,8 +20,12 @@
   </div>
 </template>
 
-<script setup>
-const { content } = defineProps(['content'])
+<script setup lang="ts">
+import type { RichTextBlock } from '~/types/blog'
+
+const { content } = defineProps<{
+  content: RichTextBlock[]
+}>()
 
 // Scroll detection for responsive top positioning
 const scrolled = ref(false)

@@ -28,8 +28,12 @@
   </a>
 </template>
 
-<script setup>
-const { post } = defineProps(['post'])
+<script setup lang="ts">
+import type { BlogPost } from '~/types/blog'
+
+const { post } = defineProps<{
+  post: BlogPost
+}>()
 </script>
 
 <style scoped>

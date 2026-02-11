@@ -27,6 +27,9 @@
 <script setup>
 const { strapiUrl } = useAppConfig()
 
+// All fetches use server: false to avoid
+// Cloudflare Worker same-zone redirect loop
+
 // Fetch featured post using REST
 const featuredPostUrl = featuredPostQueryREST()
 const {
@@ -34,6 +37,7 @@ const {
   error: featuredError,
 } = await useFetch(
   `${strapiUrl}/api/featured-post?${featuredPostUrl}`,
+  { server: false },
 )
 
 if (featuredError.value) {
@@ -43,8 +47,9 @@ if (featuredError.value) {
   )
 }
 
-const featuredPost
-  = featuredResponse.value?.data?.post ?? null
+const featuredPost = computed(
+  () => featuredResponse.value?.data?.post ?? null,
+)
 
 // Fetch spotlight posts using REST
 const spotlightUrl = spotlightPostsQueryREST()
@@ -53,6 +58,7 @@ const {
   error: spotlightError,
 } = await useFetch(
   `${strapiUrl}/api/spotlight?${spotlightUrl}`,
+  { server: false },
 )
 
 if (spotlightError.value) {
@@ -62,9 +68,11 @@ if (spotlightError.value) {
   )
 }
 
-let spotlightPosts
-  = spotlightResponse.value?.data?.posts ?? []
-spotlightPosts = dedupPosts(spotlightPosts)
+const spotlightPosts = computed(
+  () => dedupPosts(
+    spotlightResponse.value?.data?.posts ?? [],
+  ),
+)
 
 // Fetch all posts using REST
 const allPostsUrl = allPostsQueryREST(9)
@@ -73,6 +81,7 @@ const {
   error: allPostsError,
 } = await useFetch(
   `${strapiUrl}/api/posts?${allPostsUrl}`,
+  { server: false },
 )
 
 if (allPostsError.value) {
@@ -82,8 +91,9 @@ if (allPostsError.value) {
   )
 }
 
-const allPostsREST
-  = allPostsResponse.value?.data ?? []
+const allPostsREST = computed(
+  () => allPostsResponse.value?.data ?? [],
+)
 
 // SEO Meta Tags for Blog Home
 const { href: fullPath } = useRequestURL()
