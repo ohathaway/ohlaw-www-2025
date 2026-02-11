@@ -78,6 +78,7 @@
       <div class="sticky-sidebar">
         <ClientOnly>
           <BlogPostListSidebar
+            v-if="categoryREST?.posts?.length"
             title="Related Articles"
             :posts="getMultipleRandom(categoryREST.posts, 5)"
             :snippet="true"
@@ -89,13 +90,6 @@
 </template>
 
 <script setup>
-import { isEmpty } from '@/utils/lang'
-
-/*
-definePageMeta({
-  layout: 'blog'
-})
-*/
 const { path } = useRoute()
 const slug = path.split('/').pop()
 
@@ -104,26 +98,48 @@ const { strapiUrl } = useAppConfig()
 const postQuery = singlePostQueryREST(slug)
 
 const {
-  data: {
-    value: {
-      data: [postREST],
-    },
-  },
-} = await useFetch(`${strapiUrl}/api/posts?${postQuery}`)
+  data: postResponse,
+  error: postError,
+} = await useFetch(
+  `${strapiUrl}/api/posts?${postQuery}`,
+)
 
-const category = postREST?.category?.slug
-  ?? postREST?.category?.slug
+if (postError.value) {
+  console.error(
+    'Blog post fetch failed:',
+    postError.value?.message ?? postError.value,
+  )
+}
+
+const postREST = postResponse.value?.data?.[0]
+
+if (!postREST) {
+  throw createError({
+    statusCode: 404,
+    message: `Post not found: ${slug}`,
+  })
+}
+
+const category = postREST.category?.slug
   ?? 'Uncategorized'
 
 const categoryQuery = postListQueryREST(category)
 
 const {
-  data: {
-    value: {
-      data: [categoryREST],
-    },
-  },
-} = await useFetch(`${strapiUrl}/api/categories?${categoryQuery}`)
+  data: categoryResponse,
+  error: categoryError,
+} = await useFetch(
+  `${strapiUrl}/api/categories?${categoryQuery}`,
+)
+
+if (categoryError.value) {
+  console.error(
+    'Category fetch failed:',
+    categoryError.value?.message ?? categoryError.value,
+  )
+}
+
+const categoryREST = categoryResponse.value?.data?.[0]
 
 /*
 const fetchUrl = ref(`${strapiUrl}/api/categories?${restQuery}`)
@@ -192,10 +208,6 @@ useHead({
 useSeoMeta({
   articleModifiedTime: postREST?.updatedAt,
 })
-
-if (isEmpty(postREST)) {
-  showError({ 404: 'Page not found' })
-}
 </script>
 
 <style>

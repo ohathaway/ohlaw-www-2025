@@ -29,8 +29,22 @@ const { strapiUrl } = useAppConfig()
 
 // Fetch spotlight posts using REST
 const spotlightUrl = spotlightPostsQueryREST()
-const { data: { value: { data: spotlightData } } } = await useFetch(`${strapiUrl}/api/spotlight?${spotlightUrl}`)
-let spotlightPosts = spotlightData?.posts || []
+const {
+  data: spotlightResponse,
+  error: spotlightError,
+} = await useFetch(
+  `${strapiUrl}/api/spotlight?${spotlightUrl}`,
+)
+
+if (spotlightError.value) {
+  console.error(
+    'Spotlight fetch failed:',
+    spotlightError.value?.message ?? spotlightError.value,
+  )
+}
+
+let spotlightPosts
+  = spotlightResponse.value?.data?.posts ?? []
 spotlightPosts = dedupPosts(spotlightPosts)
 
 const query = qs.stringify({
@@ -45,8 +59,21 @@ const query = qs.stringify({
   locale: [
     'en',
   ],
-},
-{ encode: false },
+}, { encode: false })
+
+const {
+  data: tagsResponse,
+  error: tagsError,
+} = await useFetch(
+  `${strapiUrl}/api/tags?${query}`,
 )
-const { data: { value: { data } } } = await useFetch(`${strapiUrl}/api/tags?${query}`)
+
+if (tagsError.value) {
+  console.error(
+    'Tags fetch failed:',
+    tagsError.value?.message ?? tagsError.value,
+  )
+}
+
+const data = tagsResponse.value?.data ?? []
 </script>

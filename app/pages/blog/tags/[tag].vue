@@ -15,16 +15,27 @@ const tagData = ref(null)
 
 const restQuery = postListQueryREST(tag, 'tag', 6)
 const { strapiUrl } = useAppConfig()
-const fetchUrl = ref(`${strapiUrl}/api/tags?${restQuery}`)
-// console.info('fetchUrl:', fetchUrl)
-const { data: tagResponseREST } = await useFetch(fetchUrl.value)
-// console.info('tagResponseREST:', tagResponseREST)
+const fetchUrl = `${strapiUrl}/api/tags?${restQuery}`
 
-// Extract category data if it exists
-if (tagResponseREST.value.data.length > 0) {
-  console.info('extracting tag data...')
-  tagData.value = tagResponseREST.value.data[0]
+const {
+  data: tagResponseREST,
+  error: tagError,
+} = await useFetch(fetchUrl)
+
+if (tagError.value) {
+  console.error(
+    'Tag fetch failed:',
+    tagError.value?.message ?? tagError.value,
+  )
 }
 
-const posts = ref(dedupPosts(tagResponseREST?.value?.data[0]?.posts))
+const tagItems = tagResponseREST.value?.data ?? []
+
+if (tagItems.length > 0) {
+  tagData.value = tagItems[0]
+}
+
+const posts = ref(
+  dedupPosts(tagItems[0]?.posts ?? []),
+)
 </script>

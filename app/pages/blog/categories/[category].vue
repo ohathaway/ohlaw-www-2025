@@ -65,16 +65,30 @@ const categoryData = ref(null)
 
 const restQuery = postListQueryREST(category)
 const { strapiUrl } = useAppConfig()
-const fetchUrl = ref(`${strapiUrl}/api/categories?${restQuery}`)
-const { data: categoryResponseREST } = await useFetch(fetchUrl.value)
+const fetchUrl = `${strapiUrl}/api/categories?${restQuery}`
 
-// Extract category data if it exists
-if (categoryResponseREST.value.data.length > 0) {
-  // console.debug('extracting category data...')
-  categoryData.value = categoryResponseREST.value.data[0]
+const {
+  data: categoryResponseREST,
+  error: categoryError,
+} = await useFetch(fetchUrl)
+
+if (categoryError.value) {
+  console.error(
+    'Category fetch failed:',
+    categoryError.value?.message ?? categoryError.value,
+  )
 }
 
-const posts = ref(dedupPosts(categoryResponseREST?.value?.data[0]?.posts))
+const categoryItems
+  = categoryResponseREST.value?.data ?? []
+
+if (categoryItems.length > 0) {
+  categoryData.value = categoryItems[0]
+}
+
+const posts = ref(
+  dedupPosts(categoryItems[0]?.posts ?? []),
+)
 
 // Meta tags for SEO
 useHead({

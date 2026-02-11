@@ -26,7 +26,13 @@
       "Bash(cat:*)",
       "Bash(pnpm eslint:*)",
       "Bash(gh run list:*)",
-      "Bash(gh run view:*)"
+      "Bash(gh run view:*)",
+      "mcp__cloudflare-observability__workers_list",
+      "mcp__cloudflare-observability__observability_keys",
+      "mcp__cloudflare-observability__query_worker_observability",
+      "WebFetch(domain:strapi.ohlawcolorado.com)",
+      "mcp__cloudflare-observability__workers_get_worker",
+      "mcp__cloudflare-observability__workers_get_worker_code"
     ],
     "deny": []
   },

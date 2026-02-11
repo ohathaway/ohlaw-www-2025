@@ -2,15 +2,24 @@
   <ClientOnly>
     <div class="grid grid-cols-1 md:grid-cols-12 px-4 sm:px-6 py-6 sm:py-12 lg:p-20 gap-6 lg:gap-8">
       <div class="col-span-1 md:col-span-7">
-        <BlogFeaturedPost :post="featuredPost" />
+        <BlogFeaturedPost
+          v-if="featuredPost"
+          :post="featuredPost"
+        />
       </div>
       <div class="col-span-1 md:col-span-5 flex items-start">
-        <BlogPostListSidebar title="Spotlight" :posts="spotlightPosts" />
+        <BlogPostListSidebar
+          v-if="spotlightPosts.length"
+          title="Spotlight"
+          :posts="spotlightPosts"
+        />
       </div>
     </div>
-    <!-- <BlogSignup /> -->
     <div class="px-4 sm:px-6 md:p-5">
-      <BlogPostListRow :posts="allPostsREST" />
+      <BlogPostListRow
+        v-if="allPostsREST.length"
+        :posts="allPostsREST"
+      />
     </div>
   </ClientOnly>
 </template>
@@ -20,18 +29,61 @@ const { strapiUrl } = useAppConfig()
 
 // Fetch featured post using REST
 const featuredPostUrl = featuredPostQueryREST()
-const { data: { value: { data: featuredPostData } } } = await useFetch(`${strapiUrl}/api/featured-post?${featuredPostUrl}`)
-const featuredPost = featuredPostData?.post
+const {
+  data: featuredResponse,
+  error: featuredError,
+} = await useFetch(
+  `${strapiUrl}/api/featured-post?${featuredPostUrl}`,
+)
+
+if (featuredError.value) {
+  console.error(
+    'Featured post fetch failed:',
+    featuredError.value?.message ?? featuredError.value,
+  )
+}
+
+const featuredPost
+  = featuredResponse.value?.data?.post ?? null
 
 // Fetch spotlight posts using REST
 const spotlightUrl = spotlightPostsQueryREST()
-const { data: { value: { data: spotlightData } } } = await useFetch(`${strapiUrl}/api/spotlight?${spotlightUrl}`)
-let spotlightPosts = spotlightData?.posts || []
+const {
+  data: spotlightResponse,
+  error: spotlightError,
+} = await useFetch(
+  `${strapiUrl}/api/spotlight?${spotlightUrl}`,
+)
+
+if (spotlightError.value) {
+  console.error(
+    'Spotlight fetch failed:',
+    spotlightError.value?.message ?? spotlightError.value,
+  )
+}
+
+let spotlightPosts
+  = spotlightResponse.value?.data?.posts ?? []
 spotlightPosts = dedupPosts(spotlightPosts)
 
 // Fetch all posts using REST
-const fetchUrl = allPostsQueryREST(9)
-const { data: { value: { data: allPostsREST } } } = await useFetch(`${strapiUrl}/api/posts?${fetchUrl}`)
+const allPostsUrl = allPostsQueryREST(9)
+const {
+  data: allPostsResponse,
+  error: allPostsError,
+} = await useFetch(
+  `${strapiUrl}/api/posts?${allPostsUrl}`,
+)
+
+if (allPostsError.value) {
+  console.error(
+    'All posts fetch failed:',
+    allPostsError.value?.message ?? allPostsError.value,
+  )
+}
+
+const allPostsREST
+  = allPostsResponse.value?.data ?? []
 
 // SEO Meta Tags for Blog Home
 const { href: fullPath } = useRequestURL()
