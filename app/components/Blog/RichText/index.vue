@@ -4,15 +4,15 @@
       <!-- headings -->
       <h2
         v-if="brick.type === 'heading' && brick.level === 1"
-        :id="brick.children[0].text.replaceAll(' ', '-').toLowerCase()"
+        :id="brick.children[0]?.text?.replaceAll(' ', '-').toLowerCase()"
       >
-        {{ brick.children[0].text }}
+        {{ brick.children[0]?.text }}
       </h2>
       <h3 v-else-if="brick.type === 'heading' && brick.level === 2">
-        {{ brick.children[0].text }}
+        {{ brick.children[0]?.text }}
       </h3>
       <h4 v-else-if="brick.type === 'heading' && brick.level === 3">
-        {{ brick.children[0].text }}
+        {{ brick.children[0]?.text }}
       </h4>
 
       <!-- lists -->

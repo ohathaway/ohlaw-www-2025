@@ -10,10 +10,10 @@
         class="py-2"
       >
         <a
-          :href="`#${brick.children[0].text.replaceAll(' ', '-').toLowerCase()}`"
+          :href="`#${brick.children[0]?.text?.replaceAll(' ', '-').toLowerCase()}`"
           class="text-primary"
         >
-          {{ brick.children[0].text }}
+          {{ brick.children[0]?.text }}
         </a>
       </div>
     </div>

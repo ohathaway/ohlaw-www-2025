@@ -20,7 +20,7 @@
         </span>
       </template>
       <template #content>
-        <p class="card-text">
+        <p v-if="post.Snippet" class="card-text">
           <BlogRichText :block="post.Snippet" />
         </p>
       </template>
@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import type { BlogPost } from '~/types/blog'
+import Card from 'primevue/card'
 
 const { post } = defineProps<{
   post: BlogPost

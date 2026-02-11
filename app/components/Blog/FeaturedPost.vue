@@ -14,7 +14,7 @@
     />
     -->
     <div class="px-4 sm:px-6 md:px-12 lg:px-20">
-      <BlogRichText :block="post.Snippet" />
+      <BlogRichText v-if="post.Snippet" :block="post.Snippet" />
     </div>
   </NuxtLink>
 </template>
