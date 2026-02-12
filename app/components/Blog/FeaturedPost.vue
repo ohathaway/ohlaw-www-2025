@@ -3,7 +3,7 @@
     <h1 class="px-4 sm:px-6 md:px-8 text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-4 sm:mb-6">{{ post.Title }}</h1>
     <div class="mb-4 sm:mb-6">
       <LayoutMediaFocus
-        :source="source.split('/')[2]"
+        :source="getStrapiUrl(post.Image)"
         :title="post.Title"
       />
     </div>
@@ -25,8 +25,6 @@ import type { BlogPost } from '~/types/blog'
 const { post } = defineProps<{
   post: BlogPost
 }>()
-
-const source = post.Image?.url ?? ''
 </script>
 
 <style scoped>
