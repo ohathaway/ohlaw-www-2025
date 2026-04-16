@@ -17,12 +17,35 @@ const nanoid = () =>
 
 export default defineEventHandler(
   async (event) => {
-    try {
-      const contentType = getRequestHeader(
-        event,
-        'content-type',
-      ) ?? ''
+    // Debug: return early to test if handler is reached
+    const contentType = getRequestHeader(
+      event,
+      'content-type',
+    ) ?? ''
 
+    if (contentType.includes('multipart')) {
+      try {
+        const formData
+          = await readMultipartFormData(event)
+        return {
+          debug: true,
+          fields: formData?.map(f => ({
+            name: f.name,
+            filename: f.filename,
+            size: f.data?.length,
+          })),
+        }
+      }
+      catch (err) {
+        return {
+          debug: true,
+          error: err.message,
+          stack: err.stack?.split('\n').slice(0, 5),
+        }
+      }
+    }
+
+    try {
       let name, description, contentHtml
       let docxBuffer = null
 
