@@ -124,6 +124,10 @@ export default defineEventHandler(
         statusCode: err.statusCode ?? 500,
         statusMessage: err.message
           ?? 'Template upload failed',
+        data: {
+          detail: err.message,
+          stack: err.stack?.split('\n').slice(0, 5),
+        },
       })
     }
   },
