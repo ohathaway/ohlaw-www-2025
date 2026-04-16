@@ -1,0 +1,1 @@
+ALTER TABLE `esign_sessions` ADD `field_values` text;

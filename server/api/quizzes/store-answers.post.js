@@ -1,3 +1,5 @@
+import { kv } from 'hub:kv'
+
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
@@ -11,7 +13,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Store the quiz answers in KV
-    await hubKV().set(kvKey, data)
+    await kv.set(kvKey, data)
 
     return { success: true }
   }

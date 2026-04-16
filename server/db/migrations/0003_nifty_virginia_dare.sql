@@ -1,0 +1,1 @@
+ALTER TABLE `esign_templates` ADD `field_mappings` text;

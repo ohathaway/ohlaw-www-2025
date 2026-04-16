@@ -26,6 +26,18 @@ export const useAutoLayout = () => {
    * Auto-selects layout based on the current route and config mapping
    */
   const autoLayout = computed(() => {
+    // Respect explicit layout set via definePageMeta.
+    // When layout is false, still return 'default'
+    // so NuxtLayout renders its slot (NuxtPage).
+    // NuxtPage internally handles layout:false to
+    // skip the layout wrapper.
+    if (route.meta.layout === false) {
+      return 'default'
+    }
+    if (route.meta.layout !== undefined) {
+      return route.meta.layout
+    }
+
     // Get the layout mapping from app config
     const layoutMappings = appConfig.layoutMapping || {}
 

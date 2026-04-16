@@ -1,3 +1,4 @@
+import { kv } from 'hub:kv'
 import qs from 'qs'
 
 /**
@@ -296,7 +297,7 @@ const deduplicateByTitle = (recommendations) => {
 export const storeRecommendations = async (kvKey, recommendations) => {
   try {
     const kvNamespace = `quizRecommendations:${kvKey}`
-    await hubKV().set(kvNamespace, {
+    await kv.set(kvNamespace, {
       recommendations,
       generatedAt: new Date().toISOString(),
       version: '1.0',
@@ -319,7 +320,7 @@ export const storeRecommendations = async (kvKey, recommendations) => {
 export const getStoredRecommendations = async (kvKey) => {
   try {
     const kvNamespace = `quizRecommendations:${kvKey}`
-    const stored = await hubKV().get(kvNamespace)
+    const stored = await kv.get(kvNamespace)
 
     if (stored && stored.recommendations) {
       console.log('Retrieved stored recommendations:', stored.recommendations.length)

@@ -1,4 +1,5 @@
 // server/api/quiz-generate-report.js
+import { kv } from 'hub:kv'
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
@@ -38,7 +39,7 @@ export default defineEventHandler(async (event) => {
       .digest('hex')
     const kvKey = `quizAnalysis:${quizResultHash}`
 
-    const resultExists = await hubKV().has(kvKey)
+    const resultExists = await kv.has(kvKey)
 
     console.info('About to fetch quiz from Strapi...')
     const quizData = await fetchQuizFromStrapi(quizResults.slug)
@@ -70,11 +71,11 @@ export default defineEventHandler(async (event) => {
         quizResults.totalScore,
       )
       console.info('AI analysis complete, caching result...')
-      await hubKV().set(kvKey, explanations)
+      await kv.set(kvKey, explanations)
     }
     else {
       console.info('Using cached result')
-      explanations = await hubKV().get(kvKey)
+      explanations = await kv.get(kvKey)
     }
     */
     // console.info('explanations:', explanations)

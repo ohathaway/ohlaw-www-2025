@@ -1,0 +1,1 @@
+ALTER TABLE `esign_templates` ADD `optional_fields` text;

@@ -20,6 +20,10 @@ logs
 .idea
 test-output
 
+# Old local data/state (renamed during migration)
+.data-old
+.wrangler-old
+
 # Local env files
 .env
 .env.*

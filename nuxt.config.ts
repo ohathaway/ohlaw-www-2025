@@ -205,19 +205,28 @@ export default defineNuxtConfig({
         quizFormUrl: process.env.LAWMATICS_QUIZ_FORM_URL,
       },
       searchApiKey: process.env.ME_SEARCH_KEY,
+      firebase: {
+        apiKey: process.env.FIREBASE_API_KEY,
+        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.FIREBASE_PROJECT_ID,
+      },
     },
     mailerLite: {
       apiKey: process.env.MAILER_LITE_KEY,
     },
     lawmatics: {
       url: process.env.LAWMATICS_URL,
-      key: process.env.LAWMATICS_KEY,
+      key: process.env.LAWMATICS_TOKEN,
     },
     claude: {
       apiKey: process.env.CLAUDE_KEY,
     },
     sendgrid: {
       apiKey: process.env.SENDGRID_KEY,
+    },
+    docxConverter: {
+      url: process.env.DOCX_CONVERTER_URL,
+      key: process.env.DOCX_CONVERTER_KEY,
     },
   },
 
@@ -246,12 +255,15 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: false,
   },
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: '2026-01-02',
 
   nitro: {
-    preset: 'cloudflare-module', // Deploy to Cloudflare Workers
+    preset: 'cloudflare-module',
     experimental: {
       openAPI: true,
+    },
+    rollupConfig: {
+      external: ['pdfjs-dist'],
     },
     routeRules: {
       '/**': {
@@ -264,12 +276,11 @@ export default defineNuxtConfig({
     },
   },
 
-  // https://hub.nuxt.com/docs/getting-started/installation#options
-  // NuxtHub v0.9: boolean flags only. Resource IDs configured in wrangler.toml
+  // https://hub.nuxt.com/docs/getting-started/migration
   hub: {
-    kv: true, // Cloudflare KV binding
-    blob: true, // Cloudflare R2 blob storage
-    ai: true, // Cloudflare Workers AI (optional)
+    kv: true,
+    blob: true,
+    db: 'sqlite',
   },
 
   vite: {
@@ -282,6 +293,10 @@ export default defineNuxtConfig({
     },
     optimizeDeps: {
       // include: ['./primevue.ohlaw.ts', 'primeicons']
+    },
+    ssr: {
+      noExternal: [],
+      external: ['pdfjs-dist'],
     },
     plugins: [tailwindcss()],
     build: {
@@ -347,6 +362,8 @@ export default defineNuxtConfig({
   // https://nuxtseo.com
   robots: {
     disallow: [
+      '/admin',
+      '/sign',
       '/color-test',
       '/glossary',
       '/blog/categories',

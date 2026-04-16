@@ -1,86 +1,97 @@
 {
-  // Cloudflare Workers Configuration for ohlaw-www-2025
-  // NuxtHub builds with cloudflare-module preset: dist/server + dist/public
-  // This file configures Workers deployment with static assets
+	// Cloudflare Workers Configuration for ohlaw-www-2025
+	// NuxtHub 0.10: builds to .output/, generates its own wrangler.json
+	// This file configures bindings (D1, KV, R2). Deploy via: pnpm deploy
+	"name": "ohlaw-www-2025",
+	"compatibility_date": "2024-11-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// Production KV namespace
+	"kv_namespaces": [
+		{
+			"binding": "KV",
+			"id": "37ea13e68ce34d8ca931d98c4e16cffa"
+		}
+	],
+	// Production D1 database (e-sign)
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "ohlaw-esign",
+			"database_id": "4904b083-2227-42a1-a1f9-3c0215401ebd",
+			"migrations_dir": "server/db/migrations"
+		}
+	],
+	// Production R2 bucket
+	"r2_buckets": [
+		{
+			"binding": "BLOB",
+			"bucket_name": "ohlaw-www-2025"
+		}
+	],
+	// Production routes (configure via Cloudflare Dashboard instead for flexibility)
+	// "routes": [
+	//   {
+	//     "pattern": "ohlawcolorado.com/*",
+	//     "zone_name": "ohlawcolorado.com"
+	//   },
+	//   {
+	//     "pattern": "www.ohlawcolorado.com/*",
+	//     "zone_name": "ohlawcolorado.com"
+	//   }
+	// ],
+	// Plain-text environment variables
+	"vars": {
+		"DOCX_CONVERTER_URL": "https://docx2pdf-service-6cl9.onrender.com"
+	},
 
-  "name": "ohlaw-www-2025",
-  "main": "dist/server/index.mjs",
-  "compatibility_date": "2024-11-01",
-  "compatibility_flags": ["nodejs_compat"],
-
-  // Static assets directory
-  "assets": {
-    "directory": "dist/public",
-    "binding": "ASSETS"
-  },
-
-  // Production KV namespace
-  "kv_namespaces": [
-    {
-      "binding": "KV",
-      "id": "37ea13e68ce34d8ca931d98c4e16cffa"
-    }
-  ],
-
-  // Production R2 bucket
-  "r2_buckets": [
-    {
-      "binding": "BLOB",
-      "bucket_name": "ohlaw-www-2025"
-    }
-  ],
-
-  // Production routes (configure via Cloudflare Dashboard instead for flexibility)
-  // "routes": [
-  //   {
-  //     "pattern": "ohlawcolorado.com/*",
-  //     "zone_name": "ohlawcolorado.com"
-  //   },
-  //   {
-  //     "pattern": "www.ohlawcolorado.com/*",
-  //     "zone_name": "ohlawcolorado.com"
-  //   }
-  // ],
-
-  // Observability and logging
-  "observability": {
-    "enabled": true,
-    "logs": {
-      "enabled": true,
-      "invocation_logs": true
-    }
-  },
-
-  // Preview environment configuration
-  "env": {
-    "preview": {
-      "name": "ohlaw-www-2025-preview",
-      "kv_namespaces": [
-        {
-          "binding": "KV",
-          "id": "e5b9f4afbc4b45cb8be607d4d5284001"
-        }
-      ],
-      "r2_buckets": [
-        {
-          "binding": "BLOB",
-          "bucket_name": "ohlaw-www-2025-preview"
-        }
-      ],
-      // Preview routes (optional - can configure via dashboard)
-      // "routes": [
-      //   {
-      //     "pattern": "www2025-preview.ohlawcolorado.com/*",
-      //     "zone_name": "ohlawcolorado.com"
-      //   }
-      // ],
-      "observability": {
-        "enabled": true,
-        "logs": {
-          "enabled": true,
-          "invocation_logs": true
-        }
-      }
-    }
-  }
+	// Observability and logging
+	"observability": {
+		"enabled": true,
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		}
+	},
+	// Preview environment configuration
+	"env": {
+		"preview": {
+			"name": "ohlaw-www-2025-preview",
+			"kv_namespaces": [
+				{
+					"binding": "KV",
+					"id": "e5b9f4afbc4b45cb8be607d4d5284001"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "ohlaw-esign-preview",
+					"database_id": "0a81411d-bbc5-4c6b-8fd0-f30f1392519e",
+					"migrations_dir": "server/db/migrations"
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "BLOB",
+					"bucket_name": "ohlaw-www-2025-preview"
+				}
+			],
+			// Preview routes (optional - can configure via dashboard)
+			// "routes": [
+			//   {
+			//     "pattern": "www2025-preview.ohlawcolorado.com/*",
+			//     "zone_name": "ohlawcolorado.com"
+			//   }
+			// ],
+			"observability": {
+				"enabled": true,
+				"logs": {
+					"enabled": true,
+					"invocation_logs": true
+				}
+			}
+		}
+	}
 }

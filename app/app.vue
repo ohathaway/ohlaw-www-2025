@@ -7,5 +7,10 @@
 </template>
 
 <script setup>
+const nuxtApp = useNuxtApp()
+// NuxtPage is used — suppress false positive
+// SSR warning caused by auto-layout composable
+nuxtApp._isNuxtPageUsed = true
+
 const { autoLayout } = useAutoLayout()
 </script>

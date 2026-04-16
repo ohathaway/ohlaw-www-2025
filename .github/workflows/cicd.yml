@@ -80,17 +80,21 @@ jobs:
           CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
           CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
           CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          DOCX_CONVERTER_URL: ${{ vars.DOCX_CONVERTER_URL }}
+          DOCX_CONVERTER_KEY: ${{ secrets.DOCX_CONVERTER_KEY }}
 
       - name: Verify build output
         run: |
-          if [ -f dist/server/index.mjs ]; then
+          if [ -f .output/server/index.mjs ]; then
             echo "✓ Worker script generated successfully"
-            echo "Build format: Cloudflare Workers (dist/server/index.mjs)"
           else
             echo "✗ Worker script not found!"
             exit 1
           fi
-          if [ -d dist/public/_nuxt ]; then
+          if [ -d .output/public/_nuxt ]; then
             echo "✓ Static assets generated successfully"
           else
             echo "✗ Static assets not found!"
@@ -103,6 +107,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: .output
           command: deploy --env preview
 
       - name: Deploy to Production
@@ -111,4 +116,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: .output
           command: deploy

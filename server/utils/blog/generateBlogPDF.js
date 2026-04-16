@@ -3,6 +3,7 @@
  * Extends existing PDF rendering system for blog content
  */
 
+import { blob } from 'hub:blob'
 import PDFDocument from 'pdfkit'
 
 /**
@@ -454,7 +455,7 @@ export const generateAndStoreBlogPDF = async (documentId, slug) => {
 export const blogPDFExists = async (slug) => {
   try {
     const filename = `blog-pdfs/${slug}.pdf`
-    const { url } = await hubBlob().head(filename)
+    const { url } = await blob.head(filename)
     return !!url
   }
   catch (error) {

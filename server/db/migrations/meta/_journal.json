@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1776109490462,
+      "tag": "0000_brave_triton",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1776116910287,
+      "tag": "0001_brief_patch",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1776181146506,
+      "tag": "0002_blushing_ghost_rider",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1776184011366,
+      "tag": "0003_nifty_virginia_dare",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1776186809490,
+      "tag": "0004_parched_ben_urich",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1776263813914,
+      "tag": "0005_thankful_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1776279799287,
+      "tag": "0006_nostalgic_gauntlet",
+      "breakpoints": true
+    }
+  ]
+}

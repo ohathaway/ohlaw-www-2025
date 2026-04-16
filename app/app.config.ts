@@ -169,6 +169,7 @@ export default defineAppConfig({
     { pattern: '/policies/**', layout: 'policy' },
     { pattern: '/blog/**', layout: 'blog' },
     { pattern: '/services/**', layout: 'services' },
+    { pattern: '/admin/**', layout: 'esign' },
   ],
 
   // Tool configuration
