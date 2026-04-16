@@ -15,25 +15,25 @@ export default defineEventHandler(async (event) => {
   // Only protect admin API routes
   if (!path.startsWith('/api/admin')) return
 
-  const authHeader = getRequestHeader(
-    event,
-    'authorization',
-  )
-  const query = getQuery(event)
-
-  const idToken
-    = authHeader?.startsWith('Bearer ')
-      ? authHeader.slice(7)
-      : query.token
-
-  if (!idToken) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: 'Missing auth token',
-    })
-  }
-
   try {
+    const authHeader = getRequestHeader(
+      event,
+      'authorization',
+    )
+    const query = getQuery(event)
+
+    const idToken
+      = authHeader?.startsWith('Bearer ')
+        ? authHeader.slice(7)
+        : query.token
+
+    if (!idToken) {
+      throw createError({
+        statusCode: 401,
+        statusMessage: 'Missing auth token',
+      })
+    }
+
     const decoded = await verifyIdToken(idToken)
 
     if (!isAllowedEmail(decoded.email)) {
@@ -51,9 +51,11 @@ export default defineEventHandler(async (event) => {
   }
   catch (err) {
     if (err.statusCode) throw err
+    // Surface the actual error in dev/debug
+    console.error('Admin auth error:', err)
     throw createError({
-      statusCode: 401,
-      statusMessage: 'Invalid auth token',
+      statusCode: 500,
+      statusMessage: `Auth error: ${err.message}`,
     })
   }
 })
