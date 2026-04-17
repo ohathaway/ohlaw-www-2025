@@ -193,21 +193,28 @@ const createAdhocDocument = async () => {
   error.value = null
 
   try {
-    const formData = new FormData()
-    formData.append('file', adhocFile.value)
-    formData.append('title', adhocTitle.value)
-    formData.append(
-      'signerCount',
-      String(adhocSignerCount.value),
-    )
-    formData.append(
-      'signers',
-      JSON.stringify(toRaw(draftSigners.value)),
+    // Convert file to base64 (avoids multipart
+    // parsing issues in Cloudflare Workers)
+    const fileBuffer = await adhocFile.value
+      .arrayBuffer()
+    const fileBase64 = btoa(
+      String.fromCharCode(
+        ...new Uint8Array(fileBuffer),
+      ),
     )
 
     const { document } = await authFetch(
       '/api/admin/esign/documents-adhoc',
-      { method: 'POST', body: formData },
+      {
+        method: 'POST',
+        body: {
+          title: adhocTitle.value,
+          fileName: adhocFile.value.name,
+          fileBase64,
+          signerCount: adhocSignerCount.value,
+          signers: toRaw(draftSigners.value),
+        },
+      },
     )
 
     draftStore.setDocumentId(document.id)

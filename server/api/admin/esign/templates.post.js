@@ -2,6 +2,12 @@
 // or raw HTML. Detects {{field}} placeholders.
 // Stores original .docx in blob for later
 // docxtemplater field filling.
+//
+// Accepts JSON body with base64-encoded file
+// (avoids multipart parsing issues in Workers):
+// { name, description, fileName, fileBase64 }
+// or plain HTML:
+// { name, description, contentHtml }
 
 import { blob } from 'hub:blob'
 import { db, schema } from '@nuxthub/db'
@@ -17,66 +23,20 @@ const nanoid = () =>
 
 export default defineEventHandler(
   async (event) => {
-    // Debug: return early to test if handler is reached
-    const contentType = getRequestHeader(
-      event,
-      'content-type',
-    ) ?? ''
-
-    if (contentType.includes('multipart')) {
-      try {
-        const formData
-          = await readMultipartFormData(event)
-        return {
-          debug: true,
-          fields: formData?.map(f => ({
-            name: f.name,
-            filename: f.filename,
-            size: f.data?.length,
-          })),
-        }
-      }
-      catch (err) {
-        return {
-          debug: true,
-          error: err.message,
-          stack: err.stack?.split('\n').slice(0, 5),
-        }
-      }
-    }
-
     try {
-      let name, description, contentHtml
+      const body = await readBody(event)
+
+      let name = body.name
+      let description = body.description ?? ''
+      let contentHtml = body.contentHtml
       let docxBuffer = null
 
-      // Handle multipart (docx upload)
-      if (contentType.includes('multipart')) {
-        const formData
-          = await readMultipartFormData(event)
-
-        name = formData
-          .find(f => f.name === 'name')
-          ?.data?.toString()
-        description = formData
-          .find(f => f.name === 'description')
-          ?.data?.toString() ?? ''
-
-        const file = formData.find(
-          f => f.name === 'file',
+      // DOCX file as base64
+      if (body.fileBase64) {
+        docxBuffer = Buffer.from(
+          body.fileBase64, 'base64',
         )
 
-        if (!file?.data) {
-          throw createError({
-            statusCode: 400,
-            statusMessage: 'File is required',
-          })
-        }
-
-        // Keep the original DOCX bytes
-        docxBuffer = file.data
-
-        // Convert to HTML for field detection
-        // and signing page fallback viewer
         const result
           = await mammoth.convertToHtml(
             { buffer: docxBuffer },
@@ -84,16 +44,9 @@ export default defineEventHandler(
         contentHtml = result.value
 
         if (!name) {
-          name = (file.filename ?? 'Template')
+          name = (body.fileName ?? 'Template')
             .replace(/\.docx$/i, '')
         }
-      }
-      // Handle JSON (raw HTML)
-      else {
-        const body = await readBody(event)
-        name = body.name
-        description = body.description ?? ''
-        contentHtml = body.contentHtml
       }
 
       if (!name || !contentHtml) {
@@ -147,10 +100,6 @@ export default defineEventHandler(
         statusCode: err.statusCode ?? 500,
         statusMessage: err.message
           ?? 'Template upload failed',
-        data: {
-          detail: err.message,
-          stack: err.stack?.split('\n').slice(0, 5),
-        },
       })
     }
   },

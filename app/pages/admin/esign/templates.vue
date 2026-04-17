@@ -51,20 +51,27 @@ const handleUpload = async () => {
   error.value = null
 
   try {
-    const formData = new FormData()
-    formData.append('file', selectedFile.value)
-    formData.append(
-      'name',
-      templateName.value,
-    )
-    formData.append(
-      'description',
-      templateDesc.value,
+    // Convert file to base64 (avoids multipart
+    // parsing issues in Cloudflare Workers)
+    const fileBuffer = await selectedFile.value
+      .arrayBuffer()
+    const fileBase64 = btoa(
+      String.fromCharCode(
+        ...new Uint8Array(fileBuffer),
+      ),
     )
 
     const { template } = await authFetch(
       '/api/admin/esign/templates',
-      { method: 'POST', body: formData },
+      {
+        method: 'POST',
+        body: {
+          name: templateName.value,
+          description: templateDesc.value,
+          fileName: selectedFile.value.name,
+          fileBase64,
+        },
+      },
     )
 
     // Reset form
