@@ -1,15 +1,47 @@
-// E-sign email notifications via Resend.
+// E-sign email notifications via Resend API.
+// Uses fetch directly — no SDK needed.
 
-import { Resend } from 'resend'
-
-const getResend = () => {
-  const config = useRuntimeConfig()
-  return new Resend(config.resend.key)
-}
+const RESEND_API = 'https://api.resend.com/emails'
 
 const sender = 'OHLaw E-Sign <esign@ohlawcolorado.com>'
-
 const firmEmail = 'owen@ohlawcolorado.com'
+
+const sendEmail = async ({ to, subject, html }) => {
+  const config = useRuntimeConfig()
+  const key = config.resend.key
+
+  if (!key) {
+    console.error('RESEND_KEY not configured')
+    return
+  }
+
+  const response = await fetch(RESEND_API, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: sender,
+      to: Array.isArray(to) ? to : [to],
+      subject,
+      html,
+    }),
+  })
+
+  if (!response.ok) {
+    const err = await response.text()
+      .catch(() => '')
+    console.error(
+      `Resend error (${response.status}):`, err,
+    )
+    throw new Error(
+      `Email send failed: ${response.status}`,
+    )
+  }
+
+  return response.json()
+}
 
 const signingPageUrl = (token, baseUrl) =>
   `${baseUrl}/sign/${token}`
@@ -19,14 +51,12 @@ export const sendSigningRequest = async (
   document,
   baseUrl = 'https://ohlawcolorado.com',
 ) => {
-  const resend = getResend()
   const url = signingPageUrl(
     session.signingToken,
     baseUrl,
   )
 
-  await resend.emails.send({
-    from: sender,
+  await sendEmail({
     to: session.signerEmail,
     subject: `Please sign: ${document.title}`,
     html: `
@@ -70,10 +100,7 @@ export const sendSigningConfirmation = async (
   session,
   document,
 ) => {
-  const resend = getResend()
-
-  await resend.emails.send({
-    from: sender,
+  await sendEmail({
     to: session.signerEmail,
     subject: `Signed: ${document.title}`,
     html: `
@@ -105,13 +132,11 @@ export const sendCompletionNotice = async (
   sessions,
   downloadUrl,
 ) => {
-  const resend = getResend()
   const signerList = sessions
     .map(s => `${s.signerName} (${s.signerEmail})`)
     .join(', ')
 
-  await resend.emails.send({
-    from: sender,
+  await sendEmail({
     to: firmEmail,
     subject: `All signed: ${document.title}`,
     html: `
