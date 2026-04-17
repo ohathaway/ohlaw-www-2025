@@ -161,15 +161,6 @@ export default defineEventHandler(
       ...context,
     })
 
-    // Send confirmation to signer (async)
-    sendSigningConfirmation(session, document)
-      .catch(err =>
-        console.error(
-          'Failed to send confirmation:',
-          err,
-        ),
-      )
-
     // Check if all sessions are signed
     const allSessions
       = await getSessionsByDocumentId(document.id)
@@ -177,6 +168,8 @@ export default defineEventHandler(
       s => s.id === session.id
         || s.status === 'SIGNED',
     )
+
+    let signedPdfBytes = null
 
     if (allSigned && document.status !== 'COMPLETED') {
       // Refresh sessions with signature data
@@ -207,6 +200,7 @@ export default defineEventHandler(
             placements,
             completedSessions,
           )
+        signedPdfBytes = signedBytes
 
         const blobKey
           = `esign/signed/${document.id}.pdf`
@@ -244,6 +238,19 @@ export default defineEventHandler(
         )
       }
     }
+
+    // Send confirmation to signer with signed
+    // PDF attached (if available)
+    sendSigningConfirmation(
+      session,
+      document,
+      signedPdfBytes,
+    ).catch(err =>
+      console.error(
+        'Failed to send confirmation:',
+        err,
+      ),
+    )
 
     return {
       success: true,

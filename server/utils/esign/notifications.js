@@ -6,7 +6,9 @@ const RESEND_API = 'https://api.resend.com/emails'
 const sender = 'OHLaw E-Sign <esign@ohlawcolorado.com>'
 const firmEmail = 'owen@ohlawcolorado.com'
 
-const sendEmail = async ({ to, subject, html }) => {
+const sendEmail = async ({
+  to, subject, html, attachments,
+}) => {
   const config = useRuntimeConfig()
   const key = config.resend.key
 
@@ -15,18 +17,24 @@ const sendEmail = async ({ to, subject, html }) => {
     return
   }
 
+  const payload = {
+    from: sender,
+    to: Array.isArray(to) ? to : [to],
+    subject,
+    html,
+  }
+
+  if (attachments?.length) {
+    payload.attachments = attachments
+  }
+
   const response = await fetch(RESEND_API, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${key}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      from: sender,
-      to: Array.isArray(to) ? to : [to],
-      subject,
-      html,
-    }),
+    body: JSON.stringify(payload),
   })
 
   if (!response.ok) {
@@ -99,10 +107,20 @@ export const sendSigningRequest = async (
 export const sendSigningConfirmation = async (
   session,
   document,
+  pdfBytes,
 ) => {
+  const attachments = pdfBytes
+    ? [{
+        filename: `${document.title}.pdf`,
+        content: Buffer.from(pdfBytes)
+          .toString('base64'),
+      }]
+    : []
+
   await sendEmail({
     to: session.signerEmail,
     subject: `Signed: ${document.title}`,
+    attachments,
     html: `
 <div style="font-family: sans-serif;
   max-width: 600px; margin: 0 auto;">
