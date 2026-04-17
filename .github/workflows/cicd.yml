@@ -66,27 +66,25 @@ jobs:
         env:
           NUXT_GIT_COMMIT: ${{ github.sha }}
           NUXT_BUILD_DATE: ${{ github.event.head_commit.timestamp }}
-          STRAPI_URL: ${{ secrets.STRAPI_URL }}
+          STRAPI_URL: ${{ vars.STRAPI_URL }}
           CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
           SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
           MAILER_LITE_KEY: ${{ secrets.MAILER_LITE_KEY }}
-          LAWMATICS_URL: ${{ secrets.LAWMATICS_URL }}
-          LAWMATICS_KEY: ${{ secrets.LAWMATICS_KEY }}
-          LAWMATICS_QUIZ_FORM_URL: ${{ secrets.LAWMATICS_QUIZ_FORM_URL }}
+          LAWMATICS_URL: ${{ vars.LAWMATICS_URL }}
+          LAWMATICS_TOKEN: ${{ secrets.LAWMATICS_TOKEN }}
+          LAWMATICS_QUIZ_FORM_URL: ${{ vars.LAWMATICS_QUIZ_FORM_URL }}
           ME_SEARCH_KEY: ${{ secrets.ME_SEARCH_KEY }}
-          GTAG_ID: ${{ secrets.GTAG_ID }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GTAG_ID: ${{ vars.GTAG_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
-          CLOUDFLARE_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          CLOUDFLARE_ACCESS_KEY_ID: ${{ vars.CLOUDFLARE_ACCESS_KEY_ID }}
           CLOUDFLARE_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_BUCKET_NAME: ${{ secrets.CLOUDFLARE_BUCKET_NAME }}
+          CLOUDFLARE_BUCKET_NAME: ${{ vars.CLOUDFLARE_BUCKET_NAME }}
           FIREBASE_API_KEY: ${{ vars.FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ vars.FIREBASE_AUTH_DOMAIN }}
           FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
           DOCX_CONVERTER_URL: ${{ vars.DOCX_CONVERTER_URL }}
           DOCX_CONVERTER_KEY: ${{ secrets.DOCX_CONVERTER_KEY }}
-          LAWMATICS_URL: ${{ vars.LAWMATICS_URL }}
-          LAWMATICS_TOKEN: ${{ secrets.LAWMATICS_TOKEN }}
           MAILERSEND_KEY: ${{ secrets.MAILERSEND_KEY }}
 
       - name: Verify build output
