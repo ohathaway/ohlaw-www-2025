@@ -6,7 +6,6 @@
 import { blob } from 'hub:blob'
 import { db, schema } from '@nuxthub/db'
 import { eq } from 'drizzle-orm'
-import mammoth from 'mammoth'
 import { detectFields }
   from '../../../utils/esign/template-engine'
 
@@ -34,7 +33,10 @@ export default defineEventHandler(
         )
         steps.push(`bufferSize:${docxBuffer.length}`)
 
-        steps.push('mammoth')
+        steps.push('mammothImport')
+        const mammoth
+          = await import('mammoth')
+        steps.push('mammothConvert')
         const result
           = await mammoth.convertToHtml(
             { buffer: docxBuffer },
