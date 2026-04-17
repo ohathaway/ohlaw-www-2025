@@ -85,6 +85,9 @@ jobs:
           FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
           DOCX_CONVERTER_URL: ${{ vars.DOCX_CONVERTER_URL }}
           DOCX_CONVERTER_KEY: ${{ secrets.DOCX_CONVERTER_KEY }}
+          LAWMATICS_URL: ${{ vars.LAWMATICS_URL }}
+          LAWMATICS_TOKEN: ${{ secrets.LAWMATICS_TOKEN }}
+          MAILERSEND_KEY: ${{ secrets.MAILERSEND_KEY }}
 
       - name: Verify build output
         run: |
