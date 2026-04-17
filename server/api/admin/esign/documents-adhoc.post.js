@@ -8,7 +8,6 @@
 //   fileBase64 }
 
 import { blob } from 'hub:blob'
-import mammoth from 'mammoth'
 import { createDocument }
   from '../../../utils/esign/db'
 import { convertDocxToPdf }
@@ -36,12 +35,6 @@ export default defineEventHandler(
         = parseInt(body.signerCount, 10) || 1
       const signers = body.signers ?? []
 
-      // Convert DOCX to HTML (fallback viewer)
-      const htmlResult
-        = await mammoth.convertToHtml(
-          { buffer: docxBuffer },
-        )
-
       // Convert DOCX to PDF
       const pdfBuffer
         = await convertDocxToPdf(docxBuffer)
@@ -51,7 +44,7 @@ export default defineEventHandler(
         title,
         templateType: 'adhoc',
         templateVars: { signers },
-        contentHtml: htmlResult.value,
+        contentHtml: `<p>${title}</p>`,
         signerCount,
       })
 
