@@ -43,7 +43,8 @@
 	// ],
 	// Plain-text environment variables
 	"vars": {
-		"DOCX_CONVERTER_URL": "https://docx2pdf-service-6cl9.onrender.com"
+		"DOCX_CONVERTER_URL": "https://docx2pdf-service-6cl9.onrender.com",
+		"LAWMATICS_URL": "https://api.lawmatics.com/v1"
 	},
 
 	// Observability and logging
