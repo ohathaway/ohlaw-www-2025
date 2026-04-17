@@ -193,15 +193,15 @@ const createAdhocDocument = async () => {
   error.value = null
 
   try {
-    // Convert file to base64 (avoids multipart
-    // parsing issues in Cloudflare Workers)
+    // Convert file to base64 in chunks
     const fileBuffer = await adhocFile.value
       .arrayBuffer()
-    const fileBase64 = btoa(
-      String.fromCharCode(
-        ...new Uint8Array(fileBuffer),
-      ),
-    )
+    const bytes = new Uint8Array(fileBuffer)
+    let binary = ''
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i])
+    }
+    const fileBase64 = btoa(binary)
 
     const { document } = await authFetch(
       '/api/admin/esign/documents-adhoc',
