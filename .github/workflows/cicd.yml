@@ -86,6 +86,7 @@ jobs:
           DOCX_CONVERTER_URL: ${{ vars.DOCX_CONVERTER_URL }}
           DOCX_CONVERTER_KEY: ${{ secrets.DOCX_CONVERTER_KEY }}
           MAILERSEND_KEY: ${{ secrets.MAILERSEND_KEY }}
+          RESEND_KEY: ${{ secrets.RESEND_KEY }}
 
       - name: Verify build output
         run: |

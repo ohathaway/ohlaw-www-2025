@@ -1,17 +1,15 @@
-// E-sign email notifications via MailerSend.
-// Wraps the existing sendMsg() utility.
+// E-sign email notifications via Resend.
 
-import { sendMsg } from '../mailersend/index'
+import { Resend } from 'resend'
 
-const sender = {
-  address: 'esign@ohlawcolorado.com',
-  name: 'OHLaw Colorado E-Sign',
+const getResend = () => {
+  const config = useRuntimeConfig()
+  return new Resend(config.resend.key)
 }
 
-const firmEmail = {
-  address: 'owen@ohlawcolorado.com',
-  name: 'Owen Hathaway',
-}
+const sender = 'OHLaw E-Sign <esign@ohlawcolorado.com>'
+
+const firmEmail = 'owen@ohlawcolorado.com'
 
 const signingPageUrl = (token, baseUrl) =>
   `${baseUrl}/sign/${token}`
@@ -21,17 +19,15 @@ export const sendSigningRequest = async (
   document,
   baseUrl = 'https://ohlawcolorado.com',
 ) => {
+  const resend = getResend()
   const url = signingPageUrl(
     session.signingToken,
     baseUrl,
   )
 
-  await sendMsg({
-    sender,
-    recipients: [{
-      address: session.signerEmail,
-      name: session.signerName,
-    }],
+  await resend.emails.send({
+    from: sender,
+    to: session.signerEmail,
     subject: `Please sign: ${document.title}`,
     html: `
 <div style="font-family: sans-serif;
@@ -67,18 +63,6 @@ export const sendSigningRequest = async (
     Fort Collins, Colorado
   </p>
 </div>`.trim(),
-    text: [
-      `Hello ${session.signerName},`,
-      '',
-      'The Law Offices of Owen Hathaway has '
-      + 'sent you a document to sign:',
-      '',
-      document.title,
-      '',
-      `Review & Sign: ${url}`,
-      '',
-      'This link expires in 48 hours.',
-    ].join('\n'),
   })
 }
 
@@ -86,12 +70,11 @@ export const sendSigningConfirmation = async (
   session,
   document,
 ) => {
-  await sendMsg({
-    sender,
-    recipients: [{
-      address: session.signerEmail,
-      name: session.signerName,
-    }],
+  const resend = getResend()
+
+  await resend.emails.send({
+    from: sender,
+    to: session.signerEmail,
     subject: `Signed: ${document.title}`,
     html: `
 <div style="font-family: sans-serif;
@@ -114,15 +97,6 @@ export const sendSigningConfirmation = async (
     Fort Collins, Colorado
   </p>
 </div>`.trim(),
-    text: [
-      `Hello ${session.signerName},`,
-      '',
-      `You have successfully signed: `
-      + document.title,
-      '',
-      'A copy of the signed document will be '
-      + 'provided once all parties have signed.',
-    ].join('\n'),
   })
 }
 
@@ -131,13 +105,14 @@ export const sendCompletionNotice = async (
   sessions,
   downloadUrl,
 ) => {
+  const resend = getResend()
   const signerList = sessions
     .map(s => `${s.signerName} (${s.signerEmail})`)
     .join(', ')
 
-  await sendMsg({
-    sender,
-    recipients: [firmEmail],
+  await resend.emails.send({
+    from: sender,
+    to: firmEmail,
     subject: `All signed: ${document.title}`,
     html: `
 <div style="font-family: sans-serif;
@@ -154,12 +129,5 @@ export const sendCompletionNotice = async (
       </a></p>`
     : ''}
 </div>`.trim(),
-    text: [
-      `${document.title} has been signed by `
-      + `all parties: ${signerList}`,
-      downloadUrl
-        ? `\nDownload: ${downloadUrl}`
-        : '',
-    ].join('\n'),
   })
 }

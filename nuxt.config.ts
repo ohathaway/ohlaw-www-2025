@@ -228,6 +228,9 @@ export default defineNuxtConfig({
       url: process.env.DOCX_CONVERTER_URL,
       key: process.env.DOCX_CONVERTER_KEY,
     },
+    resend: {
+      key: process.env.RESEND_KEY,
+    },
   },
 
   watch: ['./primevue.ohlaw.ts'],
