@@ -96,11 +96,14 @@ export default defineEventHandler(
     }
     catch (err) {
       console.error('Template upload error:', err)
-      throw createError({
+      // Return error detail directly — Nitro
+      // strips statusMessage in production
+      return {
+        error: true,
         statusCode: err.statusCode ?? 500,
-        statusMessage: err.message
-          ?? 'Template upload failed',
-      })
+        detail: err.message,
+        stack: err.stack?.split('\n').slice(0, 5),
+      }
     }
   },
 )
