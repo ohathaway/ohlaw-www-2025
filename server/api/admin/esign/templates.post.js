@@ -2,12 +2,6 @@
 // or raw HTML. Detects {{field}} placeholders.
 // Stores original .docx in blob for later
 // docxtemplater field filling.
-//
-// Accepts JSON body with base64-encoded file
-// (avoids multipart parsing issues in Workers):
-// { name, description, fileName, fileBase64 }
-// or plain HTML:
-// { name, description, contentHtml }
 
 import { blob } from 'hub:blob'
 import { db, schema } from '@nuxthub/db'
@@ -23,7 +17,9 @@ const nanoid = () =>
 
 export default defineEventHandler(
   async (event) => {
+    const steps = []
     try {
+      steps.push('readBody')
       const body = await readBody(event)
 
       let name = body.name
@@ -31,17 +27,20 @@ export default defineEventHandler(
       let contentHtml = body.contentHtml
       let docxBuffer = null
 
-      // DOCX file as base64
       if (body.fileBase64) {
+        steps.push('decodeBase64')
         docxBuffer = Buffer.from(
           body.fileBase64, 'base64',
         )
+        steps.push(`bufferSize:${docxBuffer.length}`)
 
+        steps.push('mammoth')
         const result
           = await mammoth.convertToHtml(
             { buffer: docxBuffer },
           )
         contentHtml = result.value
+        steps.push('mammothDone')
 
         if (!name) {
           name = (body.fileName ?? 'Template')
@@ -50,19 +49,21 @@ export default defineEventHandler(
       }
 
       if (!name || !contentHtml) {
-        throw createError({
-          statusCode: 400,
-          statusMessage:
-            'Name and content are required',
-        })
+        return {
+          error: true,
+          step: 'validation',
+          steps,
+          detail: 'Name and content required',
+        }
       }
 
+      steps.push('detectFields')
       const fields = detectFields(contentHtml)
       const id = nanoid()
       const now = new Date()
 
-      // Store original DOCX in blob
       if (docxBuffer) {
+        steps.push('blobPut')
         await blob.put(
           `esign/templates/${id}.docx`,
           new Uint8Array(docxBuffer),
@@ -73,8 +74,10 @@ export default defineEventHandler(
               + '.wordprocessingml.document',
           },
         )
+        steps.push('blobDone')
       }
 
+      steps.push('dbInsert')
       await db.insert(esignTemplates).values({
         id,
         name,
@@ -85,6 +88,7 @@ export default defineEventHandler(
         createdAt: now,
         updatedAt: now,
       })
+      steps.push('dbDone')
 
       const rows = await db
         .select()
@@ -95,14 +99,17 @@ export default defineEventHandler(
       return { template: rows[0] }
     }
     catch (err) {
-      console.error('Template upload error:', err)
-      // Return error detail directly — Nitro
-      // strips statusMessage in production
+      console.error(
+        'Template upload error at step:',
+        steps,
+        err,
+      )
       return {
         error: true,
-        statusCode: err.statusCode ?? 500,
+        steps,
         detail: err.message,
-        stack: err.stack?.split('\n').slice(0, 5),
+        stack: err.stack
+          ?.split('\n').slice(0, 5),
       }
     }
   },
