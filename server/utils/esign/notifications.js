@@ -7,7 +7,7 @@ const sender = 'OHLaw E-Sign <esign@ohlawcolorado.com>'
 const firmEmail = 'owen@ohlawcolorado.com'
 
 const sendEmail = async ({
-  to, subject, html, attachments,
+  to, cc, subject, html, attachments,
 }) => {
   const config = useRuntimeConfig()
   const key = config.resend.key
@@ -22,6 +22,10 @@ const sendEmail = async ({
     to: Array.isArray(to) ? to : [to],
     subject,
     html,
+  }
+
+  if (cc?.length) {
+    payload.cc = Array.isArray(cc) ? cc : [cc]
   }
 
   if (attachments?.length) {
@@ -154,8 +158,13 @@ export const sendCompletionNotice = async (
     .map(s => `${s.signerName} (${s.signerEmail})`)
     .join(', ')
 
+  const ccList = document.ccRecipients
+    ? JSON.parse(document.ccRecipients)
+    : []
+
   await sendEmail({
     to: firmEmail,
+    cc: ccList.length ? ccList : undefined,
     subject: `All signed: ${document.title}`,
     html: `
 <div style="font-family: sans-serif;

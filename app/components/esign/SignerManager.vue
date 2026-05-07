@@ -12,7 +12,7 @@ const emit = defineEmits(['sent'])
 
 const { authFetch } = useAdminAuth()
 const draftStore = useEsignDraftStore()
-const { signers } = storeToRefs(draftStore)
+const { signers, ccRecipients } = storeToRefs(draftStore)
 const sending = ref(false)
 const error = ref(null)
 
@@ -57,6 +57,9 @@ const handleSend = async () => {
         method: 'POST',
         body: {
           signers: toRaw(signers.value),
+          ccRecipients: toRaw(
+            ccRecipients.value,
+          ).filter(e => e?.trim()),
         },
       },
     )
@@ -86,6 +89,55 @@ const handleSend = async () => {
     </h2>
 
     <EsignSignerInputs />
+
+    <!-- CC Recipients -->
+    <div class="mt-5 pt-4 border-t border-slate-100">
+      <div
+        class="flex items-center justify-between
+          mb-3"
+      >
+        <span
+          class="text-xs font-medium
+            text-slate-500"
+        >
+          CC on completion
+        </span>
+        <button
+          class="text-xs text-[#1E3A5F]
+            hover:underline"
+          @click="draftStore.addCcRecipient()"
+        >
+          + Add CC
+        </button>
+      </div>
+
+      <div
+        v-for="(_, i) in ccRecipients"
+        :key="i"
+        class="flex gap-2 mb-2 items-center"
+      >
+        <input
+          v-model="ccRecipients[i]"
+          type="email"
+          class="flex-1 px-3 py-2 border
+            border-slate-300 rounded-lg text-sm"
+          placeholder="cc@example.com"
+        />
+        <button
+          class="text-slate-400 hover:text-red-500"
+          @click="draftStore.removeCcRecipient(i)"
+        >
+          <i class="bi bi-x-lg" />
+        </button>
+      </div>
+
+      <p
+        v-if="!ccRecipients.length"
+        class="text-xs text-slate-400"
+      >
+        No CC recipients added
+      </p>
+    </div>
 
     <button
       :disabled="!canSend"

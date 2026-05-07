@@ -46,6 +46,15 @@ export default defineEventHandler(
       })
     }
 
+    const ccRecipients = (body.ccRecipients ?? [])
+      .filter(e => e?.trim())
+
+    if (ccRecipients.length) {
+      await updateDocument(id, {
+        ccRecipients: JSON.stringify(ccRecipients),
+      })
+    }
+
     const expiry = calculateTokenExpiration(
       body.expiresIn ?? DEFAULT_TOKEN_EXPIRY,
     )

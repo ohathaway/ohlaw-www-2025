@@ -66,6 +66,13 @@ This is a Nuxt 3 application with NuxtHub for a law firm website with quiz funct
 - AI analysis cached in Nuxt KV store by quiz result hash
 - PDF generation using PDFKit with functional pipeline approach
 
+### E-Sign System
+- Custom e-signature solution replacing PandaDoc (MVP live as of 2026-04-20)
+- Admin UI at `/admin/esign/`, public signing at `/sign/[token]`
+- Multi-signer support (up to 6), PDF field placement editor, DOCX template pipeline
+- Server utils in `server/utils/esign/`, DB schema in `server/db/schema/`
+- **Planned extraction**: Shared utilities (tokens, certificates, PDF generation, signature canvas) will move to `../esign-layer` Nuxt Layer — see that repo's README.md for the architecture plan and extraction checklist
+
 ### Environment Configuration
 Critical environment variables for:
 - Strapi CMS connection (`STRAPI_URL`)

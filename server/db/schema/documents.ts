@@ -26,6 +26,7 @@ export const esignDocuments = sqliteTable(
       .notNull()
       .default(1),
     fieldPlacements: text('field_placements'),
+    ccRecipients: text('cc_recipients'),
     signedPdfBlobKey: text('signed_pdf_blob_key'),
     createdAt: integer('created_at', { mode: 'timestamp' })
       .notNull()

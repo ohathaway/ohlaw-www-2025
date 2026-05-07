@@ -8,6 +8,7 @@ export const useEsignDraftStore = defineStore(
     const signers = ref([
       { name: '', email: '', role: 1 },
     ])
+    const ccRecipients = ref([])
     const documentId = ref(null)
 
     const setSigners = (list) => {
@@ -50,21 +51,33 @@ export const useEsignDraftStore = defineStore(
       }
     }
 
+    const addCcRecipient = () => {
+      ccRecipients.value.push('')
+    }
+
+    const removeCcRecipient = (index) => {
+      ccRecipients.value.splice(index, 1)
+    }
+
     const clear = () => {
       signers.value = [
         { name: '', email: '', role: 1 },
       ]
+      ccRecipients.value = []
       documentId.value = null
     }
 
     return {
       signers,
+      ccRecipients,
       documentId,
       setSigners,
       setDocumentId,
       setSignerCount,
       addSigner,
       removeSigner,
+      addCcRecipient,
+      removeCcRecipient,
       clear,
     }
   },
