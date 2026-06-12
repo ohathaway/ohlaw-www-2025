@@ -84,6 +84,16 @@
           </h5>
           <ul class="list-none pl-0 space-y-2">
             <li class="flex items-start">
+              <font-awesome-icon
+                icon="fasr fa-signature"
+                class="text-slate-300 mt-1 mr-3"
+                fixed-width
+              />
+              <NuxtLink to="/admin/login" class="text-slate-200 hover:text-white">
+                E-Signature Login
+              </NuxtLink>
+            </li>
+            <li class="flex items-start">
               <i class="pi pi-file-edit text-slate-300 mt-1 mr-3" />
               <NuxtLink to="/policies" class="text-slate-200 hover:text-white">
                 Our Terms and Conditions
