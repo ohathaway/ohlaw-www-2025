@@ -14,6 +14,7 @@ https://www2025.ohlawcolorado.com
 - **SEO Optimized**: Automated sitemap generation and meta tags
 - **Responsive Design**: PrimeVue UI components with custom Tailwind theme
 - **Edge Deployment**: Server-side rendering on Cloudflare Workers
+- **Esign**: Custom e-sign available in /admin console
 
 ## Setup
 
@@ -67,4 +68,3 @@ Monitor your deployment logs and analytics in the [NuxtHub Admin](https://admin.
 - **AI**: Claude API for report generation
 - **Email**: SendGrid and Mailer Lite integrations
 - **CRM**: Lawmatics integration for lead management
-
