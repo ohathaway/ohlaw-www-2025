@@ -180,9 +180,19 @@ const handleAdhocFileSelect = (event) => {
   if (adhocFile.value && !adhocTitle.value) {
     adhocTitle.value
       = adhocFile.value.name
-        .replace(/\.docx$/i, '')
+        .replace(/\.(docx|pdf)$/i, '')
   }
 }
+
+const adhocIsPdf = computed(() =>
+  /\.pdf$/i.test(adhocFile.value?.name ?? ''))
+
+const adhocButtonLabel = computed(() => {
+  if (!creatingAdhoc.value) {
+    return 'Upload & Prepare Document'
+  }
+  return adhocIsPdf.value ? 'Uploading…' : 'Converting…'
+})
 
 const createAdhocDocument = async () => {
   if (!adhocFile.value || !adhocTitle.value) {
@@ -610,11 +620,11 @@ const fieldLabel = field =>
           class="block text-sm font-medium
             text-slate-700 mb-1"
         >
-          Upload Word Document (.docx)
+          Upload Document (.docx or .pdf)
         </label>
         <input
           type="file"
-          accept=".docx"
+          accept=".docx,.pdf"
           class="w-full px-3 py-2 border
             border-slate-300 rounded-lg text-sm
             bg-white file:mr-3 file:py-1
@@ -638,9 +648,7 @@ const fieldLabel = field =>
           : 'bg-slate-300 cursor-not-allowed'"
         @click="createAdhocDocument"
       >
-        {{ creatingAdhoc
-          ? 'Converting...'
-          : 'Upload & Prepare Document' }}
+        {{ adhocButtonLabel }}
       </button>
     </div>
 

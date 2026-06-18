@@ -1,7 +1,8 @@
 // Admin: create an ad hoc document from an
-// uploaded .docx file. Converts to PDF via
-// the converter service. Returns DRAFT
-// document ready for field placement.
+// uploaded .docx or .pdf file. DOCX is
+// converted to PDF via the converter service;
+// PDF is used as-is. Returns DRAFT document
+// ready for field placement.
 //
 // Accepts JSON body with base64-encoded file:
 // { title, signerCount, signers, fileName,
@@ -25,19 +26,27 @@ export default defineEventHandler(
         })
       }
 
-      const docxBuffer = Buffer.from(
+      const fileBuffer = Buffer.from(
         body.fileBase64, 'base64',
       )
+      const fileName = body.fileName ?? ''
+      // Detect PDF by magic bytes (%PDF),
+      // falling back to the file extension
+      const isPdf
+        = fileBuffer.subarray(0, 4)
+          .toString('latin1') === '%PDF'
+          || /\.pdf$/i.test(fileName)
       const title = body.title
-        || (body.fileName ?? 'Untitled')
-          .replace(/\.docx$/i, '')
+        || (fileName || 'Untitled')
+          .replace(/\.(docx|pdf)$/i, '')
       const signerCount
         = parseInt(body.signerCount, 10) || 1
       const signers = body.signers ?? []
 
-      // Convert DOCX to PDF
-      const pdfBuffer
-        = await convertDocxToPdf(docxBuffer)
+      // Use PDF as-is; convert DOCX to PDF
+      const pdfBuffer = isPdf
+        ? fileBuffer
+        : await convertDocxToPdf(fileBuffer)
 
       // Create document record
       const document = await createDocument({
@@ -55,17 +64,20 @@ export default defineEventHandler(
         { contentType: 'application/pdf' },
       )
 
-      // Store original DOCX as backup
-      await blob.put(
-        `esign/filled/${document.id}.docx`,
-        new Uint8Array(docxBuffer),
-        {
-          contentType:
-            'application/vnd.openxmlformats'
-            + '-officedocument'
-            + '.wordprocessingml.document',
-        },
-      )
+      // Store original DOCX as backup (PDF
+      // uploads are already stored above)
+      if (!isPdf) {
+        await blob.put(
+          `esign/filled/${document.id}.docx`,
+          new Uint8Array(fileBuffer),
+          {
+            contentType:
+              'application/vnd.openxmlformats'
+              + '-officedocument'
+              + '.wordprocessingml.document',
+          },
+        )
+      }
 
       return { document }
     }
