@@ -42,15 +42,11 @@ const pdfLabel = computed(() =>
     : 'Preview PDF',
 )
 
-// Live signer count — reads from the Pinia
-// store (reactive as signers are added/removed)
+// Draft store — live signer list while a draft
+// is being edited (reactive as signers change)
 const draftStore = useEsignDraftStore()
 const { signers: draftSigners }
   = storeToRefs(draftStore)
-
-const effectiveSignerCount = computed(() =>
-  draftSigners.value.length || 1,
-)
 
 // Extract stored signers from document
 const storedSigners = computed(() => {
@@ -64,6 +60,29 @@ const storedSigners = computed(() => {
     return vars?.signers ?? null
   }
   catch { return null }
+})
+
+// Effective signer count. Sessions are truth once
+// the document is sent. While editing a draft the
+// live draft store leads so the header tracks
+// added/removed signers — but only when the store
+// belongs to THIS document (it can hold stale
+// signers from a prior create flow otherwise).
+// Falls back to the stored signer_count / prepared
+// signers, then 1.
+const effectiveSignerCount = computed(() => {
+  if (sessions.value.length) {
+    return sessions.value.length
+  }
+  if (
+    draftStore.documentId === route.params.id
+    && draftSigners.value.length
+  ) {
+    return draftSigners.value.length
+  }
+  return document.value?.signerCount
+    || storedSigners.value?.length
+    || 1
 })
 
 // Actions
