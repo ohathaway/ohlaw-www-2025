@@ -75,27 +75,58 @@ const pageDims = ref({})
 const capturePageDims = () => {
   const container = pdfContainerRef.value
   if (!container) return
+  // Build a fresh object and assign once so the
+  // ref reliably triggers fieldStyle to recompute.
+  const dims = {}
   container.querySelectorAll(
     'canvas[data-page]',
   ).forEach((canvas) => {
     const page = parseInt(
       canvas.dataset.page, 10,
     )
-    pageDims.value[page] = {
+    dims[page] = {
       width: canvas.width,
       height: canvas.height,
       displayWidth: canvas.offsetWidth,
       displayHeight: canvas.offsetHeight,
     }
   })
+  pageDims.value = dims
 }
 
-// Recapture after pages render
+// Early best-effort capture when canvases first
+// mount. Their intrinsic size isn't final yet,
+// so the authoritative capture happens below
+// once rendering completes.
 watch(pages, async () => {
   await nextTick()
   await nextTick()
   capturePageDims()
 })
+
+// Authoritative recapture: pdf.js sets each
+// canvas's real width/height during the async
+// render loop, which finishes only after pages
+// populate. Recapture when loading clears so
+// field overlays map to the true page size
+// instead of the default 300x150 canvas — the
+// stale dims pushed signature boxes off-screen.
+watch(pdfLoading, async (isLoading) => {
+  if (isLoading) return
+  await nextTick()
+  capturePageDims()
+})
+
+// Page size tracks container width, so recapture
+// on resize / orientation change.
+onMounted(() =>
+  window.addEventListener('resize', capturePageDims),
+)
+onBeforeUnmount(() =>
+  window.removeEventListener(
+    'resize', capturePageDims,
+  ),
+)
 
 // Convert PDF coords to screen style
 const fieldStyle = (field) => {

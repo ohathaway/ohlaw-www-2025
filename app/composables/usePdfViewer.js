@@ -98,6 +98,14 @@ export const usePdfViewer = (
           viewport,
         }).promise
       }
+
+      // Re-evaluate scroll state now that the
+      // real page heights are in place. Short
+      // documents that don't scroll would
+      // otherwise never fire a scroll event,
+      // leaving scrolledToBottom stuck false.
+      await nextTick()
+      onScroll()
     }
     catch (err) {
       console.error('PDF render failed:', err)
