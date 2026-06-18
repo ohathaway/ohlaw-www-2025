@@ -4,6 +4,7 @@
 import { db } from '@nuxthub/db'
 import { eq, desc } from 'drizzle-orm'
 import * as schema from '../../db/schema/index'
+import { normalizeSignerRole } from './roles'
 
 const {
   esignDocuments,
@@ -100,7 +101,7 @@ export const createSession = async (data) => {
     documentId: data.documentId,
     signerName: data.signerName,
     signerEmail: data.signerEmail,
-    signerRole: data.signerRole ?? 'primary',
+    signerRole: normalizeSignerRole(data.signerRole),
     status: 'PENDING',
     signingToken: data.signingToken,
     tokenExpiresAt: data.tokenExpiresAt,

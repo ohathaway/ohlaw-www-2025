@@ -10,6 +10,7 @@ import {
   rgb,
   PageSizes,
 } from 'pdf-lib'
+import { normalizeSignerRole } from './roles'
 
 const BRAND = rgb(0.118, 0.227, 0.373)
 const BLACK = rgb(0, 0, 0)
@@ -576,7 +577,7 @@ export const stampFieldsAndSign = async (
   const sessionByRole = {}
 
   for (const session of sessions) {
-    sessionByRole[String(session.signerRole)]
+    sessionByRole[normalizeSignerRole(session.signerRole)]
       = session
 
     const vals = session.fieldValues
@@ -603,7 +604,7 @@ export const stampFieldsAndSign = async (
     const page = pdfPages[pageIndex]
     const value = fieldValueMap[field.id]
     const session
-      = sessionByRole[String(field.signerRole)]
+      = sessionByRole[normalizeSignerRole(field.signerRole)]
 
     if (
       field.type === 'signature'

@@ -9,6 +9,8 @@ import {
 } from '../../../utils/esign/db'
 import { isTokenExpired }
   from '../../../utils/esign/tokens'
+import { normalizeSignerRole }
+  from '../../../utils/esign/roles'
 
 export default defineEventHandler(
   async (event) => {
@@ -99,8 +101,8 @@ export default defineEventHandler(
         ? JSON.parse(document.fieldPlacements)
         : []
     const myPlacements = allPlacements.filter(
-      f => String(f.signerRole)
-        === String(session.signerRole),
+      f => normalizeSignerRole(f.signerRole)
+        === normalizeSignerRole(session.signerRole),
     )
 
     return {
