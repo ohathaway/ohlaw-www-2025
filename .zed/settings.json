@@ -1,0 +1,25 @@
+{
+  // Format-on-save runs THIS repo's ESLint (@nuxt/eslint, flat config) instead
+  // of Zed's bundled Prettier — so the editor enforces the exact same
+  // @stylistic rules CI does (single quotes, no semicolons, no trailing commas,
+  // Vue attribute wrapping). No style change; it just stops Prettier's defaults
+  // from drifting files and failing the deploy lint gate.
+  "languages": {
+    "TypeScript": {
+      "format_on_save": "on",
+      "formatter": { "code_actions": { "source.fixAll.eslint": true } }
+    },
+    "TSX": {
+      "format_on_save": "on",
+      "formatter": { "code_actions": { "source.fixAll.eslint": true } }
+    },
+    "JavaScript": {
+      "format_on_save": "on",
+      "formatter": { "code_actions": { "source.fixAll.eslint": true } }
+    },
+    "Vue.js": {
+      "format_on_save": "on",
+      "formatter": { "code_actions": { "source.fixAll.eslint": true } }
+    }
+  }
+}
