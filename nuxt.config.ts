@@ -233,6 +233,14 @@ export default defineNuxtConfig({
     },
   },
 
+  // Bundle pinia so every import resolves to one copy. Left external,
+  // Node's "production" export condition loads pinia.prod.cjs for app
+  // stores while @pinia/nuxt gets pinia.mjs, leaving no active pinia
+  // during SSR/prerender (Nuxt 4.6+).
+  build: {
+    transpile: ['pinia'],
+  },
+
   watch: ['./primevue.ohlaw.ts'],
   future: { compatibilityVersion: 4 },
 

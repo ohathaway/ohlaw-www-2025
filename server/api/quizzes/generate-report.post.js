@@ -96,8 +96,15 @@ export default defineEventHandler(async (event) => {
         fs.mkdirSync(testOutputDir, { recursive: true })
       }
 
-      const filename = `${user.lastName}-${user.firstName}-report-${Date.now()}.pdf`
-      const outputPath = path.join(testOutputDir, filename)
+      // Names are user input: strip anything that isn't a safe filename char
+      // so values like '../../x' can't escape testOutputDir
+      const safeName = name => String(name ?? '').replace(/[^\w-]/g, '_')
+      const filename = [
+        safeName(user.lastName),
+        safeName(user.firstName),
+        `report-${Date.now()}.pdf`,
+      ].join('-')
+      const outputPath = path.join(testOutputDir, path.basename(filename))
 
       fs.writeFileSync(outputPath, pdfBuffer)
       console.log(`Test PDF written to: ${outputPath}`)
